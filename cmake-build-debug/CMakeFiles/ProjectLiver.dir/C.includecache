@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+.././libgraphics/extgraph.h
+genlib.h
+.././libgraphics/genlib.h
+graphics.h
+.././libgraphics/graphics.h
+
+.././libgraphics/genlib.h
+stdio.h
+-
+stdlib.h
+-
+stddef.h
+-
+
+.././libgraphics/graphics.h
+
+.././src/controller/handlers.c
+
+.././src/view/drawers.c
+graphics.h
+.././src/view/graphics.h
+extgraph.h
+.././src/view/extgraph.h
+stdio.h
+-
+
+D:/Curriculum/C/Tetris/ProjectLiver/src/model/main.c
+graphics.h
+D:/Curriculum/C/Tetris/ProjectLiver/src/model/graphics.h
+handlers.c
+D:/Curriculum/C/Tetris/ProjectLiver/src/model/handlers.c
+drawers.c
+D:/Curriculum/C/Tetris/ProjectLiver/src/model/drawers.c
+
