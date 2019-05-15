@@ -1921,6 +1921,14 @@ static int Max(int x, int y)
     return ((x > y) ? x : y);
 }
 
+void startTimer (int id, int timeinterval)
+{
+    SetTimer(graphicsWindow, id, timeinterval, NULL);
+}
+void cancelTimer (int id)
+{
+    KillTimer(graphicsWindow, id);
+}
 
 int WINAPI WinMain (HINSTANCE hThisInstance,
                     HINSTANCE hPrevInstance,
@@ -1982,16 +1990,6 @@ void cancelMouseEvent()
 void cancelTimerEvent()
 {
     g_timer = NULL;
-}
-
-void startTimer(int id,int timeinterval)
-{
-    SetTimer(graphicsWindow, id, timeinterval, NULL);
-}
-
-void cancelTimer(int id)
-{
-    KillTimer(graphicsWindow, id);
 }
 
 double ScaleXInches(int x) /*x coordinate from pixels to inches*/
