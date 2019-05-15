@@ -1,12 +1,19 @@
 #include "graphics.h"
 #include "extgraph.h"
 #include <stdio.h>
+#include "consts.c"
 
-void drawBlock(double x, double y, double width, double height){
-    SetPenColor("black");
+void drawBlock(double x, double y,string color){
+
+    SetPenColor(color);
+    StartFilledRegion(1);
+
     MovePen(x,y);
-    DrawLine(width,0);
-    DrawLine(0,height);
-    DrawLine(-1*width,0);
-    DrawLine(0,-1*width);
+
+    DrawLine(BLOCKSIZE,0);
+    DrawLine(0,BLOCKSIZE);
+    DrawLine(-1*BLOCKSIZE,0);
+    DrawLine(0,-1*BLOCKSIZE);
+
+    EndFilledRegion();
 }

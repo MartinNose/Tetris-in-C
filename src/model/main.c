@@ -18,11 +18,10 @@
 #include <ole2.h>
 #include <ocidl.h>
 #include <winuser.h>
+
 #include "handlers.c"
 #include "drawers.c"
-
-
-#define TIMER_BLINK16  1     /*250ms定时器事件标志号*/
+#include "consts.c"
 
 const int m_seconds16 = 16;
 
@@ -36,9 +35,10 @@ void Main(){
     InitGraphics();
     InitConsole();
     double x,y;
-    x = GetWindowWidth();
-    y = GetWindowHeight();
-    for(int i=0; i < x;i++){
+    x = GetWindowWidth()/BLOCKSIZE;
+    y = GetWindowHeight()/BLOCKSIZE;
+
+    for(int i = 0; i < x;i++){
         for(int j=0;j < y;j++){
             drawBlock(i,j,1.0,1.0);
         }
