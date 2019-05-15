@@ -39,9 +39,7 @@ tetromino NaT;//Not a Tetromino
 tetromino generateTetromino(int type,int direction);
 
 void timerEventHandler(int timerID);
-void tetriMaintainer(int time, tetromino tetri);
-
-void drawInit();
+tetromino tetriMaintainer(int time, tetromino tetri);
 
 
 void Main(){
@@ -56,7 +54,7 @@ void Main(){
     drawInit();
     registerTimerEvent(timerEventHandler);
     //registerMouseEvent(mouseEventHandler);
-    //registerKeyboardEvent(keyboardEventHandler);
+    registerKeyboardEvent(keyboardEventHandler);
 
     tetromino tetro = generateTetromino(1,0);
     tetriMaintainer(-1, tetro);
@@ -83,20 +81,22 @@ tetromino generateTetromino(int type,int direction){
 
 void timerEventHandler(int timerID){
     static int time = 0;
+    tetromino tetri;
     time = (time+1)%10000; // !!!
     Clean();
     drawInit();
-    tetriMaintainer(time, NaT);
+    tetri = tetriMaintainer(time, NaT);
+    drawTetro(tetri);
 }
 
-void tetriMaintainer(int time, tetromino tetri){
+tetromino tetriMaintainer(int time, tetromino tetri){
     static int curTime = 0;
     static tetromino curTetri;
     int dt;
 
     if(tetri.type && time < 0){
         curTetri = tetri;
-        return;
+        return NaT;
     }
 
     if(time >= 0 && curTetri.type) {
@@ -109,24 +109,7 @@ void tetriMaintainer(int time, tetromino tetri){
         curTetri.y -= 1;
         curTime = time;
         }
-        drawTetro(curTetri);
+        return curTetri;
     }
 }
 
-void drawInit(){
-    for(int i = 0 ; i < 10 ;i++){
-        for(int j = 0;j < HEIGHT;j++){
-            drawBlock(i,j,"Gray");
-        }
-    }
-    for(int i = 10 ; i < 22 ;i++){
-        for(int j=0;j < HEIGHT;j++){
-            drawBlock(i,j,"White");
-        }
-    }
-    for(int i = 22 ; i < WIDTH ;i++){
-        for(int j=0;j < HEIGHT;j++){
-            drawBlock(i,j,"Gray");
-        }
-    }
-}

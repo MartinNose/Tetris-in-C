@@ -3,6 +3,8 @@
 #include <stdio.h>
 
 #include "consts.c"
+
+
 void DrawRect(double width,double height){
     DrawLine(width,0);
     DrawLine(0,height);
@@ -31,4 +33,21 @@ void drawBlock(int x, int y,string color){
 
 void drawTetro(tetromino tetro){
     drawBlock(tetro.x,tetro.y - 1,"Red");
+}
+void drawInit(){
+    for(int i = 0 ; i < 10 ;i++){
+        for(int j = 0;j < HEIGHT;j++){
+            drawBlock(i,j,"Gray");
+        }
+    }
+    for(int i = 10 ; i < 22 ;i++){
+        for(int j=0;j < HEIGHT;j++){
+            drawBlock(i,j,"White");
+        }
+    }
+    for(int i = 22 ; i < WIDTH ;i++){
+        for(int j=0;j < HEIGHT;j++){
+            drawBlock(i,j,"Gray");
+        }
+    }
 }
