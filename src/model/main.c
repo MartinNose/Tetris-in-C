@@ -24,7 +24,8 @@
 #include "consts.c"
 
 
-string TETRO_COLOR[8] = {
+
+string TETRI_COLOR[8] = {
         "",//for null
         "BLUE",
         "DarkBlue",
@@ -35,15 +36,15 @@ string TETRO_COLOR[8] = {
         "Red"
 };
 
-tetromino NaT;//Not a Tetromino
-tetromino generateTetromino(int type,int direction);
+tetrimino NaT;//Not a Tetrimino
+tetrimino generateTetrimino(int type, int direction);
 
 void timerEventHandler(int timerID);
-tetromino tetriMaintainer(int time, tetromino tetri);
+tetrimino tetriMaintainer_on_gravity(int time, tetrimino tetri);
 
 
 void Main(){
-    NaT = generateTetromino(0,0); // Not a Tetro
+    NaT = generateTetrimino(0, 0); // Not a Tetri
 
     SetWindowTitle("Tetris");
 
@@ -54,44 +55,44 @@ void Main(){
     drawInit();
     registerTimerEvent(timerEventHandler);
     //registerMouseEvent(mouseEventHandler);
-    registerKeyboardEvent(keyboardEventHandler);
+    //registerKeyboardEvent(keyboardEventHandler);
 
-    tetromino tetro = generateTetromino(1,0);
-    tetriMaintainer(-1, tetro);
+    tetrimino tetri = generateTetrimino(1, 0);
+    tetriMaintainer_on_gravity(-1, tetri);
 
     registerTimerEvent(timerEventHandler);
 
     startTimer(MAINTAINER, 16);
 }
 
-tetromino generateTetromino(int type,int direction){
-    tetromino tetro;
+tetrimino generateTetrimino(int type, int direction){
+    tetrimino tetri;
 
-    tetro.x = WIDTH/2;
-    tetro.y = HEIGHT;
-    tetro.type = type;
-    tetro.direction = direction;
-    tetro.color = TETRO_COLOR[type];
+    tetri.x = WIDTH/2;
+    tetri.y = HEIGHT;
+    tetri.type = type;
+    tetri.direction = direction;
+    tetri.color = TETRI_COLOR[type];
 
     if(type){
-        drawTetro(tetro);
+        drawTetri(tetri);
     }
-    return tetro;
+    return tetri;
 }
 
 void timerEventHandler(int timerID){
     static int time = 0;
-    tetromino tetri;
+    tetrimino tetri;
     time = (time+1)%10000; // !!!
     Clean();
     drawInit();
-    tetri = tetriMaintainer(time, NaT);
-    drawTetro(tetri);
+    tetri = tetriMaintainer_on_gravity(time, NaT);
+    drawTetri(tetri);
 }
 
-tetromino tetriMaintainer(int time, tetromino tetri){
+tetrimino tetriMaintainer_on_gravity(int time, tetrimino tetri){
     static int curTime = 0;
-    static tetromino curTetri;
+    static tetrimino curTetri;
     int dt;
 
     if(tetri.type && time < 0){

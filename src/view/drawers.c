@@ -31,8 +31,8 @@ void drawBlock(int x, int y,string color){
     EndFilledRegion();
 }
 
-void drawTetro(tetromino tetro){
-    drawBlock(tetro.x,tetro.y - 1,"Red");
+void drawTetri(tetrimino tetri){
+    drawBlock(tetri.x,tetri.y - 1,"Red");
 }
 void drawInit(){
     for(int i = 0 ; i < 10 ;i++){
