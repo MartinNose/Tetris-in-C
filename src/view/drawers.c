@@ -17,3 +17,7 @@ void drawBlock(double x, double y,string color){
 
     EndFilledRegion();
 }
+
+void drawTetro(tetromino tetro){
+    drawBlock(tetro.x,tetro.y,"Red");
+}

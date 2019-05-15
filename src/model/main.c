@@ -23,18 +23,25 @@
 #include "drawers.c"
 #include "consts.c"
 
-const int m_seconds16 = 16;
 
-void timerEventHandler(int timerID)
-{
+void timerEventHandler(int timerID);
+void tetroMaitainer(int time,tetromino tetro);
 
-}
+tetromino generateTetromino(int type,int direction);
+
 
 void Main(){
+    NaT = generateTetromino((int)NULL,0);
+
     SetWindowTitle("Tetris");
-    InitGraphics();
+
     SetWindowSize(BLOCKSIZE*WIDTH,BLOCKSIZE*HEIGHT);
+    InitGraphics();
     InitConsole();
+
+    registerTimerEvent(timerEventHandler);
+    registerMouseEvent(mouseEventHandler);
+    registerMouseEvent(mouseEventHandler);
 
 
     for(int i = 0 ; i < 10 ;i++){
@@ -52,6 +59,54 @@ void Main(){
             drawBlock(i,j,"Gray");
         }
     }
+    tetromino tetro = generateTetromino(1,0);
 
-    startTimer(TIMER_BLINK16, m_seconds16);
+    tetroMaitainer(-1,tetro);
+
+    registerTimerEvent(timerEventHandler);
+
+    startTimer(MAINTAINER, 16);
+}
+
+tetromino generateTetromino(int type,int direction){
+    tetromino tetro;
+
+    tetro.x = (int)0.5*WIDTH;
+    tetro.y = (int)HEIGHT;
+    tetro.type = type;
+    tetro.direction = direction;
+    tetro.color = COLOR[type];
+
+    return tetro;
+}
+
+
+
+void timerEventHandler(int timerID){
+    static int time = 0;
+    time = (time+1)%10000; // !!!
+    tetroMaitainer(time,NaT);
+}
+
+void tetroMaitainer(int time, tetromino tetro){
+    static int curtime = 0;
+    static tetromino curTetro;
+    int dt;
+    if(time>=0) {
+        if (time > curtime) {
+            dt = time - curtime;
+        } else {
+            dt = time + 1000 - curtime;
+        }
+    }
+    if(tetro.type){
+        curTetro = tetro;
+        return;
+    }
+
+    tetro.x -= dt/10;
+    drawTetro(tetro);
+
+
+    curtime = time;
 }
