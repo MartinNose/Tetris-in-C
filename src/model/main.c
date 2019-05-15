@@ -25,7 +25,7 @@
 
 const int m_seconds16 = 16;
 
-void timerEventHandler (int timerID)
+void timerEventHandler(int timerID)
 {
 
 }
@@ -33,15 +33,25 @@ void timerEventHandler (int timerID)
 void Main(){
     SetWindowTitle("Tetris");
     InitGraphics();
+    SetWindowSize(BLOCKSIZE*WIDTH,BLOCKSIZE*HEIGHT);
     InitConsole();
-    double x,y;
-    x = GetWindowWidth()/BLOCKSIZE;
-    y = GetWindowHeight()/BLOCKSIZE;
 
-    for(int i = 0; i < x;i++){
-        for(int j=0;j < y;j++){
-            drawBlock(i,j,1.0,1.0);
+
+    for(int i = 0 ; i < 10 ;i++){
+        for(int j=0;j < HEIGHT;j++){
+            drawBlock(i,j,"Gray");
         }
     }
+    for(int i = 10 ; i < 20 ;i++){
+        for(int j=0;j < HEIGHT;j++){
+            drawBlock(i,j,"White");
+        }
+    }
+    for(int i = 20 ; i < 30 ;i++){
+        for(int j=0;j < HEIGHT;j++){
+            drawBlock(i,j,"Gray");
+        }
+    }
+
     startTimer(TIMER_BLINK16, m_seconds16);
 }
