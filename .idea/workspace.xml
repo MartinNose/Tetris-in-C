@@ -48,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/model/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="-1058">
+              <caret line="2" column="2" lean-forward="true" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
               <folding>
                 <element signature="e#46#67#0" expanded="true" />
               </folding>
@@ -60,8 +60,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libgraphics/graphics.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="184" column="41" selection-start-line="184" selection-start-column="41" selection-end-line="184" selection-end-column="41" />
+            <state relative-caret-position="-753">
+              <caret line="18" column="32" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -69,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libgraphics/graphics.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="1276" column="5" lean-forward="true" selection-start-line="1276" selection-start-column="5" selection-end-line="1276" selection-end-column="5" />
+            <state relative-caret-position="144">
+              <caret line="408" column="5" selection-start-line="408" selection-start-column="5" selection-end-line="408" selection-end-column="5" />
               <folding>
                 <element signature="e#260#278#0" expanded="true" />
               </folding>
@@ -81,8 +81,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libgraphics/extgraph.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="281" column="24" selection-start-line="281" selection-start-column="24" selection-end-line="281" selection-end-column="24" />
+            <state relative-caret-position="189">
+              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
             </state>
           </provider>
         </entry>
@@ -90,11 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/drawers.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
+            <state relative-caret-position="69">
               <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-              <folding>
-                <element signature="e#3#24#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -117,6 +114,11 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>region</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -133,7 +135,7 @@
     </option>
   </component>
   <component name="OCFindUsagesOptions" text="false" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="560" />
     <option name="y" value="254" />
     <option name="width" value="1696" />
@@ -248,12 +250,12 @@
       <updated>1557731631716</updated>
       <workItem from="1557731633406" duration="1723000" />
       <workItem from="1557733760459" duration="5405000" />
-      <workItem from="1557906155570" duration="2861000" />
+      <workItem from="1557906155570" duration="6054000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9989000" />
+    <option name="totallyTimeSpent" value="13182000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -268,14 +270,14 @@
     <frame x="-6" y="-6" width="1381" height="895" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11640212" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11640212" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Arduino Support" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.3281046" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32907802" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.3281046" />
+      <window_info anchor="bottom" id="Run" order="3" visible="true" weight="0.3281046" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -332,16 +334,6 @@
         <state relative-caret-position="-720" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/drawers.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-          <folding>
-            <element signature="e#3#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/libgraphics/simpio.h">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -368,13 +360,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libgraphics/graphics.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="184" column="41" selection-start-line="184" selection-start-column="41" selection-end-line="184" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/MinGW/include/gdiplus/gdipluscolor.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -382,27 +367,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libgraphics/extgraph.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="281" column="24" selection-start-line="281" selection-start-column="24" selection-end-line="281" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/libgraphics/graphics.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="1276" column="5" lean-forward="true" selection-start-line="1276" selection-start-column="5" selection-end-line="1276" selection-end-column="5" />
+        <state relative-caret-position="144">
+          <caret line="408" column="5" selection-start-line="408" selection-start-column="5" selection-end-line="408" selection-end-column="5" />
           <folding>
             <element signature="e#260#278#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/libgraphics/extgraph.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libgraphics/graphics.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-753">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/drawers.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="-1058">
+          <caret line="2" column="2" lean-forward="true" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
           <folding>
             <element signature="e#46#67#0" expanded="true" />
           </folding>

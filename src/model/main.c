@@ -35,6 +35,12 @@ enum Block_Color {
 enum Block_Color blocks[10][21] = {0};
 
 
+void TrominoToBlock()
+{
+
+}
+
+
 void DropMaintainer ()
 {
     // TODO Model
@@ -65,12 +71,13 @@ void Main ()
     double x, y;
     x = GetWindowWidth ();
     y = GetWindowHeight ();
+
     for (int i = 0; i < x * 3; i++) {
         for (int j = 0; j < y * 3; j++) {
             drawBlock (i / 3.0, j / 3.0, 1.0/3, 1.0/3);
         }
     }
+
     registerTimerEvent (timerEventHandler); /*注册定时器消息回调函数*/
     startTimer (TIMER_BLINK16, m_seconds16);
-    SetPenColor ()
 }
