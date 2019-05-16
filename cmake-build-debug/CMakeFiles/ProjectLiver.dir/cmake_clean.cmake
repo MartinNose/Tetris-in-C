@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ProjectLiver.dir/libgraphics/simpio.c.obj"
   "CMakeFiles/ProjectLiver.dir/libgraphics/strlib.c.obj"
   "CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.obj"
+  "CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj"
   "CMakeFiles/ProjectLiver.dir/src/model/main.c.obj"
   "ProjectLiver.pdb"
   "ProjectLiver.exe"

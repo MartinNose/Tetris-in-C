@@ -311,6 +311,33 @@ simpleGUI/imgui.c.s:
 	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.s
 .PHONY : simpleGUI/imgui.c.s
 
+src/model/consts.obj: src/model/consts.c.obj
+
+.PHONY : src/model/consts.obj
+
+# target to build an object file
+src/model/consts.c.obj:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj
+.PHONY : src/model/consts.c.obj
+
+src/model/consts.i: src/model/consts.c.i
+
+.PHONY : src/model/consts.i
+
+# target to preprocess a source file
+src/model/consts.c.i:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/consts.c.i
+.PHONY : src/model/consts.c.i
+
+src/model/consts.s: src/model/consts.c.s
+
+.PHONY : src/model/consts.s
+
+# target to generate assembly for a file
+src/model/consts.c.s:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/consts.c.s
+.PHONY : src/model/consts.c.s
+
 src/model/main.obj: src/model/main.c.obj
 
 .PHONY : src/model/main.obj
@@ -368,6 +395,9 @@ help:
 	@echo ... simpleGUI/imgui.obj
 	@echo ... simpleGUI/imgui.i
 	@echo ... simpleGUI/imgui.s
+	@echo ... src/model/consts.obj
+	@echo ... src/model/consts.i
+	@echo ... src/model/consts.s
 	@echo ... src/model/main.obj
 	@echo ... src/model/main.i
 	@echo ... src/model/main.s

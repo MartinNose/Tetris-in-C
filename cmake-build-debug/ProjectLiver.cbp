@@ -140,6 +140,9 @@
 		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/simpleGUI/imgui.h">
 			<Option target="ProjectLiver"/>
 		</Unit>
+		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/model/consts.c">
+			<Option target="ProjectLiver"/>
+		</Unit>
 		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/model/main.c">
 			<Option target="ProjectLiver"/>
 		</Unit>

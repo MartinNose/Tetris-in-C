@@ -18,30 +18,103 @@
 #include <ole2.h>
 #include <ocidl.h>
 #include <winuser.h>
+
 #include "handlers.c"
 #include "drawers.c"
+#include "consts.c"
 
+string TETRI_COLOR[8] = {
+    "White",//for null
+//    "BLUE",
+    "Magenta",
+//    "DarkBlue",
+    "Blue",
+//    "Orange",
+    "Cyan",
+    "Yellow",
+    "Green",
+    "Cyan",
+    "Red"
+};
 
-#define TIMER_BLINK16  1     /*250ms定时器事件标志号*/
+tetrimino NaT;//Not a Tetrimino
+tetrimino generateTetrimino (int type, int direction);
 
-const int m_seconds16 = 16;
+void timerEventHandler (int timerID);
+tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
+
+void Main ()
+{
+    NaT = generateTetrimino (0, 0); // Not a Tetri
+
+    SetWindowTitle ("Tetris");
+
+    SetWindowSize (BLOCKSIZE * WIDTH, BLOCKSIZE * HEIGHT);
+    InitGraphics ();
+    InitConsole ();
+
+    drawInit ();
+    registerTimerEvent (timerEventHandler);
+    //registerMouseEvent(mouseEventHandler);
+    //registerKeyboardEvent(keyboardEventHandler);
+
+    tetrimino tetri = generateTetrimino (5, 3);
+    tetriMaintainer_on_gravity (-1, tetri);
+
+    registerTimerEvent (timerEventHandler);
+
+    startTimer (MAINTAINER, 16);
+}
+
+tetrimino generateTetrimino (int type, int direction)
+{
+    tetrimino tetri;
+
+    tetri.x = WIDTH / 2;
+    tetri.y = HEIGHT;
+    tetri.type = type;
+    tetri.direction = direction;
+    tetri.color = TETRI_COLOR[type];
+
+    if (type) {
+        drawTetri (tetri);
+    }
+    return tetri;
+}
 
 void timerEventHandler (int timerID)
 {
-
+    static int time = 0;
+    tetrimino tetri;
+    time = (time + 1) % 10000; // !!!
+    Clean ();
+    drawInit ();
+    tetri = tetriMaintainer_on_gravity (time, NaT);
+    drawTetri (tetri);
 }
 
-void Main(){
-    SetWindowTitle("Tetris");
-    InitGraphics();
-    InitConsole();
-    double x,y;
-    x = GetWindowWidth();
-    y = GetWindowHeight();
-    for(int i=0; i < x;i++){
-        for(int j=0;j < y;j++){
-            drawBlock(i,j,1.0,1.0);
-        }
+tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
+{
+    static int curTime = 0;
+    static tetrimino curTetri;
+    int dt;
+
+    if (tetri.type && time < 0) {
+        curTetri = tetri;
+        return NaT;
     }
-    startTimer(TIMER_BLINK16, m_seconds16);
+
+    if (time >= 0 && curTetri.type) {
+        if (time > curTime) {
+            dt = time - curTime;
+        } else {
+            dt = time + 1000 - curTime;
+        }
+        if (dt == 24) {
+            curTetri.y -= 1;
+            curTime = time;
+        }
+        return curTetri;
+    }
 }
+
