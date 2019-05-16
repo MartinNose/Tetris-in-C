@@ -19,7 +19,7 @@
 #include <ocidl.h>
 #include <winuser.h>
 
-#include "handlers.c"
+
 #include "drawers.c"
 #include "consts.c"
 
@@ -37,13 +37,19 @@ string TETRI_COLOR[8] = {
     "Red"
 };
 
+
 tetrimino NaT;//Not a Tetrimino
-tetrimino CurrentTetri;
+//tetrimino CurrentTetri;
+
+
+
 tetrimino generateTetrimino (int type, int direction);
 
 void timerEventHandler (int timerID);
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
 tetrimino tetriRandom();
+
+#include "handlers.c"
 
 void Main ()
 {
@@ -58,10 +64,10 @@ void Main ()
     drawInit ();
     registerTimerEvent (timerEventHandler);
     //registerMouseEvent(mouseEventHandler);
-    //registerKeyboardEvent(keyboardEventHandler);
+    registerKeyboardEvent(keyboardEventHandler);
 
-    CurrentTetri = generateTetrimino (5, 3);
-    tetriMaintainer_on_gravity (-1, CurrentTetri);
+    tetrimino tetri = tetriRandom();
+    tetriMaintainer_on_gravity (-1, tetri);
 
     registerTimerEvent (timerEventHandler);
 
@@ -91,8 +97,11 @@ void timerEventHandler (int timerID)
     time = (time + 1) % 10000; // !!!
     Clean ();
     drawInit ();
-    CurrentTetri= tetriMaintainer_on_gravity (time, NaT);
-    drawTetri (CurrentTetri);
+    tetri = tetriMaintainer_on_gravity (time, NaT);
+    if(STATE.ifKeyEvent){
+        tetri = tetriMaintainer_on_Keyboard(STATE.KeyEvent,tetri);
+    };
+    drawTetri (tetri);
 }
 
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)

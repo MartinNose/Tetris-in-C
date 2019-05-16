@@ -28,6 +28,11 @@ typedef struct tetriminoes{
     int direction;
 } tetrimino;
 
+struct state {
+    bool falling;
+    bool ifKeyEvent;
+    int  KeyEvent;
+} STATE;
 
 
 
