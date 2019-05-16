@@ -1,2 +1,7 @@
 cmake-build-debug/
 *.xml
+
+.idea/
+
+*.xml
+cmake-build-debug/
