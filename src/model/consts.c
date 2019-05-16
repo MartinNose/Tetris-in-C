@@ -29,9 +29,12 @@ typedef struct tetriminoes{
 } tetrimino;
 
 struct state {
-    bool falling;
+    bool isFalling;
     bool ifKeyEvent;
+    bool ifHardDrop;
     int  KeyEvent;
+    int  V;
+
 } STATE;
 
 

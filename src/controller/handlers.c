@@ -7,33 +7,28 @@
 #include <winuser.h>
 
 
-tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri){
-    switch ( RL ) {
-        case VK_RIGHT:
-            tetri.x += 1;
-            break;
-        case VK_LEFT:
-            tetri.x -= 1;
-            break;
-        //case VK_UP:
-        //case VK_DOWN:
-        //case VK_SPACE:
-        //case
-        default:
-            break;
-    }
 
-    return tetri;
-}
 
 void keyboardEventHandler(int key, int event){
 
     switch (event) {
             case KEY_DOWN:
-                STATE.ifKeyEvent = TRUE;
-                STATE.KeyEvent = key;
+                switch(key) {
+                    case VK_LEFT:
+                    case VK_RIGHT:
+                        STATE.ifKeyEvent = TRUE;
+                        STATE.KeyEvent = key;
+                        break;
+                    case VK_DOWN:
+                        STATE.V = 2;
+                }
                 break;
             case KEY_UP:
+                switch(key){
+                    case VK_DOWN:
+                        STATE.V = 1;
+                        break;
+                }
                 break;
     }
 }

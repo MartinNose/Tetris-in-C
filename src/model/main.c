@@ -41,12 +41,13 @@ string TETRI_COLOR[8] = {
 tetrimino NaT;//Not a Tetrimino
 //tetrimino CurrentTetri;
 
-
+void InitState();
 
 tetrimino generateTetrimino (int type, int direction);
 
 void timerEventHandler (int timerID);
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
+tetrimino tetriMaintainer_on_Keyboard(int RL,   tetrimino tetri);
 tetrimino tetriRandom();
 
 #include "handlers.c"
@@ -61,13 +62,14 @@ void Main ()
     InitGraphics ();
     InitConsole ();
 
+    InitState();
     drawInit ();
+
     registerTimerEvent (timerEventHandler);
     //registerMouseEvent(mouseEventHandler);
     registerKeyboardEvent(keyboardEventHandler);
 
-    tetrimino tetri = tetriRandom();
-    tetriMaintainer_on_gravity (-1, tetri);
+
 
     registerTimerEvent (timerEventHandler);
 
@@ -93,48 +95,85 @@ tetrimino generateTetrimino (int type, int direction)
 void timerEventHandler (int timerID)
 {
     static int time = 0;
-    tetrimino tetri;
+    static tetrimino tetri;
+    if (!STATE.isFalling) {
+        tetri = tetriRandom ();
+        tetriMaintainer_on_gravity (time, tetri);
+        STATE.isFalling = TRUE;
+    }else{
+        if( tetri.y < 0)
+        {
+            STATE.isFalling = FALSE;
+        }
+    }
+
     time = (time + 1) % 10000; // !!!
     Clean ();
     drawInit ();
-    tetri = tetriMaintainer_on_gravity (time, NaT);
-    if(STATE.ifKeyEvent){
+
+    tetri = tetriMaintainer_on_gravity (time, tetri);
+    if (STATE.ifKeyEvent){
         tetri = tetriMaintainer_on_Keyboard(STATE.KeyEvent,tetri);
+        STATE.ifKeyEvent = FALSE;
     };
+
     drawTetri (tetri);
 }
+tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri){
+    switch ( RL ) {
+        case VK_RIGHT:
+            tetri.x += 1;
 
+            break;
+        case VK_LEFT:
+            tetri.x -= 1;
+
+            break;
+            //case VK_UP:
+            //case VK_DOWN:
+            //case VK_SPACE:
+            //case
+        default:
+            break;
+    }
+    if(tetri.x<0){
+        tetri.x = 32 + tetri.x;
+    }
+    tetri.x = tetri.x  % WIDTH;
+    return tetri;
+}
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 {
     static int curTime = 0;
-    static tetrimino curTetri;
-    int dt;
-
-    // Setting the current tetrimino in this function
-    if (tetri.type && time < 0) {
-        curTetri = tetri;
-        return NaT;
+    int dt,v;
+    v = STATE.V;
+    if (time > curTime) {
+        dt = time - curTime;
+    } else {
+        dt = time + 1000 - curTime;
     }
-
-    if (time >= 0 && curTetri.type) {
-        if (time > curTime) {
-            dt = time - curTime;
-        } else {
-            dt = time + 1000 - curTime;
-        }
-        if (dt == 24) {
-            curTetri.y -= 1;
-            curTime = time;
-        }
-        return curTetri;
+    if (dt == 24) {
+        tetri.y -= v;
+        curTime = time;
     }
+    return tetri;
+
 }
 tetrimino tetriRandom ()
 {
-    tetrimino NewTetrimino;
-    int type = rand()%7;
-    if(type == 0)type = 7;
+    static int last = 0;
+    int type ;
+    do {
+        type = rand() % 7;
+        if (type == 0) type = 7;
+    }while(last == type);
+    last = type;
     int direction = rand()%4;
     return generateTetrimino (type , direction);
 }
 
+void InitState(){
+    STATE.isFalling = FALSE;
+    STATE.ifKeyEvent = FALSE;
+    STATE.V = 1;
+};
