@@ -38,10 +38,12 @@ string TETRI_COLOR[8] = {
 };
 
 tetrimino NaT;//Not a Tetrimino
+tetrimino CurrentTetri;
 tetrimino generateTetrimino (int type, int direction);
 
 void timerEventHandler (int timerID);
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
+tetrimino tetriRandom();
 
 void Main ()
 {
@@ -58,8 +60,8 @@ void Main ()
     //registerMouseEvent(mouseEventHandler);
     //registerKeyboardEvent(keyboardEventHandler);
 
-    tetrimino tetri = generateTetrimino (5, 3);
-    tetriMaintainer_on_gravity (-1, tetri);
+    CurrentTetri = generateTetrimino (5, 3);
+    tetriMaintainer_on_gravity (-1, CurrentTetri);
 
     registerTimerEvent (timerEventHandler);
 
@@ -89,8 +91,8 @@ void timerEventHandler (int timerID)
     time = (time + 1) % 10000; // !!!
     Clean ();
     drawInit ();
-    tetri = tetriMaintainer_on_gravity (time, NaT);
-    drawTetri (tetri);
+    CurrentTetri= tetriMaintainer_on_gravity (time, NaT);
+    drawTetri (CurrentTetri);
 }
 
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
@@ -99,6 +101,7 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     static tetrimino curTetri;
     int dt;
 
+    // Setting the current tetrimino in this function
     if (tetri.type && time < 0) {
         curTetri = tetri;
         return NaT;
@@ -116,5 +119,13 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
         }
         return curTetri;
     }
+}
+tetrimino tetriRandom ()
+{
+    tetrimino NewTetrimino;
+    int type = rand()%7;
+    if(type == 0)type = 7;
+    int direction = rand()%4;
+    return generateTetrimino (type , direction);
 }
 
