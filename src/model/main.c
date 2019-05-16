@@ -23,92 +23,96 @@
 #include "drawers.c"
 #include "consts.c"
 
-
-
 string TETRI_COLOR[8] = {
-        "",//for null
-        "BLUE",
-        "DarkBlue",
-        "Orange",
-        "Yellow",
-        "Green",
-        "Purple",
-        "Red"
+    "White",//for null
+//    "BLUE",
+    "Magenta",
+//    "DarkBlue",
+    "Blue",
+//    "Orange",
+    "Cyan",
+    "Yellow",
+    "Green",
+    "Cyan",
+    "Red"
 };
 
 tetrimino NaT;//Not a Tetrimino
-tetrimino generateTetrimino(int type, int direction);
+tetrimino generateTetrimino (int type, int direction);
 
-void timerEventHandler(int timerID);
-tetrimino tetriMaintainer_on_gravity(int time, tetrimino tetri);
+void timerEventHandler (int timerID);
+tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
 
+void Main ()
+{
+    NaT = generateTetrimino (0, 0); // Not a Tetri
 
-void Main(){
-    NaT = generateTetrimino(0, 0); // Not a Tetri
+    SetWindowTitle ("Tetris");
 
-    SetWindowTitle("Tetris");
+    SetWindowSize (BLOCKSIZE * WIDTH, BLOCKSIZE * HEIGHT);
+    InitGraphics ();
+    InitConsole ();
 
-    SetWindowSize(BLOCKSIZE*WIDTH,BLOCKSIZE*HEIGHT);
-    InitGraphics();
-    InitConsole();
-
-    drawInit();
-    registerTimerEvent(timerEventHandler);
+    drawInit ();
+    registerTimerEvent (timerEventHandler);
     //registerMouseEvent(mouseEventHandler);
     //registerKeyboardEvent(keyboardEventHandler);
 
-    tetrimino tetri = generateTetrimino(1, 0);
-    tetriMaintainer_on_gravity(-1, tetri);
+    tetrimino tetri = generateTetrimino (5, 3);
+    tetriMaintainer_on_gravity (-1, tetri);
 
-    registerTimerEvent(timerEventHandler);
+    registerTimerEvent (timerEventHandler);
 
-    startTimer(MAINTAINER, 16);
+    startTimer (MAINTAINER, 16);
 }
 
-tetrimino generateTetrimino(int type, int direction){
+tetrimino generateTetrimino (int type, int direction)
+{
     tetrimino tetri;
 
-    tetri.x = WIDTH/2;
+    tetri.x = WIDTH / 2;
     tetri.y = HEIGHT;
     tetri.type = type;
     tetri.direction = direction;
     tetri.color = TETRI_COLOR[type];
 
-    if(type){
-        drawTetri(tetri);
+    if (type) {
+        drawTetri (tetri);
     }
     return tetri;
 }
 
-void timerEventHandler(int timerID){
+void timerEventHandler (int timerID)
+{
     static int time = 0;
     tetrimino tetri;
-    time = (time+1)%10000; // !!!
-    Clean();
-    drawInit();
-    tetri = tetriMaintainer_on_gravity(time, NaT);
-    drawTetri(tetri);
+    time = (time + 1) % 10000; // !!!
+    Clean ();
+    drawInit ();
+    tetri = tetriMaintainer_on_gravity (time, NaT);
+    drawTetri (tetri);
 }
 
-tetrimino tetriMaintainer_on_gravity(int time, tetrimino tetri){
+tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
+{
     static int curTime = 0;
     static tetrimino curTetri;
     int dt;
 
-    if(tetri.type && time < 0){
+    if (tetri.type && time < 0) {
         curTetri = tetri;
         return NaT;
     }
 
-    if(time >= 0 && curTetri.type) {
+    if (time >= 0 && curTetri.type) {
         if (time > curTime) {
             dt = time - curTime;
         } else {
             dt = time + 1000 - curTime;
         }
-        if(dt == 24){
-        curTetri.y -= 1;
-        curTime = time;
+        if (dt == 24) {
+            curTetri.y -= 1;
+            curTime = time;
         }
         return curTetri;
     }
