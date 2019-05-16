@@ -107,7 +107,7 @@ void timerEventHandler (int timerID)
         }
     }
 
-    time = (time + 1) % 10000; // !!!
+    time = (time + 1) % ERA; // !!!
     Clean ();
     drawInit ();
 
@@ -119,15 +119,14 @@ void timerEventHandler (int timerID)
 
     drawTetri (tetri);
 }
-tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri){
+tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri)
+{
     switch ( RL ) {
         case VK_RIGHT:
             tetri.x += 1;
-
             break;
         case VK_LEFT:
             tetri.x -= 1;
-
             break;
             //case VK_UP:
             //case VK_DOWN:
@@ -150,8 +149,9 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     if (time > curTime) {
         dt = time - curTime;
     } else {
-        dt = time + 1000 - curTime;
+        dt = time + ERA - curTime;
     }
+
     if (dt == 24) {
         tetri.y -= v;
         curTime = time;
@@ -172,8 +172,11 @@ tetrimino tetriRandom ()
     return generateTetrimino (type , direction);
 }
 
-void InitState(){
+void InitState()
+{
     STATE.isFalling = FALSE;
     STATE.ifKeyEvent = FALSE;
     STATE.V = 1;
+    STATE.isSoftDrop = FALSE;
+    STATE.ifHardDrop = FALSE;
 };

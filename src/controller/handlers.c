@@ -24,11 +24,6 @@ void keyboardEventHandler(int key, int event){
                 }
                 break;
             case KEY_UP:
-                switch(key){
-                    case VK_DOWN:
-                        STATE.V = 1;
-                        break;
-                }
                 break;
     }
 }

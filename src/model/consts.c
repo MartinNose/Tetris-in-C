@@ -15,7 +15,7 @@
 
 #define MAINTAINER 0
 
-
+#define ERA 1000
 //struct block{
 //    int x,y;
 //    string color;
@@ -32,6 +32,7 @@ struct state {
     bool isFalling;
     bool ifKeyEvent;
     bool ifHardDrop;
+    bool isSoftDrop;
     int  KeyEvent;
     int  V;
 
