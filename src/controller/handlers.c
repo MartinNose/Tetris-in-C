@@ -13,17 +13,28 @@ void keyboardEventHandler(int key, int event){
 
     switch (event) {
             case KEY_DOWN:
+                STATE.ifKeyEvent = TRUE;
+                STATE.KeyEvent = key;
                 switch(key) {
                     case VK_LEFT:
                     case VK_RIGHT:
-                        STATE.ifKeyEvent = TRUE;
-                        STATE.KeyEvent = key;
                         break;
                     case VK_DOWN:
-                        STATE.V = 2;
+                        STATE.isSoftDrop = TRUE;
+                        break;
+                    case VK_UP :
+                        STATE.isTurn = TRUE;
+                        break;
                 }
                 break;
             case KEY_UP:
+                switch(key){
+                    case VK_DOWN:
+                        STATE.isSoftDrop = FALSE;
+                        break;
+                    case VK_UP :
+                        STATE.isTurn = FALSE;
+                }
                 break;
     }
 }

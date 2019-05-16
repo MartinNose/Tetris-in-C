@@ -1,8 +1,6 @@
 //
 // Created by ÁõöÁÁ¼ on 2019/5/15.
 //
-
-
 #ifndef _consts_c
 #define _consts_c
 
@@ -33,6 +31,7 @@ struct state {
     bool ifKeyEvent;
     bool ifHardDrop;
     bool isSoftDrop;
+    bool isTurn;
     int  KeyEvent;
     int  V;
 

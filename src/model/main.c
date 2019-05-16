@@ -128,6 +128,10 @@ tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri)
         case VK_LEFT:
             tetri.x -= 1;
             break;
+        case VK_UP :
+            tetri.direction++;
+            tetri.direction %= 4;
+            break;
             //case VK_UP:
             //case VK_DOWN:
             //case VK_SPACE:
@@ -146,19 +150,30 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     static int curTime = 0;
     int dt,v;
     v = STATE.V;
-    if (time > curTime) {
+    if (time > curTime)
+    {
         dt = time - curTime;
-    } else {
+    } else
+    {
         dt = time + ERA - curTime;
     }
-
-    if (dt == 24) {
-        tetri.y -= v;
+    if(STATE.isSoftDrop)
+    {
+        tetri.y -= v*dt;
         curTime = time;
+        return tetri;
+    }
+    else
+    {
+        if (dt == 24)
+        {
+            tetri.y -= v;
+            curTime = time;
+        }
     }
     return tetri;
-
 }
+
 tetrimino tetriRandom ()
 {
     static int last = 0;
@@ -179,4 +194,5 @@ void InitState()
     STATE.V = 1;
     STATE.isSoftDrop = FALSE;
     STATE.ifHardDrop = FALSE;
-};
+    STATE.isTurn     = FALSE;
+}
