@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="false">
     <generated>
       <config projectName="ProjectLiver" targetName="ProjectLiver" />
     </generated>
@@ -12,7 +12,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4f07107-46aa-483d-a260-74ace2a5921d" name="Default Changelist" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/src/controller/handlers.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/handlers.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/consts.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/consts.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/main.c" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> origin/changeUI
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path=".idea/" />
@@ -27,13 +33,36 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1414001571">
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="c" value="727" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="ObjectiveC" value="727" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
+            <state relative-caret-position="330">
               <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="18" selection-start-column="18" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -41,29 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/handlers.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="35" selection-start-line="35" selection-end-line="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libgraphics/graphics.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="560" column="5" selection-start-line="560" selection-start-column="5" selection-end-line="560" selection-end-column="5" />
-              <folding>
-                <element signature="e#260#278#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libgraphics/extgraph.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="271" column="30" selection-start-line="271" selection-start-column="26" selection-end-line="271" selection-end-column="30" />
+            <state relative-caret-position="299">
+              <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -71,6 +79,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/main.c">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="275">
+              <caret line="97" column="13" selection-start-line="97" selection-start-column="13" selection-end-line="97" selection-end-column="13" />
+=======
             <state relative-caret-position="40">
               <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
             </state>
@@ -82,6 +94,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="69">
               <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+>>>>>>> origin/changeUI
             </state>
           </provider>
         </entry>
@@ -89,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/consts.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="25" column="62" lean-forward="true" selection-start-line="25" selection-start-column="62" selection-end-line="25" selection-end-column="62" />
+            <state relative-caret-position="348">
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
             </state>
           </provider>
         </entry>
@@ -98,14 +111,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/drawers.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="76" column="74" selection-start-line="76" selection-start-column="74" selection-end-line="76" selection-end-column="74" />
+            <state relative-caret-position="1000">
+              <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#85#244#0" />
-                <element signature="e#245#431#0" />
-                <element signature="e#724#1146#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libgraphics/graphics.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="82">
+              <caret line="1964" column="52" selection-start-line="1964" selection-start-column="5" selection-end-line="1964" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -133,27 +152,31 @@
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/libgraphics/graphics.c" />
         <option value="$PROJECT_DIR$/src/model/functions_unsorted.c" />
-        <option value="$PROJECT_DIR$/src/controller/handlers.c" />
-        <option value="$PROJECT_DIR$/src/model/consts.c" />
         <option value="$PROJECT_DIR$/src/view/drawers.c" />
+        <option value="$PROJECT_DIR$/src/model/consts.c" />
+        <option value="$PROJECT_DIR$/src/controller/handlers.c" />
         <option value="$PROJECT_DIR$/src/model/main.c" />
         <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
   <component name="OCFindUsagesOptions" text="false" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="560" />
-    <option name="y" value="254" />
-    <option name="width" value="1696" />
-    <option name="height" value="1036" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="804" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -165,11 +188,6 @@
               <item name="ProjectLiver" type="b2602c69:ProjectViewProjectNode" />
               <item name="ProjectLiver" type="462c0819:PsiDirectoryNode" />
               <item name="libgraphics" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjectLiver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjectLiver" type="462c0819:PsiDirectoryNode" />
-              <item name="simpleGUI" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProjectLiver" type="b2602c69:ProjectViewProjectNode" />
@@ -186,18 +204,13 @@
               <item name="ProjectLiver" type="b2602c69:ProjectViewProjectNode" />
               <item name="ProjectLiver" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjectLiver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjectLiver" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -227,7 +240,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="CMake Application.ProjectLiver">
+  <component name="RunManager" selected="Application.Build All">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -239,8 +252,8 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.Build All" />
-      <item itemvalue="CMake Application.ProjectLiver" />
+      <item itemvalue="Application.Build All" />
+      <item itemvalue="Application.ProjectLiver" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -261,25 +274,42 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="28171000" />
+=======
     <option name="totallyTimeSpent" value="26043000" />
+>>>>>>> origin/changeUI
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1381" height="895" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11802575" />
+=======
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25472412" />
+>>>>>>> origin/changeUI
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.37385622" />
       <window_info anchor="bottom" id="Message" order="1" />
+<<<<<<< HEAD
+      <window_info active="true" anchor="bottom" id="Find" order="2" visible="true" weight="0.32891566" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.3281046" />
+=======
       <window_info anchor="bottom" id="Find" order="2" weight="0.32907802" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.3281046" />
+>>>>>>> origin/changeUI
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+<<<<<<< HEAD
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.27228916" />
+=======
       <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.47320262" />
+>>>>>>> origin/changeUI
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="CMake" order="12" weight="0.3281046" />
@@ -294,6 +324,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/libgraphics/exception.h">
       <provider selected="true" editor-type-id="text-editor" />
@@ -302,9 +335,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-30">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#204#222#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -315,11 +345,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/libgraphics/strlib.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-452">
-          <folding>
-            <element signature="e#604#622#0" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-452" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libgraphics/strlib.h">
@@ -337,7 +363,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/sys/_types.h" />
     <entry file="file:///Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/sys/_types/_null.h" />
     <entry file="file://$PROJECT_DIR$/src/model/declarations.c" />
     <entry file="file://$PROJECT_DIR$/libgraphics/genlib.c">
@@ -364,25 +389,15 @@
     <entry file="file://$PROJECT_DIR$/src/model/functions_unsorted.c" />
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
+        <state relative-caret-position="330">
           <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/handlers.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libgraphics/graphics.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="560" column="5" selection-start-line="560" selection-start-column="5" selection-end-line="560" selection-end-column="5" />
-          <folding>
-            <element signature="e#260#278#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="82">
+          <caret line="1964" column="52" selection-start-line="1964" selection-start-column="5" selection-end-line="1964" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -395,26 +410,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/drawers.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="76" column="74" selection-start-line="76" selection-start-column="74" selection-end-line="76" selection-end-column="74" />
+        <state relative-caret-position="1000">
+          <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#85#244#0" />
-            <element signature="e#245#431#0" />
-            <element signature="e#724#1146#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/sys/_types.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="51" column="8" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/handlers.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/consts.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="25" column="62" lean-forward="true" selection-start-line="25" selection-start-column="62" selection-end-line="25" selection-end-column="62" />
+        <state relative-caret-position="348">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/main.c">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="275">
+          <caret line="97" column="13" selection-start-line="97" selection-start-column="13" selection-end-line="97" selection-end-column="13" />
+=======
         <state relative-caret-position="40">
           <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
         </state>
@@ -424,6 +461,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
           <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+>>>>>>> origin/changeUI
         </state>
       </provider>
     </entry>

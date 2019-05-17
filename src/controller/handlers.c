@@ -2,36 +2,34 @@
 // Created by liujunliang on 2019/5/13.
 //
 #include "graphics.h"
-#include "consts.c"
+#include "consts.h"
+#include "drawers.h"
 #include <winuser.h>
 
-tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri){
-    switch(RL) {
-        case VK_RIGHT:
-            tetri.x += 1;
+void keyboardEventHandler (int key, int event)
+{
+    switch (event) {
+        case KEY_DOWN:STATE.ifKeyEvent = TRUE;
+            STATE.KeyEvent = key;
+            switch (key) {
+                case VK_LEFT:
+                case VK_RIGHT:break;
+                case VK_DOWN:STATE.isSoftDrop = TRUE;
+                    break;
+                case VK_UP :STATE.isTurn = TRUE;
+                    break;
+            }
             break;
-        case VK_LEFT:
-            tetri.x -= 1;
-            break;
-            //case VK_UP:
-            //case VK_DOWN:
-        default:
+        case KEY_UP:
+            switch (key) {
+                case VK_DOWN:STATE.isSoftDrop = FALSE;
+                    break;
+                case VK_UP :STATE.isTurn = FALSE;
+            }
             break;
     }
-    return tetri;
 }
-
-void keyboardEventHandler(int key, int event){
-    switch (event) {
-            case KEY_DOWN:
-                //tetriMaintainer_on_Keyboard(key,NaT);
-                break;
-            case KEY_UP:
-                break;
-}
-}
-
-
-void mouseEventHandler(int x,int y, int button, int event){
+void mouseEventHandler (int x, int y, int button, int event)
+{
 
 }

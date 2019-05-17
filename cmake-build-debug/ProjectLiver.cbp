@@ -140,10 +140,25 @@
 		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/simpleGUI/imgui.h">
 			<Option target="ProjectLiver"/>
 		</Unit>
-		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/model/consts.c">
+		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/controller/handlers.c">
 			<Option target="ProjectLiver"/>
 		</Unit>
-		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/model/main.c">
+		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/controller/handlers.h">
+			<Option target="ProjectLiver"/>
+		</Unit>
+		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/main.c">
+			<Option target="ProjectLiver"/>
+		</Unit>
+		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/model/model.c">
+			<Option target="ProjectLiver"/>
+		</Unit>
+		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/model/model.h">
+			<Option target="ProjectLiver"/>
+		</Unit>
+		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/view/drawers.c">
+			<Option target="ProjectLiver"/>
+		</Unit>
+		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/view/drawers.h">
 			<Option target="ProjectLiver"/>
 		</Unit>
 		<Unit filename="C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/CMakeLists.txt">

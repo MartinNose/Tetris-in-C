@@ -11,8 +11,10 @@ set(CMAKE_DEPENDS_CHECK_C
   "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/libgraphics/simpio.c" "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/ProjectLiver.dir/libgraphics/simpio.c.obj"
   "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/libgraphics/strlib.c" "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/ProjectLiver.dir/libgraphics/strlib.c.obj"
   "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/simpleGUI/imgui.c" "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.obj"
-  "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/model/consts.c" "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj"
-  "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/model/main.c" "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/ProjectLiver.dir/src/model/main.c.obj"
+  "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/controller/handlers.c" "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj"
+  "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/main.c" "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/ProjectLiver.dir/src/main.c.obj"
+  "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/model/model.c" "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/ProjectLiver.dir/src/model/model.c.obj"
+  "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/src/view/drawers.c" "C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

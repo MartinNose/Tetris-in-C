@@ -311,59 +311,113 @@ simpleGUI/imgui.c.s:
 	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.s
 .PHONY : simpleGUI/imgui.c.s
 
-src/model/consts.obj: src/model/consts.c.obj
+src/controller/handlers.obj: src/controller/handlers.c.obj
 
-.PHONY : src/model/consts.obj
-
-# target to build an object file
-src/model/consts.c.obj:
-	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj
-.PHONY : src/model/consts.c.obj
-
-src/model/consts.i: src/model/consts.c.i
-
-.PHONY : src/model/consts.i
-
-# target to preprocess a source file
-src/model/consts.c.i:
-	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/consts.c.i
-.PHONY : src/model/consts.c.i
-
-src/model/consts.s: src/model/consts.c.s
-
-.PHONY : src/model/consts.s
-
-# target to generate assembly for a file
-src/model/consts.c.s:
-	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/consts.c.s
-.PHONY : src/model/consts.c.s
-
-src/model/main.obj: src/model/main.c.obj
-
-.PHONY : src/model/main.obj
+.PHONY : src/controller/handlers.obj
 
 # target to build an object file
-src/model/main.c.obj:
-	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/main.c.obj
-.PHONY : src/model/main.c.obj
+src/controller/handlers.c.obj:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj
+.PHONY : src/controller/handlers.c.obj
 
-src/model/main.i: src/model/main.c.i
+src/controller/handlers.i: src/controller/handlers.c.i
 
-.PHONY : src/model/main.i
+.PHONY : src/controller/handlers.i
 
 # target to preprocess a source file
-src/model/main.c.i:
-	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/main.c.i
-.PHONY : src/model/main.c.i
+src/controller/handlers.c.i:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.i
+.PHONY : src/controller/handlers.c.i
 
-src/model/main.s: src/model/main.c.s
+src/controller/handlers.s: src/controller/handlers.c.s
 
-.PHONY : src/model/main.s
+.PHONY : src/controller/handlers.s
 
 # target to generate assembly for a file
-src/model/main.c.s:
-	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/main.c.s
-.PHONY : src/model/main.c.s
+src/controller/handlers.c.s:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.s
+.PHONY : src/controller/handlers.c.s
+
+src/main.obj: src/main.c.obj
+
+.PHONY : src/main.obj
+
+# target to build an object file
+src/main.c.obj:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/main.c.obj
+.PHONY : src/main.c.obj
+
+src/main.i: src/main.c.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.c.i:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/main.c.i
+.PHONY : src/main.c.i
+
+src/main.s: src/main.c.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.c.s:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/main.c.s
+.PHONY : src/main.c.s
+
+src/model/model.obj: src/model/model.c.obj
+
+.PHONY : src/model/model.obj
+
+# target to build an object file
+src/model/model.c.obj:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/model.c.obj
+.PHONY : src/model/model.c.obj
+
+src/model/model.i: src/model/model.c.i
+
+.PHONY : src/model/model.i
+
+# target to preprocess a source file
+src/model/model.c.i:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/model.c.i
+.PHONY : src/model/model.c.i
+
+src/model/model.s: src/model/model.c.s
+
+.PHONY : src/model/model.s
+
+# target to generate assembly for a file
+src/model/model.c.s:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/model/model.c.s
+.PHONY : src/model/model.c.s
+
+src/view/drawers.obj: src/view/drawers.c.obj
+
+.PHONY : src/view/drawers.obj
+
+# target to build an object file
+src/view/drawers.c.obj:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj
+.PHONY : src/view/drawers.c.obj
+
+src/view/drawers.i: src/view/drawers.c.i
+
+.PHONY : src/view/drawers.i
+
+# target to preprocess a source file
+src/view/drawers.c.i:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/view/drawers.c.i
+.PHONY : src/view/drawers.c.i
+
+src/view/drawers.s: src/view/drawers.c.s
+
+.PHONY : src/view/drawers.s
+
+# target to generate assembly for a file
+src/view/drawers.c.s:
+	$(MAKE) -f CMakeFiles\ProjectLiver.dir\build.make CMakeFiles/ProjectLiver.dir/src/view/drawers.c.s
+.PHONY : src/view/drawers.c.s
 
 # Help Target
 help:
@@ -395,12 +449,18 @@ help:
 	@echo ... simpleGUI/imgui.obj
 	@echo ... simpleGUI/imgui.i
 	@echo ... simpleGUI/imgui.s
-	@echo ... src/model/consts.obj
-	@echo ... src/model/consts.i
-	@echo ... src/model/consts.s
-	@echo ... src/model/main.obj
-	@echo ... src/model/main.i
-	@echo ... src/model/main.s
+	@echo ... src/controller/handlers.obj
+	@echo ... src/controller/handlers.i
+	@echo ... src/controller/handlers.s
+	@echo ... src/main.obj
+	@echo ... src/main.i
+	@echo ... src/main.s
+	@echo ... src/model/model.obj
+	@echo ... src/model/model.i
+	@echo ... src/model/model.s
+	@echo ... src/view/drawers.obj
+	@echo ... src/view/drawers.i
+	@echo ... src/view/drawers.s
 .PHONY : help
 
 

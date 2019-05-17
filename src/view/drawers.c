@@ -1,11 +1,12 @@
-#include "graphics.h"
-#include "extgraph.h"
-#include <stdio.h>
-
-#include "consts.c"
+#ifndef _DRAWERS_C
+#define _DRAWERS_C
 
 
-int typeInfo[][4][2] = { // 每种形状存进一个数组，而每个数组中包含一批二维数组（后期可以考虑状态压缩），注意每个物块其实都有4个block
+#include "drawers.h"
+#include "consts.h"
+
+
+static int typeInfo[][4][2] = { // 每种形状存进一个数组，而每个数组中包含一批二维数组（后期可以考虑状态压缩），注意每个物块其实都有4个block
     {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
     {{0, -2}, {0, -1}, {0, 0}, {0, 1}}, // 0, 大长条
     {{-1, 2}, {-1, 1}, {0, 1}, {1, 1}}, // 1, L1
@@ -16,7 +17,6 @@ int typeInfo[][4][2] = { // 每种形状存进一个数组，而每个数组中包含一批二维数组（
     {{-1, 1}, {0, 1}, {0, 0}, {1, 0}}, // 6, Snack2
 };
 
-
 void DrawRect (double width, double height)
 {
     DrawLine (width, 0);
@@ -24,7 +24,6 @@ void DrawRect (double width, double height)
     DrawLine (-1 * width, 0);
     DrawLine (0, -1 * height);
 }
-
 void Clean ()
 {
     SetEraseMode (1);
@@ -34,7 +33,6 @@ void Clean ()
     EndFilledRegion ();
     SetEraseMode (0);
 }
-
 void drawBlock (int x, int y, string color)
 {
 
@@ -47,16 +45,9 @@ void drawBlock (int x, int y, string color)
 
     EndFilledRegion ();
 }
-
 void drawTetri (tetrimino tetri)
 {
-//    if (tetri.direction == 0) {
-//        for (int i = 0; i < 4; i++) {
-//            drawBlock (tetri.x + typeInfo[tetri.type][i][0], tetri.y + typeInfo[tetri.type][i][1], tetri.color);
-//        }
-//    }
-    switch (tetri.direction)
-    {
+    switch (tetri.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
                 drawBlock (tetri.x + typeInfo[tetri.type][i][0], tetri.y + typeInfo[tetri.type][i][1], tetri.color);
@@ -79,7 +70,6 @@ void drawTetri (tetrimino tetri)
             break;
     }
 }
-
 void drawInit ()
 {
     for (int i = 0; i < 10; i++) {
@@ -98,3 +88,5 @@ void drawInit ()
         }
     }
 }
+
+#endif

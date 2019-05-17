@@ -22,4 +22,7 @@ add_executable(ProjectLiver
         ./libgraphics/exception.h ./libgraphics/extgraph.h ./libgraphics/gcalloc.h
         ${GUI}
         ${MODEL}
-        )
+        ${VIEW}
+        ${CONTROLLER}
+#        src/view/drawers.h src/controller/handlers.h src/model/model.c src/model/model.h
+        src/main.c)

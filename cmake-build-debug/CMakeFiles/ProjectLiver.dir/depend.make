@@ -38,15 +38,35 @@ CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.obj: .././libgraphics/simpio.h
 CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.obj: ../simpleGUI/imgui.c
 CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.obj: ../simpleGUI/imgui.h
 
-CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj: .././libgraphics/genlib.h
-CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj: ../src/model/consts.c
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj: .././libgraphics/extgraph.h
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj: .././libgraphics/genlib.h
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj: .././libgraphics/graphics.h
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj: .././src/model/consts.h
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj: .././src/view/drawers.h
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj: ../src/controller/handlers.c
 
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: .././libgraphics/extgraph.h
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: .././libgraphics/genlib.h
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: .././libgraphics/graphics.h
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: .././libgraphics/simpio.h
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: .././src/controller/handlers.c
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: .././src/view/drawers.c
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: ../src/model/consts.c
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: ../src/model/main.c
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: .././libgraphics/extgraph.h
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: .././libgraphics/genlib.h
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: .././libgraphics/graphics.h
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: .././src/controller/handlers.h
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: .././src/model/consts.h
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: .././src/model/model.h
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: .././src/view/drawers.h
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: ../src/main.c
+
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: .././libgraphics/extgraph.h
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: .././libgraphics/genlib.h
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: .././libgraphics/graphics.h
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: .././libgraphics/simpio.h
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: .././src/view/drawers.h
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: ../src/model/consts.h
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: ../src/model/model.c
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: ../src/model/model.h
+
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj: .././libgraphics/extgraph.h
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj: .././libgraphics/genlib.h
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj: .././libgraphics/graphics.h
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj: .././src/model/consts.h
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj: ../src/view/drawers.c
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj: ../src/view/drawers.h
 

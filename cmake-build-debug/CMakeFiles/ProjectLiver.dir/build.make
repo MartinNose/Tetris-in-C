@@ -154,33 +154,61 @@ CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.s"
 	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\simpleGUI\imgui.c" -o CMakeFiles\ProjectLiver.dir\simpleGUI\imgui.c.s
 
-CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj: CMakeFiles/ProjectLiver.dir/flags.make
-CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj: CMakeFiles/ProjectLiver.dir/includes_C.rsp
-CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj: ../src/model/consts.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ProjectLiver.dir\src\model\consts.c.obj   -c "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\model\consts.c"
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: CMakeFiles/ProjectLiver.dir/flags.make
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: CMakeFiles/ProjectLiver.dir/includes_C.rsp
+CMakeFiles/ProjectLiver.dir/src/model/model.c.obj: ../src/model/model.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/ProjectLiver.dir/src/model/model.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ProjectLiver.dir\src\model\model.c.obj   -c "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\model\model.c"
 
-CMakeFiles/ProjectLiver.dir/src/model/consts.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ProjectLiver.dir/src/model/consts.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\model\consts.c" > CMakeFiles\ProjectLiver.dir\src\model\consts.c.i
+CMakeFiles/ProjectLiver.dir/src/model/model.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ProjectLiver.dir/src/model/model.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\model\model.c" > CMakeFiles\ProjectLiver.dir\src\model\model.c.i
 
-CMakeFiles/ProjectLiver.dir/src/model/consts.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ProjectLiver.dir/src/model/consts.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\model\consts.c" -o CMakeFiles\ProjectLiver.dir\src\model\consts.c.s
+CMakeFiles/ProjectLiver.dir/src/model/model.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ProjectLiver.dir/src/model/model.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\model\model.c" -o CMakeFiles\ProjectLiver.dir\src\model\model.c.s
 
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: CMakeFiles/ProjectLiver.dir/flags.make
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: CMakeFiles/ProjectLiver.dir/includes_C.rsp
-CMakeFiles/ProjectLiver.dir/src/model/main.c.obj: ../src/model/main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/ProjectLiver.dir/src/model/main.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ProjectLiver.dir\src\model\main.c.obj   -c "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\model\main.c"
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj: CMakeFiles/ProjectLiver.dir/flags.make
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj: CMakeFiles/ProjectLiver.dir/includes_C.rsp
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj: ../src/view/drawers.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ProjectLiver.dir\src\view\drawers.c.obj   -c "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\view\drawers.c"
 
-CMakeFiles/ProjectLiver.dir/src/model/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ProjectLiver.dir/src/model/main.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\model\main.c" > CMakeFiles\ProjectLiver.dir\src\model\main.c.i
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ProjectLiver.dir/src/view/drawers.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\view\drawers.c" > CMakeFiles\ProjectLiver.dir\src\view\drawers.c.i
 
-CMakeFiles/ProjectLiver.dir/src/model/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ProjectLiver.dir/src/model/main.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\model\main.c" -o CMakeFiles\ProjectLiver.dir\src\model\main.c.s
+CMakeFiles/ProjectLiver.dir/src/view/drawers.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ProjectLiver.dir/src/view/drawers.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\view\drawers.c" -o CMakeFiles\ProjectLiver.dir\src\view\drawers.c.s
+
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj: CMakeFiles/ProjectLiver.dir/flags.make
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj: CMakeFiles/ProjectLiver.dir/includes_C.rsp
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj: ../src/controller/handlers.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ProjectLiver.dir\src\controller\handlers.c.obj   -c "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\controller\handlers.c"
+
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\controller\handlers.c" > CMakeFiles\ProjectLiver.dir\src\controller\handlers.c.i
+
+CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\controller\handlers.c" -o CMakeFiles\ProjectLiver.dir\src\controller\handlers.c.s
+
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: CMakeFiles/ProjectLiver.dir/flags.make
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: CMakeFiles/ProjectLiver.dir/includes_C.rsp
+CMakeFiles/ProjectLiver.dir/src/main.c.obj: ../src/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/ProjectLiver.dir/src/main.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ProjectLiver.dir\src\main.c.obj   -c "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\main.c"
+
+CMakeFiles/ProjectLiver.dir/src/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ProjectLiver.dir/src/main.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\main.c" > CMakeFiles\ProjectLiver.dir\src\main.c.i
+
+CMakeFiles/ProjectLiver.dir/src/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ProjectLiver.dir/src/main.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\src\main.c" -o CMakeFiles\ProjectLiver.dir\src\main.c.s
 
 # Object files for target ProjectLiver
 ProjectLiver_OBJECTS = \
@@ -191,8 +219,10 @@ ProjectLiver_OBJECTS = \
 "CMakeFiles/ProjectLiver.dir/libgraphics/simpio.c.obj" \
 "CMakeFiles/ProjectLiver.dir/libgraphics/strlib.c.obj" \
 "CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.obj" \
-"CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj" \
-"CMakeFiles/ProjectLiver.dir/src/model/main.c.obj"
+"CMakeFiles/ProjectLiver.dir/src/model/model.c.obj" \
+"CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj" \
+"CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj" \
+"CMakeFiles/ProjectLiver.dir/src/main.c.obj"
 
 # External object files for target ProjectLiver
 ProjectLiver_EXTERNAL_OBJECTS =
@@ -204,13 +234,15 @@ ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/libgraphics/random.c.obj
 ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/libgraphics/simpio.c.obj
 ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/libgraphics/strlib.c.obj
 ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/simpleGUI/imgui.c.obj
-ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/src/model/consts.c.obj
-ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/src/model/main.c.obj
+ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/src/model/model.c.obj
+ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/src/view/drawers.c.obj
+ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/src/controller/handlers.c.obj
+ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/src/main.c.obj
 ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/build.make
 ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/linklibs.rsp
 ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/objects1.rsp
 ProjectLiver.exe: CMakeFiles/ProjectLiver.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable ProjectLiver.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Linking C executable ProjectLiver.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ProjectLiver.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
