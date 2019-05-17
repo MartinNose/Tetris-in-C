@@ -19,6 +19,9 @@
 //    string color;
 //};
 
+#define SLOW 0.08
+#define FAST 0.6
+
 typedef struct tetriminoes {
     int x, y;
     int type; //对应一个二维数组表示形状  int shape[][],通过矩阵变换实现旋转 0 表示空对象
@@ -30,10 +33,12 @@ struct state {
     bool isFalling;
     bool ifKeyEvent;
     bool ifHardDrop;
-    bool isSoftDrop;
     bool isTurn;
+    double  Velocity;
     int KeyEvent;
     int V;
 } STATE;
+
+
 
 #endif
