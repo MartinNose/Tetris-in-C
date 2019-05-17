@@ -1,5 +1,5 @@
 //
-// Created by liujunliang on 2019/5/13.
+// Created by Tao Chiang on 5/17/2019.
 //
 #include "graphics.h"
 #include "extgraph.h"
@@ -19,11 +19,12 @@
 #include <ocidl.h>
 #include <winuser.h>
 
+#include "model.h"
+#include "consts.h"
+#include "drawers.h"
 
-#include "drawers.c"
-#include "consts.c"
 
-string TETRI_COLOR[8] = {
+static string TETRI_COLOR[8] = {
     "White",//for null
 //    "BLUE",
     "Magenta",
@@ -36,45 +37,6 @@ string TETRI_COLOR[8] = {
     "Cyan",
     "Red"
 };
-
-
-tetrimino NaT;//Not a Tetrimino
-//tetrimino CurrentTetri;
-
-void InitState();
-
-tetrimino generateTetrimino (int type, int direction);
-
-void timerEventHandler (int timerID);
-tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
-tetrimino tetriMaintainer_on_Keyboard(int RL,   tetrimino tetri);
-tetrimino tetriRandom();
-
-#include "handlers.c"
-
-void Main ()
-{
-    NaT = generateTetrimino (0, 0); // Not a Tetri
-
-    SetWindowTitle ("Tetris");
-
-    SetWindowSize (BLOCKSIZE * WIDTH, BLOCKSIZE * HEIGHT);
-    InitGraphics ();
-    InitConsole ();
-
-    InitState();
-    drawInit ();
-
-    registerTimerEvent (timerEventHandler);
-    //registerMouseEvent(mouseEventHandler);
-    registerKeyboardEvent(keyboardEventHandler);
-
-
-
-    registerTimerEvent (timerEventHandler);
-
-    startTimer (MAINTAINER, 16);
-}
 
 tetrimino generateTetrimino (int type, int direction)
 {

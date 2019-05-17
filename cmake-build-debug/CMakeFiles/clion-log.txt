@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2018.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\Curriculum\C\Tetris\ProjectLiver
+"C:\Program Files\JetBrains\CLion 2018.3.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "C:\Users\Tao Chiang\Documents\GitHub\ProjectLiver"
 -- Configuring done
 -- Generating done
--- Build files have been written to: D:/Curriculum/C/Tetris/ProjectLiver/cmake-build-debug
+-- Build files have been written to: C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug
