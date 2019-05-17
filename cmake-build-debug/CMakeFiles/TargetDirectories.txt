@@ -1,3 +1,0 @@
-C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/ProjectLiver.dir
-C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Tao Chiang/Documents/GitHub/ProjectLiver/cmake-build-debug/CMakeFiles/rebuild_cache.dir
