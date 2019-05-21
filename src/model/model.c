@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
+#include <math.h>
 
 #include <windows.h>
 #include <olectl.h>
@@ -80,7 +81,7 @@ void timerEventHandler (int timerID)
         tetri = tetriMaintainer_on_Keyboard(STATE.KeyEvent,tetri);
         STATE.ifKeyEvent = FALSE;
     };
-
+    
     drawTetri (tetri);
 }
 tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri)
@@ -95,6 +96,7 @@ tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri)
         case VK_UP :
             tetri.direction++;
             tetri.direction %= 4;
+            STATE.isTurn = FALSE;
             break;
             //case VK_UP:
             //case VK_DOWN:
@@ -112,29 +114,25 @@ tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri)
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 {
     static int curTime = 0;
-    int dt,v;
-    v = STATE.V;
+    static double dy = 0;
+    int dt ;
+
+
     if (time > curTime)
     {
-        dt = time - curTime;
+        dt = (time - curTime);
     } else
     {
-        dt = time + ERA - curTime;
+        dt = (time + ERA - curTime);
     }
-    if(STATE.isSoftDrop)
-    {
-        tetri.y -= v*dt;
-        curTime = time;
-        return tetri;
-    }
-    else
-    {
-        if (dt == 24)
-        {
-            tetri.y -= v;
-            curTime = time;
-        }
-    }
+
+    dy += STATE.Velocity * dt;
+    if(dy >= 1) {
+        tetri.y -= 1;
+        dy = 0;
+    }//printf("%d\n",dt);
+
+    curTime = time;
     return tetri;
 }
 
@@ -156,7 +154,7 @@ void InitState()
     STATE.isFalling = FALSE;
     STATE.ifKeyEvent = FALSE;
     STATE.V = 1;
-    STATE.isSoftDrop = FALSE;
+    STATE.Velocity = SLOW;
     STATE.ifHardDrop = FALSE;
     STATE.isTurn     = FALSE;
 }
