@@ -24,7 +24,6 @@
 #include "consts.h"
 #include "drawers.h"
 
-
 static string TETRI_COLOR[8] = {
     "White",//for null
 //    "BLUE",
@@ -39,7 +38,7 @@ static string TETRI_COLOR[8] = {
     "Red"
 };
 
-//int block[]
+static int block[12][18] = {0};
 
 tetrimino generateTetrimino (int type, int direction)
 {
@@ -65,9 +64,8 @@ void timerEventHandler (int timerID)
         tetri = tetriRandom ();
         tetriMaintainer_on_gravity (time, tetri);
         STATE.isFalling = TRUE;
-    }else{
-        if( tetri.y < 0)
-        {
+    } else {
+        if (tetri.y < 0) {
             STATE.isFalling = FALSE;
         }
     }
@@ -77,24 +75,21 @@ void timerEventHandler (int timerID)
     drawInit ();
 
     tetri = tetriMaintainer_on_gravity (time, tetri);
-    if (STATE.ifKeyEvent){
-        tetri = tetriMaintainer_on_Keyboard(STATE.KeyEvent,tetri);
+    if (STATE.ifKeyEvent) {
+        tetri = tetriMaintainer_on_Keyboard (STATE.KeyEvent, tetri);
         STATE.ifKeyEvent = FALSE;
     };
-    
+
     drawTetri (tetri);
 }
-tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri)
+tetrimino tetriMaintainer_on_Keyboard (int RL, tetrimino tetri)
 {
-    switch ( RL ) {
-        case VK_RIGHT:
-            tetri.x += 1;
+    switch (RL) {
+        case VK_RIGHT:tetri.x += 1;
             break;
-        case VK_LEFT:
-            tetri.x -= 1;
+        case VK_LEFT:tetri.x -= 1;
             break;
-        case VK_UP :
-            tetri.direction++;
+        case VK_UP :tetri.direction++;
             tetri.direction %= 4;
             STATE.isTurn = FALSE;
             break;
@@ -102,32 +97,28 @@ tetrimino tetriMaintainer_on_Keyboard(int RL,tetrimino tetri)
             //case VK_DOWN:
             //case VK_SPACE:
             //case
-        default:
-            break;
+        default:break;
     }
-    if(tetri.x<0){
+    if (tetri.x < 0) {
         tetri.x = 32 + tetri.x;
     }
-    tetri.x = tetri.x  % WIDTH;
+    tetri.x = tetri.x % WIDTH;
     return tetri;
 }
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 {
     static int curTime = 0;
     static double dy = 0;
-    int dt ;
+    int dt;
 
-
-    if (time > curTime)
-    {
+    if (time > curTime) {
         dt = (time - curTime);
-    } else
-    {
+    } else {
         dt = (time + ERA - curTime);
     }
 
     dy += STATE.Velocity * dt;
-    if(dy >= 1) {
+    if (dy >= 1) {
         tetri.y -= 1;
         dy = 0;
     }//printf("%d\n",dt);
@@ -139,22 +130,22 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 tetrimino tetriRandom ()
 {
     static int last = 0;
-    int type ;
+    int type;
     do {
-        type = rand() % 7;
+        type = rand () % 7;
         if (type == 0) type = 7;
-    }while(last == type);
+    } while (last == type);
     last = type;
-    int direction = rand()%4;
-    return generateTetrimino (type , direction);
+    int direction = rand () % 4;
+    return generateTetrimino (type, direction);
 }
 
-void InitState()
+void InitState ()
 {
     STATE.isFalling = FALSE;
     STATE.ifKeyEvent = FALSE;
     STATE.V = 1;
     STATE.Velocity = SLOW;
     STATE.ifHardDrop = FALSE;
-    STATE.isTurn     = FALSE;
+    STATE.isTurn = FALSE;
 }

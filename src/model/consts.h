@@ -34,7 +34,7 @@ struct state {
     bool ifKeyEvent;
     bool ifHardDrop;
     bool isTurn;
-    double  Velocity;
+    double Velocity;
     int KeyEvent;
     int V;
 } STATE;

@@ -1,7 +1,6 @@
 #ifndef _DRAWERS_C
 #define _DRAWERS_C
 
-
 #include "drawers.h"
 #include "consts.h"
 
