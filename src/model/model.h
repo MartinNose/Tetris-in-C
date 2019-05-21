@@ -16,6 +16,7 @@ void timerEventHandler (int timerID);
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
 tetrimino tetriMaintainer_on_Keyboard (int RL, tetrimino tetri);
 tetrimino tetriRandom ();
+bool check_collision (tetrimino tetri);
 
 extern int block_color[14][20];
 

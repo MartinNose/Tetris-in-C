@@ -84,6 +84,7 @@ void timerEventHandler (int timerID)
 }
 tetrimino tetriMaintainer_on_Keyboard (int RL, tetrimino tetri)
 {
+    tetrimino last = tetri;
     switch (RL) {
         case VK_RIGHT:tetri.x += 1;
             break;
@@ -103,14 +104,17 @@ tetrimino tetriMaintainer_on_Keyboard (int RL, tetrimino tetri)
         tetri.x = 32 + tetri.x;
     }
     tetri.x = tetri.x % WIDTH;
-    return tetri;
+    if (!check_collision (tetri))
+        return tetri;
+    else
+        return last;
 }
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 {
     static int curTime = 0;
     static double dy = 0;
     int dt;
-
+    tetrimino last = tetri;
     if (time > curTime) {
         dt = (time - curTime);
     } else {
@@ -124,7 +128,10 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     }//printf("%d\n",dt);
 
     curTime = time;
-    return tetri;
+    if (!check_collision (tetri))
+        return tetri;
+    else
+        return last;
 }
 
 tetrimino tetriRandom ()
@@ -156,9 +163,42 @@ void InitModel ()
     for (i = 0; i < 20; i++)
         block_color[0][i] = block_color[13][i] = 1;
     for (i = 1; i < 13; i++)
-        block_color[i][0] = block_color[i][19] = 1;
+        block_color[i][0] = 1; // block_color[i][19] =
     // rewrite the boundary as 1
     block_color[3][3] = 2;
     block_color[10][10] = 5;
 }
 
+bool check_collision (tetrimino tetri)
+{
+    switch (tetri.direction) {
+        case 0:
+            for (int i = 0; i < 4; i++) {
+                if (block_color[tetri.x + typeInfo[tetri.type][i][0]-9][tetri.y + typeInfo[tetri.type][i][1]+1])
+                    return TRUE;
+            }
+            return FALSE;
+            break;
+        case 1:
+            for (int i = 0; i < 4; i++) {
+                if (block_color[tetri.x - typeInfo[tetri.type][i][1]-9][tetri.y + typeInfo[tetri.type][i][0]+1])
+                    return TRUE;
+            }
+            return FALSE;
+            break;
+        case 2:
+            for (int i = 0; i < 4; i++) {
+                if (block_color[tetri.x - typeInfo[tetri.type][i][0]-9][tetri.y - typeInfo[tetri.type][i][1]+1])
+                    return TRUE;
+            }
+            return FALSE;
+            break;
+        case 3:
+            for (int i = 0; i < 4; i++) {
+                if (block_color[tetri.x + typeInfo[tetri.type][i][1]-9][tetri.y - typeInfo[tetri.type][i][0]+1])
+                    return TRUE;
+            }
+            return FALSE;
+            break;
+    }
+}
