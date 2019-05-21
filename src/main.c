@@ -2,6 +2,8 @@
 // Created by liujunliang on 2019/5/13.
 //
 
+#include <time.h>
+
 #include "drawers.h"
 #include "consts.h"
 
@@ -26,6 +28,7 @@ void Main ()
     InitState ();
     InitModel ();
     drawInit ();
+    srand((unsigned)time(NULL));
 
     registerTimerEvent (timerEventHandler);
     //registerMouseEvent(mouseEventHandler);
