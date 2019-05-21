@@ -38,7 +38,9 @@ struct state {
     double Velocity;
     int KeyEvent;
     int V;
-} STATE;
+};
+
+extern struct state STATE;
 
 extern int typeInfo[][4][2];
 

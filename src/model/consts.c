@@ -3,6 +3,7 @@
 //
 
 #include <genlib.h>
+#include "consts.h"
 
 
 int typeInfo[][4][2] = { // 每种形状存进一个数组，而每个数组中包含一批二维数组（后期可以考虑状态压缩），注意每个物块其实都有4个block
@@ -29,3 +30,5 @@ string TETRI_COLOR[8] = {
     "Cyan",
     "Red"
 };
+
+struct state STATE;
