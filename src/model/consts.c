@@ -27,8 +27,11 @@ string TETRI_COLOR[8] = {
     "Cyan",
     "Yellow",
     "Green",
-    "Cyan",
+    "Light Gray",
     "Red"
 };
+
+// Black, Dark Gray, Gray, Light Gray, White,
+// *    Red, Yellow, Green, Cyan, Blue, Magenta
 
 struct state STATE;
