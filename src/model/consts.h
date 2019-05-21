@@ -1,5 +1,5 @@
 //
-// Created by ÁõöÁÁ¼ on 2019/5/15.
+// Created by åˆ˜éš½è‰¯ on 2019/5/15.
 //
 #ifndef _consts_h
 #define _consts_h
@@ -25,7 +25,7 @@
 
 typedef struct tetriminoes {
     int x, y;
-    int type; //¶ÔÓ¦Ò»¸ö¶şÎ¬Êı×é±íÊ¾ĞÎ×´  int shape[][],Í¨¹ı¾ØÕó±ä»»ÊµÏÖĞı×ª 0 ±íÊ¾¿Õ¶ÔÏó
+    int type; //å¯¹åº”ä¸€ä¸ªäºŒç»´æ•°ç»„è¡¨ç¤ºå½¢çŠ¶  int shape[][],é€šè¿‡çŸ©é˜µå˜æ¢å®ç°æ—‹è½¬ 0 è¡¨ç¤ºç©ºå¯¹è±¡
     string color;
     int direction;
 } tetrimino;
