@@ -24,21 +24,21 @@
 #include "consts.h"
 #include "drawers.h"
 
-static string TETRI_COLOR[8] = {
-    "White",//for null
-//    "BLUE",
-    "Magenta",
-//    "DarkBlue",
-    "Blue",
-//    "Orange",
-    "Cyan",
-    "Yellow",
-    "Green",
-    "Cyan",
-    "Red"
-};
+//static string TETRI_COLOR[8] = {
+//    "White",//for null
+////    "BLUE",
+//    "Magenta",
+////    "DarkBlue",
+//    "Blue",
+////    "Orange",
+//    "Cyan",
+//    "Yellow",
+//    "Green",
+//    "Cyan",
+//    "Red"
+//};
 
-static int block[12][18] = {0};
+int block_color[14][20] = {0}; // store the colors of block, white as 0, (x,y)
 
 tetrimino generateTetrimino (int type, int direction)
 {
@@ -145,7 +145,20 @@ void InitState ()
     STATE.isFalling = FALSE;
     STATE.ifKeyEvent = FALSE;
     STATE.V = 1;
-    STATE.Velocity = SLOW;
+    STATE.Velocity = DEBUG_SLOW;
     STATE.ifHardDrop = FALSE;
     STATE.isTurn = FALSE;
 }
+
+void InitModel ()
+{
+    int i;
+    for (i = 0; i < 20; i++)
+        block_color[0][i] = block_color[13][i] = 1;
+    for (i = 1; i < 13; i++)
+        block_color[i][0] = block_color[i][19] = 1;
+    // rewrite the boundary as 1
+    block_color[3][3] = 2;
+    block_color[10][10] = 5;
+}
+

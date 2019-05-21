@@ -4,8 +4,11 @@
 
 #ifndef _MODEL_H_
 #define _MODEL_H_
+
 #include "consts.h"
+
 void InitState ();
+void InitModel();
 
 tetrimino generateTetrimino (int type, int direction);
 
@@ -13,5 +16,7 @@ void timerEventHandler (int timerID);
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
 tetrimino tetriMaintainer_on_Keyboard (int RL, tetrimino tetri);
 tetrimino tetriRandom ();
+
+extern int block_color[14][20];
 
 #endif //_MODEL_H_

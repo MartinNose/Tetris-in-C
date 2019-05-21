@@ -3,6 +3,7 @@
 
 #include "drawers.h"
 #include "consts.h"
+#include "model.h"
 
 
 //static int typeInfo[][4][2] = { // 每种形状存进一个数组，而每个数组中包含一批二维数组（后期可以考虑状态压缩），注意每个物块其实都有4个block
@@ -76,9 +77,14 @@ void drawInit ()
             drawBlock (i, j, "Gray");
         }
     }
-    for (int i = 10; i < 22; i++) {
+//    for (int i = 10; i < 22; i++) {
+//        for (int j = 0; j < HEIGHT; j++) {
+//            drawBlock (i, j, "White");
+//        }
+//    }
+    for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-            drawBlock (i, j, "White");
+            drawBlock (i + 9, j, TETRI_COLOR[block_color[i][j + 1]]);
         }
     }
     for (int i = 22; i < WIDTH; i++) {

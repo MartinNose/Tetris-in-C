@@ -5,11 +5,13 @@
 #include "drawers.h"
 #include "consts.h"
 
-tetrimino NaT;//Not a Tetrimino
-//tetrimino CurrentTetri;
 
 #include "model.h"
 #include "handlers.h"
+
+
+tetrimino NaT;//Not a Tetrimino
+//tetrimino CurrentTetri;
 
 void Main ()
 {
@@ -22,6 +24,7 @@ void Main ()
     InitConsole ();
 
     InitState ();
+    InitModel ();
     drawInit ();
 
     registerTimerEvent (timerEventHandler);

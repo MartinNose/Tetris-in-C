@@ -25,4 +25,4 @@ add_executable(ProjectLiver
         ${VIEW}
         ${CONTROLLER}
 #        src/view/drawers.h src/controller/handlers.h src/model/model.c src/model/model.h
-        src/main.c)
+        src/main.c src/model/consts.c)
