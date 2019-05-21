@@ -38,6 +38,8 @@ static string TETRI_COLOR[8] = {
     "Red"
 };
 
+//int block[]
+
 tetrimino generateTetrimino (int type, int direction)
 {
     tetrimino tetri;
