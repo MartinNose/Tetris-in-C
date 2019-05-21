@@ -66,9 +66,9 @@ void timerEventHandler (int timerID)
         tetriMaintainer_on_gravity (time, tetri);
         STATE.isFalling = TRUE;
     } else {
-        if (tetri.y < 0) {
-            STATE.isFalling = FALSE;
-        } // now not in use...
+//        if (tetri.y < 0) {
+//            STATE.isFalling = FALSE;
+//        } // now not in use...
     }
 
     time = (time + 1) % ERA; // !!!
