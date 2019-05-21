@@ -38,7 +38,8 @@
 //    "Red"
 //};
 
-int block_color[14][20] = {0}; // store the colors of block, white as 0, (x,y)
+
+int block_color[14][25] = {0}; // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
 
 tetrimino generateTetrimino (int type, int direction)
 {
@@ -67,7 +68,7 @@ void timerEventHandler (int timerID)
     } else {
         if (tetri.y < 0) {
             STATE.isFalling = FALSE;
-        }
+        } // now not in use...
     }
 
     time = (time + 1) % ERA; // !!!
@@ -125,13 +126,16 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     if (dy >= 1) {
         tetri.y -= 1;
         dy = 0;
-    }//printf("%d\n",dt);
+    } // printf("%d\n",dt);
 
     curTime = time;
     if (!check_collision (tetri))
         return tetri;
     else
+    {
+        Settle_Tetri (last);
         return last;
+    }
 }
 
 tetrimino tetriRandom ()
@@ -153,6 +157,7 @@ void InitState ()
     STATE.ifKeyEvent = FALSE;
     STATE.V = 1;
     STATE.Velocity = DEBUG_SLOW;
+    printf ("SLOW\n");
     STATE.ifHardDrop = FALSE;
     STATE.isTurn = FALSE;
 }
@@ -201,4 +206,31 @@ bool check_collision (tetrimino tetri)
             return FALSE;
             break;
     }
+}
+
+void Settle_Tetri (tetrimino tetri)
+{
+    switch (tetri.direction) {
+        case 0:
+            for (int i = 0; i < 4; i++) {
+                 block_color[tetri.x + typeInfo[tetri.type][i][0]-9][tetri.y + typeInfo[tetri.type][i][1]+1] = tetri.type;
+            }
+            break;
+        case 1:
+            for (int i = 0; i < 4; i++) {
+                block_color[tetri.x - typeInfo[tetri.type][i][1]-9][tetri.y + typeInfo[tetri.type][i][0]+1] = tetri.type;
+            }
+            break;
+        case 2:
+            for (int i = 0; i < 4; i++) {
+                block_color[tetri.x - typeInfo[tetri.type][i][0]-9][tetri.y - typeInfo[tetri.type][i][1]+1] = tetri.type;
+            }
+            break;
+        case 3:
+            for (int i = 0; i < 4; i++) {
+                block_color[tetri.x + typeInfo[tetri.type][i][1]-9][tetri.y - typeInfo[tetri.type][i][0]+1] = tetri.type;
+            }
+            break;
+    }
+    STATE.isFalling = FALSE;
 }

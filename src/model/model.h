@@ -17,7 +17,8 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
 tetrimino tetriMaintainer_on_Keyboard (int RL, tetrimino tetri);
 tetrimino tetriRandom ();
 bool check_collision (tetrimino tetri);
+void Settle_Tetri(tetrimino tetri);
 
-extern int block_color[14][20];
+extern int block_color[14][25];
 
 #endif //_MODEL_H_
