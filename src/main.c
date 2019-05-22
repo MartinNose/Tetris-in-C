@@ -36,6 +36,6 @@ void Main ()
 
     registerTimerEvent (timerEventHandler);
 
-    startTimer (MAINTAINER, 16);
+    startTimer (MAINTAINER, 10);
 }
 

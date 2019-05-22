@@ -20,4 +20,6 @@ void drawTetri (tetrimino tetri);
 
 void DrawRect (double width, double height);
 
+void DrawGrid();
+
 #endif //_DRAWERS_H_

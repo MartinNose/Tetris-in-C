@@ -19,9 +19,9 @@
 //    string color;
 //};
 
-#define DEBUG_SLOW 0.04
-#define SLOW 0.08
-#define FAST 0.6
+#define DEBUG_SLOW 0.06
+#define SLOW 0.06
+#define FAST 8
 
 typedef struct tetriminoes {
     int x, y;
@@ -29,8 +29,6 @@ typedef struct tetriminoes {
     string color;
     int direction;
     double yVelocity;
-    double xVelocity;
-    bool isFalling;
 } tetrimino;
 
 struct state {

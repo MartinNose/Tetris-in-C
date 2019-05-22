@@ -24,7 +24,6 @@ void Clean ()
 }
 void drawBlock (int x, int y, string color)
 {
-
     SetPenColor (color);
     StartFilledRegion (1);
 
@@ -33,7 +32,12 @@ void drawBlock (int x, int y, string color)
     DrawRect (BLOCKSIZE, BLOCKSIZE);
 
     EndFilledRegion ();
+
+    SetPenColor ("Black");
+//    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
+//    DrawRect (BLOCKSIZE, BLOCKSIZE);
 }
+
 void drawTetri (tetrimino tetri)
 {
     switch (tetri.direction) {
@@ -59,6 +63,18 @@ void drawTetri (tetrimino tetri)
             break;
     }
 }
+void DrawGrid(){
+    SetPenColor("Black");
+    for (int i = 0; i < WIDTH; i++) {
+        MovePen(i*BLOCKSIZE,0);
+        DrawLine(0,GetWindowHeight());
+    }
+    for (int j = 0; j < HEIGHT; j++) {
+        MovePen(0,j*BLOCKSIZE);
+        DrawLine(GetWindowWidth(),0);
+    }
+}
+
 void drawInit ()
 {
     for (int i = 0; i < 10; i++) {

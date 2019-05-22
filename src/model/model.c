@@ -51,8 +51,6 @@ tetrimino generateTetrimino (int type, int direction)
     tetri.type = type;
     tetri.direction = direction;
     tetri.color = TETRI_COLOR[type];
-    tetri.isFalling = TRUE;
-    tetri.xVelocity = 0;
     tetri.yVelocity = DEBUG_SLOW;
 
 //    if (type) {
@@ -80,10 +78,8 @@ void timerEventHandler (int timerID)
     drawInit ();
 
     ctetri = tetriMaintainer_on_gravity (time, ctetri);
-
-
     drawTetri (ctetri);
-
+    DrawGrid();
 }
 
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
@@ -106,7 +102,9 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 
     curTime = time;
     if (!check_collision (tetri))
+    {
         return tetri;
+    }
     else
     {
         Settle_Tetri (last);
@@ -146,6 +144,7 @@ void InitModel ()
 
 bool check_collision (tetrimino tetri)
 {
+
     switch (tetri.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
