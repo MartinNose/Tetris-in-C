@@ -28,6 +28,9 @@ typedef struct tetriminoes {
     int type; //对应一个二维数组表示形状  int shape[][],通过矩阵变换实现旋转 0 表示空对象
     string color;
     int direction;
+    double yVelocity;
+    double xVelocity;
+    bool isFalling;
 } tetrimino;
 
 struct state {

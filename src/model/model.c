@@ -40,6 +40,7 @@
 
 
 int block_color[14][25] = {0}; // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
+tetrimino ctetri;
 
 tetrimino generateTetrimino (int type, int direction)
 {
@@ -50,20 +51,23 @@ tetrimino generateTetrimino (int type, int direction)
     tetri.type = type;
     tetri.direction = direction;
     tetri.color = TETRI_COLOR[type];
+    tetri.isFalling = TRUE;
+    tetri.xVelocity = 0;
+    tetri.yVelocity = DEBUG_SLOW;
 
-    if (type) {
-        drawTetri (tetri);
-    }
+//    if (type) {
+//        drawTetri (tetri);
+//    }
     return tetri;
 }
 
 void timerEventHandler (int timerID)
 {
     static int time = 0;
-    static tetrimino tetri;
+
     if (!STATE.isFalling) {
-        tetri = tetriRandom ();
-        tetriMaintainer_on_gravity (time, tetri);
+        ctetri = tetriRandom ();
+        ctetri = tetriMaintainer_on_gravity (time, ctetri);
         STATE.isFalling = TRUE;
     } else {
 //        if (tetri.y < 0) {
@@ -75,13 +79,14 @@ void timerEventHandler (int timerID)
     Clean ();
     drawInit ();
 
-    tetri = tetriMaintainer_on_gravity (time, tetri);
+    ctetri = tetriMaintainer_on_gravity (time, ctetri);
     if (STATE.ifKeyEvent) {
-        tetri = tetriMaintainer_on_Keyboard (STATE.KeyEvent, tetri);
+        ctetri = tetriMaintainer_on_Keyboard (STATE.KeyEvent, ctetri);
         STATE.ifKeyEvent = FALSE;
     };
 
-    drawTetri (tetri);
+    drawTetri (ctetri);
+
 }
 tetrimino tetriMaintainer_on_Keyboard (int RL, tetrimino tetri)
 {
