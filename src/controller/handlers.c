@@ -27,6 +27,7 @@ void keyboardEventHandler (int key, int event)
                     temp.direction %= 4;
                     break;
                 case VK_SPACE :
+                    //temp.yVelocity = FAST * 10;
                     break;
             }
             break;
