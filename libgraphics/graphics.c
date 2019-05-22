@@ -1072,9 +1072,9 @@ static LONG FAR PASCAL GraphicsEventProc(HWND hwnd, UINT msg,
 {
     switch(msg)
     {
-        // ÁõÐÂ¹ú£ºÊ¹ÓÃÁËdouble buffer, ÊÖ¶¯ÇåÆÁ£¬
-        //         ÎÞÐèÏµÍ³²Á³ý±³¾°£¬±ÜÃâÉÁË¸
-        //         ¸ÐÐ»18¼¶Ê¯ÃÉÍ¬Ñ§£¬Ìá¹©Õâ¸ö·½·¨½â¾öË¢ÐÂÉÁË¸ÎÊÌâ
+        // åˆ˜æ–°å›½ï¼šä½¿ç”¨äº†double buffer, æ‰‹åŠ¨æ¸…å±ï¼Œ
+        //         æ— éœ€ç³»ç»Ÿæ“¦é™¤èƒŒæ™¯ï¼Œé¿å…é—ªçƒ
+        //         æ„Ÿè°¢18çº§çŸ³è’™åŒå­¦ï¼Œæä¾›è¿™ä¸ªæ–¹æ³•è§£å†³åˆ·æ–°é—ªçƒé—®é¢˜
         case WM_ERASEBKGND:
             return 0;
 
