@@ -20,6 +20,6 @@ bool check_collision (tetrimino tetri);
 void Settle_Tetri(tetrimino tetri);
 
 extern int block_color[14][25];
-extern tetrimino cTetri;
+extern tetrimino ctetri;
 
 #endif //_MODEL_H_

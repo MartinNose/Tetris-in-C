@@ -80,41 +80,12 @@ void timerEventHandler (int timerID)
     drawInit ();
 
     ctetri = tetriMaintainer_on_gravity (time, ctetri);
-    if (STATE.ifKeyEvent) {
-        ctetri = tetriMaintainer_on_Keyboard (STATE.KeyEvent, ctetri);
-        STATE.ifKeyEvent = FALSE;
-    };
+
 
     drawTetri (ctetri);
 
 }
-tetrimino tetriMaintainer_on_Keyboard (int RL, tetrimino tetri)
-{
-    tetrimino last = tetri;
-    switch (RL) {
-        case VK_RIGHT:tetri.x += 1;
-            break;
-        case VK_LEFT:tetri.x -= 1;
-            break;
-        case VK_UP :tetri.direction++;
-            tetri.direction %= 4;
-            STATE.isTurn = FALSE;
-            break;
-            //case VK_UP:
-            //case VK_DOWN:
-            //case VK_SPACE:
-            //case
-        default:break;
-    }
-    if (tetri.x < 0) {
-        tetri.x = 32 + tetri.x;
-    }
-    tetri.x = tetri.x % WIDTH;
-    if (!check_collision (tetri))
-        return tetri;
-    else
-        return last;
-}
+
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 {
     static int curTime = 0;
@@ -127,7 +98,7 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
         dt = (time + ERA - curTime);
     }
 
-    dy += STATE.Velocity * dt;
+    dy += tetri.yVelocity * dt;
     if (dy >= 1) {
         tetri.y -= 1;
         dy = 0;
@@ -159,12 +130,6 @@ tetrimino tetriRandom ()
 void InitState ()
 {
     STATE.isFalling = FALSE;
-    STATE.ifKeyEvent = FALSE;
-    STATE.V = 1;
-    STATE.Velocity = DEBUG_SLOW;
-    printf ("SLOW\n");
-    STATE.ifHardDrop = FALSE;
-    STATE.isTurn = FALSE;
 }
 
 void InitModel ()

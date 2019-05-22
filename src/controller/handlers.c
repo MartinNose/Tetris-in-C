@@ -4,34 +4,43 @@
 #include "graphics.h"
 #include "consts.h"
 #include "drawers.h"
+#include "model.h"
 #include <winuser.h>
 
 void keyboardEventHandler (int key, int event)
 {
+    tetrimino temp = ctetri;
     switch (event) {
         case KEY_DOWN:
-            STATE.ifKeyEvent = TRUE;
-            STATE.KeyEvent = key;
             switch (key) {
                 case VK_LEFT:
+                    temp.x -= 1;
                     break;
                 case VK_RIGHT:
+                    temp.x += 1;
                     break;
                 case VK_DOWN:
-                    STATE.Velocity = FAST;
+                    temp.yVelocity = FAST;
                     break;
-                case VK_UP :STATE.isTurn = TRUE;
-
+                case VK_UP :
+                    temp.direction++;
+                    temp.direction %= 4;
+                    break;
+                case VK_SPACE :
                     break;
             }
             break;
         case KEY_UP:
             switch (key) {
-                case VK_DOWN:STATE.Velocity = SLOW;
+                case VK_DOWN:
+                    temp.yVelocity = SLOW;
                     break;
             }
             break;
     }
+    if (!check_collision (temp))
+        ctetri = temp;
+
 }
 void mouseEventHandler (int x, int y, int button, int event)
 {

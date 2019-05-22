@@ -35,12 +35,6 @@ typedef struct tetriminoes {
 
 struct state {
     bool isFalling;
-    bool ifKeyEvent;
-    bool ifHardDrop;
-    bool isTurn;
-    double Velocity;
-    int KeyEvent;
-    int V;
 };
 
 extern struct state STATE;
