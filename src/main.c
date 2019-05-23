@@ -25,7 +25,7 @@ void Main ()
     InitGraphics ();
     InitConsole ();
 
-    InitState ();
+    //InitState ();
     InitModel ();
     drawInit ();
     srand((unsigned)time(NULL));

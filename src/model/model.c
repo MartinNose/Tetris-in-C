@@ -51,7 +51,8 @@ tetrimino generateTetrimino (int type, int direction)
     tetri.type = type;
     tetri.direction = direction;
     tetri.color = TETRI_COLOR[type];
-    tetri.yVelocity = DEBUG_SLOW;
+    tetri.yVelocity = 0;
+
 
 //    if (type) {
 //        drawTetri (tetri);
@@ -63,14 +64,9 @@ void timerEventHandler (int timerID)
 {
     static int time = 0;
 
-    if (!STATE.isFalling) {
+    if (ctetri.yVelocity==0) {
         ctetri = tetriRandom ();
         ctetri = tetriMaintainer_on_gravity (time, ctetri);
-        STATE.isFalling = TRUE;
-    } else {
-//        if (tetri.y < 0) {
-//            STATE.isFalling = FALSE;
-//        } // now not in use...
     }
 
     time = (time + 1) % ERA; // !!!
@@ -87,6 +83,9 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     static int curTime = 0;
     static double dy = 0;
     int dt;
+    if(tetri.yVelocity==0){
+        tetri.yVelocity=DEBUG_SLOW;
+    }
     tetrimino last = tetri;
     if (time > curTime) {
         dt = (time - curTime);
@@ -107,6 +106,7 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     }
     else
     {
+        last.yVelocity = 0;
         Settle_Tetri (last);
         return last;
     }
@@ -125,10 +125,6 @@ tetrimino tetriRandom ()
     return generateTetrimino (type, direction);
 }
 
-void InitState ()
-{
-    STATE.isFalling = FALSE;
-}
 
 void InitModel ()
 {
@@ -144,7 +140,6 @@ void InitModel ()
 
 bool check_collision (tetrimino tetri)
 {
-
     switch (tetri.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
@@ -201,5 +196,4 @@ void Settle_Tetri (tetrimino tetri)
             }
             break;
     }
-    STATE.isFalling = FALSE;
 }

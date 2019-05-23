@@ -7,14 +7,12 @@
 
 #include "consts.h"
 
-void InitState ();
 void InitModel();
 
 tetrimino generateTetrimino (int type, int direction);
 
 void timerEventHandler (int timerID);
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
-tetrimino tetriMaintainer_on_Keyboard (int RL, tetrimino tetri);
 tetrimino tetriRandom ();
 bool check_collision (tetrimino tetri);
 void Settle_Tetri(tetrimino tetri);
