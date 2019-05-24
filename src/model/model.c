@@ -196,4 +196,12 @@ void Settle_Tetri (tetrimino tetri)
             }
             break;
     }
+
+}
+tetrimino HardDrop(tetrimino tetri){
+    while(!check_collision(tetri)){
+        tetri.y--;
+    }
+    tetri.y++;
+    return tetri;
 }

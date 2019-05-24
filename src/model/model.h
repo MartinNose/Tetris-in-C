@@ -16,6 +16,7 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
 tetrimino tetriRandom ();
 bool check_collision (tetrimino tetri);
 void Settle_Tetri(tetrimino tetri);
+tetrimino HardDrop(tetrimino tetri);
 
 extern int block_color[14][25];
 extern tetrimino ctetri;
