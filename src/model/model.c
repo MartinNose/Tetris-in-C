@@ -28,7 +28,7 @@ int block_color[14][25] = {0};
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
 tetrimino ctetri;
 
-int score = 0;
+static int score = 0;
 bool is_game_over = FALSE;
 
 tetrimino generateTetrimino (int type, int direction)
@@ -51,20 +51,27 @@ tetrimino generateTetrimino (int type, int direction)
 
 void timerEventHandler (int timerID)
 {
-    static int time = 0;
+    if (!is_game_over)
+    {
+        static int time = 0;
 
-    if (ctetri.yVelocity == 0) {
-        ctetri = tetriRandom ();
+        if (ctetri.yVelocity == 0) {
+            ctetri = tetriRandom ();
+            ctetri = tetriMaintainer_on_gravity (time, ctetri);
+        }
+
+        time = (time + 1) % ERA; // !!!
+        Clean ();
+        drawInit ();
+
         ctetri = tetriMaintainer_on_gravity (time, ctetri);
+        drawTetri (ctetri);
+        DrawGrid ();
     }
-
-    time = (time + 1) % ERA; // !!!
-    Clean ();
-    drawInit ();
-
-    ctetri = tetriMaintainer_on_gravity (time, ctetri);
-    drawTetri (ctetri);
-    DrawGrid ();
+    else
+    {
+        cancelTimerEvent (timerEventHandler);
+    }
 }
 
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
@@ -89,22 +96,29 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     } // printf("%d\n",dt);
 
     curTime = time;
+    static int debug_flag = 0;
     if (!check_collision (tetri)) {
         return tetri;
     } else {
         last.yVelocity = 0;
         Settle_Tetri (last);
         CheckLines ();
-        if (CheckTop () == FALSE)
+        if (CheckTop () == FALSE) {
             is_game_over = TRUE;
+            char buffer[32];
+            sprintf (buffer, "%d", score);
+            if (!debug_flag) {
+                MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
+                debug_flag++;
+            }
+        }
         return last;
     }
 }
 bool CheckTop ()
 {
     int i;
-    for (i = 1; i <= 12; i++)
-    {
+    for (i = 1; i <= 12; i++) {
         if (block_color[i][19])
             return FALSE;
     }
@@ -113,30 +127,28 @@ bool CheckTop ()
 void CheckLines ()
 {
     int i, j, line_cnt = 0, line_ok;
-    for (i = 1; i <= 18; i++)
-    {
+    for (i = 1; i <= 18; i++) {
         line_ok = TRUE;
-        for (j = 1; j <= 12; j++)
-        {
-            if (!block_color[j][i])
-            {
+        for (j = 1; j <= 12; j++) {
+            if (!block_color[j][i]) {
                 line_ok = FALSE;
                 break;
             }
         }
-        if (line_ok)
-        {
+        if (line_ok) {
             line_cnt++;
             RemoveLine (i);
         }
     }
-    score += line_cnt * 200 - 100;
+    if (line_cnt) {
+        score += line_cnt * 200 - 100;
+//        printf ("%d\n", score);
+    }
 }
 void RemoveLine (int row)
 {
     int i, j;
-    for (i = row; i <= 18; i++)
-    {
+    for (i = row; i <= 18; i++) {
         for (j = 1; j <= 12; j++)
             block_color[j][i] = block_color[j][i + 1];
     }
@@ -163,9 +175,10 @@ void InitModel ()
     for (i = 1; i < 13; i++)
         block_color[i][0] = 1; // block_color[i][19] =
     // rewrite the boundary as 1
-    block_color[3][3] = 2;
-    block_color[10][10] = 5;
-    block_color[10][18] = 3; // test, we can know that the y_max = 18
+    score = 0;
+//    block_color[3][3] = 2;
+//    block_color[10][10] = 5;
+//    block_color[10][18] = 3; // test, we can know that the y_max = 18
 }
 
 bool check_collision (tetrimino tetri)

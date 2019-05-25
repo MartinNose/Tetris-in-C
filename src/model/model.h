@@ -24,7 +24,7 @@ void RemoveLine (int row);
 extern int block_color[14][25];
 extern tetrimino ctetri;
 
-extern int score;
+//extern int score;
 extern bool is_game_over;
 
 #endif //_MODEL_H_
