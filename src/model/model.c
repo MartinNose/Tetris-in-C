@@ -42,10 +42,6 @@ tetrimino generateTetrimino (int type, int direction)
     tetri.color = TETRI_COLOR[type];
     tetri.yVelocity = 0;
 
-
-//    if (type) {
-//        drawTetri (tetri);
-//    }
     return tetri;
 }
 
@@ -143,11 +139,10 @@ void CheckLines ()
         {
             i++;
         }
-
     }
     if (line_cnt) {
         score += line_cnt * 200 - 100;
-//        printf ("%d\n", score);
+//      printf ("%d\n", score);
     }
 }
 void RemoveLine (int row)
@@ -260,9 +255,11 @@ tetrimino HardDrop (tetrimino tetri)
     return tetri;
 }
 
-void Restart ()
+tetrimino Restart ()
 {
-    InitGraphics ();
+    tetrimino tetri;
     InitModel ();
     drawInit ();
+    tetri = tetriRandom();
+    return tetri;
 }

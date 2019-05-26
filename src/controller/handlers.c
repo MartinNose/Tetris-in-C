@@ -30,7 +30,7 @@ void keyboardEventHandler (int key, int event)
                     temp = HardDrop(temp);
                     break;
                 case 0x52:
-                    Restart();
+                    temp = Restart();
                     break;
             }
             break;
