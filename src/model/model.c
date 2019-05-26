@@ -60,14 +60,16 @@ void timerEventHandler (int timerID)
     drawCheckerBoard();
     ctetri = tetriMaintainer_on_gravity (time, ctetri);
 
-    if(ctetri.yVelocity == 0){
-       Settle(ctetri);
-    }
+
 
     DrawShadow(HardDrop(ctetri));
 
     drawTetri (ctetri);
     drawInit (score);
+
+    if(ctetri.yVelocity == 0){
+        Settle(ctetri);
+    }
 
     if(is_game_over){
         cancelTimer(MAINTAINER);
@@ -116,10 +118,6 @@ void Settle(tetrimino tetri){
     Settle_Tetri (tetri);
     Row = CheckLines ();
 
-    if (CheckTop () == FALSE) {
-        is_game_over = TRUE;
-    }
-
     int ds = 0;
     switch (Row.num){
         case 0: break;
@@ -138,11 +136,9 @@ void Settle(tetrimino tetri){
         default:break;
     }
     score += ds;
-
-    for(int i = 0;i<Row.num;i++){
-        if(Row.row[i]!=-1){
-            RemoveLine(Row.row[i]);
-        }
+    
+    if (CheckTop () == FALSE) {
+        is_game_over = TRUE;
     }
 }
 
@@ -175,6 +171,7 @@ Rows CheckLines ()
             }
         }
         if (line_ok) {
+            RemoveLine(i);
             Row.row[Row.num++] = i;
         }
         else
