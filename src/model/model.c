@@ -174,11 +174,16 @@ tetrimino tetriRandom ()
 
 void InitModel ()
 {
-    int i;
+    int i, j;
     for (i = 0; i < 20; i++)
         block_color[0][i] = block_color[13][i] = 1;
     for (i = 1; i < 13; i++)
         block_color[i][0] = 1; // block_color[i][19] =
+    for (i = 1; i <= 12; i++)
+    {
+        for (j = 1; j < 20; j++)
+            block_color[i][j] = 0;
+    }
     // rewrite the boundary as 1
     score = 0;
 //    block_color[3][3] = 2;
@@ -265,4 +270,5 @@ void Restart ()
     InitGraphics ();
     InitModel ();
     drawInit ();
+    ctetri = tetriRandom ();
 }
