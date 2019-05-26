@@ -127,7 +127,7 @@ bool CheckTop ()
 void CheckLines ()
 {
     int i, j, line_cnt = 0, line_ok;
-    for (i = 1; i <= 18; i++) {
+    for (i = 1; i <= 18; ) {
         line_ok = TRUE;
         for (j = 1; j <= 12; j++) {
             if (!block_color[j][i]) {
@@ -139,6 +139,11 @@ void CheckLines ()
             line_cnt++;
             RemoveLine (i);
         }
+        else
+        {
+            i++;
+        }
+
     }
     if (line_cnt) {
         score += line_cnt * 200 - 100;
