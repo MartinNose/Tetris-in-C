@@ -27,7 +27,7 @@ void Main ()
 
     //InitState ();
     InitModel ();
-    drawInit ();
+    drawInit (0);
     srand((unsigned)time(NULL));
 
     registerTimerEvent (timerEventHandler);

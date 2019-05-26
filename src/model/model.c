@@ -47,31 +47,27 @@ tetrimino generateTetrimino (int type, int direction)
 
 void timerEventHandler (int timerID)
 {
-    if (!is_game_over)
-    {
-        static int time = 0;
-        if (ctetri.yVelocity == 0) {
-            ctetri = tetriRandom ();
-            ctetri = tetriMaintainer_on_gravity (time, ctetri);
-        }
-
-        time = (time + 1) % ERA; // !!!
-        Clean ();
-        drawInit ();
-
+    static int time = 0;
+    if (ctetri.yVelocity == 0) {
+        ctetri = tetriRandom ();
         ctetri = tetriMaintainer_on_gravity (time, ctetri);
-
-
-        DrawShadow(HardDrop(ctetri));
-
-        drawTetri (ctetri);
-        DrawGrid ();
-        DrawScore(score);
-
     }
-    else
-    {
-        cancelTimer (MAINTAINER);
+
+    time = (time + 1) % ERA; // !!!
+    Clean ();
+
+    drawCheckerBoard();
+    ctetri = tetriMaintainer_on_gravity (time, ctetri);
+    DrawShadow(HardDrop(ctetri));
+
+    drawTetri (ctetri);
+    drawInit (score);
+
+    if(is_game_over){
+        cancelTimer(MAINTAINER);
+        char buffer[32];
+        sprintf (buffer, "%d", score);
+        MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
     }
 }
 
@@ -97,7 +93,7 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     } // printf("%d\n",dt);
 
     curTime = time;
-    static int debug_flag = 0;
+
     if (!check_collision (tetri)) {
         return tetri;
     } else {
@@ -106,24 +102,26 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
         CheckLines ();
         if (CheckTop () == FALSE) {
             is_game_over = TRUE;
-            char buffer[32];
-            sprintf (buffer, "%d", score);
-            if (!debug_flag) {
-                MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
-                debug_flag++;
-            }
         }
-        return last;
     }
+    return last;
 }
+
+
+
 bool CheckTop ()
 {
-    int i;
-    for (i = 1; i <= 12; i++) {
-        if (block_color[i][19])
-            return FALSE;
+    bool isTopped = 0;
+    for (int i = 1; i <= 12; i++) {
+        if (block_color[i][19]){
+            isTopped = 1;
+            }
     }
-    return TRUE;
+    if (isTopped){
+        return FALSE;
+    }else{
+        return TRUE;
+    }
 }
 void CheckLines ()
 {
@@ -274,7 +272,7 @@ tetrimino Restart ()
 
     tetrimino tetri;
     InitModel ();
-    drawInit ();
+    drawInit (0);
     tetri = tetriRandom();
     return tetri;
 }

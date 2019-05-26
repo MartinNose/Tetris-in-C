@@ -75,29 +75,29 @@ void DrawGrid(){
     }
 }
 
-void drawInit ()
+void drawInit (int score)
 {
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < HEIGHT; j++) {
             drawBlock (i, j, "Gray");
         }
     }
-//    for (int i = 10; i < 22; i++) {
-//        for (int j = 0; j < HEIGHT; j++) {
-//            drawBlock (i, j, "White");
-//        }
-//    }
+    for (int i = 22; i < WIDTH; i++) {
+        for (int j = 0; j < HEIGHT; j++) {
+            drawBlock(i, j, "Gray");
+        }
+    }
+    DrawGrid ();
+    DrawScore(score);
+}
+void drawCheckerBoard(){
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
             drawBlock (i + 9, j, TETRI_COLOR[block_color[i][j + 1]]);
         }
     }
-    for (int i = 22; i < WIDTH; i++) {
-        for (int j = 0; j < HEIGHT; j++) {
-            drawBlock (i, j, "Gray");
-        }
-    }
 }
+
 void drawShadowBlock(int x, int y, string color)
 {
     SetPenColor (color);

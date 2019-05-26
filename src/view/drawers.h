@@ -10,7 +10,9 @@
 #include <stdio.h>
 #include "consts.h"
 
-void drawInit ();
+void drawInit (int score);
+
+void drawCheckerBoard();
 
 void Clean ();
 
@@ -25,5 +27,7 @@ void DrawShadow(tetrimino shadow);
 void DrawScore(int score);
 
 void DrawGrid();
+
+
 
 #endif //_DRAWERS_H_
