@@ -20,6 +20,9 @@
 //    string color;
 //};
 
+#define CLEAR 1
+#define REMOVE 2
+
 #define DEBUG_SLOW 0.06
 #define SLOW 0.06
 #define FAST 8

@@ -24,13 +24,23 @@
 #include "consts.h"
 #include "drawers.h"
 
-int block_color[14][25] = {0};
 Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
 tetrimino ctetri;
 
 static int score = 0;
+static int Mark[4] = {-1,-1,-1,-1};
+static Checkerboard lastCheckerboard;
+static Checkerboard clearCheckerboard;
 bool is_game_over = FALSE;
+
+static int countScore(int num);
+static void game ();
+static void flash ();
+static Checkerboard ClearLine(Checkerboard checkerboard,int row);
+static Checkerboard ClearLines(Checkerboard checkerboard);
+static Checkerboard RemoveLines(Checkerboard checkerboard1);
+static Checkerboard RemoveLine (Checkerboard checkerboard1,int row);
 
 tetrimino generateTetrimino (int type, int direction)
 {
@@ -49,12 +59,13 @@ void timerEventHandler (int timerID){
     switch(timerID){
         case MAINTAINER:
             game();
-        case CheckerboardFLASH :
             break;
-
+        case CheckerboardFLASH :
+            flash();
+            break;
     }
 }
-void game ()
+static void game ()
 {
     static int time = 0;
 
@@ -66,7 +77,7 @@ void game ()
     time = (time + 1) % ERA; // !!!
     Clean ();
 
-    drawCheckerBoard();
+    drawCheckerBoard(checkerboard);
     ctetri = tetriMaintainer_on_gravity (time, ctetri);
     DrawShadow(HardDrop(ctetri));
 
@@ -84,7 +95,21 @@ void game ()
         MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
     }
 }
-
+static void flash (){
+    static int times = 0;
+    if(times %2 == 0){
+        drawCheckerBoard(lastCheckerboard);
+    }else{
+        drawCheckerBoard(clearCheckerboard);
+    }
+    drawInit (score);
+    times++;
+    if(times >= 6){
+        cancelTimer(CheckerboardFLASH);
+        startTimer(MAINTAINER,10);
+        times = 0;
+    }
+}
 
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 {
@@ -120,11 +145,23 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 
 
 void Settle(tetrimino tetri){
-    int rownum;
+    int temps = score;
     Settle_Tetri (tetri);
-    rownum = CheckLines();
+    lastCheckerboard = checkerboard;
+    clearCheckerboard = ClearLines(checkerboard);
+    if(Mark[0]!=-1) {
+        cancelTimer(MAINTAINER);
+        startTimer(CheckerboardFLASH, 50);
+    }
+    checkerboard = RemoveLines(checkerboard);
+    if (CheckTop () == FALSE) {
+        is_game_over = TRUE;
+    }
+}
+
+static int countScore(int num){
     int ds = 0;
-    switch (rownum){
+    switch (num){
         case 0: break;
         case 1:
             ds = 100;
@@ -140,11 +177,7 @@ void Settle(tetrimino tetri){
             break;
         default:break;
     }
-    score += ds;
-    
-    if (CheckTop () == FALSE) {
-        is_game_over = TRUE;
-    }
+    return ds;
 }
 
 bool CheckTop ()
@@ -153,7 +186,7 @@ bool CheckTop ()
     for (int i = 1; i <= 12; i++) {
         if (checkerboard.block[i][19]){
             isTopped = 1;
-            }
+        }
     }
     if (isTopped){
         return FALSE;
@@ -162,39 +195,57 @@ bool CheckTop ()
     }
 }
 
-int CheckLines ()
+static Checkerboard ClearLines(Checkerboard checkerboard1)
 {
     int num = 0;
     int i, j , line_ok;
-    for (i = 1; i <= 18; ) {
+    for (i = 1; i <= 18;i++ ) {
         line_ok = TRUE;
         for (j = 1; j <= 12; j++) {
-            if (!checkerboard.block[j][i]) {
+            if (!checkerboard1.block[j][i]) {
                 line_ok = FALSE;
                 break;
             }
         }
         if (line_ok) {
-            RemoveLine(i);
-            num++;
+            checkerboard1 = ClearLine(checkerboard1,i);
+            Mark[num++] = i;
+        }
+    }
+    score += countScore(num);
+    return checkerboard1;
+}
+
+static Checkerboard ClearLine(Checkerboard checkerboard1,int row){
+    int  j;
+        for (j = 1; j <= 12; j++)
+            checkerboard1.block[j][row] = 0;
+
+    return checkerboard1;
+}
+static Checkerboard RemoveLines(Checkerboard checkerboard1){
+    int i, j ;
+    for (i = 1,j = 0; i <= 18; ) {
+        if (i == Mark[j] - j) {
+            checkerboard1 = RemoveLine(checkerboard1,i);
+            Mark[j] = -1;
+            j++;
         }
         else
         {
             i++;
         }
     }
-    return num;
+    return checkerboard1;
 }
-
-
-
-void RemoveLine (int row)
+static Checkerboard RemoveLine (Checkerboard checkerboard1,int row)
 {
     int i, j;
     for (i = row; i <= 18; i++) {
         for (j = 1; j <= 12; j++)
-            checkerboard.block[j][i] = checkerboard.block[j][i + 1];
+            checkerboard1.block[j][i] = checkerboard1.block[j][i + 1];
     }
+    return checkerboard1;
 }
 
 tetrimino tetriRandom ()
