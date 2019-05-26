@@ -31,5 +31,7 @@ string TETRI_COLOR[8] = {
     "Red"
 };
 
+Rows initRow;
+
 // Black, Dark Gray, Gray, Light Gray, White,
 // *    Red, Yellow, Green, Cyan, Blue, Magenta

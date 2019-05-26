@@ -48,6 +48,7 @@ tetrimino generateTetrimino (int type, int direction)
 void timerEventHandler (int timerID)
 {
     static int time = 0;
+
     if (ctetri.yVelocity == 0) {
         ctetri = tetriRandom ();
         ctetri = tetriMaintainer_on_gravity (time, ctetri);
@@ -58,6 +59,11 @@ void timerEventHandler (int timerID)
 
     drawCheckerBoard();
     ctetri = tetriMaintainer_on_gravity (time, ctetri);
+
+    if(ctetri.yVelocity == 0){
+       Settle(ctetri);
+    }
+
     DrawShadow(HardDrop(ctetri));
 
     drawTetri (ctetri);
@@ -70,6 +76,7 @@ void timerEventHandler (int timerID)
         MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
     }
 }
+
 
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 {
@@ -90,7 +97,7 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     if (dy >= 1) {
         tetri.y -= 1;
         dy = 0;
-    } // printf("%d\n",dt);
+    }
 
     curTime = time;
 
@@ -98,16 +105,46 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
         return tetri;
     } else {
         last.yVelocity = 0;
-        Settle_Tetri (last);
-        CheckLines ();
-        if (CheckTop () == FALSE) {
-            is_game_over = TRUE;
-        }
+        return last;
     }
-    return last;
+
 }
 
 
+void Settle(tetrimino tetri){
+    Rows Row;
+    Settle_Tetri (tetri);
+    Row = CheckLines ();
+
+    if (CheckTop () == FALSE) {
+        is_game_over = TRUE;
+    }
+
+    int ds = 0;
+    switch (Row.num){
+        case 0: break;
+        case 1:
+            ds = 100;
+            break;
+        case 2:
+            ds = 200;
+            break;
+        case 3:
+            ds = 500;
+            break;
+        case 4:
+            ds = 1000;
+            break;
+        default:break;
+    }
+    score += ds;
+
+    for(int i = 0;i<Row.num;i++){
+        if(Row.row[i]!=-1){
+            RemoveLine(Row.row[i]);
+        }
+    }
+}
 
 bool CheckTop ()
 {
@@ -123,9 +160,12 @@ bool CheckTop ()
         return TRUE;
     }
 }
-void CheckLines ()
+
+Rows CheckLines ()
 {
-    int i, j, line_cnt = 0, line_ok;
+    Rows Row;
+    Row = initRow;
+    int i, j , line_ok;
     for (i = 1; i <= 18; ) {
         line_ok = TRUE;
         for (j = 1; j <= 12; j++) {
@@ -135,19 +175,17 @@ void CheckLines ()
             }
         }
         if (line_ok) {
-            line_cnt++;
-            RemoveLine (i);
+            Row.row[Row.num++] = i;
         }
         else
         {
             i++;
         }
     }
-    if (line_cnt) {
-        score += line_cnt * 200 - 100;
-//      printf ("%d\n", score);
-    }
 }
+
+
+
 void RemoveLine (int row)
 {
     int i, j;
@@ -187,6 +225,11 @@ void InitModel ()
 //    block_color[3][3] = 2;
 //    block_color[10][10] = 5;
 //    block_color[10][18] = 3; // test, we can know that the y_max = 18
+    for(i=0;i<4;i++)
+    {
+        initRow.row[i] = -1;
+    }
+    initRow.num = 0;
 }
 
 bool check_collision (tetrimino tetri)

@@ -23,7 +23,7 @@
 #define SLOW 0.06
 #define FAST 8
 
-typedef struct tetriminoes {
+typedef struct  {
     int x, y;
     int type; //对应一个二维数组表示形状  int shape[][],通过矩阵变换实现旋转 0 表示空对象
     string color;
@@ -31,11 +31,15 @@ typedef struct tetriminoes {
     double yVelocity;
 } tetrimino;
 
-
+typedef struct {
+    int row[4];
+    int num;
+} Rows;
 
 extern int typeInfo[][4][2];
 
 extern string TETRI_COLOR[8];
 
+extern Rows initRow;
 
 #endif
