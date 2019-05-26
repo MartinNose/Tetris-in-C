@@ -23,6 +23,10 @@ void keyboardEventHandler (int key, int event)
                     temp.yVelocity = FAST;
                     break;
                 case VK_UP :
+                    temp.direction+=3;
+                    temp.direction %= 4;
+                    break;
+                case 0x5A:
                     temp.direction++;
                     temp.direction %= 4;
                     break;

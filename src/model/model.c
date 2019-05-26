@@ -262,6 +262,11 @@ tetrimino HardDrop (tetrimino tetri)
 
 tetrimino Restart ()
 {
+    if(is_game_over) {
+        is_game_over = FALSE;
+        startTimer(MAINTAINER,10);
+    }
+
     tetrimino tetri;
     InitModel ();
     drawInit ();
