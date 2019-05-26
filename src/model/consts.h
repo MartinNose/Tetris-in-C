@@ -31,11 +31,7 @@ typedef struct tetriminoes {
     double yVelocity;
 } tetrimino;
 
-struct state {
-    bool isFalling;
-};
 
-extern struct state STATE;
 
 extern int typeInfo[][4][2];
 

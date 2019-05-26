@@ -50,7 +50,6 @@ void timerEventHandler (int timerID)
     if (!is_game_over)
     {
         static int time = 0;
-
         if (ctetri.yVelocity == 0) {
             ctetri = tetriRandom ();
             ctetri = tetriMaintainer_on_gravity (time, ctetri);
@@ -61,8 +60,14 @@ void timerEventHandler (int timerID)
         drawInit ();
 
         ctetri = tetriMaintainer_on_gravity (time, ctetri);
+
+
+        DrawShadow(HardDrop(ctetri));
+
         drawTetri (ctetri);
         DrawGrid ();
+        DrawScore(score);
+
     }
     else
     {
@@ -163,7 +168,7 @@ tetrimino tetriRandom ()
         if (type == 0) type = 7;
     } while (last == type);
     last = type;
-    int direction = rand () % 4;
+    int direction = rand () % 2;
     return generateTetrimino (type, direction);
 }
 

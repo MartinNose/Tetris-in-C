@@ -65,13 +65,13 @@ void drawTetri (tetrimino tetri)
 }
 void DrawGrid(){
     SetPenColor("Black");
-    for (int i = 0; i < WIDTH; i++) {
+    for (int i = 10; i < 22; i++) {
         MovePen(i*BLOCKSIZE,0);
         DrawLine(0,GetWindowHeight());
     }
     for (int j = 0; j < HEIGHT; j++) {
-        MovePen(0,j*BLOCKSIZE);
-        DrawLine(GetWindowWidth(),0);
+        MovePen(10*BLOCKSIZE,j*BLOCKSIZE);
+        DrawLine(12*BLOCKSIZE,0);
     }
 }
 
@@ -97,6 +97,55 @@ void drawInit ()
             drawBlock (i, j, "Gray");
         }
     }
+}
+void drawShadowBlock(int x, int y, string color)
+{
+    SetPenColor (color);
+
+    SetPenSize(GetPenSize()+3);
+    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
+    DrawRect (BLOCKSIZE, BLOCKSIZE);
+
+    SetPenColor ("Black");
+    SetPenSize(GetPenSize()-3);
+//    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
+//    DrawRect (BLOCKSIZE, BLOCKSIZE);
+}
+
+void DrawShadow(tetrimino shadow){
+    if(shadow.y>ctetri.y){
+        return;
+    }
+    switch (shadow.direction) {
+        case 0:
+            for (int i = 0; i < 4; i++) {
+                drawShadowBlock (shadow.x + typeInfo[shadow.type][i][0], shadow.y + typeInfo[shadow.type][i][1], shadow.color);
+            }
+            break;
+        case 1:
+            for (int i = 0; i < 4; i++) {
+                drawShadowBlock (shadow.x - typeInfo[shadow.type][i][1], shadow.y + typeInfo[shadow.type][i][0], shadow.color);
+            }
+            break;
+        case 2:
+            for (int i = 0; i < 4; i++) {
+                drawShadowBlock (shadow.x - typeInfo[shadow.type][i][0], shadow.y - typeInfo[shadow.type][i][1], shadow.color);
+            }
+            break;
+        case 3:
+            for (int i = 0; i < 4; i++) {
+                drawShadowBlock (shadow.x + typeInfo[shadow.type][i][1], shadow.y - typeInfo[shadow.type][i][0], shadow.color);
+            }
+            break;
+    }
+}
+
+
+void DrawScore(int score){
+    char s[100];
+    sprintf(s,"Score: %d",score);
+    MovePen(2*BLOCKSIZE,15*BLOCKSIZE);
+    DrawTextString(s);
 }
 
 #endif
