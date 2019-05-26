@@ -70,7 +70,7 @@ void timerEventHandler (int timerID)
     }
     else
     {
-        cancelTimerEvent (timerEventHandler);
+        cancelTimer (MAINTAINER);
     }
 }
 
@@ -253,4 +253,11 @@ tetrimino HardDrop (tetrimino tetri)
     }
     tetri.y++;
     return tetri;
+}
+
+void Restart ()
+{
+    InitGraphics ();
+    InitModel ();
+    drawInit ();
 }

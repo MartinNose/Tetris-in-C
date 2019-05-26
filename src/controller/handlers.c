@@ -29,6 +29,9 @@ void keyboardEventHandler (int key, int event)
                 case VK_SPACE :
                     temp = HardDrop(temp);
                     break;
+                case 0x52:
+                    Restart();
+                    break;
             }
             break;
         case KEY_UP:

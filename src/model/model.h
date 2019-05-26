@@ -20,6 +20,7 @@ tetrimino HardDrop(tetrimino tetri);
 void CheckLines ();
 bool CheckTop ();
 void RemoveLine (int row);
+void Restart ();
 
 extern int block_color[14][25];
 extern tetrimino ctetri;
