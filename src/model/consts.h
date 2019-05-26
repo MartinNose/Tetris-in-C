@@ -12,6 +12,7 @@
 #define HEIGHT 18 //Height in inches
 
 #define MAINTAINER 0
+#define CheckerboardFLASH 1
 
 #define ERA 1000
 //struct block{
@@ -32,14 +33,12 @@ typedef struct  {
 } tetrimino;
 
 typedef struct {
-    int row[4];
-    int num;
-} Rows;
+    int block[14][25];
+} Checkerboard;
 
 extern int typeInfo[][4][2];
 
 extern string TETRI_COLOR[8];
 
-extern Rows initRow;
-
+extern Checkerboard EmptyCheckerboard;
 #endif

@@ -12,7 +12,7 @@
 
 void drawInit (int score);
 
-void drawCheckerBoard();
+void drawCheckerBoard(Checkerboard checkerboard);
 
 void Clean ();
 

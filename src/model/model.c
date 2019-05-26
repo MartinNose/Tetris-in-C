@@ -25,6 +25,7 @@
 #include "drawers.h"
 
 int block_color[14][25] = {0};
+Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
 tetrimino ctetri;
 
@@ -44,8 +45,16 @@ tetrimino generateTetrimino (int type, int direction)
 
     return tetri;
 }
+void timerEventHandler (int timerID){
+    switch(timerID){
+        case MAINTAINER:
+            game();
+        case CheckerboardFLASH :
+            break;
 
-void timerEventHandler (int timerID)
+    }
+}
+void game ()
 {
     static int time = 0;
 
@@ -57,11 +66,8 @@ void timerEventHandler (int timerID)
     time = (time + 1) % ERA; // !!!
     Clean ();
 
-    drawCheckerBoard();
+    drawCheckerBoard(checkerboard);
     ctetri = tetriMaintainer_on_gravity (time, ctetri);
-
-
-
     DrawShadow(HardDrop(ctetri));
 
     drawTetri (ctetri);
@@ -114,12 +120,11 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 
 
 void Settle(tetrimino tetri){
-    Rows Row;
+    int rownum;
     Settle_Tetri (tetri);
-    Row = CheckLines ();
-
+    rownum = CheckLines();
     int ds = 0;
-    switch (Row.num){
+    switch (rownum){
         case 0: break;
         case 1:
             ds = 100;
@@ -157,10 +162,9 @@ bool CheckTop ()
     }
 }
 
-Rows CheckLines ()
+int CheckLines ()
 {
-    Rows Row;
-    Row = initRow;
+    int num = 0;
     int i, j , line_ok;
     for (i = 1; i <= 18; ) {
         line_ok = TRUE;
@@ -172,13 +176,14 @@ Rows CheckLines ()
         }
         if (line_ok) {
             RemoveLine(i);
-            Row.row[Row.num++] = i;
+            num++;
         }
         else
         {
             i++;
         }
     }
+    return num;
 }
 
 
@@ -222,11 +227,11 @@ void InitModel ()
 //    block_color[3][3] = 2;
 //    block_color[10][10] = 5;
 //    block_color[10][18] = 3; // test, we can know that the y_max = 18
-    for(i=0;i<4;i++)
-    {
-        initRow.row[i] = -1;
-    }
-    initRow.num = 0;
+    for(i = 0;i<14;i++)
+        for(j = 0;j<20;j++)
+            EmptyCheckerboard.block[i][j] = 0;
+
+    checkerboard = EmptyCheckerboard;
 }
 
 bool check_collision (tetrimino tetri)

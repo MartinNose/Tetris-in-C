@@ -90,7 +90,7 @@ void drawInit (int score)
     DrawGrid ();
     DrawScore(score);
 }
-void drawCheckerBoard(){
+void drawCheckerBoard(Checkerboard checkerboard){
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
             drawBlock (i + 9, j, TETRI_COLOR[block_color[i][j + 1]]);

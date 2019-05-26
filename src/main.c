@@ -33,8 +33,6 @@ void Main ()
     //registerMouseEvent(mouseEventHandler);
     registerKeyboardEvent (keyboardEventHandler);
 
-    registerTimerEvent (timerEventHandler);
-
     startTimer (MAINTAINER, 10);
 }
 
