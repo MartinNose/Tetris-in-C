@@ -16,5 +16,5 @@ aux_source_directory(single_src/view VIEW)
 aux_source_directory(single_src/controller CONTROLLER)
 
 
-add_executable(launcher ${LIB} ${GUI} ${MODEL} ${VIEW} ${CONTROLLER} single_src/single_main.c)
-add_executable(single_main ${LIB} ${GUI} ${MODEL} ${VIEW} ${CONTROLLER} single_src/single_main.c)
+add_executable(launcher ${LIB} ${GUI} launcher/launcher_main.c)
+add_executable(single_main ${LIB} ${MODEL} ${VIEW} ${CONTROLLER} single_src/single_main.c)
