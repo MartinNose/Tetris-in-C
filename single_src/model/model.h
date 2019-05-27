@@ -23,7 +23,6 @@ void Settle(tetrimino tetri);
 
 bool CheckTop ();
 tetrimino Restart ();
-void Pulse();
 
 extern Checkerboard checkerboard;
 
@@ -33,6 +32,8 @@ extern int Score;
 extern bool is_game_over;
 extern double globalSpeed;
 extern tetrimino que[2];
-extern tetrimino HoledTetri;
+extern tetrimino HoldedTetri;
+extern bool isHolding;
+extern bool isHoldLegal ;
 
 #endif //_MODEL_H_

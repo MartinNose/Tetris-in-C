@@ -13,6 +13,10 @@
 
 #define PreX 24
 #define PreY 10
+
+#define HoldX 24
+#define HoldY 2
+
 #define LevelX 2
 #define LevelY 5
 

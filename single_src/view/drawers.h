@@ -13,6 +13,7 @@
 void drawInit (int score,tetrimino NextTetri);
 
 void DrawNextTetrimino(tetrimino tetri);
+void DrawHoldedTetrimino(tetrimino tetri);
 
 void DefineColors();
 

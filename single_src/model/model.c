@@ -33,8 +33,10 @@ static int Mark[4] = {-1,-1,-1,-1};
 static Checkerboard lastCheckerboard;
 static Checkerboard clearCheckerboard;
 tetrimino que[2];
-tetrimino HoledTetri;
+tetrimino HoldedTetri;
 bool is_game_over = FALSE;
+bool isHolding = FALSE;
+bool isHoldLegal = TRUE;
 
 static int countScore(int num);
 double globalSpeed;
@@ -94,6 +96,7 @@ static void game ()
     if(ctetri.yVelocity == 0 && !ctetri.isPulsed){
         Settle(ctetri); //add tetri to checker board
         globalSpeed = DEBUG_SLOW + DEBUG_SLOW * (Score/LevelGap); //update speed
+        isHoldLegal = TRUE;
     }
     if(ctetri.isPulsed){
         DrawPulse();

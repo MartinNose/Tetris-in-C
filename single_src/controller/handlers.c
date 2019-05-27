@@ -47,7 +47,19 @@ void keyboardEventHandler (int key, int event)
                     }
                     break;
                 case 0x43:
-                        temp = que[1];
+                    if(isHoldLegal) {
+                        if (!isHolding) {
+                            HoldedTetri = temp;
+                            temp = que[1];
+                            isHolding = TRUE;
+                        } else {
+                            temp = HoldedTetri;
+                            HoldedTetri = ctetri;
+                            isHolding = FALSE;
+                        }
+                        HoldedTetri.y = 18;
+                        isHoldLegal = FALSE;
+                    }
                     break;
             }
             break;

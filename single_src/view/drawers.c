@@ -97,6 +97,15 @@ void DrawGrid(){
         MovePen(PreX*BLOCKSIZE,i*BLOCKSIZE);
         DrawLine(6*BLOCKSIZE,0);
     }
+
+    for(int i = HoldX;i<=HoldX + 6;i++){
+        MovePen(i*BLOCKSIZE,HoldY*BLOCKSIZE);
+        DrawLine(0,6*BLOCKSIZE);
+    }
+    for(int i = HoldY;i<=HoldY + 6;i++){
+        MovePen(HoldX*BLOCKSIZE,i*BLOCKSIZE);
+        DrawLine(6*BLOCKSIZE,0);
+    }
 //    for (int i = 0; i < WIDTH; i++) {
 //        MovePen(i*BLOCKSIZE,0);
 //        DrawLine(0,GetWindowHeight());
@@ -116,13 +125,15 @@ void drawInit (int score, tetrimino NextTetri)
     }
     for (int i = 22; i < WIDTH; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-            if(!(i>=PreX && i < PreX + 6 && j >= PreY && j < PreY + 6))//to show Next Tetri
+            if(!((i>=PreX && i < PreX + 6 && j >= PreY && j < PreY + 6)||(i>=HoldX && i < HoldX + 6 && j >= HoldY && j < HoldY + 6)))//to show Next Tetri
                 drawBlock(i, j, "Gray");
         }
     }
 
 
     DrawNextTetrimino(NextTetri);
+    if(HoldedTetri.type!=0)
+        DrawHoldedTetrimino(HoldedTetri);
 
     DrawGrid ();
     DrawData(score);
@@ -203,6 +214,13 @@ void DrawNextTetrimino(tetrimino tetri){
     //MovePen();
     tetri.x = PreX+3;
     tetri.y = PreY+2;
+    drawTetri(tetri);
+}
+
+void DrawHoldedTetrimino(tetrimino tetri){
+    //MovePen();
+    tetri.x = HoldX+3;
+    tetri.y = HoldY+2;
     drawTetri(tetri);
 }
 
