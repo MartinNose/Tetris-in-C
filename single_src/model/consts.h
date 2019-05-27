@@ -13,25 +13,27 @@
 
 #define PreX 24
 #define PreY 10
+#define LevelX 2
+#define LevelY 5
+
+#define ScoreX 2
+#define ScoreY 15
+
+#define SpeedX 2
+#define SpeedY 10
+
+
 
 #define MAINTAINER 0
 #define CheckerboardFLASH 1
 
 #define ERA 1000
-//struct block{
-//    int x,y;
-//    string color;
-//};
-
-#define CLEAR 1
-#define REMOVE 2
 
 #define DEBUG_SLOW 0.06
 #define SLOW 0.06
 #define FAST 8
 
-#define NEWQUE 1
-#define NEXT 2
+#define LevelGap 2000
 
 typedef struct  {
     int x, y;

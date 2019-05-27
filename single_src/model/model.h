@@ -20,6 +20,7 @@ void Settle_Tetri(tetrimino tetri);
 tetrimino HardDrop(tetrimino tetri);
 void Settle(tetrimino tetri);
 
+
 bool CheckTop ();
 tetrimino Restart ();
 void Pulse();
@@ -28,8 +29,10 @@ extern Checkerboard checkerboard;
 
 extern tetrimino ctetri;
 
-//extern int score;
+extern int Score;
 extern bool is_game_over;
-
+extern double globalSpeed;
+extern tetrimino que[2];
+extern tetrimino HoledTetri;
 
 #endif //_MODEL_H_

@@ -125,7 +125,7 @@ void drawInit (int score, tetrimino NextTetri)
     DrawNextTetrimino(NextTetri);
 
     DrawGrid ();
-    DrawScore(score);
+    DrawData(score);
 
 }
 void drawCheckerBoard(Checkerboard checker){
@@ -179,11 +179,24 @@ void DrawShadow(tetrimino shadow){
 }
 
 
-void DrawScore(int score){
-    char s[100];
-    sprintf(s,"Score: %d",score);
-    MovePen(2*BLOCKSIZE,15*BLOCKSIZE);
-    DrawTextString(s);
+void DrawData(int score){
+    char buffer[100];
+    SetPenColor("Black");
+    sprintf(buffer,"Score: %d",score);
+    MovePen(ScoreX*BLOCKSIZE,ScoreY*BLOCKSIZE);
+    DrawTextString(buffer);
+
+    sprintf(buffer,"Level: %d",score/LevelGap + 1);
+    MovePen(LevelX*BLOCKSIZE,LevelY*BLOCKSIZE);
+    DrawTextString(buffer);
+
+    sprintf(buffer,"Speed: %.2f",ctetri.yVelocity/DEBUG_SLOW);
+    if(ctetri.yVelocity>10){
+        SetPenColor("White");
+    }
+    MovePen(SpeedX*BLOCKSIZE,SpeedY*BLOCKSIZE);
+    DrawTextString(buffer);
+
 }
 
 void DrawNextTetrimino(tetrimino tetri){
@@ -195,10 +208,8 @@ void DrawNextTetrimino(tetrimino tetri){
 
 string RandColor(){
     int flag;
-    do{
-        flag = rand()%7+1;
-    }while(flag == 6);
-
+    flag = rand()%7;
+    if(flag != 0) flag = 7;
     return TETRI_COLOR[flag];
 }
 

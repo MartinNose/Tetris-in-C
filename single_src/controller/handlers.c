@@ -9,7 +9,6 @@
 
 void keyboardEventHandler (int key, int event)
 {
-    static double speed = DEBUG_SLOW;
     tetrimino temp = ctetri;
     switch (event) {
         case KEY_DOWN:
@@ -32,6 +31,7 @@ void keyboardEventHandler (int key, int event)
                     temp.direction %= 4;
                     break;
                 case VK_SPACE :
+                    Score+=60;
                     temp = HardDrop(temp);
                     break;
                 case 0x52:
@@ -40,12 +40,14 @@ void keyboardEventHandler (int key, int event)
                 case 0x50:
                     if(!temp.isPulsed){
                         temp.isPulsed = TRUE;
-                        speed = temp.yVelocity;
                         temp.yVelocity = 0;
                     }else{
-                        temp.yVelocity = speed;
+                        temp.yVelocity = globalSpeed;
                         temp.isPulsed = FALSE;
                     }
+                    break;
+                case 0x43:
+                        temp = que[1];
                     break;
             }
             break;

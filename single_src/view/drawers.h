@@ -28,7 +28,7 @@ void DrawRect (double width, double height);
 
 void DrawShadow(tetrimino shadow);
 
-void DrawScore(int score);
+void DrawData(int score);
 
 void DrawGrid();
 

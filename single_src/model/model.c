@@ -28,14 +28,16 @@ Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
 tetrimino ctetri;
 
-static int score = 0;
+int Score = 0;
 static int Mark[4] = {-1,-1,-1,-1};
 static Checkerboard lastCheckerboard;
 static Checkerboard clearCheckerboard;
-static tetrimino que[2];
+tetrimino que[2];
+tetrimino HoledTetri;
 bool is_game_over = FALSE;
 
 static int countScore(int num);
+double globalSpeed;
 
 static void game ();
 static void flash ();
@@ -87,10 +89,11 @@ static void game ()
     DrawShadow(HardDrop(ctetri));
 
     drawTetri (ctetri);
-    drawInit (score,que[1]);
+    drawInit (Score,que[1]);
 
     if(ctetri.yVelocity == 0 && !ctetri.isPulsed){
-        Settle(ctetri);
+        Settle(ctetri); //add tetri to checker board
+        globalSpeed = DEBUG_SLOW + DEBUG_SLOW * (Score/LevelGap); //update speed
     }
     if(ctetri.isPulsed){
         DrawPulse();
@@ -98,7 +101,7 @@ static void game ()
     if(is_game_over){
         cancelTimer(MAINTAINER);
         char buffer[32];
-        sprintf (buffer, "%d", score);
+        sprintf (buffer, "%d", Score);
         MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
     }
 }
@@ -109,7 +112,7 @@ static void flash (){
     }else{
         drawCheckerBoard(clearCheckerboard);
     }
-    drawInit (score,que[1]);
+    drawInit (Score,que[1]);
     times++;
     if(times >= 6){
         cancelTimer(CheckerboardFLASH);
@@ -124,7 +127,7 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     static double dy = 0;
     int dt;
     if (tetri.yVelocity == 0 && !tetri.isPulsed) {
-        tetri.yVelocity = DEBUG_SLOW;
+        tetri.yVelocity = globalSpeed;
     }
     tetrimino last = tetri;
     if (time > curTime) {
@@ -218,7 +221,7 @@ static Checkerboard ClearLines(Checkerboard checkerboard1)
             Mark[num++] = i;
         }
     }
-    score += countScore(num);
+    Score += countScore(num);
     return checkerboard1;
 }
 
@@ -292,7 +295,8 @@ void InitModel ()
             checkerboard.block[i][j] = 0;
     }
     // rewrite the boundary as 1
-    score = 0;
+    Score = 0;
+    globalSpeed = DEBUG_SLOW;
 
     que[0] = tetriRandom();
     que[1] = tetriRandom();
