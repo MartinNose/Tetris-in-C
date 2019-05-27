@@ -4,7 +4,19 @@
 #include "drawers.h"
 #include "consts.h"
 #include "model.h"
+void DefineRGBColor(string s,int r,int g,int b){
+    DefineColor(s,r/255.0,g/255.0,b/255.0);
+}
+void DefineColors(){
+    DefineRGBColor("Magenta",138,43,226); //blueviolet
+    DefineRGBColor("Blue",30,144,255); //dodgerblue
+    DefineRGBColor("Cyan",127,255,212); //aquamarine
+    DefineRGBColor("Yellow",255,215,0); //gold
+    DefineRGBColor("Green",34,139,34);//forestgreen
+    DefineRGBColor("Light Gray",105,105,105);//dimgray
+    DefineRGBColor("Red",220,20,60);//crimson
 
+};
 
 void DrawRect (double width, double height)
 {

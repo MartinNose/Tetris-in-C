@@ -25,6 +25,7 @@ void Main ()
     InitGraphics ();
     InitConsole ();
 
+    DefineColors();
     InitModel ();
     drawInit (0);
     srand((unsigned)time(NULL));

@@ -42,6 +42,8 @@ static Checkerboard ClearLines(Checkerboard checkerboard);
 static Checkerboard RemoveLines(Checkerboard checkerboard1);
 static Checkerboard RemoveLine (Checkerboard checkerboard1,int row);
 
+
+
 tetrimino generateTetrimino (int type, int direction)
 {
     tetrimino tetri;
@@ -145,13 +147,12 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 
 
 void Settle(tetrimino tetri){
-    int temps = score;
     Settle_Tetri (tetri);
     lastCheckerboard = checkerboard;
     clearCheckerboard = ClearLines(checkerboard);
     if(Mark[0]!=-1) {
         cancelTimer(MAINTAINER);
-        startTimer(CheckerboardFLASH, 50);
+        startTimer(CheckerboardFLASH, 100);
     }
     checkerboard = RemoveLines(checkerboard);
     if (CheckTop () == FALSE) {

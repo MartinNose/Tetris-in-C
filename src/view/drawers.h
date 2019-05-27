@@ -11,6 +11,7 @@
 #include "consts.h"
 
 void drawInit (int score);
+void DefineColors();
 
 void drawCheckerBoard(Checkerboard checker);
 
