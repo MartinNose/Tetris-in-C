@@ -394,5 +394,6 @@ tetrimino Restart ()
     InitModel ();
     drawInit (0,que[1]);
     tetri = NextTetri();
+    HoldedTetri = generateTetrimino(0,0);
     return tetri;
 }
