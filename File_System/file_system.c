@@ -51,6 +51,11 @@ struct user_node *Load_Rank()
     return head;
 }
 
+void write_rank(struct user_node *list)
+{
+    // TODO Write file
+}
+
 int main()
 {
     rank_list = Load_Rank ();
