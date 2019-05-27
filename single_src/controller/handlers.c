@@ -9,6 +9,7 @@
 
 void keyboardEventHandler (int key, int event)
 {
+    static double speed = DEBUG_SLOW;
     tetrimino temp = ctetri;
     switch (event) {
         case KEY_DOWN:
@@ -36,6 +37,16 @@ void keyboardEventHandler (int key, int event)
                 case 0x52:
                     temp = Restart();
                     break;
+                case 0x50:
+                    if(!temp.isPulsed){
+                        temp.isPulsed = TRUE;
+                        speed = temp.yVelocity;
+                        temp.yVelocity = 0;
+                    }else{
+                        temp.yVelocity = speed;
+                        temp.isPulsed = FALSE;
+                    }
+                    break;
             }
             break;
         case KEY_UP:
@@ -46,8 +57,10 @@ void keyboardEventHandler (int key, int event)
             }
             break;
     }
-    if (!check_collision (temp))
+
+    if ((!check_collision (temp) && !temp.isPulsed)|| key == 0x50) {
         ctetri = temp;
+    }
 
 }
 void mouseEventHandler (int x, int y, int button, int event)

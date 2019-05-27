@@ -56,6 +56,7 @@ tetrimino generateTetrimino (int type, int direction)
     tetri.direction = direction;
     tetri.color = TETRI_COLOR[type];
     tetri.yVelocity = 0;
+    tetri.isPulsed = FALSE;
 
     return tetri;
 }
@@ -73,7 +74,7 @@ static void game ()
 {
     static int time = 0;
 
-    if (ctetri.yVelocity == 0) {
+    if (ctetri.yVelocity == 0 && !ctetri.isPulsed) {
         ctetri = NextTetri ();
         ctetri = tetriMaintainer_on_gravity (time, ctetri);
     }
@@ -88,10 +89,12 @@ static void game ()
     drawTetri (ctetri);
     drawInit (score,que[1]);
 
-    if(ctetri.yVelocity == 0){
+    if(ctetri.yVelocity == 0 && !ctetri.isPulsed){
         Settle(ctetri);
     }
-
+    if(ctetri.isPulsed){
+        DrawPulse();
+    }
     if(is_game_over){
         cancelTimer(MAINTAINER);
         char buffer[32];
@@ -120,7 +123,7 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     static int curTime = 0;
     static double dy = 0;
     int dt;
-    if (tetri.yVelocity == 0) {
+    if (tetri.yVelocity == 0 && !tetri.isPulsed) {
         tetri.yVelocity = DEBUG_SLOW;
     }
     tetrimino last = tetri;

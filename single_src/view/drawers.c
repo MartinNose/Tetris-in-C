@@ -78,12 +78,12 @@ void DrawGrid(){
     SetPenColor("Black");
 
     //draw Checkerboard Grid
-    for (int i = 10; i < 22; i++) {
+    for (int i = 10; i <= 22; i++) {
         MovePen(i*BLOCKSIZE,0);
         DrawLine(0,GetWindowHeight());
     }
 
-    for (int j = 0; j < HEIGHT; j++) {
+    for (int j = 0; j <= HEIGHT; j++) {
         MovePen(10*BLOCKSIZE,j*BLOCKSIZE);
         DrawLine(12*BLOCKSIZE,0);
     }
@@ -192,4 +192,27 @@ void DrawNextTetrimino(tetrimino tetri){
     tetri.y = PreY+2;
     drawTetri(tetri);
 }
+
+string RandColor(){
+    int flag;
+    do{
+        flag = rand()%7+1;
+    }while(flag == 6);
+
+    return TETRI_COLOR[flag];
+}
+
+void DrawPulse(){
+    for (int i = 1; i < 13; i++) {
+        for (int j = 0; j < HEIGHT; j++) {
+            drawBlock (i + 9, j, "Gray");
+            if((i == 4 && j >= 2 && j <= 14)||((j==9||j==14)&&i>4&&i<=9)||(i==10 && j >= 9 && j <= 14)){
+                drawBlock (i + 9, j, RandColor());
+            }
+        }
+    }
+    DrawGrid();
+}
+
+
 #endif

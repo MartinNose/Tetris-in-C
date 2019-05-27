@@ -22,6 +22,7 @@ void Settle(tetrimino tetri);
 
 bool CheckTop ();
 tetrimino Restart ();
+void Pulse();
 
 extern Checkerboard checkerboard;
 
@@ -29,5 +30,6 @@ extern tetrimino ctetri;
 
 //extern int score;
 extern bool is_game_over;
+
 
 #endif //_MODEL_H_

@@ -32,6 +32,9 @@ void DrawScore(int score);
 
 void DrawGrid();
 
+void DrawPulse();
+
+string RandColor();
 
 
 #endif //_DRAWERS_H_

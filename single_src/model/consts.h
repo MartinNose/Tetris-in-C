@@ -39,6 +39,7 @@ typedef struct  {
     string color;
     int direction;
     double yVelocity;
+    bool isPulsed;
 } tetrimino;
 
 typedef struct {
