@@ -11,6 +11,9 @@
 #define WIDTH 32 //Width in inches
 #define HEIGHT 18 //Height in inches
 
+#define PreX 24
+#define PreY 10
+
 #define MAINTAINER 0
 #define CheckerboardFLASH 1
 
@@ -26,6 +29,9 @@
 #define DEBUG_SLOW 0.06
 #define SLOW 0.06
 #define FAST 8
+
+#define NEWQUE 1
+#define NEXT 2
 
 typedef struct  {
     int x, y;

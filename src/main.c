@@ -27,7 +27,7 @@ void Main ()
 
     DefineColors();
     InitModel ();
-    drawInit (0);
+    drawInit (0,NaT);
     srand((unsigned)time(NULL));
 
     registerTimerEvent (timerEventHandler);

@@ -10,7 +10,10 @@
 #include <stdio.h>
 #include "consts.h"
 
-void drawInit (int score);
+void drawInit (int score,tetrimino NextTetri);
+
+void DrawNextTetrimino(tetrimino tetri);
+
 void DefineColors();
 
 void drawCheckerBoard(Checkerboard checker);

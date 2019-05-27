@@ -15,7 +15,6 @@ void DefineColors(){
     DefineRGBColor("Green",34,139,34);//forestgreen
     DefineRGBColor("Light Gray",105,105,105);//dimgray
     DefineRGBColor("Red",220,20,60);//crimson
-
 };
 
 void DrawRect (double width, double height)
@@ -77,17 +76,38 @@ void drawTetri (tetrimino tetri)
 }
 void DrawGrid(){
     SetPenColor("Black");
+
+    //draw Checkerboard Grid
     for (int i = 10; i < 22; i++) {
         MovePen(i*BLOCKSIZE,0);
         DrawLine(0,GetWindowHeight());
     }
+
     for (int j = 0; j < HEIGHT; j++) {
         MovePen(10*BLOCKSIZE,j*BLOCKSIZE);
         DrawLine(12*BLOCKSIZE,0);
     }
+
+    //draw Next Tetri area
+    for(int i = PreX;i<=PreX + 6;i++){
+        MovePen(i*BLOCKSIZE,PreY*BLOCKSIZE);
+        DrawLine(0,6*BLOCKSIZE);
+    }
+    for(int i = PreY;i<=PreY + 6;i++){
+        MovePen(PreX*BLOCKSIZE,i*BLOCKSIZE);
+        DrawLine(6*BLOCKSIZE,0);
+    }
+//    for (int i = 0; i < WIDTH; i++) {
+//        MovePen(i*BLOCKSIZE,0);
+//        DrawLine(0,GetWindowHeight());
+//    }
+//    for (int j = 0; j < HEIGHT; j++) {
+//        MovePen(0,j*BLOCKSIZE);
+//        DrawLine(GetWindowWidth(),0);
+//    }
 }
 
-void drawInit (int score)
+void drawInit (int score, tetrimino NextTetri)
 {
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < HEIGHT; j++) {
@@ -96,11 +116,17 @@ void drawInit (int score)
     }
     for (int i = 22; i < WIDTH; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-            drawBlock(i, j, "Gray");
+            if(!(i>=PreX && i < PreX + 6 && j >= PreY && j < PreY + 6))//to show Next Tetri
+                drawBlock(i, j, "Gray");
         }
     }
+
+
+    DrawNextTetrimino(NextTetri);
+
     DrawGrid ();
     DrawScore(score);
+
 }
 void drawCheckerBoard(Checkerboard checker){
     for (int i = 1; i < 13; i++) {
@@ -160,4 +186,10 @@ void DrawScore(int score){
     DrawTextString(s);
 }
 
+void DrawNextTetrimino(tetrimino tetri){
+    //MovePen();
+    tetri.x = PreX+3;
+    tetri.y = PreY+2;
+    drawTetri(tetri);
+}
 #endif

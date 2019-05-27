@@ -32,16 +32,18 @@ static int score = 0;
 static int Mark[4] = {-1,-1,-1,-1};
 static Checkerboard lastCheckerboard;
 static Checkerboard clearCheckerboard;
+static tetrimino que[2];
 bool is_game_over = FALSE;
 
 static int countScore(int num);
+
 static void game ();
 static void flash ();
 static Checkerboard ClearLine(Checkerboard checkerboard,int row);
 static Checkerboard ClearLines(Checkerboard checkerboard);
 static Checkerboard RemoveLines(Checkerboard checkerboard1);
 static Checkerboard RemoveLine (Checkerboard checkerboard1,int row);
-
+static tetrimino NextTetri();
 
 
 tetrimino generateTetrimino (int type, int direction)
@@ -72,7 +74,7 @@ static void game ()
     static int time = 0;
 
     if (ctetri.yVelocity == 0) {
-        ctetri = tetriRandom ();
+        ctetri = NextTetri ();
         ctetri = tetriMaintainer_on_gravity (time, ctetri);
     }
 
@@ -84,7 +86,7 @@ static void game ()
     DrawShadow(HardDrop(ctetri));
 
     drawTetri (ctetri);
-    drawInit (score);
+    drawInit (score,que[1]);
 
     if(ctetri.yVelocity == 0){
         Settle(ctetri);
@@ -104,7 +106,7 @@ static void flash (){
     }else{
         drawCheckerBoard(clearCheckerboard);
     }
-    drawInit (score);
+    drawInit (score,que[1]);
     times++;
     if(times >= 6){
         cancelTimer(CheckerboardFLASH);
@@ -249,6 +251,13 @@ static Checkerboard RemoveLine (Checkerboard checkerboard1,int row)
     return checkerboard1;
 }
 
+tetrimino NextTetri()
+{
+        que[0] = que[1];
+        que[1] = tetriRandom();
+        return que[0];
+}
+
 tetrimino tetriRandom ()
 {
     static int last = 0;
@@ -281,6 +290,9 @@ void InitModel ()
     }
     // rewrite the boundary as 1
     score = 0;
+
+    que[0] = tetriRandom();
+    que[1] = tetriRandom();
 //    block_color[3][3] = 2;
 //    block_color[10][10] = 5;
 //    block_color[10][18] = 3; // test, we can know that the y_max = 18
@@ -370,7 +382,7 @@ tetrimino Restart ()
 
     tetrimino tetri;
     InitModel ();
-    drawInit (0);
-    tetri = tetriRandom();
+    drawInit (0,que[1]);
+    tetri = NextTetri();
     return tetri;
 }
