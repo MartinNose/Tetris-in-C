@@ -400,16 +400,13 @@ tetrimino Restart ()
 }
 
 tetrimino HoldEventHandler(tetrimino temp){
-    static bool isHolding = FALSE;
     if(isHoldLegal) {
-        if (!isHolding) {
+        if (HoldedTetri.type == 0) {
             HoldedTetri = temp;
             temp = que[1];
-            isHolding = TRUE;
         } else {
             temp = HoldedTetri;
             HoldedTetri = ctetri;
-            isHolding = FALSE;
         }
         HoldedTetri.y = 18;
         isHoldLegal = FALSE;
