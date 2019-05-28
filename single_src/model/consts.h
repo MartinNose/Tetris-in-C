@@ -8,14 +8,15 @@
 
 #define BLOCKSIZE 0.5
 
-#define WIDTH 32 //Width in inches
+#define WIDTH 24 //Width in inches
 #define HEIGHT 18 //Height in inches
-#define MENUBAR_HEIGHT
+#define LEFTBAR 6 //Left Bar Width
+#define RIGHTBAR 10 //RIGHT BAR
 
-#define PreX 24
+#define PreX (LEFTBAR+13)
 #define PreY 10
 
-#define HoldX 24
+#define HoldX (LEFTBAR+13)
 #define HoldY 2
 
 #define LevelX 2
@@ -29,8 +30,9 @@
 
 
 
-#define MAINTAINER 0
+#define GAME 0
 #define CheckerboardFLASH 1
+#define GAMEOVER 2
 
 #define ERA 1000
 
@@ -38,7 +40,7 @@
 #define SLOW 0.06
 #define FAST 8
 
-#define LevelGap 2000
+#define LevelGap 10000
 
 typedef struct  {
     int x, y;
@@ -46,7 +48,7 @@ typedef struct  {
     string color;
     int direction;
     double yVelocity;
-    bool isPulsed;
+    bool isPaused;
 } tetrimino;
 
 typedef struct {

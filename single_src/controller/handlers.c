@@ -13,6 +13,7 @@
 
 void keyboardEventHandler (int key, int event)
 {
+    uiGetKeyboard(key,event);
     tetrimino temp = ctetri;
     switch (event) {
         case KEY_DOWN:
@@ -42,7 +43,7 @@ void keyboardEventHandler (int key, int event)
                     temp = Restart();
                     break;
                 case 0x50: // P
-                    temp = PulseEventHandler(temp);
+                    temp = PauseEventHandler(temp);
                     break;
                 case 0x43: // C
                     temp = HoldEventHandler(temp);
@@ -64,8 +65,8 @@ void keyboardEventHandler (int key, int event)
             break;
 
     }
-    uiGetKeyboard(key,event);
-    if ((!check_collision (temp) && !temp.isPulsed)|| key == 0x50) {
+
+    if ((!check_collision (temp) && !temp.isPaused)|| key == 0x50) {
         ctetri = temp;
     }
 

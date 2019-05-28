@@ -2,6 +2,7 @@
 #define _DRAWERS_C
 
 #include "drawers.h"
+#include "handlers.h"
 #include "consts.h"
 #include "model.h"
 #include "imgui.h"
@@ -17,6 +18,7 @@ void DefineColors(){
     DefineRGBColor("Green",34,139,34);//forestgreen
     DefineRGBColor("Light Gray",105,105,105);//dimgray
     DefineRGBColor("Red",220,20,60);//crimson
+    DefineRGBColor("Dark Turquoise",0,206,209);//dark turquoise
 };
 
 void DrawRect (double width, double height)
@@ -80,33 +82,33 @@ void DrawGrid(){
     SetPenColor("Black");
 
     //draw Checkerboard Grid
-    for (int i = 10; i <= 22; i++) {
+    for (int i = LEFTBAR; i <= LEFTBAR+12; i++) {
         MovePen(i*BLOCKSIZE,0);
         DrawLine(0,GetWindowHeight());
     }
 
     for (int j = 0; j <= HEIGHT; j++) {
-        MovePen(10*BLOCKSIZE,j*BLOCKSIZE);
+        MovePen(LEFTBAR*BLOCKSIZE,j*BLOCKSIZE);
         DrawLine(12*BLOCKSIZE,0);
     }
 
     //draw Next Tetri area
-    for(int i = PreX;i<=PreX + 6;i++){
+    for(int i = PreX;i<=PreX + 4;i++){
         MovePen(i*BLOCKSIZE,PreY*BLOCKSIZE);
-        DrawLine(0,6*BLOCKSIZE);
+        DrawLine(0,4*BLOCKSIZE);
     }
-    for(int i = PreY;i<=PreY + 6;i++){
+    for(int i = PreY;i<=PreY + 4;i++){
         MovePen(PreX*BLOCKSIZE,i*BLOCKSIZE);
-        DrawLine(6*BLOCKSIZE,0);
+        DrawLine(4*BLOCKSIZE,0);
     }
 
-    for(int i = HoldX;i<=HoldX + 6;i++){
+    for(int i = HoldX;i<=HoldX + 4;i++){
         MovePen(i*BLOCKSIZE,HoldY*BLOCKSIZE);
-        DrawLine(0,6*BLOCKSIZE);
+        DrawLine(0,4*BLOCKSIZE);
     }
-    for(int i = HoldY;i<=HoldY + 6;i++){
+    for(int i = HoldY;i<=HoldY + 4;i++){
         MovePen(HoldX*BLOCKSIZE,i*BLOCKSIZE);
-        DrawLine(6*BLOCKSIZE,0);
+        DrawLine(4*BLOCKSIZE,0);
     }
 //    for (int i = 0; i < WIDTH; i++) {
 //        MovePen(i*BLOCKSIZE,0);
@@ -118,23 +120,24 @@ void DrawGrid(){
 //    }
 }
 
-void drawInit (int score, tetrimino NextTetri)
+void drawUI(int score, tetrimino NextTetri)
 {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < LEFTBAR; i++) {
         for (int j = 0; j < HEIGHT; j++) {
             drawBlock (i, j, "Gray");
         }
     }
-    for (int i = 22; i < WIDTH; i++) {
+    for (int i = LEFTBAR + 12; i < WIDTH; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-            if(!((i>=PreX && i < PreX + 6 && j >= PreY && j < PreY + 6)||(i>=HoldX && i < HoldX + 6 && j >= HoldY && j < HoldY + 6)))//to show Next Tetri
+            if(!((i>=PreX && i < PreX + 4 && j >= PreY && j < PreY + 4)||(i>=HoldX && i < HoldX + 4 && j >= HoldY && j < HoldY + 4)))//to show Next Tetri
                 drawBlock(i, j, "Gray");
         }
     }
 
-
+    drawMenu();
     DrawNextTetrimino(NextTetri);
     DrawHoldedTetrimino(HoldedTetri);
+
 
     DrawGrid ();
     DrawData(score);
@@ -143,7 +146,7 @@ void drawInit (int score, tetrimino NextTetri)
 void drawCheckerBoard(Checkerboard checker){
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-            drawBlock (i + 9, j, TETRI_COLOR[checker.block[i][j + 1]]);
+            drawBlock (i + LEFTBAR - 1, j, TETRI_COLOR[checker.block[i][j + 1]]);
         }
     }
 }
@@ -213,16 +216,16 @@ void DrawData(int score){
 
 void DrawNextTetrimino(tetrimino tetri){
     //MovePen();
-    tetri.x = PreX+3;
-    tetri.y = PreY+2;
+    tetri.x = PreX+2;
+    tetri.y = PreY+1;
     drawTetri(tetri);
 }
 
 void DrawHoldedTetrimino(tetrimino tetri){
     //MovePen();
     if(tetri.type == 0 )return;
-    tetri.x = HoldX+3;
-    tetri.y = HoldY+2;
+    tetri.x = HoldX+2;
+    tetri.y = HoldY+1;
     drawTetri(tetri);
 }
 
@@ -233,18 +236,85 @@ string RandColor(){
     return TETRI_COLOR[flag];
 }
 
-void DrawPulse(){
+void DrawPulseBoard(){
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-            drawBlock (i + 9, j, "Gray");
-            if((i == 4 && j >= 2 && j <= 14)||((j==9||j==14)&&i>4&&i<=9)||(i==10 && j >= 9 && j <= 14)){
-                drawBlock (i + 9, j, RandColor());
-            }
+            drawBlock (i + LEFTBAR - 1, j, "Gray");
         }
     }
     DrawGrid();
+    MovePen(0.5*(GetWindowWidth()-8*BLOCKSIZE),0.5*(GetWindowHeight() - 7*BLOCKSIZE));
+    SetPenColor("Dark Turquoise");
+    StartFilledRegion(1);
+    DrawRect(8*BLOCKSIZE,7*BLOCKSIZE);
+    EndFilledRegion();
+    //TODO
 }
 
+void drawMenu() {
+    static bool isPaused = FALSE;
+
+    static char *menuListFile[] = {
+            "File",
+            "NewGame  | Ctrl-O", // ???????????[Ctrl-X]?????????????????¦Â
+            "Save",
+            "Exit to Launcher  | Ctrl-E"
+    };
+    static char *menuListGame[] = {
+            "Game",
+            "Pause",
+            "Show Rank List | Ctrl-T",
+            "Restart"
+    };
+    static char *menuListHelp[] = {
+            "Help",
+            "About"
+    };
+
+    double fH = GetFontHeight();
+    double x = 0; //fH/8;
+    double y = GetWindowHeight();
+    double h = fH * 1.5; // ??????
+    double w = LEFTBAR * BLOCKSIZE / 3; // ???????
+    double wlist = TextStringWidth(menuListFile[3]) * 1.2;
+    double xindent = GetWindowWidth() / 20; // ????
+    int selection;
+
+    // File
+    selection = menuList(GenUIID(0), x, y - h, w, wlist, h, menuListFile,
+                         sizeof(menuListFile) / sizeof(menuListFile[0]));
+    switch (selection) {
+        case 0:
+            break;
+        case 3:
+            ExitGame();
+            break;// choose to exit
+    }
+    // Game
+    selection = menuList(GenUIID(0), x + w, y - h, w, wlist, h, menuListGame,
+                         sizeof(menuListGame) / sizeof(menuListGame[0]));
+    menuListGame[1] = (ctetri.isPaused)?"Resume":"Pause";
+    switch (selection) {
+        case 0:
+            break;
+        case 1://pause
+            keyboardEventHandler(0x50,KEY_DOWN);
+
+            break;
+        case 3://restart
+            keyboardEventHandler(0x52, KEY_DOWN);
+            break;
+    }
+    // Help
+    selection = menuList(GenUIID(0), x + 2 * w, y - h, w, wlist, h, menuListHelp,
+                         sizeof(menuListHelp) / sizeof(menuListHelp[0]));
+    switch (selection) {
+        case 0:
+            break;
+        case 3:
+            break;// choose to exit
+    }
+}
 //On MenuBar
 
 

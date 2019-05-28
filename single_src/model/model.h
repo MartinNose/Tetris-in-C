@@ -20,8 +20,10 @@ Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker);
 tetrimino HardDrop(tetrimino tetri);
 void Settle(tetrimino tetri);
 tetrimino HoldEventHandler(tetrimino temp);
-tetrimino PulseEventHandler(tetrimino temp);
+tetrimino PauseEventHandler(tetrimino temp);
 
+void GameOver();
+void ExitGame();
 
 bool CheckTop ();
 tetrimino Restart ();

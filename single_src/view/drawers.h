@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "consts.h"
 
-void drawInit (int score,tetrimino NextTetri);
+void drawUI(int score, tetrimino NextTetri);
 
 void DrawNextTetrimino(tetrimino tetri);
 void DrawHoldedTetrimino(tetrimino tetri);
@@ -33,9 +33,11 @@ void DrawData(int score);
 
 void DrawGrid();
 
-void DrawPulse();
+void DrawPulseBoard();
 
 string RandColor();
+
+void drawMenu();
 
 
 #endif //_DRAWERS_H_
