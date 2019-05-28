@@ -84,6 +84,7 @@ void timerEventHandler (int timerID){
         case GAMEOVER:
             drawCheckerBoard(checkerboard);
             drawUI(Score, que[1]);
+            DrawBoard(GAMEOVER);
             break;
         case DEBUG:
             printf("%f",GetWindowWidth());
@@ -92,8 +93,6 @@ void timerEventHandler (int timerID){
 }
 static void game ()
 {
-
-
     static int time = 0;
     if (ctetri.yVelocity == 0 && !ctetri.isPaused) {
         ctetri = NextTetri ();
@@ -116,7 +115,7 @@ static void game ()
         isHoldLegal = TRUE;
     }
     if(ctetri.isPaused){
-        DrawPulseBoard();
+        DrawBoard(PAUSE);
     }
     if(is_game_over){
         GameOver();
@@ -455,8 +454,5 @@ void GameOver()
     userNode* rank_list = Load_Rank ();
     rank_list = Add_Node (rank_list, Score, "game_debug");
     write_Rank (rank_list);
-    char buffer[32];
-    sprintf (buffer, "%d", Score);
-    MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
     startTimer(GAMEOVER,10);
 }
