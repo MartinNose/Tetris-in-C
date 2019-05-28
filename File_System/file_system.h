@@ -7,14 +7,25 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-/* TODO 简单说明：文件部分准备只留下接口，链表为private成分，不给其他文件访问，避免效率问题
- *      1. 每次启动程序时从文件将信息加载到内存中的链表，退出时将信息存入链表
- *      2. 重要！！！链表按照分数高低降序排列！！！ 可以大幅提高后期程序速度，并减少代码量
- *      3. 准备只将排名最靠前的几个成绩返回过去就好
- *      4. 因为题目要求实现多用户，所以我们需要存储每个玩家的昵称，可能还需要实现某个玩家的最高分的功能
+#define RANK_FILE "rank.csv"
+typedef struct user_node
+{
+    char name[100];          /*名称*/
+    int score;              /*成绩*/
+    struct user_node *next; /*指向下个结点的指针*/
+} userNode;
+
+userNode *Load_Rank();
+
+userNode* Add_Node(userNode *head, int score, char* name);
+
+void write_Rank(userNode *head);
+
+
+/* TODO
  *      5. 鲁棒性待修复，因为一旦文件在程序运行前被损坏，出了问题估计就凉了……
- *      6. 太困了我先睡了……
  *
  */
 

@@ -26,21 +26,21 @@ void keyboardEventHandler (int key, int event)
                     temp.direction+=3;
                     temp.direction %= 4;
                     break;
-                case 0x5A:
+                case 0x5A: // Z
                     temp.direction++;
                     temp.direction %= 4;
                     break;
-                case VK_SPACE :
+                case VK_SPACE:
                     Score+=60;
                     temp = HardDrop(temp);
                     break;
-                case 0x52:
+                case 0x52: // R
                     temp = Restart();
                     break;
-                case 0x50:
+                case 0x50: // P
                     temp = PulseEventHandler(temp);
                     break;
-                case 0x43:
+                case 0x43: // C
                     temp = HoldEventHandler(temp);
                     break;
             }

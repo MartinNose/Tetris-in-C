@@ -6,39 +6,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct user_node
+userNode *Load_Rank()
 {
-    int num;                /*编号*/
-    char name[100];          /*名称*/
-    int score;              /*成绩*/
-    struct user_node *next; /*指向下个结点的指针*/
-};
-
-struct user_node* rank_list;
-
-struct user_node *Load_Rank()
-{
-    int num, score;
+    int score;
     char name[100];
-    struct user_node *head = NULL, *p, *tail = NULL;
+    userNode *head = NULL, *p, *tail = NULL;
 
-    FILE* rank_table = fopen("rank.txt", "r");
+    FILE* rank_table = fopen(RANK_FILE, "r");
     if (rank_table == NULL)
     {
         printf ("No such file or directory! Will create new one!\n");
-        FILE* rank_table = fopen("rank.txt", "w");
+        FILE* rank_table = fopen(RANK_FILE, "w");
         return NULL;
     }
     else
     {
         while (!feof(rank_table))
         {
-            fscanf(rank_table, "%d %d", &num, &score);
-            printf ("%d %d\n", num, score);
-            p = (struct user_node *)malloc(sizeof(struct user_node));
-            p->num = num;
+            if (fscanf(rank_table, "%d,", &score) == EOF)
+                break;
+//            printf ("%d\n", score);
+            p = (struct user_node *)malloc(sizeof(userNode));
             p->score = score;
-            fscanf (rank_table, "%s", p->name);
+            fscanf (rank_table, "\"%[^\"]\"", p->name);
             p->next = NULL;
             if (tail)
                 tail->next = p;
@@ -51,14 +41,45 @@ struct user_node *Load_Rank()
     return head;
 }
 
-void write_rank(struct user_node *list)
+userNode* Add_Node(userNode *head, int score, char* name)
 {
-    // TODO Write file
+    userNode *p, *q, *new;
+    new = (userNode*)malloc (sizeof(userNode));
+    new->score = score;
+    strcpy (new->name, name);
+    for (p = head, q = NULL; p; q = p, p = p->next)
+    {
+        if (score > p->score)
+            break;
+    } // move the last node
+    if (q) // not head
+    {
+        q->next = new;
+        new->next = p;
+    }
+    else // is head
+    {
+        new->next = head;
+        head = new;
+    }
+    return head;
+}
+
+void write_Rank(userNode *head)
+{
+    FILE* rank_table = fopen(RANK_FILE, "w");
+    userNode * p = NULL;
+    for (p = head; p; p = p->next)
+    {
+        fprintf(rank_table, "%d,\"%s\"\n", p->score, p->name);
+    }
 }
 
 int main()
 {
+    userNode * rank_list;
     rank_list = Load_Rank ();
-
+    rank_list = Add_Node (rank_list, 250, "66666");
+    write_Rank (rank_list);
     return 0;
 }
