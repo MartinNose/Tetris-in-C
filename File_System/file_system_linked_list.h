@@ -2,8 +2,8 @@
 // Created by Tao Chiang on 5/27/2019.
 //
 
-#ifndef _FILE_SYSTEM_H_
-#define _FILE_SYSTEM_H_
+#ifndef _FILE_SYSTEM_LINKED_LIST_H_
+#define _FILE_SYSTEM_LINKED_LIST_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,4 +29,4 @@ void write_Rank(userNode *head);
  *
  */
 
-#endif //_FILE_SYSTEM_H_
+#endif //_FILE_SYSTEM_LINKED_LIST_H_
