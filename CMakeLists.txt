@@ -24,6 +24,6 @@ aux_source_directory(./single_src/controller CONTROLLER)
 
 
 add_executable(launcher WIN32 ${LIB} ${GUI} launcher/launcher_main.c)
-add_executable(single_main WIN32 ${LIB} ${MODEL} ${VIEW} ${CONTROLLER} single_src/single_main.c)
-add_executable(file_debug File_System/file_system.c)
 add_executable(leaderbord WIN32 ${LIB} ${GUI} Leader_Board/leaderboard_main.c)
+add_executable(single_main WIN32 ${LIB} ${MODEL} ${VIEW} ${CONTROLLER} ${GUI} single_src/single_main.c)
+add_executable(file_debug File_System/file_system.c)

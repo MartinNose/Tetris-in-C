@@ -7,7 +7,7 @@
 #include "drawers.h"
 #include "consts.h"
 
-
+#include "imgui.h"
 #include "model.h"
 #include "handlers.h"
 
@@ -31,7 +31,7 @@ void Main ()
     srand((unsigned)time(NULL));
 
     registerTimerEvent (timerEventHandler);
-    //registerMouseEvent(mouseEventHandler);
+    registerMouseEvent(mouseEventHandler);
     registerKeyboardEvent (keyboardEventHandler);
 
     startTimer (MAINTAINER, 10);
