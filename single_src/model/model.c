@@ -73,6 +73,7 @@ tetrimino generateTetrimino (int type, int direction)
     return tetri;
 }
 void timerEventHandler (int timerID){
+
     switch(timerID){
         case GAME:
             game();
@@ -84,10 +85,15 @@ void timerEventHandler (int timerID){
             drawCheckerBoard(checkerboard);
             drawUI(Score, que[1]);
             break;
+        case DEBUG:
+            printf("%f",GetWindowWidth());
+            break;
     }
 }
 static void game ()
 {
+
+
     static int time = 0;
     if (ctetri.yVelocity == 0 && !ctetri.isPaused) {
         ctetri = NextTetri ();
