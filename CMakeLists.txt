@@ -32,3 +32,5 @@ add_executable(leaderboard WIN32 ${LIB} ${GUI} ${FILE_SYS} Leader_Board/leaderbo
 add_executable(single_main WIN32 ${LIB} ${MODEL} ${VIEW} ${CONTROLLER} ${GUI} ${FILE_SYS} single_src/single_main.c)
 add_executable(file_debug ${FILE_SYS} File_System/debug/file_debug.c)
 add_executable(sound_debug ${SOUND} Sound/debug/sound_debug.c)
+
+target_link_libraries(sound_debug winmm.lib)
