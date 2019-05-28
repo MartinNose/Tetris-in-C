@@ -236,17 +236,23 @@ string RandColor(){
     int flag;
     flag = rand();
     if(flag%2){
-        flag = rand()%7;
+        flag = rand()%8;
     }else {
-        flag = 0;
+        if(rand()%2==0)
+            flag = 0;
     }
-    return TETRI_COLOR[flag];
+    return TETRI_COLOR[flag%8];
 }
 
-void DrawPulseBoard(){
+void DrawBoard(int flag){
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-            drawBlock (i + LEFTBAR - 1, j, RandColor());
+            if(flag == PAUSE){
+                drawBlock (i + LEFTBAR - 1, j, RandColor());
+            }
+            else {
+
+            }
         }
     }
     int temp = GetPointSize();
@@ -261,40 +267,75 @@ void DrawPulseBoard(){
     SetPenColor("White");
 
     SetPointSize(temp*2);
-    drawLabel(x+(8*BLOCKSIZE-TextStringWidth("Paused!"))/2,y+7*BLOCKSIZE- GetFontHeight(),"Paused!");
-    SetPointSize(temp);
-    drawPauseButtons(x,y+7*BLOCKSIZE-7*BLOCKSIZE/3);
+    if(flag == PAUSE){
+        drawLabel(x+(8*BLOCKSIZE-TextStringWidth("Paused!"))/2,y+7*BLOCKSIZE- GetFontHeight(),"Paused!");
+        SetPointSize(temp);
+        drawBoardButtons(x, y + 7 * BLOCKSIZE - 7 * BLOCKSIZE / 3,PAUSE);
+    }else{
+        drawLabel(x+(8*BLOCKSIZE-TextStringWidth("Game Over"))/2,y+7*BLOCKSIZE- GetFontHeight(),"Game Over");
+        SetPointSize(temp);
+        drawBoardButtons(x, y + 7 * BLOCKSIZE - 7 * BLOCKSIZE / 3,GAMEOVER);
+    }
 }
 
 
-void drawPauseButtons(double x, double y)
+void drawBoardButtons(double x, double y,int flag)
 {
 
-    double h = 7*BLOCKSIZE/6;  // 控件高度
-    double w = 8 * BLOCKSIZE; // 控件宽度
+   double h,w = 8 * BLOCKSIZE; // 控件宽度
+   char buffer[100];
+    if(flag == PAUSE)
+    {
+        h = 7*BLOCKSIZE/6;  // 控件高度
 
-    setButtonColors("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
-    SetStyle(1);
-    if (button(GenUIID(0), x,y,w,h,"Resume"))
-    {
-        keyboardEventHandler(0x50,KEY_DOWN);
-    }
-    if (button(GenUIID(0), x, y - h, w, h, "RankList"))
-    {
+        setButtonColors("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
+        SetStyle(1);
+        if (button(GenUIID(0), x,y,w,h,"Resume"))
+        {
+            keyboardEventHandler(0x50,KEY_DOWN);
+        }
+        if (button(GenUIID(0), x, y - h, w, h, "RankList"))
+        {
 
-    }
-    if (button(GenUIID(0), x, y - 2*h, w, h, "Restart"))
-    {
-        keyboardEventHandler(0x52, KEY_DOWN);
-    }
-    if (button(GenUIID(0), x, y - 3*h, w, h, "Save"))
-    {
+        }
+        if (button(GenUIID(0), x, y - 2*h, w, h, "Restart"))
+        {
+            keyboardEventHandler(0x52, KEY_DOWN);
+        }
+        if (button(GenUIID(0), x, y - 3*h, w, h, "Save"))
+        {
 
-    }
-    if (button(GenUIID(0), x, y - 4*h, w, h, "QUIT"))
-    {
+        }
+        if (button(GenUIID(0), x, y - 4*h, w, h, "QUIT"))
+        {
 
+        }
     }
+    else
+        {
+            h = 7*BLOCKSIZE/5;
+            setButtonColors("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
+            SetStyle(1);
+
+            sprintf(buffer,"Score: %d  Rank: SSS ",Score);
+            drawLabel(x+(8*BLOCKSIZE-TextStringWidth(buffer))/2,y + 1.50 * GetFontHeight(),buffer);
+            if (button(GenUIID(0), x, y - h, w, h, "RankList"))
+            {
+
+            }
+            if (button(GenUIID(0), x, y - 2*h, w, h, "Restart"))
+            {
+                keyboardEventHandler(0x52, KEY_DOWN);
+            }
+            if (button(GenUIID(0), x, y - 3*h, w, h, "Save"))
+            {
+
+            }
+            if (button(GenUIID(0), x, y - 4*h, w, h, "QUIT"))
+            {
+
+            }
+        }
     SetStyle(0);
 }
 
@@ -306,6 +347,7 @@ void drawMenu() {
             "File",
             "NewGame  | Ctrl-O", // ???????????[Ctrl-X]?????????????????β
             "Save",
+            "Load",
             "Exit to Launcher  | Ctrl-E"
     };
     static char *menuListGame[] = {

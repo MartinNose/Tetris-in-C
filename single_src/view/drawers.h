@@ -33,8 +33,8 @@ void DrawData(int score);
 
 void DrawGrid();
 
-void DrawPulseBoard();
-void drawPauseButtons(double x, double y);
+void DrawBoard(int flag);
+void drawBoardButtons(double x, double y,int flag);
 string RandColor();
 
 void drawMenu();

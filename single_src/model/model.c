@@ -78,8 +78,10 @@ void timerEventHandler (int timerID)
             break;
         case CheckerboardFLASH :flash ();
             break;
-        case GAMEOVER:drawCheckerBoard (checkerboard);
-            drawUI (Score, que[1]);
+        case GAMEOVER:
+            drawCheckerBoard(checkerboard);
+            drawUI(Score, que[1]);
+            DrawBoard(GAMEOVER);
             break;
         case DEBUG:printf ("%f", GetWindowWidth ());
             break;
@@ -87,7 +89,6 @@ void timerEventHandler (int timerID)
 }
 static void game ()
 {
-
     static int time = 0;
     if (ctetri.yVelocity == 0 && !ctetri.isPaused) {
         ctetri = NextTetri ();
@@ -109,8 +110,8 @@ static void game ()
         globalSpeed = INIT_SPEED + INIT_SPEED * (Score / LevelGap); //update speed
         isHoldLegal = TRUE;
     }
-    if (ctetri.isPaused) {
-        DrawPulseBoard ();
+    if(ctetri.isPaused){
+        DrawBoard(PAUSE);
     }
     if (is_game_over) {
         GameOver ();
@@ -447,5 +448,6 @@ void GameOver ()
     char buffer[32];
     sprintf (buffer, "Thanks for playing, your score is %d!", Score);
     MessageBoxA (NULL, buffer, "Game Over", MB_ICONINFORMATION);
-    startTimer (GAMEOVER, 10);
+
+    startTimer(GAMEOVER,10);
 }
