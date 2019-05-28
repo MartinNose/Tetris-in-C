@@ -42,12 +42,10 @@ tetrimino HoldedTetri;
 bool is_game_over = FALSE;
 bool isHoldLegal = TRUE;
 double globalSpeed;
-void drawMenu();
 
 //MenuBar============================================
 bool isDisplayMenu1 = FALSE;
 //===================================================
-
 
 static int countScore(int num);
 
@@ -64,32 +62,34 @@ tetrimino generateTetrimino (int type, int direction)
 {
     tetrimino tetri;
 
-    tetri.x = WIDTH / 2;
+    tetri.x = LEFTBAR+6;
     tetri.y = HEIGHT;
     tetri.type = type;
     tetri.direction = direction;
     tetri.color = TETRI_COLOR[type];
     tetri.yVelocity = 0;
-    tetri.isPulsed = FALSE;
+    tetri.isPaused = FALSE;
 
     return tetri;
 }
 void timerEventHandler (int timerID){
     switch(timerID){
-        case MAINTAINER:
+        case GAME:
             game();
             break;
         case CheckerboardFLASH :
             flash();
             break;
+        case GAMEOVER:
+            drawCheckerBoard(checkerboard);
+            drawUI(Score, que[1]);
+            break;
     }
-   drawMenu();
 }
 static void game ()
 {
     static int time = 0;
-    static bool pause = 0;
-    if (ctetri.yVelocity == 0 && !ctetri.isPulsed) {
+    if (ctetri.yVelocity == 0 && !ctetri.isPaused) {
         ctetri = NextTetri ();
         ctetri = tetriMaintainer_on_gravity (time, ctetri);
     }
@@ -102,24 +102,18 @@ static void game ()
     DrawShadow(HardDrop(ctetri));
 
     drawTetri (ctetri);
-    drawInit (Score,que[1]);
+    drawUI(Score, que[1]);
 
-    if(ctetri.yVelocity == 0 && !ctetri.isPulsed){
+    if(ctetri.yVelocity == 0 && !ctetri.isPaused){
         Settle(ctetri); //add tetri to checker board
         globalSpeed = INIT_SPEED + INIT_SPEED * (Score/LevelGap); //update speed
         isHoldLegal = TRUE;
     }
-    if(ctetri.isPulsed){
-        DrawPulse();
+    if(ctetri.isPaused){
+        DrawPulseBoard();
     }
     if(is_game_over){
-        cancelTimer(MAINTAINER);
-        userNode* rank_list = Load_Rank ();
-        rank_list = Add_Node (rank_list, Score, "game_debug");
-        write_Rank (rank_list);
-        char buffer[32];
-        sprintf (buffer, "%d", Score);
-        MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
+        GameOver();
     }
 }
 static void flash (){
@@ -129,11 +123,11 @@ static void flash (){
     }else{
         drawCheckerBoard(clearCheckerboard);
     }
-    drawInit (Score,que[1]);
+    drawUI(Score, que[1]);
     times++;
     if(times >= 6){
         cancelTimer(CheckerboardFLASH);
-        startTimer(MAINTAINER,10);
+        startTimer(GAME,10);
         times = 0;
     }
 }
@@ -143,7 +137,7 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
     static int curTime = 0;
     static double dy = 0;
     int dt;
-    if (tetri.yVelocity == 0 && !tetri.isPulsed) {
+    if (tetri.yVelocity == 0 && !tetri.isPaused) {
         tetri.yVelocity = globalSpeed;
     }
     tetrimino last = tetri;
@@ -176,7 +170,7 @@ void Settle(tetrimino tetri){
     lastCheckerboard = checkerboard;
     clearCheckerboard = ClearLines(checkerboard);
     if(Mark[0]!=-1) {
-        cancelTimer(MAINTAINER);
+        cancelTimer(GAME);
         startTimer(CheckerboardFLASH, 100);
     }
     checkerboard = RemoveLines(checkerboard);
@@ -326,6 +320,7 @@ void InitModel ()
     que[1] = tetriRandom();
     //For MenuBar
     //For Game STATE
+    setMenuColors("Black", "White", "Light Gray", "White", 1);
 }
 
 bool check_collision (tetrimino tetri)
@@ -333,28 +328,28 @@ bool check_collision (tetrimino tetri)
     switch (tetri.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
-                if (checkerboard.block[tetri.x + typeInfo[tetri.type][i][0] - 9][tetri.y + typeInfo[tetri.type][i][1] + 1])
+                if (checkerboard.block[tetri.x - LEFTBAR + 1 + typeInfo[tetri.type][i][0]][tetri.y + typeInfo[tetri.type][i][1] + 1])
                     return TRUE;
             }
             return FALSE;
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
-                if (checkerboard.block[tetri.x - typeInfo[tetri.type][i][1] - 9][tetri.y + typeInfo[tetri.type][i][0] + 1])
+                if (checkerboard.block[tetri.x - LEFTBAR + 1 - typeInfo[tetri.type][i][1]][tetri.y + typeInfo[tetri.type][i][0] + 1])
                     return TRUE;
             }
             return FALSE;
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
-                if (checkerboard.block[tetri.x - typeInfo[tetri.type][i][0] - 9][tetri.y - typeInfo[tetri.type][i][1] + 1])
+                if (checkerboard.block[tetri.x - LEFTBAR + 1 - typeInfo[tetri.type][i][0]][tetri.y - typeInfo[tetri.type][i][1] + 1])
                     return TRUE;
             }
             return FALSE;
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
-                if (checkerboard.block[tetri.x + typeInfo[tetri.type][i][1] - 9][tetri.y - typeInfo[tetri.type][i][0] + 1])
+                if (checkerboard.block[tetri.x - LEFTBAR + 1 + typeInfo[tetri.type][i][1]][tetri.y - typeInfo[tetri.type][i][0] + 1])
                     return TRUE;
             }
             return FALSE;
@@ -367,22 +362,22 @@ Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker)
     switch (tetri.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
-                checker.block[tetri.x + typeInfo[tetri.type][i][0] - 9][tetri.y + typeInfo[tetri.type][i][1] + 1] = tetri.type;
+                checker.block[tetri.x - LEFTBAR + 1 + typeInfo[tetri.type][i][0]][tetri.y + typeInfo[tetri.type][i][1] + 1] = tetri.type;
             }
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
-                checker.block[tetri.x - typeInfo[tetri.type][i][1] - 9][tetri.y + typeInfo[tetri.type][i][0] + 1] = tetri.type;
+                checker.block[tetri.x - LEFTBAR + 1 - typeInfo[tetri.type][i][1]][tetri.y + typeInfo[tetri.type][i][0] + 1] = tetri.type;
             }
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
-                checker.block[tetri.x - typeInfo[tetri.type][i][0] - 9][tetri.y - typeInfo[tetri.type][i][1] + 1] = tetri.type;
+                checker.block[tetri.x - LEFTBAR + 1 - typeInfo[tetri.type][i][0]][tetri.y - typeInfo[tetri.type][i][1] + 1] = tetri.type;
             }
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
-                checker.block[tetri.x + typeInfo[tetri.type][i][1] - 9][tetri.y - typeInfo[tetri.type][i][0] + 1] = tetri.type;
+                checker.block[tetri.x - LEFTBAR + 1 + typeInfo[tetri.type][i][1]][tetri.y - typeInfo[tetri.type][i][0] + 1] = tetri.type;
             }
             break;
     }
@@ -403,13 +398,14 @@ tetrimino Restart ()
 {
     if(is_game_over) {
         is_game_over = FALSE;
-        startTimer(MAINTAINER,10);
+        startTimer(GAME,10);
     }
 
     tetrimino tetri;
     InitModel ();
-    drawInit (0,que[1]);
+    drawUI(0, que[1]);
     tetri = NextTetri();
+    tetri.yVelocity = globalSpeed;
     HoldedTetri = generateTetrimino(0,0);
     return tetri;
 }
@@ -430,60 +426,29 @@ tetrimino HoldEventHandler(tetrimino temp){
     return temp;
 }
 
-tetrimino PulseEventHandler(tetrimino temp){
-    if(!temp.isPulsed){
-        temp.isPulsed = TRUE;
+tetrimino PauseEventHandler(tetrimino temp){
+    if(!temp.isPaused){
+        temp.isPaused = TRUE;
         temp.yVelocity = 0;
     }else{
         temp.yVelocity = globalSpeed;
-        temp.isPulsed = FALSE;
+        temp.isPaused = FALSE;
     }
     return temp;
 }
 
-/*==================================================================*/
+void ExitGame(){
+    //To laucher
+}
 
-/*On GUI and Menu Bar*/
-
-void drawMenu()
+void GameOver()
 {
-    static char * menuListFile[] = {
-            "File",
-            "Open  | Ctrl-O",
-            "Close",
-            "Exit   | Ctrl-E"};
-    static char * menuListTool[] = {
-            "Tool",
-            "Triangle",
-            "Circle",
-            "Stop Rotation | Ctrl-T"};
-    static char * menuListHelp[] = {"Help",
-                                    "Show More  | Ctrl-M",
-                                    "About"};
-    static char * selectedLabel = NULL;
-
-    double fH = GetFontHeight();
-    double x = 0;
-    double y = GetWindowHeight();
-    double h = fH*1.5;
-    double w = TextStringWidth(menuListHelp[0])*2;
-    double wlist = TextStringWidth(menuListTool[3])*1.2;
-    double xindent = GetWindowWidth()/20;
-    int    selection;
-
-    // File ²Ëµ¥
-    selection = menuList(GenUIID(0), x, y-h, w, wlist, h, menuListFile, sizeof(menuListFile)/sizeof(menuListFile[0]));
-    if( selection>0 ) selectedLabel = menuListFile[selection];
-    if( selection==3 )
-        exit(-1); // choose to exit
-
-    // Tool ²Ëµ¥
-    menuListTool[3] =  "Start Rotation | Ctrl-T";
-    selection = menuList(GenUIID(0),x+w,  y-h, w, wlist,h, menuListTool,sizeof(menuListTool)/sizeof(menuListTool[0]));
-    if( selection>0 ) selectedLabel = menuListTool[selection];
-
-    // Help ²Ëµ¥
-    menuListHelp[1] = "Show Less | Ctrl-M" ;
-    selection = menuList(GenUIID(0),x+2*w,y-h, w, wlist, h, menuListHelp,sizeof(menuListHelp)/sizeof(menuListHelp[0]));
-    if( selection>0 ) selectedLabel = menuListHelp[selection];
+    cancelTimer(GAME);
+    userNode* rank_list = Load_Rank ();
+    rank_list = Add_Node (rank_list, Score, "game_debug");
+    write_Rank (rank_list);
+    char buffer[32];
+    sprintf (buffer, "%d", Score);
+    MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
+    startTimer(GAMEOVER,10);
 }

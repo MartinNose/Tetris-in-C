@@ -17,7 +17,7 @@ tetrimino NaT;//Not a Tetrimino
 
 void Main ()
 {
-    NaT = generateTetrimino (0, 0); // Not a Tetri
+    NaT = generateTetrimino (0, 0);// Not a Tetri
 
     SetWindowTitle ("Tetris");
 
@@ -27,12 +27,12 @@ void Main ()
 
     DefineColors();
     InitModel ();
-    drawInit (0,NaT);
+    drawUI(0, NaT);
     srand((unsigned)time(NULL));
 
     registerTimerEvent (timerEventHandler);
     registerMouseEvent(mouseEventHandler);
     registerKeyboardEvent (keyboardEventHandler);
 
-    startTimer (MAINTAINER, 10);
+    startTimer (GAME, 10);
 }
