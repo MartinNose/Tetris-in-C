@@ -20,9 +20,12 @@
 #include <ocidl.h>
 #include <winuser.h>
 
+
 #include "model.h"
 #include "consts.h"
 #include "drawers.h"
+
+#include "imgui.h"
 
 Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
@@ -36,9 +39,15 @@ tetrimino que[2];
 tetrimino HoldedTetri;
 bool is_game_over = FALSE;
 bool isHoldLegal = TRUE;
+double globalSpeed;
+void drawMenu();
+
+//MenuBar============================================
+bool isDisplayMenu1 = FALSE;
+//===================================================
+
 
 static int countScore(int num);
-double globalSpeed;
 
 static void game ();
 static void flash ();
@@ -72,11 +81,12 @@ void timerEventHandler (int timerID){
             flash();
             break;
     }
+   drawMenu();
 }
 static void game ()
 {
     static int time = 0;
-
+    static bool pause = 0;
     if (ctetri.yVelocity == 0 && !ctetri.isPulsed) {
         ctetri = NextTetri ();
         ctetri = tetriMaintainer_on_gravity (time, ctetri);
@@ -308,6 +318,8 @@ void InitModel ()
 
     que[0] = tetriRandom();
     que[1] = tetriRandom();
+    //For MenuBar
+    //For Game STATE
 }
 
 bool check_collision (tetrimino tetri)
@@ -406,6 +418,7 @@ tetrimino HoldEventHandler(tetrimino temp){
             temp = que[1];
         } else {
             temp = HoldedTetri;
+            temp.yVelocity = globalSpeed;
             HoldedTetri = ctetri;
         }
         HoldedTetri.y = 18;
@@ -423,4 +436,51 @@ tetrimino PulseEventHandler(tetrimino temp){
         temp.isPulsed = FALSE;
     }
     return temp;
+}
+
+/*==================================================================*/
+
+/*On GUI and Menu Bar*/
+
+void drawMenu()
+{
+    static char * menuListFile[] = {
+            "File",
+            "Open  | Ctrl-O", // 快捷键必须采用[Ctrl-X]格式，放在字符串的结尾
+            "Close",
+            "Exit   | Ctrl-E"};
+    static char * menuListTool[] = {
+            "Tool",
+            "Triangle",
+            "Circle",
+            "Stop Rotation | Ctrl-T"};
+    static char * menuListHelp[] = {"Help",
+                                    "Show More  | Ctrl-M",
+                                    "About"};
+    static char * selectedLabel = NULL;
+
+    double fH = GetFontHeight();
+    double x = 0; //fH/8;
+    double y = GetWindowHeight();
+    double h = fH*1.5; // 控件高度
+    double w = TextStringWidth(menuListHelp[0])*2; // 控件宽度
+    double wlist = TextStringWidth(menuListTool[3])*1.2;
+    double xindent = GetWindowWidth()/20; // 缩进
+    int    selection;
+
+    // File 菜单
+    selection = menuList(GenUIID(0), x, y-h, w, wlist, h, menuListFile, sizeof(menuListFile)/sizeof(menuListFile[0]));
+    if( selection>0 ) selectedLabel = menuListFile[selection];
+    if( selection==3 )
+        exit(-1); // choose to exit
+
+    // Tool 菜单
+    menuListTool[3] =  "Start Rotation | Ctrl-T";
+    selection = menuList(GenUIID(0),x+w,  y-h, w, wlist,h, menuListTool,sizeof(menuListTool)/sizeof(menuListTool[0]));
+    if( selection>0 ) selectedLabel = menuListTool[selection];
+
+    // Help 菜单
+    menuListHelp[1] = "Show Less | Ctrl-M" ;
+    selection = menuList(GenUIID(0),x+2*w,y-h, w, wlist, h, menuListHelp,sizeof(menuListHelp)/sizeof(menuListHelp[0]));
+    if( selection>0 ) selectedLabel = menuListHelp[selection];
 }

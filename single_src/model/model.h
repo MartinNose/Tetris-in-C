@@ -35,6 +35,10 @@ extern bool is_game_over;
 extern double globalSpeed;
 extern tetrimino que[2];
 extern tetrimino HoldedTetri;
-extern bool isHoldLegal ;
+extern bool isHoldLegal;
+
+//MenuBar======================================
+extern bool isDisplayMenu1;
+//=============================================
 
 #endif //_MODEL_H_

@@ -2,10 +2,14 @@
 // Created by liujunliang on 2019/5/13.
 //
 #include "graphics.h"
+
 #include "consts.h"
 #include "drawers.h"
 #include "model.h"
 #include <winuser.h>
+
+#include "imgui.h"
+
 
 void keyboardEventHandler (int key, int event)
 {
@@ -43,6 +47,12 @@ void keyboardEventHandler (int key, int event)
                 case 0x43:
                     temp = HoldEventHandler(temp);
                     break;
+                 //MenuBar
+                case VK_SHIFT:isDisplayMenu1 ^= 1;
+//                    printf ("%d\n", isDisplayMenu);
+                    break;
+                default:uiGetKeyboard (key, event); // GUI获取键盘
+                    break;
             }
             break;
         case KEY_UP:
@@ -52,14 +62,16 @@ void keyboardEventHandler (int key, int event)
                     break;
             }
             break;
-    }
 
+    }
+    uiGetKeyboard(key,event);
     if ((!check_collision (temp) && !temp.isPulsed)|| key == 0x50) {
         ctetri = temp;
     }
 
 }
+
 void mouseEventHandler (int x, int y, int button, int event)
 {
-
+    uiGetMouse (x, y, button, event); //GUI获取鼠标
 }

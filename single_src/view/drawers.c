@@ -4,6 +4,8 @@
 #include "drawers.h"
 #include "consts.h"
 #include "model.h"
+#include "imgui.h"
+
 void DefineRGBColor(string s,int r,int g,int b){
     DefineColor(s,r/255.0,g/255.0,b/255.0);
 }
@@ -242,6 +244,13 @@ void DrawPulse(){
     }
     DrawGrid();
 }
+
+//On MenuBar
+
+
+
+
+
 
 
 #endif

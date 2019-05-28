@@ -10,6 +10,7 @@
 
 #define WIDTH 32 //Width in inches
 #define HEIGHT 18 //Height in inches
+#define MENUBAR_HEIGHT
 
 #define PreX 24
 #define PreY 10
