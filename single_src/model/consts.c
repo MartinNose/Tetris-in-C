@@ -31,7 +31,7 @@ string TETRI_COLOR[8] = {
     "Red"
 };
 
-Checkerboard EmptyCheckerboard;
+
 
 // Black, Dark Gray, Gray, Light Gray, White,
 // *    Red, Yellow, Green, Cyan, Blue, Magenta

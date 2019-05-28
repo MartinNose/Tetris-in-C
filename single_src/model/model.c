@@ -44,7 +44,7 @@ bool isHoldLegal = TRUE;
 double globalSpeed;
 
 //MenuBar============================================
-bool isDisplayMenu1 = FALSE;
+
 //===================================================
 
 static int countScore(int num);
@@ -317,11 +317,16 @@ static Checkerboard generateInitCheckerboard(){
 
 void InitModel ()
 {
+    cancelTimer(GAMEOVER);
     checkerboard = generateInitCheckerboard();
-
+    ctetri=tetriRandom();
+    ctetri.yVelocity = INIT_SPEED;
     Score = 0;
-    globalSpeed = INIT_SPEED;
 
+    globalSpeed = INIT_SPEED;
+    is_game_over = FALSE;
+    isHoldLegal = TRUE;
+    HoldedTetri = generateTetrimino(0,0);
     que[0] = tetriRandom();
     que[1] = tetriRandom();
     //For MenuBar
@@ -407,13 +412,9 @@ tetrimino Restart ()
         startTimer(GAME,10);
     }
 
-    tetrimino tetri;
     InitModel ();
     drawUI(0, que[1]);
-    tetri = NextTetri();
-    tetri.yVelocity = globalSpeed;
-    HoldedTetri = generateTetrimino(0,0);
-    return tetri;
+
 }
 
 tetrimino HoldEventHandler(tetrimino temp){
@@ -449,6 +450,7 @@ void ExitGame(){
 
 void GameOver()
 {
+    is_game_over = TRUE;
     cancelTimer(GAME);
     userNode* rank_list = Load_Rank ();
     rank_list = Add_Node (rank_list, Score, "game_debug");

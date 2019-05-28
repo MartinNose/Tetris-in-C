@@ -40,8 +40,8 @@ void keyboardEventHandler (int key, int event)
                     temp = HardDrop(temp);
                     break;
                 case 0x52: // R
-                    temp = Restart();
-                    break;
+                    Restart();
+                    return;
                 case 0x50: // P
                     temp = PauseEventHandler(temp);
                     break;
@@ -49,9 +49,6 @@ void keyboardEventHandler (int key, int event)
                     temp = HoldEventHandler(temp);
                     break;
                  //MenuBar
-                case VK_SHIFT:isDisplayMenu1 ^= 1;
-//                    printf ("%d\n", isDisplayMenu);
-                    break;
                 default:uiGetKeyboard (key, event); // GUI»ñÈ¡¼üÅÌ
                     break;
             }

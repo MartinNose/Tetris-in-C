@@ -60,5 +60,4 @@ extern int typeInfo[][4][2];
 
 extern string TETRI_COLOR[8];
 
-extern Checkerboard EmptyCheckerboard;
 #endif
