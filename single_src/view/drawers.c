@@ -19,6 +19,9 @@ void DefineColors(){
     DefineRGBColor("Light Gray",105,105,105);//dimgray
     DefineRGBColor("Red",220,20,60);//crimson
     DefineRGBColor("Dark Turquoise",0,206,209);//dark turquoise
+    DefineRGBColor("Midnight Blue",25,25,112);
+    DefineRGBColor("Corn Silk",255,248,220);
+    DefineRGBColor("Light Cyan",224,255,255);
 };
 
 void DrawRect (double width, double height)
@@ -231,25 +234,70 @@ void DrawHoldedTetrimino(tetrimino tetri){
 
 string RandColor(){
     int flag;
-    flag = rand()%7;
-    if(flag != 0) flag = 7;
+    flag = rand();
+    if(flag%2){
+        flag = rand()%7;
+    }else {
+        flag = 0;
+    }
     return TETRI_COLOR[flag];
 }
 
 void DrawPulseBoard(){
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-            drawBlock (i + LEFTBAR - 1, j, "Gray");
+            drawBlock (i + LEFTBAR - 1, j, RandColor());
         }
     }
+    int temp = GetPointSize();
     DrawGrid();
-    MovePen(0.5*(GetWindowWidth()-8*BLOCKSIZE),0.5*(GetWindowHeight() - 7*BLOCKSIZE));
-    SetPenColor("Dark Turquoise");
+    double x = 0.5*(GetWindowWidth()-8*BLOCKSIZE);
+    double y = 0.5*(GetWindowHeight() - 7*BLOCKSIZE);
+    SetPenColor("Black");
     StartFilledRegion(1);
+    MovePen(x,y);
     DrawRect(8*BLOCKSIZE,7*BLOCKSIZE);
     EndFilledRegion();
-    //TODO
+    SetPenColor("White");
+
+    SetPointSize(temp*2);
+    drawLabel(x+(8*BLOCKSIZE-TextStringWidth("Paused!"))/2,y+7*BLOCKSIZE- GetFontHeight(),"Paused!");
+    SetPointSize(temp);
+    drawPauseButtons(x,y+7*BLOCKSIZE-7*BLOCKSIZE/3);
 }
+
+
+void drawPauseButtons(double x, double y)
+{
+
+    double h = 7*BLOCKSIZE/6;  // 控件高度
+    double w = 8 * BLOCKSIZE; // 控件宽度
+
+    setButtonColors("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
+    SetStyle(1);
+    if (button(GenUIID(0), x,y,w,h,"Resume"))
+    {
+        keyboardEventHandler(0x50,KEY_DOWN);
+    }
+    if (button(GenUIID(0), x, y - h, w, h, "RankList"))
+    {
+
+    }
+    if (button(GenUIID(0), x, y - 2*h, w, h, "Restart"))
+    {
+        keyboardEventHandler(0x52, KEY_DOWN);
+    }
+    if (button(GenUIID(0), x, y - 3*h, w, h, "Save"))
+    {
+
+    }
+    if (button(GenUIID(0), x, y - 4*h, w, h, "QUIT"))
+    {
+
+    }
+    SetStyle(0);
+}
+
 
 void drawMenu() {
     static bool isPaused = FALSE;
@@ -314,28 +362,6 @@ void drawMenu() {
             break;// choose to exit
     }
 }
-void drawPauseButtons(double x, double y)
-{
-    double fH = GetFontHeight();
-    double h = fH*1.2;  // 控件高度
-    double w = 7*BLOCKSIZE; // 控件宽度
-
-//    x = winwidth / 2 - 1;
-//    y = winheight / 2 - 0.6;
-//    setButtonColors("Black", "White", "Gray", "White", 1);
-//    if (button(GenUIID(0), x, y, 2, 1.2, "Single Mode"))
-//    {
-//        WinExec("single_main.exe", SW_SHOW);
-//    }
-//    if (button(GenUIID(0), x, y - 0.8, 2, 0.6, "Leader Board"))
-//    {
-//        WinExec("leaderboard.exe", SW_SHOW);
-//    }
-
-}
-
-
-
 
 
 

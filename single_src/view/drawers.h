@@ -34,10 +34,11 @@ void DrawData(int score);
 void DrawGrid();
 
 void DrawPulseBoard();
-
+void drawPauseButtons(double x, double y);
 string RandColor();
 
 void drawMenu();
+
 
 
 #endif //_DRAWERS_H_
