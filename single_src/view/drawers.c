@@ -132,8 +132,7 @@ void drawInit (int score, tetrimino NextTetri)
 
 
     DrawNextTetrimino(NextTetri);
-    if(HoldedTetri.type!=0)
-        DrawHoldedTetrimino(HoldedTetri);
+    DrawHoldedTetrimino(HoldedTetri);
 
     DrawGrid ();
     DrawData(score);
@@ -219,6 +218,7 @@ void DrawNextTetrimino(tetrimino tetri){
 
 void DrawHoldedTetrimino(tetrimino tetri){
     //MovePen();
+    if(tetri.type == 0 )return;
     tetri.x = HoldX+3;
     tetri.y = HoldY+2;
     drawTetri(tetri);

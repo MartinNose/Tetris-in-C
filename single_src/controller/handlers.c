@@ -38,28 +38,10 @@ void keyboardEventHandler (int key, int event)
                     temp = Restart();
                     break;
                 case 0x50:
-                    if(!temp.isPulsed){
-                        temp.isPulsed = TRUE;
-                        temp.yVelocity = 0;
-                    }else{
-                        temp.yVelocity = globalSpeed;
-                        temp.isPulsed = FALSE;
-                    }
+                    temp = PulseEventHandler(temp);
                     break;
                 case 0x43:
-                    if(isHoldLegal) {
-                        if (!isHolding) {
-                            HoldedTetri = temp;
-                            temp = que[1];
-                            isHolding = TRUE;
-                        } else {
-                            temp = HoldedTetri;
-                            HoldedTetri = ctetri;
-                            isHolding = FALSE;
-                        }
-                        HoldedTetri.y = 18;
-                        isHoldLegal = FALSE;
-                    }
+                    temp = HoldEventHandler(temp);
                     break;
             }
             break;

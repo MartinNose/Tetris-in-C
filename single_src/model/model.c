@@ -35,7 +35,6 @@ static Checkerboard clearCheckerboard;
 tetrimino que[2];
 tetrimino HoldedTetri;
 bool is_game_over = FALSE;
-bool isHolding = FALSE;
 bool isHoldLegal = TRUE;
 
 static int countScore(int num);
@@ -396,4 +395,33 @@ tetrimino Restart ()
     tetri = NextTetri();
     HoldedTetri = generateTetrimino(0,0);
     return tetri;
+}
+
+tetrimino HoldEventHandler(tetrimino temp){
+    static bool isHolding = FALSE;
+    if(isHoldLegal) {
+        if (!isHolding) {
+            HoldedTetri = temp;
+            temp = que[1];
+            isHolding = TRUE;
+        } else {
+            temp = HoldedTetri;
+            HoldedTetri = ctetri;
+            isHolding = FALSE;
+        }
+        HoldedTetri.y = 18;
+        isHoldLegal = FALSE;
+    }
+    return temp;
+}
+
+tetrimino PulseEventHandler(tetrimino temp){
+    if(!temp.isPulsed){
+        temp.isPulsed = TRUE;
+        temp.yVelocity = 0;
+    }else{
+        temp.yVelocity = globalSpeed;
+        temp.isPulsed = FALSE;
+    }
+    return temp;
 }

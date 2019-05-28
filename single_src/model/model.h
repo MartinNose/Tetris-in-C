@@ -19,6 +19,8 @@ bool check_collision (tetrimino tetri);
 void Settle_Tetri(tetrimino tetri);
 tetrimino HardDrop(tetrimino tetri);
 void Settle(tetrimino tetri);
+tetrimino HoldEventHandler(tetrimino temp);
+tetrimino PulseEventHandler(tetrimino temp);
 
 
 bool CheckTop ();
@@ -33,7 +35,6 @@ extern bool is_game_over;
 extern double globalSpeed;
 extern tetrimino que[2];
 extern tetrimino HoldedTetri;
-extern bool isHolding;
 extern bool isHoldLegal ;
 
 #endif //_MODEL_H_
