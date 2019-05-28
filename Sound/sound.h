@@ -7,6 +7,8 @@
 
 #include<windows.h>
 
-void Sound_Test ();
+void Play_Sound_Demo ();
+
+void Play_Sound();
 
 #endif //_SOUND_H_
