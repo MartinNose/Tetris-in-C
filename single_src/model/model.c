@@ -47,7 +47,7 @@ double globalSpeed;
 
 //===================================================
 
-static int countScore(int num);
+static int countScore[] = {0, 100, 200, 500, 1000};
 
 static void game ();
 static void flash ();
@@ -185,27 +185,6 @@ void Settle(tetrimino tetri){
     }
 }
 
-static int countScore(int num){
-    int ds = 0;
-    switch (num){
-        case 0: break;
-        case 1:
-            ds = 100;
-            break;
-        case 2:
-            ds = 200;
-            break;
-        case 3:
-            ds = 500;
-            break;
-        case 4:
-            ds = 1000;
-            break;
-        default:break;
-    }
-    return ds;
-}
-
 bool CheckTop ()
 {
     bool isTopped = 0;
@@ -238,7 +217,7 @@ static Checkerboard ClearLines(Checkerboard checkerboard1)
             Mark[num++] = i;
         }
     }
-    Score += countScore(num);
+    Score += countScore[num];
     return checkerboard1;
 }
 
@@ -444,7 +423,9 @@ tetrimino PauseEventHandler(tetrimino temp){
     return temp;
 }
 
-void ExitGame(){
+void ExitGame()
+{
+    exit(0);
     //To laucher
 }
 
@@ -456,7 +437,7 @@ void GameOver()
     rank_list = Add_Node (rank_list, Score, "game_debug");
     write_Rank (rank_list);
     char buffer[32];
-    sprintf (buffer, "%d", Score);
-    MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
+    sprintf (buffer, "Thanks for playing, your score is %d!", Score);
+    MessageBoxA (NULL, buffer, "Game Over", MB_ICONINFORMATION);
     startTimer(GAMEOVER,10);
 }
