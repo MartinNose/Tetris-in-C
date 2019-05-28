@@ -75,11 +75,3 @@ void write_Rank(userNode *head)
     }
 }
 
-int main()
-{
-    userNode * rank_list;
-    rank_list = Load_Rank ();
-    rank_list = Add_Node (rank_list, 250, "66666");
-    write_Rank (rank_list);
-    return 0;
-}

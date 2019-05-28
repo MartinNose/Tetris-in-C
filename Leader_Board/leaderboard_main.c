@@ -1,7 +1,3 @@
-//
-// Created by Tao Chiang on 5/28/2019.
-//
-
 #include "graphics.h"
 #include "extgraph.h"
 #include "genlib.h"
@@ -20,101 +16,86 @@
 #include <winuser.h>
 
 #include "imgui.h"
+#include "file_system.h"
 
-// å…¨å±€å˜é‡
-static double winwidth, winheight;   // çª—å£å°ºå¯¸
-static int enable_rotation = 1;   // å…è®¸æ—‹è½¬
-static int show_more_buttons = 0; // æ˜¾ç¤ºæ›´å¤šæŒ‰é’®
+// È«¾Ö±äÁ¿
+static double winwidth, winheight;   // ´°¿Ú³ß´ç
+static int enable_rotation = 1;   // ÔÊĞíĞı×ª
+static int show_more_buttons = 0; // ÏÔÊ¾¸ü¶à°´Å¥
+userNode* head = NULL;
 
-static bool isDisplayMenu = FALSE;
 
-// æ¸…å±å‡½æ•°ï¼Œprovided in libgraphics
+static char *const head_str = "Leader Board";
+// ÇåÆÁº¯Êı£¬provided in libgraphics
 void DisplayClear (void);
 
-// ç”¨æˆ·çš„æ˜¾ç¤ºå‡½æ•°
+// ÓÃ»§µÄÏÔÊ¾º¯Êı
 void display (void);
 
 void DrawBasic ();
 void RefreshDisplay();
+void drawMenu();
+
+void Init_Rank_Data();
+void PrintList(userNode* head, double x, double y, int num);
 
 void drawButtons();
 
-// ç”¨æˆ·çš„é”®ç›˜äº‹ä»¶å“åº”å‡½æ•°
+void DrawGrid(double x, double y, double width, double height,
+              int columns, int rows);
+
+void DrawBox(double x, double y, double width, double height);
+
+// ÓÃ»§µÄ¼üÅÌÊÂ¼şÏìÓ¦º¯Êı
 void KeyboardEventProcess (int key, int event)
 {
-//    printf ("%d\n", key);
-    switch (event) {
-        case KEY_DOWN:
-            switch (key) {
-                case 16:isDisplayMenu ^= 1;
-//                    printf ("%d\n", isDisplayMenu);
-                    break;
-                default:uiGetKeyboard (key, event); // GUIè·å–é”®ç›˜
-                    break;
-            }
-            break;
-        case KEY_UP:
-            switch (key) {
-                case 16:break;
-                default:uiGetKeyboard (key, event); // GUIè·å–é”®ç›˜
-                    break;
-            }
-        default:break;
-    }
-    if (isDisplayMenu)
-        display (); // åˆ·æ–°æ˜¾ç¤º
-    else
-    {
-        RefreshDisplay();
-    }
+    uiGetKeyboard (key, event); // GUI»ñÈ¡¼üÅÌ
+    display (); // Ë¢ĞÂÏÔÊ¾
 }
 
-// ç”¨æˆ·çš„é¼ æ ‡äº‹ä»¶å“åº”å‡½æ•°
+// ÓÃ»§µÄÊó±êÊÂ¼şÏìÓ¦º¯Êı
 void MouseEventProcess (int x, int y, int button, int event)
 {
-    uiGetMouse (x, y, button, event); //GUIè·å–é¼ æ ‡
-    if (isDisplayMenu) {
-        display (); // åˆ·æ–°æ˜¾ç¤º
-    } else {
-        RefreshDisplay();
-    }
+    uiGetMouse (x, y, button, event); //GUI»ñÈ¡Êó±ê
+    display (); // Ë¢ĞÂÏÔÊ¾
 }
 
-// ç”¨æˆ·ä¸»ç¨‹åºå…¥å£
-// ä»…åˆå§‹åŒ–æ‰§è¡Œä¸€æ¬¡
+// ÓÃ»§Ö÷³ÌĞòÈë¿Ú
+// ½ö³õÊ¼»¯Ö´ĞĞÒ»´Î
 void Main ()
 {
-    // åˆå§‹åŒ–çª—å£å’Œå›¾å½¢ç³»ç»Ÿ
-    SetWindowTitle ("Teris Launcher");
-    //SetWindowSize(10, 10); // å•ä½ - è‹±å¯¸
+    // ³õÊ¼»¯´°¿ÚºÍÍ¼ĞÎÏµÍ³
+    SetWindowTitle (head_str);
+    //SetWindowSize(10, 10); // µ¥Î» - Ó¢´ç
     //SetWindowSize(20, 10);
-    //SetWindowSize(10, 20);  // å¦‚æœå±å¹•å°ºå¯¸ä¸å¤Ÿï¼Œåˆ™æŒ‰æ¯”ä¾‹ç¼©å°
+    //SetWindowSize(10, 20);  // Èç¹ûÆÁÄ»³ß´ç²»¹»£¬Ôò°´±ÈÀıËõĞ¡
     InitGraphics ();
 
-    // è·å¾—çª—å£å°ºå¯¸
+    // »ñµÃ´°¿Ú³ß´ç
     winwidth = GetWindowWidth ();
     winheight = GetWindowHeight ();
 
     setMenuColors("Black", "White", "Gray", "White", 1);
 
-    // æ³¨å†Œæ—¶é—´å“åº”å‡½æ•°
-    registerKeyboardEvent (KeyboardEventProcess);// é”®ç›˜
-    registerMouseEvent (MouseEventProcess);      // é¼ æ ‡
+    // ×¢²áÊ±¼äÏìÓ¦º¯Êı
+    registerKeyboardEvent (KeyboardEventProcess);// ¼üÅÌ
+    registerMouseEvent (MouseEventProcess);      // Êó±ê
 
+    // ´ò¿ª¿ØÖÆÌ¨£¬·½±ãÊä³ö±äÁ¿ĞÅÏ¢£¬±ãÓÚµ÷ÊÔ
+//    InitConsole();
 
+    Init_Rank_Data();
     DrawBasic ();
-    // æ‰“å¼€æ§åˆ¶å°ï¼Œæ–¹ä¾¿è¾“å‡ºå˜é‡ä¿¡æ¯ï¼Œä¾¿äºè°ƒè¯•
-    // InitConsole();
-
+    drawMenu ();
 }
 
-// èœå•æ¼”ç¤ºç¨‹åº
+// ²Ëµ¥ÑİÊ¾³ÌĞò
 void drawMenu ()
 {
     static char *menuListFile[] = {"File",
-                                   "Open  | Ctrl-O", // å¿«æ·é”®å¿…é¡»é‡‡ç”¨[Ctrl-X]æ ¼å¼ï¼Œæ”¾åœ¨å­—ç¬¦ä¸²çš„ç»“å°¾
+                                   "Refresh | Ctrl-R", // ¿ì½İ¼ü±ØĞë²ÉÓÃ[Ctrl-X]¸ñÊ½£¬·ÅÔÚ×Ö·û´®µÄ½áÎ²
 //                                    "Close",
-                                   "Exit   | Ctrl-E"};
+                                   "Exit       | Ctrl-E"};
     static char *menuListTool[] = {"Tool",
                                    "Triangle",
                                    "Circle",
@@ -127,21 +108,23 @@ void drawMenu ()
     double fH = GetFontHeight ();
     double x = 0; //fH/8;
     double y = winheight;
-    double h = fH * 1.5; // æ§ä»¶é«˜åº¦
-//    double w = TextStringWidth (menuListHelp[0]) * 2; // æ§ä»¶å®½åº¦
+    double h = fH * 1.5; // ¿Ø¼ş¸ß¶È
+//    double w = TextStringWidth (menuListHelp[0]) * 2; // ¿Ø¼ş¿í¶È
     double w = winwidth / 3;
     double wlist = TextStringWidth (menuListTool[3]) * 1.2;
-    double xindent = winheight / 20; // ç¼©è¿›
+    double xindent = winheight / 20; // Ëõ½ø
     int selection;
 
-    // File èœå•
+    // File ²Ëµ¥
     selection = menuList (GenUIID(0), x,
                           y - h, w, wlist, h, menuListFile, sizeof (menuListFile) / sizeof (menuListFile[0]));
     if (selection > 0) selectedLabel = menuListFile[selection];
+    if (selection == 1)
+        Init_Rank_Data ();
     if (selection == 2)
         exit (-1); // choose to exit
 
-    // Tool èœå•
+    // Tool ²Ëµ¥
     menuListTool[3] = enable_rotation ? "Stop Rotation | Ctrl-T" : "Start Rotation | Ctrl-T";
     selection = menuList (GenUIID(0),
                           x + w, y - h, w, wlist, h, menuListTool, sizeof (menuListTool) / sizeof (menuListTool[0]));
@@ -149,7 +132,7 @@ void drawMenu ()
     if (selection == 3)
         enable_rotation = !enable_rotation;
 
-    // Help èœå•
+    // Help ²Ëµ¥
     menuListHelp[1] = show_more_buttons ? "Show Less | Ctrl-M" : "Show More | Ctrl-M";
     selection = menuList (GenUIID(0),
                           x + 2 * w,
@@ -158,14 +141,14 @@ void drawMenu ()
     if (selection == 1)
         show_more_buttons = !show_more_buttons;
     if (selection == 2)
-        MessageBoxA (NULL, "è¿™æ˜¯æˆ‘ä»¬çš„å¤§ä½œä¸šï¼", "å…³äº | About", MB_ICONINFORMATION);;
+        MessageBoxA (NULL, "ÕâÊÇÎÒÃÇµÄ´ó×÷Òµ£¡", "¹ØÓÚ | About", MB_ICONINFORMATION);;
 }
 
 void display ()
 {
-    // æ¸…å±
+    // ÇåÆÁ
     RefreshDisplay ();
-    // ç»˜åˆ¶å’Œå¤„ç†èœå•
+    // »æÖÆºÍ´¦Àí²Ëµ¥
     drawMenu ();
 }
 
@@ -177,45 +160,78 @@ void RefreshDisplay ()
 
 void DrawBasic ()
 {
-//    SetPenColor ("Black");
-//    DrawLine (1,1);
-    SetFont ("å¾®è½¯é›…é»‘");
+    SetFont ("Î¢ÈíÑÅºÚ");
     drawButtons ();
     SetPenColor ("Black");
-//    printf("%s\n", GetFont ());
-    SetFont ("å¾®è½¯é›…é»‘");
     SetPointSize(64);
-    MovePen (winwidth/2 - TextStringWidth("Teris")/2, winheight/2 + 1);
-    DrawTextString ("Teris");
+    MovePen (winwidth/2 - TextStringWidth(head_str) / 2, winheight / 2 + 2.4);
+    DrawTextString (head_str);
     SetPointSize (13);
+//    DrawGrid (winwidth/2 - 3, winheight/2 - 3, 2, 0.5, 3, 10);
+    double x = winwidth/2 -3;
+    double y = winheight/2 - 3;
+    DrawBox (x , y, 6, 5);
+    PrintList (head, x, y + 5, ((show_more_buttons) ? 20 : 10));
 }
 
 void drawButtons()
 {
     double fH = GetFontHeight();
-    double h = fH*2;  // æ§ä»¶é«˜åº¦
+    double h = fH*2;  // ¿Ø¼ş¸ß¶È
     double x = winwidth/2.5;
     double y = winheight/2-h;
-    double w = winwidth/5; // æ§ä»¶å®½åº¦
-//
-//    if (button(GenUIID(0), x, y, w, h, show_more_buttons ? "Show Less Buttons" : "Show More Buttons"))
-//        show_more_buttons = ! show_more_buttons;
-//
-//    if( show_more_buttons ) {
-//        int k;
-//        for( k = 0; k<3; k++ ) {
-//            char name[128]; sprintf(name, "Button Array %d", k);
-//            // use GenUIID(k) to have different ID for multiple buttons by the same code
-//            button(GenUIID(k), x + w*1.2, y - k*h*2, w, h, name);
-//        }
-//    }
+    double w = winwidth/5; // ¿Ø¼ş¿í¶È
 
     x = winwidth / 2 - 1;
     y = winheight / 2 - 0.6;
     setButtonColors("Black", "White", "Gray", "White", 1);
-    if (button(GenUIID(0), x, y, 2, 1.2, "Single Mode"))
-    {
-        WinExec("single_main.exe", SW_SHOW);
-    }
+//    if (button(GenUIID(0), x, y, 2, 1.2, "Single Mode"))
+//    {
+//        WinExec("single_main.exe", SW_SHOW);
+//    }
 
+}
+
+void DrawBox(double x, double y, double width, double height)
+{
+    MovePen(x, y);
+    DrawLine(0, height);
+    DrawLine(width, 0);
+    DrawLine(0, -height);
+    DrawLine(-width, 0);
+}
+
+void DrawGrid(double x, double y, double width, double height,
+              int columns, int rows)
+{
+    int i, j;
+
+    for (i = 0; i < columns; i++) {
+        for (j = 0; j < rows; j++) {
+            DrawBox(x + i * width, y + j * height,
+                    width, height);
+        }
+    }
+}
+
+void Init_Rank_Data()
+{
+    head = Load_Rank ();
+}
+
+void PrintList(userNode* head, double x, double y, int num)
+{
+    char buffer[200];
+    userNode* p;
+    int cnt = 0;
+    SetPenColor ("Black");
+    SetPointSize (16);
+    for (p = head; p && cnt < num; p = p->next)
+    {
+        cnt++;
+        sprintf (buffer, "%10d %30s %10d", cnt, p->name, p->score);
+        printf ("%s\n", buffer);
+        MovePen (x, y - cnt * 0.4);
+        DrawTextString (buffer);
+    }
 }

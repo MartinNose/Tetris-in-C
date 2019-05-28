@@ -108,9 +108,9 @@ void Main ()
 void drawMenu ()
 {
     static char *menuListFile[] = {"File",
-                                   "Open  | Ctrl-O", // 快捷键必须采用[Ctrl-X]格式，放在字符串的结尾
+                                   "Leader Board  | Ctrl-B", // 快捷键必须采用[Ctrl-X]格式，放在字符串的结尾
 //                                    "Close",
-                                   "Exit   | Ctrl-E"};
+                                   "Exit             | Ctrl-E"};
     static char *menuListTool[] = {"Tool",
                                    "Triangle",
                                    "Circle",
@@ -134,6 +134,8 @@ void drawMenu ()
     selection = menuList (GenUIID(0), x,
                           y - h, w, wlist, h, menuListFile, sizeof (menuListFile) / sizeof (menuListFile[0]));
     if (selection > 0) selectedLabel = menuListFile[selection];
+    if (selection == 1)
+        WinExec("leaderboard.exe", SW_SHOW);
     if (selection == 2)
         exit (-1); // choose to exit
 
@@ -212,6 +214,10 @@ void drawButtons()
     if (button(GenUIID(0), x, y, 2, 1.2, "Single Mode"))
     {
         WinExec("single_main.exe", SW_SHOW);
+    }
+    if (button(GenUIID(0), x, y - 0.8, 2, 0.6, "Leader Board"))
+    {
+        WinExec("leaderboard.exe", SW_SHOW);
     }
 
 }
