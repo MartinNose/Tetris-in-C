@@ -200,7 +200,7 @@ void DrawData(int score){
     MovePen(LevelX*BLOCKSIZE,LevelY*BLOCKSIZE);
     DrawTextString(buffer);
 
-    sprintf(buffer,"Speed: %.2f",ctetri.yVelocity/DEBUG_SLOW);
+    sprintf(buffer,"Speed: %.2f",ctetri.yVelocity/INIT_SPEED);
     if(ctetri.yVelocity>10){
         SetPenColor("White");
     }

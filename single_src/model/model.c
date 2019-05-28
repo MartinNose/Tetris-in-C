@@ -94,7 +94,7 @@ static void game ()
 
     if(ctetri.yVelocity == 0 && !ctetri.isPulsed){
         Settle(ctetri); //add tetri to checker board
-        globalSpeed = DEBUG_SLOW + DEBUG_SLOW * (Score/LevelGap); //update speed
+        globalSpeed = INIT_SPEED + INIT_SPEED * (Score/LevelGap); //update speed
         isHoldLegal = TRUE;
     }
     if(ctetri.isPulsed){
@@ -279,33 +279,35 @@ tetrimino tetriRandom ()
     return generateTetrimino (type, direction);
 }
 
-void InitModel ()
-{
-    int i, j;
+
+static Checkerboard generateInitCheckerboard(){
+    int i,j;
+    Checkerboard EmptyCheckerboard;
     for(i = 0;i<14;i++)
         for(j = 0;j<25;j++)
             EmptyCheckerboard.block[i][j] = 0;
-
-    checkerboard = EmptyCheckerboard;
     for (i = 0; i < 20; i++)
-        checkerboard.block[0][i] = checkerboard.block[13][i] = 1;
+        EmptyCheckerboard.block[0][i] = EmptyCheckerboard.block[13][i] = 1;
     for (i = 1; i < 13; i++)
-        checkerboard.block[i][0] = 1; // block_color[i][19] =
+        EmptyCheckerboard.block[i][0] = 1; // block_color[i][19] =
+    // rewrite the boundary as 1
     for (i = 1; i <= 12; i++)
     {
         for (j = 1; j < 20; j++)
-            checkerboard.block[i][j] = 0;
+            EmptyCheckerboard.block[i][j] = 0;
     }
-    // rewrite the boundary as 1
+    return EmptyCheckerboard;
+}
+
+void InitModel ()
+{
+    checkerboard = generateInitCheckerboard();
+
     Score = 0;
-    globalSpeed = DEBUG_SLOW;
+    globalSpeed = INIT_SPEED;
 
     que[0] = tetriRandom();
     que[1] = tetriRandom();
-//    block_color[3][3] = 2;
-//    block_color[10][10] = 5;
-//    block_color[10][18] = 3; // test, we can know that the y_max = 18
-
 }
 
 bool check_collision (tetrimino tetri)

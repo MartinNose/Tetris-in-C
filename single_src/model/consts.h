@@ -33,7 +33,7 @@
 
 #define ERA 1000
 
-#define DEBUG_SLOW 0.06
+#define INIT_SPEED 0.06
 #define SLOW 0.06
 #define FAST 8
 
