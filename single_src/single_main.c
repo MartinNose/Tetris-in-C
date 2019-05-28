@@ -23,7 +23,7 @@ void Main ()
 
     SetWindowSize (BLOCKSIZE * WIDTH, BLOCKSIZE * HEIGHT);
     InitGraphics ();
-//    InitConsole ();
+    //InitConsole ();
 
     DefineColors();
     InitModel ();
@@ -35,4 +35,5 @@ void Main ()
     registerKeyboardEvent (keyboardEventHandler);
 
     startTimer (GAME, 10);
+    //startTimer(DEBUG, 1000);
 }

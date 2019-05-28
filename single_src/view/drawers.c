@@ -299,7 +299,6 @@ void drawMenu() {
             break;
         case 1://pause
             keyboardEventHandler(0x50,KEY_DOWN);
-
             break;
         case 3://restart
             keyboardEventHandler(0x52, KEY_DOWN);
@@ -315,7 +314,25 @@ void drawMenu() {
             break;// choose to exit
     }
 }
-//On MenuBar
+void drawPauseButtons(double x, double y);
+{
+    double fH = GetFontHeight();
+    double h = fH*1.2;  // 控件高度
+    double w = 7*BLOCKSIZE; // 控件宽度
+
+    x = winwidth / 2 - 1;
+    y = winheight / 2 - 0.6;
+    setButtonColors("Black", "White", "Gray", "White", 1);
+    if (button(GenUIID(0), x, y, 2, 1.2, "Single Mode"))
+    {
+        WinExec("single_main.exe", SW_SHOW);
+    }
+    if (button(GenUIID(0), x, y - 0.8, 2, 0.6, "Leader Board"))
+    {
+        WinExec("leaderboard.exe", SW_SHOW);
+    }
+
+}
 
 
 
