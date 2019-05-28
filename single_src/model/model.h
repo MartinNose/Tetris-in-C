@@ -16,7 +16,7 @@ void timerEventHandler (int timerID);
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
 tetrimino tetriRandom ();
 bool check_collision (tetrimino tetri);
-void Settle_Tetri(tetrimino tetri);
+Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker);
 tetrimino HardDrop(tetrimino tetri);
 void Settle(tetrimino tetri);
 tetrimino HoldEventHandler(tetrimino temp);

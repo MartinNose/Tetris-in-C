@@ -72,6 +72,7 @@ void timerEventHandler (int timerID){
             flash();
             break;
     }
+
 }
 static void game ()
 {
@@ -157,7 +158,7 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri)
 
 
 void Settle(tetrimino tetri){
-    Settle_Tetri (tetri);
+    checkerboard = Settle_Tetri (tetri,checkerboard);
     lastCheckerboard = checkerboard;
     clearCheckerboard = ClearLines(checkerboard);
     if(Mark[0]!=-1) {
@@ -296,6 +297,7 @@ static Checkerboard generateInitCheckerboard(){
         for (j = 1; j < 20; j++)
             EmptyCheckerboard.block[i][j] = 0;
     }
+
     return EmptyCheckerboard;
 }
 
@@ -344,34 +346,31 @@ bool check_collision (tetrimino tetri)
     }
 }
 
-void Settle_Tetri (tetrimino tetri)
+Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker)
 {
     switch (tetri.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
-                checkerboard.block[tetri.x + typeInfo[tetri.type][i][0] - 9][tetri.y + typeInfo[tetri.type][i][1]
-                                                                      + 1] = tetri.type;
+                checker.block[tetri.x + typeInfo[tetri.type][i][0] - 9][tetri.y + typeInfo[tetri.type][i][1] + 1] = tetri.type;
             }
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
-                checkerboard.block[tetri.x - typeInfo[tetri.type][i][1] - 9][tetri.y + typeInfo[tetri.type][i][0]
-                                                                      + 1] = tetri.type;
+                checker.block[tetri.x - typeInfo[tetri.type][i][1] - 9][tetri.y + typeInfo[tetri.type][i][0] + 1] = tetri.type;
             }
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
-                checkerboard.block[tetri.x - typeInfo[tetri.type][i][0] - 9][tetri.y - typeInfo[tetri.type][i][1]
-                                                                      + 1] = tetri.type;
+                checker.block[tetri.x - typeInfo[tetri.type][i][0] - 9][tetri.y - typeInfo[tetri.type][i][1] + 1] = tetri.type;
             }
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
-                checkerboard.block[tetri.x + typeInfo[tetri.type][i][1] - 9][tetri.y - typeInfo[tetri.type][i][0]
-                                                                      + 1] = tetri.type;
+                checker.block[tetri.x + typeInfo[tetri.type][i][1] - 9][tetri.y - typeInfo[tetri.type][i][0] + 1] = tetri.type;
             }
             break;
     }
+    return checker;
 
 }
 
