@@ -8,4 +8,5 @@
 #include<windows.h>
 
 void Sound_Test ();
+
 #endif //_SOUND_H_
