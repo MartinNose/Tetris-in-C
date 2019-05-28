@@ -3,8 +3,28 @@
 //
 
 #include "sound.h"
+#include <windows.h>
 
-void Sound_Test ()
+#include <stdio.h>
+#include <time.h>
+
+DWORD WINAPI Sound_Func (LPVOID lpParam)
+{
+    Play_Sound_Demo ();
+}
+
+void Play_Sound()
+{
+    CreateThread (
+        NULL,   // default security attributes
+        0, // use default stack size
+        Sound_Func, // thread function
+        NULL,// argument to thread function
+        0, // use default creation flags
+        NULL);// returns the thread identifier
+}
+
+void Play_Sound_Demo ()
 {
     Beep (494, 200);
 
