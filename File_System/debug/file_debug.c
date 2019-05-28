@@ -5,9 +5,9 @@
 
 int main()
 {
-    userNode * rank_list;
+    userNode* rank_list;
     rank_list = Load_Rank ();
-    rank_list = Add_Node (rank_list, 250, "66666");
+    rank_list = Add_Node (rank_list, 996, "007");
     write_Rank (rank_list);
     return 0;
 }

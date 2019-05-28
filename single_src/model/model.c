@@ -27,6 +27,8 @@
 
 #include "imgui.h"
 
+#include "file_system.h"
+
 Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
 tetrimino ctetri;
@@ -445,8 +447,12 @@ void ExitGame(){
     //To laucher
 }
 
-void GameOver(){
+void GameOver()
+{
     cancelTimer(GAME);
+    userNode* rank_list = Load_Rank ();
+    rank_list = Add_Node (rank_list, Score, "game_debug");
+    write_Rank (rank_list);
     char buffer[32];
     sprintf (buffer, "%d", Score);
     MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
