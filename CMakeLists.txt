@@ -9,12 +9,14 @@ include_directories(./single_src/controller)
 include_directories(./single_src/view)
 include_directories(./single_src/model)
 include_directories(./Linked_List)
+include_directories(./File_System)
 
 aux_source_directory(./libgraphics LIB)
 aux_source_directory(./simpleGUI GUI)
 aux_source_directory(./single_src/model MODEL)
 aux_source_directory(./single_src/view VIEW)
 aux_source_directory(./single_src/controller CONTROLLER)
+aux_source_directory(./File_System FILE_SYS)
 
 #SET(GCC_COVERAGE_COMPILE_FLAGS "-mwindows")
 #SET(GCC_COVERAGE_LINK_FLAGS    "-mwindows")
@@ -24,6 +26,6 @@ aux_source_directory(./single_src/controller CONTROLLER)
 
 
 add_executable(launcher WIN32 ${LIB} ${GUI} launcher/launcher_main.c)
-add_executable(leaderbord WIN32 ${LIB} ${GUI} Leader_Board/leaderboard_main.c)
+add_executable(leaderbord WIN32 ${LIB} ${GUI} ${FILE_SYS} Leader_Board/leaderboard_main.c)
 add_executable(single_main WIN32 ${LIB} ${MODEL} ${VIEW} ${CONTROLLER} ${GUI} single_src/single_main.c)
-add_executable(file_debug File_System/file_system.c)
+add_executable(file_debug ${FILE_SYS} File_System/debug/file_debug.c)
