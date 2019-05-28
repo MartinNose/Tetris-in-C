@@ -27,6 +27,8 @@
 
 #include "imgui.h"
 
+#include "file_system.h"
+
 Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
 tetrimino ctetri;
@@ -112,6 +114,9 @@ static void game ()
     }
     if(is_game_over){
         cancelTimer(MAINTAINER);
+        userNode* rank_list = Load_Rank ();
+        rank_list = Add_Node (rank_list, Score, "game_debug");
+        write_Rank (rank_list);
         char buffer[32];
         sprintf (buffer, "%d", Score);
         MessageBoxA (NULL, buffer, "Display", MB_ICONINFORMATION);
@@ -444,7 +449,7 @@ void drawMenu()
 {
     static char * menuListFile[] = {
             "File",
-            "Open  | Ctrl-O", // ��ݼ��������[Ctrl-X]��ʽ�������ַ����Ľ�β
+            "Open  | Ctrl-O",
             "Close",
             "Exit   | Ctrl-E"};
     static char * menuListTool[] = {
@@ -458,26 +463,26 @@ void drawMenu()
     static char * selectedLabel = NULL;
 
     double fH = GetFontHeight();
-    double x = 0; //fH/8;
+    double x = 0;
     double y = GetWindowHeight();
-    double h = fH*1.5; // �ؼ��߶�
-    double w = TextStringWidth(menuListHelp[0])*2; // �ؼ�����
+    double h = fH*1.5;
+    double w = TextStringWidth(menuListHelp[0])*2;
     double wlist = TextStringWidth(menuListTool[3])*1.2;
-    double xindent = GetWindowWidth()/20; // ����
+    double xindent = GetWindowWidth()/20;
     int    selection;
 
-    // File �˵�
+    // File �˵�
     selection = menuList(GenUIID(0), x, y-h, w, wlist, h, menuListFile, sizeof(menuListFile)/sizeof(menuListFile[0]));
     if( selection>0 ) selectedLabel = menuListFile[selection];
     if( selection==3 )
         exit(-1); // choose to exit
 
-    // Tool �˵�
+    // Tool �˵�
     menuListTool[3] =  "Start Rotation | Ctrl-T";
     selection = menuList(GenUIID(0),x+w,  y-h, w, wlist,h, menuListTool,sizeof(menuListTool)/sizeof(menuListTool[0]));
     if( selection>0 ) selectedLabel = menuListTool[selection];
 
-    // Help �˵�
+    // Help �˵�
     menuListHelp[1] = "Show Less | Ctrl-M" ;
     selection = menuList(GenUIID(0),x+2*w,y-h, w, wlist, h, menuListHelp,sizeof(menuListHelp)/sizeof(menuListHelp[0]));
     if( selection>0 ) selectedLabel = menuListHelp[selection];
