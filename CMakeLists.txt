@@ -26,6 +26,6 @@ aux_source_directory(./File_System FILE_SYS)
 
 
 add_executable(launcher WIN32 ${LIB} ${GUI} launcher/launcher_main.c)
-add_executable(leaderbord WIN32 ${LIB} ${GUI} ${FILE_SYS} Leader_Board/leaderboard_main.c)
+add_executable(leaderboard WIN32 ${LIB} ${GUI} ${FILE_SYS} Leader_Board/leaderboard_main.c)
 add_executable(single_main WIN32 ${LIB} ${MODEL} ${VIEW} ${CONTROLLER} ${GUI} single_src/single_main.c)
 add_executable(file_debug ${FILE_SYS} File_System/debug/file_debug.c)
