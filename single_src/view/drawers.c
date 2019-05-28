@@ -314,23 +314,23 @@ void drawMenu() {
             break;// choose to exit
     }
 }
-void drawPauseButtons(double x, double y);
+void drawPauseButtons(double x, double y)
 {
     double fH = GetFontHeight();
     double h = fH*1.2;  // 控件高度
     double w = 7*BLOCKSIZE; // 控件宽度
 
-    x = winwidth / 2 - 1;
-    y = winheight / 2 - 0.6;
-    setButtonColors("Black", "White", "Gray", "White", 1);
-    if (button(GenUIID(0), x, y, 2, 1.2, "Single Mode"))
-    {
-        WinExec("single_main.exe", SW_SHOW);
-    }
-    if (button(GenUIID(0), x, y - 0.8, 2, 0.6, "Leader Board"))
-    {
-        WinExec("leaderboard.exe", SW_SHOW);
-    }
+//    x = winwidth / 2 - 1;
+//    y = winheight / 2 - 0.6;
+//    setButtonColors("Black", "White", "Gray", "White", 1);
+//    if (button(GenUIID(0), x, y, 2, 1.2, "Single Mode"))
+//    {
+//        WinExec("single_main.exe", SW_SHOW);
+//    }
+//    if (button(GenUIID(0), x, y - 0.8, 2, 0.6, "Leader Board"))
+//    {
+//        WinExec("leaderboard.exe", SW_SHOW);
+//    }
 
 }
 
