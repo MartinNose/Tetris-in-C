@@ -435,9 +435,6 @@ void GameOver()
     userNode* rank_list = Load_Rank ();
     rank_list = Add_Node (rank_list, Score, "game_debug");
     write_Rank (rank_list);
-    char buffer[32];
-    sprintf (buffer, "Thanks for playing, your score is %d!", Score);
-    MessageBoxA (NULL, buffer, "Game Over", MB_ICONINFORMATION);
 
     startTimer(GAMEOVER,10);
 }
