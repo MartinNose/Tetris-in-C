@@ -64,7 +64,7 @@ tetrimino generateTetrimino (int type, int direction)
     tetri.y = HEIGHT;
     tetri.type = type;
     tetri.direction = direction;
-    tetri.color = TETRI_COLOR[type];
+//    tetri.color = TETRI_COLOR[type];
     tetri.yVelocity = 0;
     tetri.isPaused = FALSE;
 

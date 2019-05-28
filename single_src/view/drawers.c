@@ -61,22 +61,22 @@ void drawTetri (tetrimino tetri)
     switch (tetri.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
-                drawBlock (tetri.x + typeInfo[tetri.type][i][0], tetri.y + typeInfo[tetri.type][i][1], tetri.color);
+                drawBlock (tetri.x + typeInfo[tetri.type][i][0], tetri.y + typeInfo[tetri.type][i][1], TETRI_COLOR[tetri.type]);
             }
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
-                drawBlock (tetri.x - typeInfo[tetri.type][i][1], tetri.y + typeInfo[tetri.type][i][0], tetri.color);
+                drawBlock (tetri.x - typeInfo[tetri.type][i][1], tetri.y + typeInfo[tetri.type][i][0], TETRI_COLOR[tetri.type]);
             }
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
-                drawBlock (tetri.x - typeInfo[tetri.type][i][0], tetri.y - typeInfo[tetri.type][i][1], tetri.color);
+                drawBlock (tetri.x - typeInfo[tetri.type][i][0], tetri.y - typeInfo[tetri.type][i][1], TETRI_COLOR[tetri.type]);
             }
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
-                drawBlock (tetri.x + typeInfo[tetri.type][i][1], tetri.y - typeInfo[tetri.type][i][0], tetri.color);
+                drawBlock (tetri.x + typeInfo[tetri.type][i][1], tetri.y - typeInfo[tetri.type][i][0], TETRI_COLOR[tetri.type]);
             }
             break;
     }
@@ -176,22 +176,22 @@ void DrawShadow(tetrimino shadow){
     switch (shadow.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
-                drawShadowBlock (shadow.x + typeInfo[shadow.type][i][0], shadow.y + typeInfo[shadow.type][i][1], shadow.color);
+                drawShadowBlock (shadow.x + typeInfo[shadow.type][i][0], shadow.y + typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
             }
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
-                drawShadowBlock (shadow.x - typeInfo[shadow.type][i][1], shadow.y + typeInfo[shadow.type][i][0], shadow.color);
+                drawShadowBlock (shadow.x - typeInfo[shadow.type][i][1], shadow.y + typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
             }
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
-                drawShadowBlock (shadow.x - typeInfo[shadow.type][i][0], shadow.y - typeInfo[shadow.type][i][1], shadow.color);
+                drawShadowBlock (shadow.x - typeInfo[shadow.type][i][0], shadow.y - typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
             }
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
-                drawShadowBlock (shadow.x + typeInfo[shadow.type][i][1], shadow.y - typeInfo[shadow.type][i][0], shadow.color);
+                drawShadowBlock (shadow.x + typeInfo[shadow.type][i][1], shadow.y - typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
             }
             break;
     }
