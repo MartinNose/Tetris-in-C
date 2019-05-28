@@ -308,7 +308,7 @@ void drawBoardButtons(double x, double y,int flag)
         }
         if (button(GenUIID(0), x, y - 4*h, w, h, "QUIT"))
         {
-
+            ExitGame();
         }
     }
     else
@@ -333,7 +333,7 @@ void drawBoardButtons(double x, double y,int flag)
             }
             if (button(GenUIID(0), x, y - 4*h, w, h, "QUIT"))
             {
-
+                ExitGame();
             }
         }
     SetStyle(0);
