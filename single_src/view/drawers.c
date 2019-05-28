@@ -137,13 +137,14 @@ void drawUI(int score, tetrimino NextTetri)
         }
     }
 
-    drawMenu();
+
     DrawNextTetrimino(NextTetri);
     DrawHoldedTetrimino(HoldedTetri);
 
 
     DrawGrid ();
     DrawData(score);
+    drawMenu();
 
 }
 void drawCheckerBoard(Checkerboard checker){
@@ -366,7 +367,7 @@ void drawMenu() {
     double y = GetWindowHeight();
     double h = fH * 1.5; // ??????
     double w = LEFTBAR * BLOCKSIZE / 3; // ???????
-    double wlist = TextStringWidth(menuListFile[3]) * 1.2;
+    double wlist = TextStringWidth(menuListFile[4]) * 1.2;
     double xindent = GetWindowWidth() / 20; // ????
     int selection;
 
