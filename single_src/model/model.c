@@ -80,15 +80,19 @@ tetrimino generateTetrimino (int type, int direction)
 void timerEventHandler (int timerID)
 {
     switch (timerID) {
-        case GAME:game ();
+        case GAME:
+            if(!is_game_over)game ();
+            else{
+                drawCheckerBoard(checkerboard);
+                drawUI(Score, que[1]);
+                DrawBoard(GAMEOVER);
+            }
             break;
         case CheckerboardFLASH :
             flash ();
             break;
-        case GAMEOVER:
-            drawCheckerBoard(checkerboard);
-            drawUI(Score, que[1]);
-            DrawBoard(GAMEOVER);
+        //case GAMEOVER:
+
             break;
         case DEBUG:printf ("%f", GetWindowWidth ());
             break;
@@ -100,7 +104,7 @@ void timerEventHandler (int timerID)
 static void game ()
 {
     static int time = 0;
-    if (ctetri.yVelocity == 0 && !ctetri.isPaused) {
+    if (ctetri.yVelocity == 0 && !ctetri.isPaused && !is_game_over) {
         ctetri = NextTetri ();
         ctetri = tetriMaintainer_on_gravity (time, ctetri);
     }
@@ -115,7 +119,7 @@ static void game ()
     drawTetri (ctetri);
     drawUI (Score, que[1]);
 
-    if (ctetri.yVelocity == 0 && !ctetri.isPaused) {
+    if (ctetri.yVelocity == 0 && !ctetri.isPaused ) {
         Settle (ctetri); //add tetri to checker board
         globalSpeed = INIT_SPEED + INIT_SPEED * (Score / LevelGap); //update speed
         isHoldLegal = TRUE;
@@ -454,13 +458,13 @@ void ExitGame ()
 void GameOver ()
 {
     is_game_over = TRUE;
-    cancelTimer (GAME);
+    //cancelTimer (GAME);
     userNode *rank_list = Load_Rank ();
     //TODO INPUT
     rank_list = Add_Node (rank_list, Score, "game_debug");
     write_Rank (rank_list);
 
-    startTimer(GAMEOVER,10);
+    //startTimer(GAMEOVER,10);
 }
 
 void Upload() {
