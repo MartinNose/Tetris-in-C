@@ -327,7 +327,6 @@ void drawBoardButtons (double x, double y, int flag) //TODO
             Restart ();
         }
         if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
-            //TODO Save;
             SaveGame ();
         }
         if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
@@ -347,7 +346,6 @@ void drawBoardButtons (double x, double y, int flag) //TODO
             keyboardEventHandler (0x52, KEY_DOWN);
         }
         if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
-            //TODO Save();
             SaveGame ();
         }
         if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
@@ -364,15 +362,15 @@ void drawMenu ()
     static char *menuListFile[] = {
         "File",
         "NewGame  | Ctrl-O",
-        "Save",
-        "Load",
+        "Save | Ctrl-S",
+        "Load | Ctrl-L",
         "Exit to Launcher  | Ctrl-E"
     };
     static char *menuListGame[] = {
         "Game",
-        "Pause",
+        "Pause | Ctrl-Z",
         "Show Rank List | Ctrl-T",
-        "Restart"
+        "Restart | Ctrl-R"
     };
     static char *menuListHelp[] = {
         "Help",
@@ -407,7 +405,7 @@ void drawMenu ()
     // Game
     selection = menuList (GenUIID(0), x + w, y - h, w, wlist, h, menuListGame,
                           sizeof (menuListGame) / sizeof (menuListGame[0]));
-    menuListGame[1] = (ctetri.isPaused) ? "Resume" : "Pause";
+    menuListGame[1] = (ctetri.isPaused) ? "Resume | Ctrl-Z" : "Pause | Ctrl-Z";
     switch (selection) {
         case 0:break;
         case 1: //pause
@@ -425,7 +423,9 @@ void drawMenu ()
                           sizeof (menuListHelp) / sizeof (menuListHelp[0]));
     switch (selection) {
         case 0:break;
-        case 3:break;// choose to exit
+        case 1:
+            MessageBoxA (NULL, "单人模式", "关于 | About", MB_ICONINFORMATION);
+            break;
     }
 }
 

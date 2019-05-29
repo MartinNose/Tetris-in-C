@@ -156,7 +156,7 @@ void drawMenu ()
     if (selection == 1)
         show_more_buttons = !show_more_buttons;
     if (selection == 2)
-        MessageBoxA (NULL, "这是我们的大作业！", "关于 | About", MB_ICONINFORMATION);;
+        MessageBoxA (NULL, "这是我们的大作业！", "关于 | About", MB_ICONINFORMATION);
 }
 
 void display ()
