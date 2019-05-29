@@ -34,7 +34,7 @@ void display (void);
 
 void DrawBasic ();
 void RefreshDisplay();
-void drawMenu();
+void DrawMenu();
 
 void Init_Rank_Data();
 void PrintList(userNode* head, double x, double y, int num);
@@ -86,11 +86,11 @@ void Main ()
 
     Init_Rank_Data();
     DrawBasic ();
-    drawMenu ();
+    DrawMenu();
 }
 
 // 菜单演示程序
-void drawMenu ()
+void DrawMenu()
 {
     static char *menuListFile[] = {"File",
                                    "Refresh | Ctrl-R", // 快捷键必须采用[Ctrl-X]格式，放在字符串的结尾
@@ -149,7 +149,7 @@ void display ()
     // 清屏
     RefreshDisplay ();
     // 绘制和处理菜单
-    drawMenu ();
+    DrawMenu();
 }
 
 void RefreshDisplay ()

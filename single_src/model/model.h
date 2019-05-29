@@ -24,9 +24,11 @@ tetrimino PauseEventHandler(tetrimino temp);
 
 void GameOver();
 void ExitGame();
+void Upload();
 
 bool CheckTop ();
 tetrimino Restart ();
+
 
 extern Checkerboard checkerboard;
 
@@ -38,6 +40,7 @@ extern double globalSpeed;
 extern tetrimino que[2];
 extern tetrimino HoldedTetri;
 extern bool isHoldLegal;
+
 
 //MenuBar======================================
 extern bool isDisplayMenu1;

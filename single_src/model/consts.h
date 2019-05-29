@@ -20,13 +20,13 @@
 #define HoldY 2
 
 #define LevelX 2
-#define LevelY 5
+#define LevelY 13
 
 #define ScoreX 2
 #define ScoreY 15
 
 #define SpeedX 2
-#define SpeedY 10
+#define SpeedY 14
 
 
 

@@ -37,7 +37,9 @@ void DrawBoard(int flag);
 void drawBoardButtons(double x, double y,int flag);
 string RandColor();
 
-void drawMenu();
+void DrawMenu();
+
+void DrawBottomBar();
 
 
 

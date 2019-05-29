@@ -435,7 +435,7 @@ tetrimino PauseEventHandler (tetrimino temp)
 void ExitGame ()
 {
     exit (0);
-    //To laucher
+    //TODO laucher
 }
 
 void GameOver ()
@@ -447,4 +447,8 @@ void GameOver ()
     write_Rank (rank_list);
 
     startTimer(GAMEOVER,10);
+}
+
+void Upload(){
+    //TODO upload usename and score
 }

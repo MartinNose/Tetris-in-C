@@ -26,6 +26,8 @@ void DefineColors ()
     DefineRGBColor ("Midnight Blue", 25, 25, 112);
     DefineRGBColor ("Corn Silk", 255, 248, 220);
     DefineRGBColor ("Light Cyan", 224, 255, 255);
+    DefineRGBColor ("Gainsboro", 220, 220, 220);
+    DefineRGBColor ("White Smoke",245, 245, 245);
 };
 
 void DrawRect (double width, double height)
@@ -154,9 +156,12 @@ void drawUI (int score, tetrimino NextTetri)
     DrawNextTetrimino (NextTetri);
     DrawHoldedTetrimino (HoldedTetri);
 
-    DrawGrid ();
+
     DrawData (score);
-    drawMenu ();
+    DrawMenu();
+    DrawBottomBar();
+
+    DrawGrid ();
 
 }
 void drawCheckerBoard (Checkerboard checker)
@@ -281,28 +286,6 @@ void DrawBoard (int flag)
             }
         }
     }
-//    int temp = GetPointSize();
-//    DrawGrid();
-//    double x = 0.5*(GetWindowWidth()-8*BLOCKSIZE);
-//    double y = 0.5*(GetWindowHeight() - 7*BLOCKSIZE);
-//    SetPenColor("Black");
-//    StartFilledRegion(1);
-//    MovePen(x,y);
-//    DrawRect(8*BLOCKSIZE,7*BLOCKSIZE);
-//    EndFilledRegion();
-//    SetPenColor("White");
-//
-//    SetPointSize(temp*2);
-//    if(flag == PAUSE){
-//        //SetFont("");
-//        drawLabel(x+(8*BLOCKSIZE-TextStringWidth("Paused!"))/2,y+7*BLOCKSIZE- GetFontHeight(),"Paused!");
-//        SetPointSize(temp);
-//        drawBoardButtons(x, y + 7 * BLOCKSIZE - 7 * BLOCKSIZE / 3,PAUSE);
-//    }else{
-//        drawLabel(x+(8*BLOCKSIZE-TextStringWidth("Game Over"))/2,y+7*BLOCKSIZE- GetFontHeight(),"Game Over");
-//        SetPointSize(temp);
-//        drawBoardButtons(x, y + 7 * BLOCKSIZE - 7 * BLOCKSIZE / 3,GAMEOVER);
-
     int temp = GetPointSize ();
     DrawGrid ();
     double x = 0.5 * (GetWindowWidth () - 8 * BLOCKSIZE);
@@ -348,7 +331,10 @@ void drawBoardButtons (double x, double y, int flag) //TODO
         if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
             //TODO Save;
         }
-        if (button (GenUIID(0), x, y - 4 * h, w, h, "QUIT")) {
+        if (button (GenUIID(0), x, y - 5 * h, w, h, "Upload")) {
+            Upload();
+        }
+        if (button (GenUIID(0), x, y - 6 * h, w, h, "QUIT")) {
             ExitGame ();
         }
     } else {
@@ -374,9 +360,8 @@ void drawBoardButtons (double x, double y, int flag) //TODO
     SetStyle (0);
 }
 
-void drawMenu ()
+void DrawMenu()
 {
-    static bool isPaused = FALSE;
     static char *menuListFile[] = {
         "File",
         "NewGame  | Ctrl-O",
@@ -436,4 +421,24 @@ void drawMenu ()
     }
 }
 
+void DrawBottomBar(){
+    MovePen(0,0);
+    SetPenColor("Light Gray");
+    StartFilledRegion(1);
+    DrawRect(LEFTBAR*BLOCKSIZE ,GetFontHeight()*1.5);
+    EndFilledRegion();
+
+    SetPenColor("Black");
+    MovePen(0,GetFontHeight()*1.5);
+    DrawLine(LEFTBAR*BLOCKSIZE,0);
+
+    SetPenColor("White");
+    char buffer[32];
+    sprintf(buffer,"Current STATE: ");
+    drawLabel(0.1*BLOCKSIZE,GetFontHeight()/2,buffer);
+    //TODO
+//    MovePen(0,GetFontHeight()*1.1);
+//    DrawLine(LEFTBAR*BLOCKSIZE,0);
+
+};
 #endif
