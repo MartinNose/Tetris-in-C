@@ -488,5 +488,6 @@ void DebugTool() {
     char buffer[100];
     sprintf(buffer, "cx : %f,cy: %f\n", xx, yy);
     drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2, buffer);
+    drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2 - GetFontHeight(), (InCheckerBoard(xx,yy))?"InChe":"NoI");
 }
 #endif

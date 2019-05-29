@@ -85,9 +85,9 @@ void mouseEventHandler (int x, int y, int button, int event)
 
     xx = ScaleXInches(x);
     yy = ScaleXInches(y);
-
+    
 
     if(MouseMode && InCheckerBoard(xx,yy)){
-        ExitGame();
+
     }
 }
