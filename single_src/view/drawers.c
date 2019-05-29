@@ -164,7 +164,7 @@ void drawUI (int score, tetrimino NextTetri)
 
     DrawGrid ();
 
-    DebugTool();
+    //DebugTool();
 
 }
 void drawCheckerBoard (Checkerboard checker)
