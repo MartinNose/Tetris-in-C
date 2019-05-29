@@ -490,7 +490,7 @@ bool LoadGame()
         que[0] = next_tetri;
         HeldTetri = held_tetri;
         Score = temp_score;
-
+        //TODO is_game_over
         MessageBoxB("Loading","Black");
 
         return TRUE;

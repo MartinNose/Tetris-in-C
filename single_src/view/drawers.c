@@ -458,13 +458,12 @@ void DrawBottomBar(){
     char buffer[32];
     sprintf(buffer,"Music : %s  MouseMode : %s",(MusicOn)?"On":"Off",(MouseMode)?"On":"Off");
     drawLabel(0.1*BLOCKSIZE,GetFontHeight()/2,buffer);
-    //TODO
 //    MovePen(0,GetFontHeight()*1.1);
 //    DrawLine(LEFTBAR*BLOCKSIZE,0);
 
 };
 
-void DrawDynamicButtons() //TODO
+void DrawDynamicButtons()
 {
     double x , y = GetWindowHeight()/3;
     double h, w = (LEFTBAR-1) * BLOCKSIZE; // ¿Ø¼þ¿í¶È
