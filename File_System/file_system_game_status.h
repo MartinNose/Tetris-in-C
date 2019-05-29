@@ -7,8 +7,8 @@
 
 #include "consts.h"
 
-void Load_Saved_Game(Checkerboard** saved_board, tetrimino** saved_tetri, tetrimino** saved_next_tetri, tetrimino** saved_held_tetri);
-// TODO score, return Bool...
-void Save_Game(Checkerboard* cur_board, tetrimino* cur_tetri, tetrimino* next_tetri, tetrimino* held_tetri);
+bool File_Load_Saved_Game (Checkerboard *saved_board, tetrimino *saved_tetri, tetrimino *saved_next_tetri, tetrimino *saved_held_tetri, int* score);
+
+void File_Save_Game (Checkerboard *cur_board, tetrimino *cur_tetri, tetrimino *next_tetri, tetrimino *held_tetri, int score);
 
 #endif //_FILE_SYSTEM_GAME_STATUS_H_

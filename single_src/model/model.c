@@ -27,6 +27,8 @@
 #include "imgui.h"
 
 #include "file_system_linked_list.h"
+#include "file_system_game_status.h"
+#include "sound.h"
 
 Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
@@ -37,7 +39,7 @@ static int Mark[4] = {-1, -1, -1, -1};
 static Checkerboard lastCheckerboard;
 static Checkerboard clearCheckerboard;
 tetrimino que[2];
-tetrimino HoldedTetri;
+tetrimino HeldTetri;
 bool is_game_over = FALSE;
 bool isHoldLegal = TRUE;
 double globalSpeed;
@@ -76,7 +78,8 @@ void timerEventHandler (int timerID)
     switch (timerID) {
         case GAME:game ();
             break;
-        case CheckerboardFLASH :flash ();
+        case CheckerboardFLASH :
+            flash ();
             break;
         case GAMEOVER:
             drawCheckerBoard(checkerboard);
@@ -174,6 +177,7 @@ void Settle (tetrimino tetri)
     if (Mark[0] != -1) {
         cancelTimer (GAME);
         startTimer (CheckerboardFLASH, 100);
+        Play_Sound ();
     }
     checkerboard = RemoveLines (checkerboard);
     if (CheckTop () == FALSE) {
@@ -300,7 +304,7 @@ void InitModel ()
     globalSpeed = INIT_SPEED;
     is_game_over = FALSE;
     isHoldLegal = TRUE;
-    HoldedTetri = generateTetrimino (0, 0);
+    HeldTetri = generateTetrimino (0, 0);
     que[0] = tetriRandom ();
     que[1] = tetriRandom ();
     //For MenuBar
@@ -406,15 +410,15 @@ tetrimino Restart ()
 tetrimino HoldEventHandler (tetrimino temp)
 {
     if (isHoldLegal) {
-        if (HoldedTetri.type == 0) {
-            HoldedTetri = temp;
+        if (HeldTetri.type == 0) {
+            HeldTetri = temp;
             temp = que[1];
         } else {
-            temp = HoldedTetri;
+            temp = HeldTetri;
             temp.yVelocity = globalSpeed;
-            HoldedTetri = ctetri;
+            HeldTetri = ctetri;
         }
-        HoldedTetri.y = 18;
+        HeldTetri.y = 18;
         isHoldLegal = FALSE;
     }
     return temp;
@@ -436,6 +440,7 @@ void ExitGame ()
 {
     exit (0);
     //TODO laucher
+
 }
 
 void GameOver ()
@@ -449,6 +454,28 @@ void GameOver ()
     startTimer(GAMEOVER,10);
 }
 
-void Upload(){
+void Upload() {
     //TODO upload usename and score
+}
+void SaveGame()
+{
+    File_Save_Game (&checkerboard, &ctetri, &que[0], &HeldTetri, Score);
+}
+
+bool LoadGame()
+{
+    Checkerboard temp;
+    tetrimino cur_tetri, next_tetri, held_tetri;
+    int temp_score;
+    if (File_Load_Saved_Game (&temp, &cur_tetri, &next_tetri, &held_tetri, &temp_score))
+    {
+        checkerboard = temp;
+        ctetri = cur_tetri;
+        que[0] = next_tetri;
+        HeldTetri = held_tetri;
+        Score = temp_score;
+        return TRUE;
+    }
+    return FALSE;
+
 }

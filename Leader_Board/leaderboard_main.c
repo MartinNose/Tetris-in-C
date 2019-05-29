@@ -66,7 +66,7 @@ void Main ()
 {
     // 初始化窗口和图形系统
     SetWindowTitle (head_str);
-    //SetWindowSize(10, 10); // 单位 - 英寸
+    SetWindowSize(5, 5); // 单位 - 英寸
     //SetWindowSize(20, 10);
     //SetWindowSize(10, 20);  // 如果屏幕尺寸不够，则按比例缩小
     InitGraphics ();
@@ -96,10 +96,10 @@ void DrawMenu()
                                    "Refresh | Ctrl-R", // 快捷键必须采用[Ctrl-X]格式，放在字符串的结尾
 //                                    "Close",
                                    "Exit       | Ctrl-E"};
-    static char *menuListTool[] = {"Tool",
-                                   "Triangle",
-                                   "Circle",
-                                   "Stop Rotation | Ctrl-T"};
+//    static char *menuListTool[] = {"Tool",
+//                                   "Triangle",
+//                                   "Circle",
+//                                   "Stop Rotation | Ctrl-T"};
     static char *menuListHelp[] = {"Help",
                                    "Show More  | Ctrl-M",
                                    "About"};
@@ -110,8 +110,8 @@ void DrawMenu()
     double y = winheight;
     double h = fH * 1.5; // 控件高度
 //    double w = TextStringWidth (menuListHelp[0]) * 2; // 控件宽度
-    double w = winwidth / 3;
-    double wlist = TextStringWidth (menuListTool[3]) * 1.2;
+    double w = winwidth / 2;
+    double wlist = TextStringWidth (menuListHelp[1]) * 1.2;
     double xindent = winheight / 20; // 缩进
     int selection;
 
@@ -125,23 +125,23 @@ void DrawMenu()
         exit (-1); // choose to exit
 
     // Tool 菜单
-    menuListTool[3] = enable_rotation ? "Stop Rotation | Ctrl-T" : "Start Rotation | Ctrl-T";
-    selection = menuList (GenUIID(0),
-                          x + w, y - h, w, wlist, h, menuListTool, sizeof (menuListTool) / sizeof (menuListTool[0]));
-    if (selection > 0) selectedLabel = menuListTool[selection];
-    if (selection == 3)
-        enable_rotation = !enable_rotation;
+//    menuListTool[3] = enable_rotation ? "Stop Rotation | Ctrl-T" : "Start Rotation | Ctrl-T";
+//    selection = menuList (GenUIID(0),
+//                          x + w, y - h, w, wlist, h, menuListTool, sizeof (menuListTool) / sizeof (menuListTool[0]));
+//    if (selection > 0) selectedLabel = menuListTool[selection];
+//    if (selection == 3)
+//        enable_rotation = !enable_rotation;
 
     // Help 菜单
     menuListHelp[1] = show_more_buttons ? "Show Less | Ctrl-M" : "Show More | Ctrl-M";
     selection = menuList (GenUIID(0),
-                          x + 2 * w,
+                          x + w,
                           y - h, w, wlist, h, menuListHelp, sizeof (menuListHelp) / sizeof (menuListHelp[0]));
     if (selection > 0) selectedLabel = menuListHelp[selection];
     if (selection == 1)
         show_more_buttons = !show_more_buttons;
     if (selection == 2)
-        MessageBoxA (NULL, "这是我们的大作业！", "关于 | About", MB_ICONINFORMATION);;
+        MessageBoxA (NULL, "排行榜", "关于 | About", MB_ICONINFORMATION);;
 }
 
 void display ()
@@ -163,15 +163,15 @@ void DrawBasic ()
     SetFont ("微软雅黑");
     drawButtons ();
     SetPenColor ("Black");
-    SetPointSize(64);
-    MovePen (winwidth/2 - TextStringWidth(head_str) / 2, winheight / 2 + 2.4);
+    SetPointSize(32);
+    MovePen (winwidth/2 - TextStringWidth(head_str) / 2, winheight - 0.8);
     DrawTextString (head_str);
     SetPointSize (13);
 //    DrawGrid (winwidth/2 - 3, winheight/2 - 3, 2, 0.5, 3, 10);
-    double x = winwidth/2 -3;
-    double y = winheight/2 - 3;
-    DrawBox (x , y, 6, 5);
-    PrintList (head, x, y + 5, ((show_more_buttons) ? 20 : 10));
+    double x = 0.5;
+    double y = 0.5;
+    DrawBox (x, y, winwidth - 1, winheight - 1.5);
+    PrintList (head, x, y + winheight - 1.5, ((show_more_buttons) ? 20 : 10));
 }
 
 void drawButtons()
@@ -185,10 +185,6 @@ void drawButtons()
     x = winwidth / 2 - 1;
     y = winheight / 2 - 0.6;
     setButtonColors("Black", "White", "Gray", "White", 1);
-//    if (button(GenUIID(0), x, y, 2, 1.2, "Single Mode"))
-//    {
-//        WinExec("single_main.exe", SW_SHOW);
-//    }
 
 }
 
@@ -224,6 +220,7 @@ void PrintList(userNode* head, double x, double y, int num)
     char buffer[200];
     userNode* p;
     int cnt = 0;
+    double d_h = (winheight - 1.5) / num;
     SetPenColor ("Black");
     SetPointSize (16);
     for (p = head; p && cnt < num; p = p->next)
@@ -231,7 +228,7 @@ void PrintList(userNode* head, double x, double y, int num)
         cnt++;
         sprintf (buffer, "%10d %30s %10d", cnt, p->name, p->score);
         printf ("%s\n", buffer);
-        MovePen (x, y - cnt * 0.4);
+        MovePen (x, y - cnt * d_h);
         DrawTextString (buffer);
     }
 }

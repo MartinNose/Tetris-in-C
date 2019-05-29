@@ -154,7 +154,7 @@ void drawUI (int score, tetrimino NextTetri)
     }
 
     DrawNextTetrimino (NextTetri);
-    DrawHoldedTetrimino (HoldedTetri);
+    DrawHoldedTetrimino (HeldTetri);
 
 
     DrawData (score);
@@ -326,15 +326,18 @@ void drawBoardButtons (double x, double y, int flag) //TODO
             WinExec ("leaderboard.exe", SW_SHOW);
         }
         if (button (GenUIID(0), x, y - 2 * h, w, h, "Restart")) {
-            keyboardEventHandler (0x52, KEY_DOWN);
+//            keyboardEventHandler (0x52, KEY_DOWN);
+            Restart ();
         }
         if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
-            //TODO Save;
+            SaveGame ();
         }
+
         if (button (GenUIID(0), x, y - 5 * h, w, h, "Upload")) {
             Upload();
         }
-        if (button (GenUIID(0), x, y - 6 * h, w, h, "QUIT")) {
+        if (button (GenUIID(0), x, y - 6 * h, w, h, "Quit")) {
+
             ExitGame ();
         }
     } else {
@@ -351,9 +354,9 @@ void drawBoardButtons (double x, double y, int flag) //TODO
             keyboardEventHandler (0x52, KEY_DOWN);
         }
         if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
-            //TODO Save();
+            SaveGame ();
         }
-        if (button (GenUIID(0), x, y - 4 * h, w, h, "QUIT")) {
+        if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
             ExitGame ();
         }
     }
@@ -365,15 +368,15 @@ void DrawMenu()
     static char *menuListFile[] = {
         "File",
         "NewGame  | Ctrl-O",
-        "Save",
-        "Load",
+        "Save | Ctrl-S",
+        "Load | Ctrl-L",
         "Exit to Launcher  | Ctrl-E"
     };
     static char *menuListGame[] = {
         "Game",
-        "Pause",
+        "Pause | Ctrl-Z",
         "Show Rank List | Ctrl-T",
-        "Restart"
+        "Restart | Ctrl-R"
     };
     static char *menuListHelp[] = {
         "Help",
@@ -394,13 +397,21 @@ void DrawMenu()
                           sizeof (menuListFile) / sizeof (menuListFile[0]));
     switch (selection) {
         case 0:break;
-        case 3:ExitGame ();
+        case 1: // restart new game
+//            keyboardEventHandler (0x52, KEY_DOWN);
+            Restart ();
+            break;
+        case 2:SaveGame ();
+            break;
+        case 3:LoadGame ();
+            break;
+        case 4:ExitGame ();
             break;// choose to exit
     }
     // Game
     selection = menuList (GenUIID(0), x + w, y - h, w, wlist, h, menuListGame,
                           sizeof (menuListGame) / sizeof (menuListGame[0]));
-    menuListGame[1] = (ctetri.isPaused) ? "Resume" : "Pause";
+    menuListGame[1] = (ctetri.isPaused) ? "Resume | Ctrl-Z" : "Pause | Ctrl-Z";
     switch (selection) {
         case 0:break;
         case 1: //pause
@@ -409,7 +420,8 @@ void DrawMenu()
         case 2:WinExec ("leaderboard.exe", SW_SHOW);
             break;
         case 3://restart
-            keyboardEventHandler (0x52, KEY_DOWN);
+//            keyboardEventHandler (0x52, KEY_DOWN);
+            Restart ();
             break;
     }
     // Help
@@ -417,7 +429,9 @@ void DrawMenu()
                           sizeof (menuListHelp) / sizeof (menuListHelp[0]));
     switch (selection) {
         case 0:break;
-        case 3:break;// choose to exit
+        case 1:
+            MessageBoxA (NULL, "单人模式", "关于 | About", MB_ICONINFORMATION);
+            break;
     }
 }
 
