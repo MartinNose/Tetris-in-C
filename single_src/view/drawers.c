@@ -269,6 +269,7 @@ void DrawBoard(int flag){
 
     SetPointSize(temp*2);
     if(flag == PAUSE){
+        //SetFont("");
         drawLabel(x+(8*BLOCKSIZE-TextStringWidth("Paused!"))/2,y+7*BLOCKSIZE- GetFontHeight(),"Paused!");
         SetPointSize(temp);
         drawBoardButtons(x, y + 7 * BLOCKSIZE - 7 * BLOCKSIZE / 3,PAUSE);
@@ -343,7 +344,6 @@ void drawBoardButtons(double x, double y,int flag)//TODO
 
 void drawMenu() {
     static bool isPaused = FALSE;
-
     static char *menuListFile[] = {
             "File",
             "NewGame  | Ctrl-O", // ???????????[Ctrl-X]?????????????????¦Â
