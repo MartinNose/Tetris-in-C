@@ -15,9 +15,12 @@ void keyboardEventHandler (int key, int event)
 {
     uiGetKeyboard(key,event);
     tetrimino temp = ctetri;
+    static bool ifControl = FALSE;
     switch (event) {
         case KEY_DOWN:
             switch (key) {
+                case VK_CONTROL:
+                    ifControl = TRUE;
                 case VK_LEFT:
                     temp.x -= 1;
                     break;
@@ -40,21 +43,29 @@ void keyboardEventHandler (int key, int event)
                     temp = HardDrop(temp);
                     break;
                 case 0x52: // R
-                    Restart();
+                    if(ifControl)
+                        Restart();
                     return;
                 case 0x50: // P
-                    temp = PauseEventHandler(temp);
+                    if(ifControl)
+                        temp = PauseEventHandler(temp);
                     break;
                 case 0x43: // C
                     temp = HoldEventHandler(temp);
                     break;
                  //MenuBar
+                case 0x4D://M
+                    MusicOn ^= 1;
+                    //TODO stop music
+                    break;
                 default:uiGetKeyboard (key, event); // GUIªÒ»°º¸≈Ã
                     break;
             }
             break;
         case KEY_UP:
             switch (key) {
+                case VK_CONTROL:
+                    ifControl = FALSE;
                 case VK_DOWN:
                     temp.yVelocity = SLOW;
                     break;

@@ -42,6 +42,7 @@ tetrimino que[2];
 tetrimino HeldTetri;
 bool is_game_over = FALSE;
 bool isHoldLegal = TRUE;
+bool MusicOn = TRUE;
 double globalSpeed;
 
 //MenuBar============================================
@@ -309,6 +310,7 @@ void InitModel ()
     que[1] = tetriRandom ();
     //For MenuBar
     //For Game STATE
+    MusicOn = TRUE;
     setMenuColors ("Black", "White", "Light Gray", "White", 1);
 }
 
@@ -467,6 +469,8 @@ bool LoadGame()
     Checkerboard temp;
     tetrimino cur_tetri, next_tetri, held_tetri;
     int temp_score;
+    //TODO Loading();
+
     if (File_Load_Saved_Game (&temp, &cur_tetri, &next_tetri, &held_tetri, &temp_score))
     {
         checkerboard = temp;

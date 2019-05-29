@@ -337,7 +337,6 @@ void drawBoardButtons (double x, double y, int flag) //TODO
             Upload();
         }
         if (button (GenUIID(0), x, y - 6 * h, w, h, "Quit")) {
-
             ExitGame ();
         }
     } else {
@@ -448,7 +447,8 @@ void DrawBottomBar(){
 
     SetPenColor("White");
     char buffer[32];
-    sprintf(buffer,"Current STATE: ");
+    SetFont("Î¢ÈíÑÅºÚ");
+    sprintf(buffer,"Music : %s",(MusicOn)?"On":"Off");
     drawLabel(0.1*BLOCKSIZE,GetFontHeight()/2,buffer);
     //TODO
 //    MovePen(0,GetFontHeight()*1.1);
