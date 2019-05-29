@@ -18,6 +18,26 @@
 #define SYSCOLOR "Red" 
 #define TIMER_BLINK500  1     /*500ms定时器事件标志号*/
 #define TIMER_BLINK1000 2     /*1000ms定时器时间标志号*/
+void DefineRGBColor (string s, int r, int g, int b)
+{
+    DefineColor (s, r / 255.0, g / 255.0, b / 255.0);
+}
+void DefineColors ()
+{
+    DefineRGBColor ("Magenta", 138, 43, 226); //blueviolet
+    DefineRGBColor ("Blue", 30, 144, 255); //dodgerblue
+    DefineRGBColor ("Cyan", 127, 255, 212); //aquamarine
+    DefineRGBColor ("Yellow", 255, 215, 0); //gold
+    DefineRGBColor ("Green", 34, 139, 34);//forestgreen
+    DefineRGBColor ("Light Gray", 105, 105, 105);//dimgray
+    DefineRGBColor ("Red", 220, 20, 60);//crimson
+    DefineRGBColor ("Dark Turquoise", 0, 206, 209);//dark turquoise
+    DefineRGBColor ("Midnight Blue", 25, 25, 112);
+    DefineRGBColor ("Corn Silk", 255, 248, 220);
+    DefineRGBColor ("Light Cyan", 224, 255, 255);
+    DefineRGBColor ("Gainsboro", 220, 220, 220);
+    DefineRGBColor ("White Smoke",245, 245, 245);
+};
 const int mseconds500 = 500;   
 const int mseconds1000 = 1000; 
 typedef struct {/*矩形类型*/
@@ -95,10 +115,10 @@ double x,y;
    SetPenColor("Yellow");
    fillRectangle(23*x,7*y,6*x,3*y);
    fillRectangle(29*x,4*y,3*x,6*y);
-   SetPenColor("Blue");
-   fillRectangle(29*x,0*y,7*x,4*y);
    SetPenColor("Green");
    fillRectangle(32*x,4*y,6*x,6*y);
+      SetPenColor("Blue");
+   fillRectangle(29*x,0*y,7*x,4*y);
 	
 }
 void draw2(void){
@@ -159,10 +179,10 @@ void draw2(void){
    SetPenColor("Yellow");
    fillRectangle(23*x,7*y,6*x,3*y);
    fillRectangle(29*x,4*y,3*x,6*y);
-   SetPenColor("Green");
-   fillRectangle(29*x,0*y,7*x,4*y);
    SetPenColor("Gray");
    fillRectangle(32*x,4*y,6*x,6*y);
+      SetPenColor("Green");
+   fillRectangle(29*x,0*y,7*x,4*y);
 }
 void TimerEventProcess(int timerID);
 void Main(){
