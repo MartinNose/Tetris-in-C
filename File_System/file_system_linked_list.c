@@ -73,5 +73,6 @@ void write_Rank(userNode *head)
     {
         fprintf(rank_table, "%d,\"%s\"\n", p->score, p->name);
     }
+    fclose (rank_table);
 }
 
