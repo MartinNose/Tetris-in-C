@@ -495,26 +495,33 @@ void DebugTool() {
 }
 
 void MessageBoxB(string title1,string color1){
-    static int count = 3;
+    static int count = 4;
     static string title,color;
-    if(count == 0){
-        //keyboardEventHandler(VK_ESCAPE,KEY_DOWN);
-        cancelTimer(LOADING);
-        count =  3;
-        startTimer(GAME,10);
-        return;
-    }
-    if(count == 3){
+    if(count == 4){
         cancelTimer(GAME);
-        //keyboardEventHandler(VK_ESCAPE,KEY_DOWN);
-        startTimer(LOADING,1000);
+        startTimer(LOADING,20);
         if(title1){
             title = title1;
         }
         if(color1){
             color = color1;
         }
+        count--;
+        return;
     }
+    if(count == 0){
+        //keyboardEventHandler(VK_ESCAPE,KEY_DOWN);
+        cancelTimer(LOADING);
+        count = 4;
+        startTimer(GAME,10);
+        return;
+    }
+    if(count == 3){
+        cancelTimer(LOADING);
+        startTimer(LOADING,1000);
+    }
+
+
     double width = 7*BLOCKSIZE, heigt = 4 * BLOCKSIZE;
     char buffer[20];
     sprintf(buffer,"%s in %d ...",title,count--);

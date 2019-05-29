@@ -413,7 +413,6 @@ tetrimino Restart ()
 
     InitModel ();
     drawUI (0, que[1]);
-
 }
 
 tetrimino HoldEventHandler (tetrimino temp)
