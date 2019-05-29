@@ -439,7 +439,7 @@ tetrimino PauseEventHandler (tetrimino temp)
 void ExitGame ()
 {
     exit (0);
-    //To laucher
+    //To launcher
 }
 
 void GameOver ()
