@@ -9,7 +9,6 @@
 #include "model.h"
 #include "imgui.h"
 
-
 void DefineRGBColor (string s, int r, int g, int b)
 {
     DefineColor (s, r / 255.0, g / 255.0, b / 255.0);
@@ -153,7 +152,7 @@ void drawUI (int score, tetrimino NextTetri)
     }
 
     DrawNextTetrimino (NextTetri);
-    DrawHoldedTetrimino (HoldedTetri);
+    DrawHoldedTetrimino (HeldTetri);
 
     DrawGrid ();
     DrawData (score);
@@ -324,11 +323,12 @@ void drawBoardButtons (double x, double y, int flag) //TODO
             WinExec ("leaderboard.exe", SW_SHOW);
         }
         if (button (GenUIID(0), x, y - 2 * h, w, h, "Restart")) {
-            keyboardEventHandler (0x52, KEY_DOWN);
+//            keyboardEventHandler (0x52, KEY_DOWN);
+            Restart ();
         }
         if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
             //TODO Save;
-
+            SaveGame ();
         }
         if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
             ExitGame ();
@@ -348,6 +348,7 @@ void drawBoardButtons (double x, double y, int flag) //TODO
         }
         if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
             //TODO Save();
+            SaveGame ();
         }
         if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
             ExitGame ();
@@ -392,7 +393,15 @@ void drawMenu ()
                           sizeof (menuListFile) / sizeof (menuListFile[0]));
     switch (selection) {
         case 0:break;
-        case 3:ExitGame ();
+        case 1: // restart new game
+//            keyboardEventHandler (0x52, KEY_DOWN);
+            Restart ();
+            break;
+        case 2:SaveGame ();
+            break;
+        case 3:LoadGame ();
+            break;
+        case 4:ExitGame ();
             break;// choose to exit
     }
     // Game
@@ -407,7 +416,8 @@ void drawMenu ()
         case 2:WinExec ("leaderboard.exe", SW_SHOW);
             break;
         case 3://restart
-            keyboardEventHandler (0x52, KEY_DOWN);
+//            keyboardEventHandler (0x52, KEY_DOWN);
+            Restart ();
             break;
     }
     // Help

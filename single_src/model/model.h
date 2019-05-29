@@ -36,8 +36,11 @@ extern int Score;
 extern bool is_game_over;
 extern double globalSpeed;
 extern tetrimino que[2];
-extern tetrimino HoldedTetri;
+extern tetrimino HeldTetri;
 extern bool isHoldLegal;
+
+void SaveGame();
+bool LoadGame();
 
 //MenuBar======================================
 extern bool isDisplayMenu1;
