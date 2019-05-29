@@ -164,6 +164,8 @@ void drawUI (int score, tetrimino NextTetri)
 
     DrawGrid ();
 
+    DebugTool();
+
 }
 void drawCheckerBoard (Checkerboard checker)
 {
@@ -481,5 +483,10 @@ void DrawDynamicButtons() //TODO
         MouseMode ^= 1;
     }
 
+}
+void DebugTool() {
+    char buffer[100];
+    sprintf(buffer, "cx : %f,cy: %f\n", xx, yy);
+    drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2, buffer);
 }
 #endif

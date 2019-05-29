@@ -82,4 +82,12 @@ void mouseEventHandler (int x, int y, int button, int event)
 {
     uiGetMouse (x, y, button, event); //GUIªÒ»° Û±Í
     //TODO   to key board
+
+    xx = ScaleXInches(x);
+    yy = ScaleXInches(y);
+
+
+    if(MouseMode && InCheckerBoard(xx,yy)){
+        ExitGame();
+    }
 }

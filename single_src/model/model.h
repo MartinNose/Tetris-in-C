@@ -46,6 +46,12 @@ extern bool MouseMode;
 void SaveGame();
 bool LoadGame();
 
+bool ifHover(double x, double y, double x1, double x2, double y1, double y2);
+int XInchScaleToBlock(double x);
+bool InCheckerBoard(double x, double y);
+
+extern double xx;
+extern double yy;
 
 //MenuBar======================================
 extern bool isDisplayMenu1;

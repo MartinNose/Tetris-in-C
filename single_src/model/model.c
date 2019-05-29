@@ -46,6 +46,9 @@ bool MusicOn = TRUE;
 bool MouseMode = FALSE;
 double globalSpeed;
 
+double xx = 0;
+double yy = 0;
+
 //MenuBar============================================
 
 //===================================================
@@ -76,7 +79,6 @@ tetrimino generateTetrimino (int type, int direction)
 }
 void timerEventHandler (int timerID)
 {
-
     switch (timerID) {
         case GAME:game ();
             break;
@@ -485,4 +487,16 @@ bool LoadGame()
     }
     return FALSE;
 
+}
+int XInchScaleToBlock(double x){
+    return (int)ceil(x/BLOCKSIZE) - LEFTBAR;
+}
+
+bool InCheckerBoard(double x, double y){
+    return ifHover(x,y,LEFTBAR*BLOCKSIZE,(LEFTBAR+12)*BLOCKSIZE,0,GetWindowHeight());
+}
+
+bool ifHover(double x, double y, double x1, double x2, double y1, double y2)
+{
+    return (x >= x1 && x <= x2 && y >= y1 && y <= y2);
 }

@@ -42,5 +42,7 @@ void DrawMenu();
 void DrawBottomBar();
 void DrawDynamicButtons();
 
+void DebugTool();
+
 
 #endif //_DRAWERS_H_
