@@ -43,6 +43,7 @@ tetrimino HeldTetri;
 bool is_game_over = FALSE;
 bool isHoldLegal = TRUE;
 bool MusicOn = TRUE;
+bool MouseMode = FALSE;
 double globalSpeed;
 
 //MenuBar============================================
@@ -311,6 +312,7 @@ void InitModel ()
     //For MenuBar
     //For Game STATE
     MusicOn = TRUE;
+    MouseMode = FALSE;
     setMenuColors ("Black", "White", "Light Gray", "White", 1);
 }
 
@@ -450,6 +452,7 @@ void GameOver ()
     is_game_over = TRUE;
     cancelTimer (GAME);
     userNode *rank_list = Load_Rank ();
+    //TODO INPUT
     rank_list = Add_Node (rank_list, Score, "game_debug");
     write_Rank (rank_list);
 

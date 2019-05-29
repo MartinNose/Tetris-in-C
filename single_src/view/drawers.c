@@ -449,7 +449,7 @@ void DrawBottomBar(){
     SetPenColor("White");
     char buffer[32];
     SetFont("微软雅黑");
-    sprintf(buffer,"Music : %s",(MusicOn)?"On":"Off");
+    sprintf(buffer,"Music : %s  MouseMode : %s",(MusicOn)?"On":"Off",(MouseMode)?"On":"Off");
     drawLabel(0.1*BLOCKSIZE,GetFontHeight()/2,buffer);
     //TODO
 //    MovePen(0,GetFontHeight()*1.1);
@@ -462,8 +462,7 @@ void DrawDynamicButtons() //TODO
     double x , y = GetWindowHeight()/3;
     double h, w = (LEFTBAR-1) * BLOCKSIZE; // 控件宽度
     x = (LEFTBAR*BLOCKSIZE - w)/2;
-    char buffer[100];
-        h = 7 * BLOCKSIZE / 6;  // 控件高度
+    h = 7 * BLOCKSIZE / 6;  // 控件高度
 
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
         SetStyle (1);
@@ -478,6 +477,9 @@ void DrawDynamicButtons() //TODO
             keyboardEventHandler(0x53,KEY_DOWN);
             keyboardEventHandler(VK_CONTROL,KEY_UP);
         }
+    if (button (GenUIID(0), x, y - 2*h, w, h, (MouseMode)?"Cancel Mouse Mode":"Mouse Mode")) {
+        MouseMode ^= 1;
+    }
 
 }
 #endif
