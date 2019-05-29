@@ -280,7 +280,7 @@ void DrawBoard(int flag){
 }
 
 
-void drawBoardButtons(double x, double y,int flag)
+void drawBoardButtons(double x, double y,int flag)//TODO
 {
 
    double h,w = 8 * BLOCKSIZE; // ¿Ø¼þ¿í¶È
@@ -297,7 +297,7 @@ void drawBoardButtons(double x, double y,int flag)
         }
         if (button(GenUIID(0), x, y - h, w, h, "RankList"))
         {
-
+            //TODO Ranklist();
         }
         if (button(GenUIID(0), x, y - 2*h, w, h, "Restart"))
         {
@@ -305,7 +305,7 @@ void drawBoardButtons(double x, double y,int flag)
         }
         if (button(GenUIID(0), x, y - 3*h, w, h, "Save"))
         {
-
+            //TODO Save;
         }
         if (button(GenUIID(0), x, y - 4*h, w, h, "QUIT"))
         {
@@ -322,7 +322,7 @@ void drawBoardButtons(double x, double y,int flag)
             drawLabel(x+(8*BLOCKSIZE-TextStringWidth(buffer))/2,y + 1.50 * GetFontHeight(),buffer);
             if (button(GenUIID(0), x, y - h, w, h, "RankList"))
             {
-
+                //TODO Ranklist();
             }
             if (button(GenUIID(0), x, y - 2*h, w, h, "Restart"))
             {
@@ -330,7 +330,7 @@ void drawBoardButtons(double x, double y,int flag)
             }
             if (button(GenUIID(0), x, y - 3*h, w, h, "Save"))
             {
-
+                //TODO Save();
             }
             if (button(GenUIID(0), x, y - 4*h, w, h, "QUIT"))
             {
