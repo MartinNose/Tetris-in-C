@@ -323,7 +323,7 @@ void drawBoardButtons (double x, double y, int flag) //TODO
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
         SetStyle (1);
         if (button (GenUIID(0), x, y, w, h, "Resume")) {
-            keyboardEventHandler (0x50, KEY_DOWN);
+            keyboardEventHandler (VK_ESCAPE, KEY_DOWN);
         }
         if (button (GenUIID(0), x, y - h, w, h, "RankList")) {
             WinExec ("leaderboard.exe", SW_SHOW);
@@ -450,7 +450,6 @@ void DrawBottomBar(){
 
     SetPenColor("White");
     char buffer[32];
-    SetFont("Î¢ÈíÑÅºÚ");
     sprintf(buffer,"Music : %s  MouseMode : %s",(MusicOn)?"On":"Off",(MouseMode)?"On":"Off");
     drawLabel(0.1*BLOCKSIZE,GetFontHeight()/2,buffer);
     //TODO
@@ -489,5 +488,9 @@ void DebugTool() {
     sprintf(buffer, "cx : %f,cy: %f\n", xx, yy);
     drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2, buffer);
     drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2 - GetFontHeight(), (InCheckerBoard(xx,yy))?"InChe":"NoI");
+    sprintf(buffer,"CBlock%d",XInchScaleToBlock(xx));
+    drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2 - 2*GetFontHeight(), buffer);
+    sprintf(buffer,"TBlock%d",ctetri.x - LEFTBAR);
+    drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2 - 3*GetFontHeight(), buffer);
 }
 #endif

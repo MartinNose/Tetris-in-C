@@ -78,16 +78,45 @@ void keyboardEventHandler (int key, int event)
 
 }
 
-void mouseEventHandler (int x, int y, int button, int event)
-{
-    uiGetMouse (x, y, button, event); //GUI获取鼠标
+void mouseEventHandler (int x, int y, int button, int event) {
+    uiGetMouse(x, y, button, event); //GUI获取鼠标
     //TODO   to key board
+    int BlockX, times;
 
     xx = ScaleXInches(x);
-    yy = ScaleXInches(y);
-    
+    yy = GetWindowHeight() - ScaleXInches(y);
 
-    if(MouseMode && InCheckerBoard(xx,yy)){
-
+    BlockX = XInchScaleToBlock(xx) + LEFTBAR - 1;
+    if(!ifHover(xx,yy,0,BLOCKSIZE*WIDTH,0,BLOCKSIZE*HEIGHT)){
+        MouseMode = FALSE;
+    }
+    if (MouseMode && InCheckerBoard(xx, yy)) {
+            if (BlockX < ctetri.x) {
+                for(int i = 0;i<ctetri.x - BlockX ;i++) {
+                    keyboardEventHandler(VK_LEFT, KEY_DOWN);
+                }
+            }else {
+                for(int i = 0;i< BlockX - ctetri.x;i++) {
+                    keyboardEventHandler(VK_RIGHT, KEY_DOWN);
+                }
+            }
+            switch(event){
+                case BUTTON_DOWN:
+                    switch (button){
+                        case LEFT_BUTTON:
+                            keyboardEventHandler(VK_SPACE,KEY_DOWN);
+                            break;
+                        case RIGHT_BUTTON:
+                            keyboardEventHandler(0x43,KEY_DOWN);
+                            break;
+                    }
+                    break;
+                case ROLL_UP:
+                    keyboardEventHandler(VK_UP,KEY_DOWN);
+                    break;
+                case ROLL_DOWN:
+                    keyboardEventHandler(0x5A,KEY_DOWN);
+                    break;
+            }
     }
 }
