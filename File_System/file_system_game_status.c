@@ -5,7 +5,7 @@
 
 #include "file_system_game_status.h"
 
-bool Load_Saved_Game(Checkerboard** saved_board, tetrimino** saved_tetri, tetrimino** saved_next_tetri, tetrimino** saved_held_tetri)
+bool File_Load_Saved_Game (Checkerboard **saved_board, tetrimino **saved_tetri, tetrimino **saved_next_tetri, tetrimino **saved_held_tetri)
 {
     int i, j;
     FILE* saved_game = fopen ("saved_game.txt", "r");
@@ -103,7 +103,7 @@ bool Load_Saved_Game(Checkerboard** saved_board, tetrimino** saved_tetri, tetrim
     return TRUE;
 } // TODO improve...
 
-void Save_Game(Checkerboard* cur_board, tetrimino* cur_tetri, tetrimino* next_tetri, tetrimino* held_tetri)
+void File_Save_Game (Checkerboard *cur_board, tetrimino *cur_tetri, tetrimino *next_tetri, tetrimino *held_tetri)
 {
     int i, j;
     FILE* saved_game = fopen ("saved_game.txt", "w");

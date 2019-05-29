@@ -27,6 +27,7 @@
 #include "imgui.h"
 
 #include "file_system_linked_list.h"
+#include "file_system_game_status.h"
 #include "sound.h"
 
 Checkerboard checkerboard;
@@ -450,4 +451,9 @@ void GameOver ()
     write_Rank (rank_list);
 
     startTimer(GAMEOVER,10);
+}
+
+void SaveGame()
+{
+    
 }

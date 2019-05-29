@@ -9,6 +9,7 @@
 #include "model.h"
 #include "imgui.h"
 
+
 void DefineRGBColor (string s, int r, int g, int b)
 {
     DefineColor (s, r / 255.0, g / 255.0, b / 255.0);
@@ -327,6 +328,7 @@ void drawBoardButtons (double x, double y, int flag) //TODO
         }
         if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
             //TODO Save;
+
         }
         if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
             ExitGame ();

@@ -195,18 +195,6 @@ void drawButtons()
     double x = winwidth/2.5;
     double y = winheight/2-h;
     double w = winwidth/5; // ¿Ø¼þ¿í¶È
-//
-//    if (button(GenUIID(0), x, y, w, h, show_more_buttons ? "Show Less Buttons" : "Show More Buttons"))
-//        show_more_buttons = ! show_more_buttons;
-//
-//    if( show_more_buttons ) {
-//        int k;
-//        for( k = 0; k<3; k++ ) {
-//            char name[128]; sprintf(name, "Button Array %d", k);
-//            // use GenUIID(k) to have different ID for multiple buttons by the same code
-//            button(GenUIID(k), x + w*1.2, y - k*h*2, w, h, name);
-//        }
-//    }
 
     x = winwidth / 2 - 1;
     y = winheight / 2 - 0.6;
