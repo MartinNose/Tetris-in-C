@@ -57,6 +57,9 @@ void keyboardEventHandler (int key, int event)
                     MusicOn ^= 1;
                     //TODO stop music
                     break;
+                case VK_F1:
+                    MouseMode ^= 1;
+                    break;
                 default:uiGetKeyboard (key, event); // GUI»ñÈ¡¼üÅÌ
                     break;
             }
