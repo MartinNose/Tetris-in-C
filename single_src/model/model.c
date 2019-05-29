@@ -27,6 +27,7 @@
 #include "imgui.h"
 
 #include "file_system_linked_list.h"
+#include "sound.h"
 
 Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
@@ -76,7 +77,8 @@ void timerEventHandler (int timerID)
     switch (timerID) {
         case GAME:game ();
             break;
-        case CheckerboardFLASH :flash ();
+        case CheckerboardFLASH :
+            flash ();
             break;
         case GAMEOVER:
             drawCheckerBoard(checkerboard);
@@ -174,6 +176,7 @@ void Settle (tetrimino tetri)
     if (Mark[0] != -1) {
         cancelTimer (GAME);
         startTimer (CheckerboardFLASH, 100);
+        Play_Sound ();
     }
     checkerboard = RemoveLines (checkerboard);
     if (CheckTop () == FALSE) {

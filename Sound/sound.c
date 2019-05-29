@@ -26,13 +26,13 @@ void Play_Sound()
 
 void Play_Sound_Demo ()
 {
-    Beep (494, 200);
-    Beep (523, 300);
-    Beep (578, 400);
-    Beep (659, 500);
-    Beep (698, 600);
+//    Beep (494, 200);
+//    Beep (523, 300);
+//    Beep (578, 400);
+//    Beep (659, 500);
+//    Beep (698, 600);
     Beep (784, 700);
-    Beep (880, 800);
+//    Beep (880, 800);
 //    Beep (932, 900);
 //    Beep (1046, 1000);
 //    Beep (1175, 1100);

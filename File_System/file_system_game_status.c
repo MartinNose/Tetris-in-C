@@ -5,7 +5,7 @@
 
 #include "file_system_game_status.h"
 
-void Load_Saved_Game(Checkerboard** saved_board, tetrimino** saved_tetri, tetrimino** saved_next_tetri, tetrimino** saved_held_tetri)
+bool Load_Saved_Game(Checkerboard** saved_board, tetrimino** saved_tetri, tetrimino** saved_next_tetri, tetrimino** saved_held_tetri)
 {
     int i, j;
     FILE* saved_game = fopen ("saved_game.txt", "r");
@@ -13,7 +13,7 @@ void Load_Saved_Game(Checkerboard** saved_board, tetrimino** saved_tetri, tetrim
     {
         *saved_board = NULL;
         *saved_tetri = NULL;
-        return;
+        return FALSE;
     }
     else
     {
@@ -25,7 +25,8 @@ void Load_Saved_Game(Checkerboard** saved_board, tetrimino** saved_tetri, tetrim
                 {
                     *saved_board = NULL;
                     *saved_tetri = NULL;
-                    return;
+                    fclose (saved_game);
+                    return FALSE;
                 }
         }
 
@@ -34,19 +35,22 @@ void Load_Saved_Game(Checkerboard** saved_board, tetrimino** saved_tetri, tetrim
         {
             *saved_board = NULL;
             *saved_tetri = NULL;
-            return;
+            fclose (saved_game);
+            return FALSE;
         }
         if (fscanf (saved_game, "%lf", &(*saved_tetri)->yVelocity) != 1)
         {
             *saved_board = NULL;
             *saved_tetri = NULL;
-            return;
+            fclose (saved_game);
+            return FALSE;
         }
         if (fscanf (saved_game, "%d", &(*saved_tetri)->isPaused) != 1)
         {
             *saved_board = NULL;
             *saved_tetri = NULL;
-            return;
+            fclose (saved_game);
+            return FALSE;
         }
 
         *saved_next_tetri = (tetrimino*)malloc (sizeof (tetrimino));
@@ -54,19 +58,22 @@ void Load_Saved_Game(Checkerboard** saved_board, tetrimino** saved_tetri, tetrim
         {
             *saved_board = NULL;
             *saved_tetri = NULL;
-            return;
+            fclose (saved_game);
+            return FALSE;
         }
         if (fscanf (saved_game, "%lf", &(*saved_next_tetri)->yVelocity) != 1)
         {
             *saved_board = NULL;
             *saved_tetri = NULL;
-            return;
+            fclose (saved_game);
+            return FALSE;
         }
         if (fscanf (saved_game, "%d", &(*saved_next_tetri)->isPaused) != 1)
         {
             *saved_board = NULL;
             *saved_tetri = NULL;
-            return;
+            fclose (saved_game);
+            return FALSE;
         }
 
         *saved_held_tetri = (tetrimino*)malloc (sizeof (tetrimino));
@@ -74,22 +81,27 @@ void Load_Saved_Game(Checkerboard** saved_board, tetrimino** saved_tetri, tetrim
         {
             *saved_board = NULL;
             *saved_tetri = NULL;
-            return;
+            fclose (saved_game);
+            return FALSE;
         }
         if (fscanf (saved_game, "%lf", &(*saved_held_tetri)->yVelocity) != 1)
         {
             *saved_board = NULL;
             *saved_tetri = NULL;
-            return;
+            fclose (saved_game);
+            return FALSE;
         }
         if (fscanf (saved_game, "%d", &(*saved_held_tetri)->isPaused) != 1)
         {
             *saved_board = NULL;
             *saved_tetri = NULL;
-            return;
+            fclose (saved_game);
+            return FALSE;
         }
     }
-}
+    fclose (saved_game);
+    return TRUE;
+} // TODO improve...
 
 void Save_Game(Checkerboard* cur_board, tetrimino* cur_tetri, tetrimino* next_tetri, tetrimino* held_tetri)
 {
@@ -117,4 +129,5 @@ void Save_Game(Checkerboard* cur_board, tetrimino* cur_tetri, tetrimino* next_te
         fprintf (saved_game, "%lf\n", held_tetri->yVelocity);
         fprintf (saved_game, "%d\n", held_tetri->isPaused);
     }
+    fclose (saved_game);
 }

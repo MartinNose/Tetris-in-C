@@ -328,7 +328,7 @@ void drawBoardButtons (double x, double y, int flag) //TODO
         if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
             //TODO Save;
         }
-        if (button (GenUIID(0), x, y - 4 * h, w, h, "QUIT")) {
+        if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
             ExitGame ();
         }
     } else {
@@ -347,7 +347,7 @@ void drawBoardButtons (double x, double y, int flag) //TODO
         if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
             //TODO Save();
         }
-        if (button (GenUIID(0), x, y - 4 * h, w, h, "QUIT")) {
+        if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
             ExitGame ();
         }
     }

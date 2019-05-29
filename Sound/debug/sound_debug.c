@@ -4,7 +4,6 @@
 #include "sound.h"
 
 #include <windows.h>
-#include "Mmsystem.h"
 
 #include <stdio.h>
 #include <time.h>
