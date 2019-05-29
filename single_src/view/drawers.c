@@ -159,6 +159,7 @@ void drawUI (int score, tetrimino NextTetri)
 
     DrawData (score);
     DrawMenu();
+    DrawDynamicButtons();
     DrawBottomBar();
 
     DrawGrid ();
@@ -333,10 +334,10 @@ void drawBoardButtons (double x, double y, int flag) //TODO
             SaveGame ();
         }
 
-        if (button (GenUIID(0), x, y - 5 * h, w, h, "Upload")) {
+        if (button (GenUIID(0), x, y - 4 * h, w, h, "Upload")) {
             Upload();
         }
-        if (button (GenUIID(0), x, y - 6 * h, w, h, "Quit")) {
+        if (button (GenUIID(0), x, y - 5 * h, w, h, "Quit")) {
             ExitGame ();
         }
     } else {
@@ -359,7 +360,7 @@ void drawBoardButtons (double x, double y, int flag) //TODO
             ExitGame ();
         }
     }
-    SetStyle (0);
+
 }
 
 void DrawMenu()
@@ -373,7 +374,7 @@ void DrawMenu()
     };
     static char *menuListGame[] = {
         "Game",
-        "Pause | Ctrl-Z",
+        "Pause | Ctrl-P",
         "Show Rank List | Ctrl-T",
         "Restart | Ctrl-R"
     };
@@ -410,11 +411,11 @@ void DrawMenu()
     // Game
     selection = menuList (GenUIID(0), x + w, y - h, w, wlist, h, menuListGame,
                           sizeof (menuListGame) / sizeof (menuListGame[0]));
-    menuListGame[1] = (ctetri.isPaused) ? "Resume | Ctrl-Z" : "Pause | Ctrl-Z";
+    menuListGame[1] = (ctetri.isPaused) ? "Resume | Ctrl-P" : "Pause | Ctrl-P";
     switch (selection) {
         case 0:break;
         case 1: //pause
-            keyboardEventHandler (0x50, KEY_DOWN);
+            keyboardEventHandler (VK_ESCAPE, KEY_DOWN);
             break;
         case 2:WinExec ("leaderboard.exe", SW_SHOW);
             break;
@@ -455,4 +456,28 @@ void DrawBottomBar(){
 //    DrawLine(LEFTBAR*BLOCKSIZE,0);
 
 };
+
+void DrawDynamicButtons() //TODO
+{
+    double x , y = GetWindowHeight()/3;
+    double h, w = (LEFTBAR-1) * BLOCKSIZE; // 控件宽度
+    x = (LEFTBAR*BLOCKSIZE - w)/2;
+    char buffer[100];
+        h = 7 * BLOCKSIZE / 6;  // 控件高度
+
+        setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
+        SetStyle (1);
+        if (button (GenUIID(0), x, y, w, h, "Accelerate!")) {
+            keyboardEventHandler (VK_DOWN, KEY_DOWN);
+        }
+    if (button (GenUIID(0), x, y - h, w, h, "Rotate")) {
+        keyboardEventHandler (VK_UP, KEY_DOWN);
+    }
+        if (button (GenUIID(0), x, y - 2*h, w, h, "Save")) {
+            keyboardEventHandler(VK_CONTROL,KEY_DOWN);
+            keyboardEventHandler(0x53,KEY_DOWN);
+            keyboardEventHandler(VK_CONTROL,KEY_UP);
+        }
+
+}
 #endif

@@ -21,6 +21,7 @@ void keyboardEventHandler (int key, int event)
             switch (key) {
                 case VK_CONTROL:
                     ifControl = TRUE;
+                    break;
                 case VK_LEFT:
                     temp.x -= 1;
                     break;
@@ -43,12 +44,10 @@ void keyboardEventHandler (int key, int event)
                     temp = HardDrop(temp);
                     break;
                 case 0x52: // R
-                    if(ifControl)
                         Restart();
                     return;
-                case 0x50: // P
-                    if(ifControl)
-                        temp = PauseEventHandler(temp);
+                case VK_ESCAPE: //P
+                    temp = PauseEventHandler(temp);
                     break;
                 case 0x43: // C
                     temp = HoldEventHandler(temp);
@@ -71,10 +70,9 @@ void keyboardEventHandler (int key, int event)
                     break;
             }
             break;
-
     }
 
-    if ((!check_collision (temp) && !temp.isPaused)|| key == 0x50) {
+    if ((!check_collision (temp) && !temp.isPaused)|| key == VK_ESCAPE) {
         ctetri = temp;
     }
 

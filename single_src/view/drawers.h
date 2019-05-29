@@ -40,7 +40,7 @@ string RandColor();
 void DrawMenu();
 
 void DrawBottomBar();
-
+void DrawDynamicButtons();
 
 
 #endif //_DRAWERS_H_
