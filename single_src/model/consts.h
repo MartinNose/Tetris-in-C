@@ -34,6 +34,7 @@
 #define CheckerboardFLASH 1
 #define GAMEOVER 2
 #define DEBUG 3
+#define LOADING 4
 
 #define ERA 1000
 

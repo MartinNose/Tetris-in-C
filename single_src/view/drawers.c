@@ -312,7 +312,7 @@ void DrawBoard (int flag)
     }
 }
 
-void drawBoardButtons (double x, double y, int flag) //TODO
+void drawBoardButtons (double x, double y, int flag)
 {
 
     double h, w = 8 * BLOCKSIZE; // ¿Ø¼þ¿í¶È
@@ -492,5 +492,45 @@ void DebugTool() {
     drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2 - 2*GetFontHeight(), buffer);
     sprintf(buffer,"TBlock%d",ctetri.x - LEFTBAR);
     drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2 - 3*GetFontHeight(), buffer);
+}
+
+void MessageBoxB(string title1,string color1){
+    static int count = 3;
+    static string title,color;
+    if(count == 0){
+        //keyboardEventHandler(VK_ESCAPE,KEY_DOWN);
+        cancelTimer(LOADING);
+        count =  3;
+        startTimer(GAME,10);
+        return;
+    }
+    if(count == 3){
+        cancelTimer(GAME);
+        //keyboardEventHandler(VK_ESCAPE,KEY_DOWN);
+        startTimer(LOADING,1000);
+        if(title1){
+            title = title1;
+        }
+        if(color1){
+            color = color1;
+        }
+    }
+    double width = 7*BLOCKSIZE, heigt = 4 * BLOCKSIZE;
+    char buffer[20];
+    sprintf(buffer,"%s in %d ...",title,count--);
+
+
+    MovePen(GetWindowWidth()/2 - width/2,GetWindowHeight()/2 - heigt/2);
+    SetPenColor(color);
+    StartFilledRegion(1);
+    DrawRect(width,heigt);
+    EndFilledRegion();
+
+    SetPenColor("White");
+    SetPointSize(GetPointSize()*2);
+    drawLabel(GetWindowWidth()/2 - TextStringWidth(buffer)/2, GetWindowHeight()/2 - GetFontHeight()/3,buffer);
+    SetPointSize(GetPointSize()/2);
+
+
 }
 #endif

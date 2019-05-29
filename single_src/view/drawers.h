@@ -43,6 +43,7 @@ void DrawBottomBar();
 void DrawDynamicButtons();
 
 void DebugTool();
+void MessageBoxB(string title,string color);
 
 
 #endif //_DRAWERS_H_

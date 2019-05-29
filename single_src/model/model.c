@@ -92,6 +92,9 @@ void timerEventHandler (int timerID)
             break;
         case DEBUG:printf ("%f", GetWindowWidth ());
             break;
+        case LOADING:
+            MessageBoxB(NULL,NULL);
+            break;
     }
 }
 static void game ()
@@ -467,6 +470,7 @@ void Upload() {
 void SaveGame()
 {
     File_Save_Game (&checkerboard, &ctetri, &que[0], &HeldTetri, Score);
+    MessageBoxB("Saving Game","Red");
 }
 
 bool LoadGame()
@@ -474,7 +478,7 @@ bool LoadGame()
     Checkerboard temp;
     tetrimino cur_tetri, next_tetri, held_tetri;
     int temp_score;
-    //TODO Loading();
+
 
     if (File_Load_Saved_Game (&temp, &cur_tetri, &next_tetri, &held_tetri, &temp_score))
     {
@@ -483,6 +487,9 @@ bool LoadGame()
         que[0] = next_tetri;
         HeldTetri = held_tetri;
         Score = temp_score;
+
+        MessageBoxB("Loading","Black");
+
         return TRUE;
     }
     return FALSE;
