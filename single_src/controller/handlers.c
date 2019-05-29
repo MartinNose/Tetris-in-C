@@ -15,13 +15,10 @@ void keyboardEventHandler (int key, int event)
 {
     uiGetKeyboard(key,event);
     tetrimino temp = ctetri;
-    static bool ifControl = FALSE;
+
     switch (event) {
         case KEY_DOWN:
             switch (key) {
-                case VK_CONTROL:
-                    ifControl = TRUE;
-                    break;
                 case VK_LEFT:
                     temp.x -= 1;
                     break;
@@ -66,8 +63,6 @@ void keyboardEventHandler (int key, int event)
             break;
         case KEY_UP:
             switch (key) {
-                case VK_CONTROL:
-                    ifControl = FALSE;
                 case VK_DOWN:
                     temp.yVelocity = SLOW;
                     break;

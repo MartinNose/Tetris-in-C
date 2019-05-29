@@ -414,18 +414,20 @@ void DrawMenu()
     // Game
     selection = menuList (GenUIID(0), x + w, y - h, w, wlist, h, menuListGame,
                           sizeof (menuListGame) / sizeof (menuListGame[0]));
-    menuListGame[1] = (ctetri.isPaused) ? "Resume | Ctrl-P" : "Pause | Ctrl-P";
-    menuListGame[3] = (MouseMode) ? "CancelMouse | Ctrl-H" : "MouseMode | Ctrl-H";
+    //menuListGame[1] = (ctetri.isPaused) ? "Resume | Ctrl-P" : "Pause | Ctrl-P";
+    //menuListGame[3] = (MouseMode) ? "CancelMouse | Ctrl-H" : "MouseMode | Ctrl-H";
     switch (selection) {
         case 0:break;
         case 1: //pause
             keyboardEventHandler (VK_ESCAPE, KEY_DOWN);
+            keyboardEventHandler (VK_ESCAPE, KEY_UP);
             break;
         case 2:
             WinExec ("leaderboard.exe", SW_SHOW);
             break;
         case 3:
             keyboardEventHandler(VK_F1,KEY_DOWN);
+            keyboardEventHandler(VK_F1,KEY_UP);
             break;
         case 4://restart
 //            keyboardEventHandler (0x52, KEY_DOWN);
