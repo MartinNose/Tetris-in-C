@@ -1,7 +1,3 @@
-//
-// Created by Tao Chiang on 5/21/2019.
-//
-
 #include <genlib.h>
 #include "consts.h"
 

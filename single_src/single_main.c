@@ -1,7 +1,3 @@
-//
-// Created by liujunliang on 2019/5/13.
-//
-
 #include <time.h>
 
 #include "drawers.h"

@@ -1,6 +1,3 @@
-//
-// Created by Tao Chiang on 5/17/2019.
-//
 #include "graphics.h"
 #include "extgraph.h"
 #include "genlib.h"

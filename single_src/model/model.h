@@ -1,7 +1,3 @@
-//
-// Created by Tao Chiang on 5/17/2019.
-//
-
 #ifndef _MODEL_H_
 #define _MODEL_H_
 
