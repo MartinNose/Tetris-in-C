@@ -45,8 +45,9 @@ bool is_game_over = FALSE;
 bool isHoldLegal = TRUE;
 bool MusicOn = FALSE;
 bool MouseMode = FALSE;
+bool Rename = TRUE;
 double globalSpeed;
-char username[18];
+char username[18] = {'P',' ','t','o',' ','R','e','n','a','m','e','\0'};
 
 double xx = 0;
 double yy = 0;
@@ -128,6 +129,9 @@ static void game ()
     }
     if (is_game_over) {
         GameOver ();
+    }
+    if( Rename && !ctetri.isPaused){
+        Rename = FALSE;
     }
 }
 static void flash ()
@@ -323,8 +327,7 @@ void InitModel ()
     BGM_maintainer (TRUE);
     MouseMode = FALSE;
     setMenuColors ("Black", "White", "Light Gray", "White", 1);
-    username[1] = '\0'; // Default to 1
-    username[0] = '1';
+
     //TODO  从上一次存档中读取用户名作为本次用户名
 }
 
@@ -461,19 +464,19 @@ void GameOver ()
 {
     is_game_over = TRUE;
     //cancelTimer (GAME);
-    userNode *rank_list = Load_Rank ();
-    //TODO INPUT
-    rank_list = Add_Node (rank_list, Score, "game_debug");
-    write_Rank (rank_list);
+//    userNode *rank_list = Load_Rank ();
+//
+//    rank_list = Add_Node (rank_list, Score, "game_debug");
+//    write_Rank (rank_list);
 
     //startTimer(GAMEOVER,10);
 }
 
 void Upload() {
     //TODO upload usename and score
-    //
-    //DrawBoard()
-
+    userNode *rank_list = Load_Rank ();
+    rank_list = Add_Node (rank_list, Score, username);
+    write_Rank (rank_list);
 }
 void SaveGame()
 {
@@ -533,3 +536,10 @@ void BGM_maintainer(bool new_music_on)
         PlaySound(NULL,NULL,SND_FILENAME); // 用于停止播放的音乐
     }
 }
+void reName(){
+    Rename ^= 1;
+    if(username[0] == '\0'){
+        username[0] = '!';
+        username[1] = '\0';
+    }
+};

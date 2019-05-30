@@ -11,7 +11,7 @@
 #include "consts.h"
 
 void drawUI(int score);
-
+void DrawSideBar();
 void DrawNextTetrimino(tetrimino tetri);
 void DrawHoldedTetrimino(tetrimino tetri);
 
