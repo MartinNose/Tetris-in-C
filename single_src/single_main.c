@@ -29,6 +29,7 @@ void Main ()
     registerTimerEvent (timerEventHandler);
     registerMouseEvent(mouseEventHandler);
     registerKeyboardEvent (keyboardEventHandler);
+    registerCharEvent(CharEventHandler);
 
     startTimer (GAME, 10);
     //startTimer(DEBUG, 1000);

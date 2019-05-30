@@ -11,58 +11,66 @@ void keyboardEventHandler (int key, int event)
 {
     uiGetKeyboard (key, event);
     tetrimino temp = ctetri;
-
-    switch (event) {
-        case KEY_DOWN:
-            switch (key) {
-                case VK_LEFT:temp.x -= 1;
-                    break;
-                case VK_RIGHT:temp.x += 1;
-                    break;
-                case VK_DOWN:temp.yVelocity = FAST;
-                    break;
-                case VK_UP :temp.direction += 3;
-                    temp.direction %= 4;
-                    break;
-                case 0x5A: // Z
-                    temp.direction++;
-                    temp.direction %= 4;
-                    break;
-                case VK_SPACE:Score += 60;
-                    temp = HardDrop (temp);
-                    break;
-                case 0x52: // R
-                    Restart ();
-                    return;
-                case VK_ESCAPE: //P
-                    temp = PauseEventHandler (temp);
-                    break;
-                case 0x43: // C
-                    temp = HoldEventHandler (temp);
-                    break;
-                    //MenuBar
-                case 0x4D://M
+    if(!Rename) {
+        switch (event) {
+            case KEY_DOWN:
+                switch (key) {
+                    case VK_LEFT:
+                        temp.x -= 1;
+                        break;
+                    case VK_RIGHT:
+                        temp.x += 1;
+                        break;
+                    case VK_DOWN:
+                        temp.yVelocity = FAST;
+                        break;
+                    case VK_UP :
+                        temp.direction += 3;
+                        temp.direction %= 4;
+                        break;
+                    case 0x5A: // Z
+                        temp.direction++;
+                        temp.direction %= 4;
+                        break;
+                    case VK_SPACE:
+                        Score += 60;
+                        temp = HardDrop(temp);
+                        break;
+                    case 0x52: // R
+                        Restart();
+                        return;
+                    case VK_ESCAPE: //P
+                        temp = PauseEventHandler(temp);
+                        break;
+                    case 0x43: // C
+                        temp = HoldEventHandler(temp);
+                        break;
+                        //MenuBar
+                    case 0x4D://M
 //                    MusicOn ^= 1;
-                    BGM_maintainer (MusicOn^1);
-                    break;
-                case VK_F1:MouseMode ^= 1;
-                    break;
-                default:uiGetKeyboard (key, event); // GUI获取键盘
-                    break;
-            }
-            break;
-        case KEY_UP:
-            switch (key) {
-                case VK_DOWN:temp.yVelocity = SLOW;
-                    break;
-            }
-            break;
-    }
+                        BGM_maintainer(MusicOn ^ 1);
+                        break;
+                    case VK_F1:
+                        MouseMode ^= 1;
+                        break;
+                    default:
+                        uiGetKeyboard(key, event); // GUI获取键盘
+                        break;
+                }
+                break;
+            case KEY_UP:
+                switch (key) {
+                    case VK_DOWN:
+                        temp.yVelocity = SLOW;
+                        break;
+                }
+                break;
+        }
 
-    if ((!check_collision (temp) && !temp.isPaused) || key == VK_ESCAPE) {
-        ctetri = temp;
+        if ((!check_collision(temp) && !temp.isPaused) || key == VK_ESCAPE) {
+            ctetri = temp;
+        }
     }
-
 }
 
 void mouseEventHandler (int x, int y, int button, int event)
@@ -102,4 +110,8 @@ void mouseEventHandler (int x, int y, int button, int event)
                 break;
         }
     }
+}
+
+void CharEventHandler(char ch){
+    uiGetChar(ch);
 }

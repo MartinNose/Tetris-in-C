@@ -11,7 +11,7 @@
 #include "consts.h"
 
 void drawUI(int score);
-
+void DrawSideBar();
 void DrawNextTetrimino(tetrimino tetri);
 void DrawHoldedTetrimino(tetrimino tetri);
 
@@ -44,6 +44,6 @@ void DrawDynamicButtons();
 
 void DebugTool();
 void MessageBoxB(string title,string color);
-
+string drawCursor(string buffer);
 
 #endif //_DRAWERS_H_

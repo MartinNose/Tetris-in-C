@@ -2,7 +2,8 @@
 #define _DRAWERS_C
 
 #include <windows.h>
-
+#include <string.h>
+#include <math.h>
 #include "drawers.h"
 #include "handlers.h"
 #include "consts.h"
@@ -137,9 +138,7 @@ void DrawGrid ()
 //        DrawLine(GetWindowWidth(),0);
 //    }
 }
-
-void drawUI (int score)
-{
+void DrawSideBar(){
     for (int i = 0; i < LEFTBAR; i++) {
         for (int j = 0; j < HEIGHT; j++) {
             drawBlock (i, j, "Gray");
@@ -152,6 +151,11 @@ void drawUI (int score)
                 drawBlock (i, j, "Gray");
         }
     }
+}
+
+void drawUI (int score)
+{
+    DrawSideBar();
 
     DrawNextTetrimino (que[1]);
     DrawHoldedTetrimino (HeldTetri);
@@ -246,6 +250,24 @@ void DrawData (int score)
     MovePen (SpeedX * BLOCKSIZE, SpeedY * BLOCKSIZE);
     DrawTextString (buffer);
 
+    SetPointSize(GetPointSize()*2);
+
+    if(Rename) {
+        setTextBoxColors ("Gray", RandColor(), "Gray", RandColor(), 0);
+        textbox(GenUIID(0), BLOCKSIZE * 0.8, GetWindowHeight() - 3.8 * BLOCKSIZE, 4 * BLOCKSIZE, 1.20 * GetFontHeight(),
+                username, sizeof(username));
+    }else {
+        SetPenColor("White");
+        drawLabel(fabs(0.5 *((LEFTBAR-1)*BLOCKSIZE - TextStringWidth(username)) ),GetWindowHeight() - 3.5*BLOCKSIZE ,username);
+    }
+    SetPointSize(GetPointSize()/2);
+
+    SetPenColor("Black");
+    SetPointSize(GetPointSize()*2);
+    drawLabel(BLOCKSIZE/5,GetWindowHeight() - 2 * BLOCKSIZE, "CurrentPlayer");
+    SetPointSize(GetPointSize()/3);
+
+
 }
 
 void DrawNextTetrimino (tetrimino tetri)
@@ -284,7 +306,7 @@ void DrawBoard (int flag)
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
             if (flag == PAUSE) {
-                drawBlock (i + LEFTBAR - 1, j, RandColor ());
+                drawBlock (i + LEFTBAR - 1, j, (Rename)?TETRI_COLOR[que[1].type]:RandColor ());
             } else {
 
             }
@@ -315,51 +337,54 @@ void DrawBoard (int flag)
 
 void drawBoardButtons (double x, double y, int flag)
 {
-
     double h, w = 8 * BLOCKSIZE; // 控件宽度
     char buffer[100];
+    int row = 0;
     if (flag == PAUSE) {
         h = 7 * BLOCKSIZE / 6;  // 控件高度
-
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
         SetStyle (1);
-        if (button (GenUIID(0), x, y, w, h, "Resume")) {
+        if (button (GenUIID(0), x, y - h* row++, w, h, "Resume")) {
             keyboardEventHandler (VK_ESCAPE, KEY_DOWN);
         }
-        if (button (GenUIID(0), x, y - h, w, h, "RankList")) {
+        if (button (GenUIID(0), x, y - h* row++, w, h, (Rename)?"Done":"Rename")) {
+            reName();
+        }
+        if (button (GenUIID(0), x, y - h* row++, w, h, "RankList")) {
             WinExec ("leaderboard.exe", SW_SHOW);
         }
-        if (button (GenUIID(0), x, y - 2 * h, w, h, "Restart")) {
-//            keyboardEventHandler (0x52, KEY_DOWN);
+        if (button (GenUIID(0), x, y - h* row++, w, h, "Restart")) {
+//          keyboardEventHandler (0x52, KEY_DOWN);
             Restart ();
         }
-        if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
+        if (button (GenUIID(0), x, y - h* row++, w, h, "Save")) {
             SaveGame ();
         }
-
-        if (button (GenUIID(0), x, y - 4 * h, w, h, "Upload")) {
-            Upload();
-        }
-        if (button (GenUIID(0), x, y - 5 * h, w, h, "Quit")) {
+        if (button (GenUIID(0), x, y - h* row, w, h, "Quit")) {
             ExitGame ();
         }
-    } else {
+    } else { // GAME OVER Board
         h = 7 * BLOCKSIZE / 5;
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
+        setTextBoxColors("Black", "White", "Midnight Blue", "White", 1);
         SetStyle (1);
-
-        sprintf (buffer, "Score: %d  Rank: SSS ", Score);
-        drawLabel (x + (8 * BLOCKSIZE - TextStringWidth (buffer)) / 2, y + 1.50 * GetFontHeight (), buffer);
-        if (button (GenUIID(0), x, y - h, w, h, "RankList")) {
+        sprintf(buffer, "Score: %d  ", Score);//Name: %s ,username
+        drawLabel (x + (4 * BLOCKSIZE - TextStringWidth (buffer)) / 2, y + 1.50 * GetFontHeight (), buffer);
+        drawLabel(x + 3.5*BLOCKSIZE , y +  1.50 * GetFontHeight (),username);
+        if (button (GenUIID(0), x, y - h, w, h, (Rename)?"Done":"Rename")) {
+            reName();
+        }
+        if (button (GenUIID(0), x, y - 2 * h, w, h, "Upload")) {
+            Upload();
+        }
+        if (button (GenUIID(0), x, y - 3 * h, w, h, "RankList")) {
             WinExec ("leaderboard.exe", SW_SHOW);
         }
-        if (button (GenUIID(0), x, y - 2 * h, w, h, "Restart")) {
+        if (button (GenUIID(0), x, y - 4 * h, w, h, "Restart")) {
             keyboardEventHandler (0x52, KEY_DOWN);
         }
-        if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
-            SaveGame ();
-        }
-        if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
+
+        if (button (GenUIID(0), x, y - 5 * h, w, h, "Quit")) {
             ExitGame ();
         }
     }
@@ -545,7 +570,5 @@ void MessageBoxB(string title1,string color1){
     SetPointSize(GetPointSize()*2);
     drawLabel(GetWindowWidth()/2 - TextStringWidth(buffer)/2, GetWindowHeight()/2 - GetFontHeight()/3,buffer);
     SetPointSize(GetPointSize()/2);
-
-
 }
 #endif
