@@ -46,6 +46,7 @@ bool isHoldLegal = TRUE;
 bool MusicOn = FALSE;
 bool MouseMode = FALSE;
 double globalSpeed;
+char username[18];
 
 double xx = 0;
 double yy = 0;
@@ -91,9 +92,6 @@ void timerEventHandler (int timerID)
             break;
         case CheckerboardFLASH :
             flash ();
-            break;
-        //case GAMEOVER:
-
             break;
         case DEBUG:printf ("%f", GetWindowWidth ());
             break;
@@ -325,6 +323,9 @@ void InitModel ()
     BGM_maintainer (TRUE);
     MouseMode = FALSE;
     setMenuColors ("Black", "White", "Light Gray", "White", 1);
+    username[1] = '\0'; // Default to 1
+    username[0] = '1';
+    //TODO  从上一次存档中读取用户名作为本次用户名
 }
 
 bool check_collision (tetrimino tetri)
@@ -470,6 +471,9 @@ void GameOver ()
 
 void Upload() {
     //TODO upload usename and score
+    //
+    //DrawBoard()
+
 }
 void SaveGame()
 {

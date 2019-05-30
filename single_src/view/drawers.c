@@ -2,7 +2,7 @@
 #define _DRAWERS_C
 
 #include <windows.h>
-
+#include <string.h>
 #include "drawers.h"
 #include "handlers.h"
 #include "consts.h"
@@ -343,21 +343,22 @@ void drawBoardButtons (double x, double y, int flag)
         if (button (GenUIID(0), x, y - 5 * h, w, h, "Quit")) {
             ExitGame ();
         }
-    } else {
+    } else { // GAME OVER Board
         h = 7 * BLOCKSIZE / 5;
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
         SetStyle (1);
-
-        sprintf (buffer, "Score: %d  Rank: SSS ", Score);
-        drawLabel (x + (8 * BLOCKSIZE - TextStringWidth (buffer)) / 2, y + 1.50 * GetFontHeight (), buffer);
+        sprintf(buffer, "Score: %d  ", Score);//Name: %s ,username
+        drawLabel (x + (4 * BLOCKSIZE - TextStringWidth (buffer)) / 2, y + 1.50 * GetFontHeight (), buffer);
+        drawCursor(buffer);
+        drawLabel (x + 3.5*BLOCKSIZE , y + 1.50 * GetFontHeight (), buffer);
         if (button (GenUIID(0), x, y - h, w, h, "RankList")) {
             WinExec ("leaderboard.exe", SW_SHOW);
         }
         if (button (GenUIID(0), x, y - 2 * h, w, h, "Restart")) {
             keyboardEventHandler (0x52, KEY_DOWN);
         }
-        if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
-            SaveGame ();
+        if (button (GenUIID(0), x, y - 3 * h, w, h, "Upload")) {
+            Upload();
         }
         if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
             ExitGame ();
@@ -545,7 +546,22 @@ void MessageBoxB(string title1,string color1){
     SetPointSize(GetPointSize()*2);
     drawLabel(GetWindowWidth()/2 - TextStringWidth(buffer)/2, GetWindowHeight()/2 - GetFontHeight()/3,buffer);
     SetPointSize(GetPointSize()/2);
+}
 
+string drawCursor(string buffer){
+    static int time = 0;
+    static bool ifCursor = TRUE;
+    time++;
+    time%=10;
+    if(time == 9){
+        ifCursor ^= 1;
+    }
+    if(ifCursor){
+        sprintf(buffer, "Name: %s _",username);//
+    }else{
+        sprintf(buffer, "Name: %s ",username);//
+    }
+    return buffer;
 
 }
 #endif

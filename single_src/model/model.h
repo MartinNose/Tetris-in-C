@@ -42,6 +42,7 @@ extern tetrimino HeldTetri;
 extern bool isHoldLegal;
 extern bool MusicOn;
 extern bool MouseMode;
+extern char username[18];
 
 void SaveGame();
 bool LoadGame();

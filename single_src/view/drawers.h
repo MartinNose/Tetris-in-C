@@ -44,6 +44,6 @@ void DrawDynamicButtons();
 
 void DebugTool();
 void MessageBoxB(string title,string color);
-
+string drawCursor(string buffer);
 
 #endif //_DRAWERS_H_
