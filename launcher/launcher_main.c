@@ -202,6 +202,7 @@ void drawButtons()
     if (button(GenUIID(0), x, y, 2, 1.2, "Single Mode"))
     {
         WinExec("single_main.exe", SW_SHOW);
+        exit (0);
     }
     if (button(GenUIID(0), x, y - 0.8, 2, 0.6, "Leader Board"))
     {

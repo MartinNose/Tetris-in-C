@@ -450,9 +450,8 @@ tetrimino PauseEventHandler (tetrimino temp)
 
 void ExitGame ()
 {
+    WinExec("launcher.exe", SW_SHOW);
     exit (0);
-    //TODO laucher
-
 }
 
 void GameOver ()
@@ -472,25 +471,28 @@ void Upload() {
 }
 void SaveGame()
 {
-    File_Save_Game (&checkerboard, &ctetri, &que[0], &HeldTetri, Score);
+    File_Save_Game (&checkerboard, &ctetri, &que[0], &que[2], &HeldTetri, Score, MouseMode, MusicOn);
     MessageBoxB("Saving Game","Red");
 }
 
 bool LoadGame()
 {
     Checkerboard temp;
-    tetrimino cur_tetri, next_tetri, held_tetri;
+    tetrimino cur_tetri, que1, que2, held_tetri;
     int temp_score;
+    bool Mouse_Mode, Music_on;
 
 
-    if (File_Load_Saved_Game (&temp, &cur_tetri, &next_tetri, &held_tetri, &temp_score))
+    if (File_Load_Saved_Game (&temp, &cur_tetri, &que1, &que2, &held_tetri, &temp_score, &Mouse_Mode, &Music_on))
     {
         checkerboard = temp;
         ctetri = cur_tetri;
-        que[0] = next_tetri;
+        que[0] = que1;
+//        que[1] = que2; // TODO bug !!! 当que[0] que[1]都被加载时，下一个方块会变成NULL，应该是我不清楚变量用途造成的，还不清楚怎么修……
         HeldTetri = held_tetri;
         Score = temp_score;
-        //TODO is_game_over
+        MouseMode = Mouse_Mode;
+        MusicOn = Music_on;
         MessageBoxB("Loading","Black");
 
         return TRUE;
