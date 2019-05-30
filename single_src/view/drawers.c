@@ -315,10 +315,10 @@ void DrawBoard (int flag)
 void drawBoardButtons (double x, double y, int flag)
 {
 
-    double h, w = 8 * BLOCKSIZE; // ¿Ø¼þ¿í¶È
+    double h, w = 8 * BLOCKSIZE; // ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½
     char buffer[100];
     if (flag == PAUSE) {
-        h = 7 * BLOCKSIZE / 6;  // ¿Ø¼þ¸ß¶È
+        h = 7 * BLOCKSIZE / 6;  // ï¿½Ø¼ï¿½ï¿½ß¶ï¿½
 
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
         SetStyle (1);
@@ -355,8 +355,8 @@ void drawBoardButtons (double x, double y, int flag)
         if (button (GenUIID(0), x, y - 2 * h, w, h, "Restart")) {
             keyboardEventHandler (0x52, KEY_DOWN);
         }
-        if (button (GenUIID(0), x, y - 3 * h, w, h, "Save")) {
-            SaveGame ();
+        if (button (GenUIID(0), x, y - 3 * h, w, h, "Upload")) {
+            SaveGame ();//TODO Upload Score
         }
         if (button (GenUIID(0), x, y - 4 * h, w, h, "Quit")) {
             ExitGame ();
@@ -414,8 +414,8 @@ void DrawMenu()
     // Game
     selection = menuList (GenUIID(0), x + w, y - h, w, wlist, h, menuListGame,
                           sizeof (menuListGame) / sizeof (menuListGame[0]));
-    //menuListGame[1] = (ctetri.isPaused) ? "Resume | Ctrl-P" : "Pause | Ctrl-P";
-    //menuListGame[3] = (MouseMode) ? "CancelMouse | Ctrl-H" : "MouseMode | Ctrl-H";
+    menuListGame[1] = (ctetri.isPaused) ? "Resume | Ctrl-P" : "Pause | Ctrl-P";
+    menuListGame[3] = (MouseMode) ? "CancelMouse | Ctrl-H" : "MouseMode | Ctrl-H";
     switch (selection) {
         case 0:break;
         case 1: //pause
@@ -440,7 +440,7 @@ void DrawMenu()
     switch (selection) {
         case 0:break;
         case 1:
-            MessageBoxA (NULL, "µ¥ÈËÄ£Ê½", "¹ØÓÚ | About", MB_ICONINFORMATION);
+            MessageBoxA (NULL, "ï¿½ï¿½ï¿½ï¿½Ä£Ê½", "ï¿½ï¿½ï¿½ï¿½ | About", MB_ICONINFORMATION);
             break;
     }
 }
@@ -468,9 +468,9 @@ void DrawBottomBar(){
 void DrawDynamicButtons()
 {
     double x , y = GetWindowHeight()/3;
-    double h, w = (LEFTBAR-1) * BLOCKSIZE; // ¿Ø¼þ¿í¶È
+    double h, w = (LEFTBAR-1) * BLOCKSIZE; // ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½
     x = (LEFTBAR*BLOCKSIZE - w)/2;
-    h = 7 * BLOCKSIZE / 6;  // ¿Ø¼þ¸ß¶È
+    h = 7 * BLOCKSIZE / 6;  // ï¿½Ø¼ï¿½ï¿½ß¶ï¿½
 
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
         SetStyle (1);
