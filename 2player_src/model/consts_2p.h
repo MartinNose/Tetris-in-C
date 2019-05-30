@@ -1,32 +1,39 @@
 //
 // Created by 刘隽良 on 2019/5/15.
 //
-#ifndef _consts_h
-#define _consts_h
+#ifndef _consts_2p_h
+#define _consts_2p_h
 
 #include <genlib.h>
 
 #define BLOCKSIZE 0.5
 
-#define WIDTH 24 //Width in inches
+#define WIDTH 30 //Width in inches
 #define HEIGHT 18 //Height in inches
-#define LEFTBAR 6 //Left Bar Width
+#define LEFTBAR 3 //Left Bar Width
 #define RIGHTBAR 10 //RIGHT BAR
 
-#define PreX (LEFTBAR+13)
-#define PreY 10
+#define LEFT 0
+#define RIGHT 1
 
-#define HoldX (LEFTBAR+13)
-#define HoldY 2
+#define LEFTChX 3
 
-#define LevelX 2
-#define LevelY 9
+#define RIGHTChX 18
 
-#define ScoreX 2
-#define ScoreY 11
-
-#define SpeedX 2
-#define SpeedY 10
+//#define PreX (LEFTBAR+13)
+//#define PreY 10
+//
+//#define HoldX (LEFTBAR+13)
+//#define HoldY 2
+//
+//#define LevelX 2
+//#define LevelY 9
+//
+//#define ScoreX 2
+//#define ScoreY 11
+//
+//#define SpeedX 2
+//#define SpeedY 10
 
 
 
@@ -47,6 +54,11 @@
 #define PAUSE 0
 
 #define USERNAMELONG 16
+typedef struct {
+    int block[14][25];
+    int x;
+    int position;
+} Checkerboard;
 
 typedef struct  {
     int x, y;
@@ -55,11 +67,9 @@ typedef struct  {
     int direction;
     double yVelocity;
     bool isPaused;
+    Checkerboard curChecker;
 } tetrimino;
 
-typedef struct {
-    int block[14][25];
-} Checkerboard;
 
 extern int typeInfo[][4][2];
 

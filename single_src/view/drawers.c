@@ -14,6 +14,13 @@ void DefineRGBColor (string s, int r, int g, int b)
 {
     DefineColor (s, r / 255.0, g / 255.0, b / 255.0);
 }
+void DrawRect (double width, double height)
+{
+    DrawLine (width, 0);
+    DrawLine (0, height);
+    DrawLine (-1 * width, 0);
+    DrawLine (0, -1 * height);
+}
 void DefineColors ()
 {
     DefineRGBColor ("Magenta", 138, 43, 226); //blueviolet
@@ -31,13 +38,7 @@ void DefineColors ()
     DefineRGBColor ("White Smoke",245, 245, 245);
 };
 
-void DrawRect (double width, double height)
-{
-    DrawLine (width, 0);
-    DrawLine (0, height);
-    DrawLine (-1 * width, 0);
-    DrawLine (0, -1 * height);
-}
+
 void Clean ()
 {
     SetEraseMode (1);
@@ -94,6 +95,14 @@ void drawTetri (tetrimino tetri)
                     tetri.y - typeInfo[tetri.type][i][0], TETRI_COLOR[tetri.type]);
             }
             break;
+    }
+}
+void drawCheckerBoard (Checkerboard checker)
+{
+    for (int i = 1; i < 13; i++) {
+        for (int j = 0; j < HEIGHT; j++) {
+            drawBlock (i + LEFTBAR - 1, j, TETRI_COLOR[checker.block[i][j + 1]]);
+        }
     }
 }
 void DrawGrid ()
@@ -171,14 +180,7 @@ void drawUI (int score)
     //DebugTool();
 
 }
-void drawCheckerBoard (Checkerboard checker)
-{
-    for (int i = 1; i < 13; i++) {
-        for (int j = 0; j < HEIGHT; j++) {
-            drawBlock (i + LEFTBAR - 1, j, TETRI_COLOR[checker.block[i][j + 1]]);
-        }
-    }
-}
+
 
 void drawShadowBlock (int x, int y, string color)
 {

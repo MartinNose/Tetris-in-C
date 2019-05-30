@@ -5,20 +5,20 @@
 #ifndef _MODEL_H_
 #define _MODEL_H_
 
-#include "consts.h"
+#include "consts_2p.h"
 
 void InitModel();
+static Checkerboard generateInitCheckerboard (int x);
 
-tetrimino generateTetrimino (int type, int direction);
+tetrimino generateTetrimino (int type, int direction ,int index);
 
 void timerEventHandler (int timerID);
 
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
 tetrimino tetriRandom ();
-bool check_collision (tetrimino tetri);
+bool check_collision (tetrimino tetri,Checkerboard checkerboard);
 Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker);
-tetrimino HardDrop(tetrimino tetri);
-void Settle(tetrimino tetri);
+tetrimino HardDrop (tetrimino tetri ,Checkerboard checkerboard);
 tetrimino HoldEventHandler(tetrimino temp);
 tetrimino PauseEventHandler(tetrimino temp);
 
@@ -30,15 +30,17 @@ void reName();
 bool CheckTop ();
 tetrimino Restart ();
 
+Checkerboard Settle (tetrimino tetri ,Checkerboard checkerboard,int i);
+
 
 extern Checkerboard checkerboard;
 
-extern tetrimino ctetri;
+extern tetrimino ctetri[2];
 
-extern int Score;
-extern bool is_game_over;
+extern int Score[2];
+extern bool is_game_over[2];
 extern double globalSpeed;
-extern tetrimino que[2];
+extern tetrimino que[2][2];
 extern tetrimino HeldTetri;
 extern bool isHoldLegal;
 extern bool MusicOn;
