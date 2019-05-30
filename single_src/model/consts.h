@@ -1,6 +1,3 @@
-//
-// Created by 刘隽良 on 2019/5/15.
-//
 #ifndef _consts_h
 #define _consts_h
 

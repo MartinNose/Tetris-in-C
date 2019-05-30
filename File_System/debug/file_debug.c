@@ -1,6 +1,7 @@
-//
-// Created by Tao Chiang on 5/28/2019.
-//
+/*
+ * This file is used to test the file module
+ */
+
 #include "file_system_linked_list.h"
 
 int main()

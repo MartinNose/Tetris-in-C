@@ -1,6 +1,3 @@
-//
-// Created by Tao Chiang on 5/28/2019.
-//
 #include <stdlib.h>
 
 #include "file_system_game_status.h"
