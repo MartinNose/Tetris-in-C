@@ -102,7 +102,7 @@ void Main ()
     DrawBasic ();
     // 打开控制台，方便输出变量信息，便于调试
     // InitConsole();
-    PlaySound("C:\\Users\\Tao Chiang\\Desktop\\Skyworld.wav", NULL, SND_FILENAME | SND_ASYNC);
+    PlaySound("..\\Sound\\assets\\8bit.wav", NULL, SND_FILENAME | SND_ASYNC);
 }
 
 // 菜单演示程序
