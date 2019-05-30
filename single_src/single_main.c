@@ -18,7 +18,7 @@ tetrimino NaT;//Not a Tetrimino
 void Main ()
 {
     NaT = generateTetrimino (0, 0);// Not a Tetri
-
+    que[0] = que[1] = NaT;
     SetWindowTitle ("Tetris");
 
     SetWindowSize (BLOCKSIZE * WIDTH, BLOCKSIZE * HEIGHT);
@@ -27,7 +27,7 @@ void Main ()
 
     DefineColors();
     InitModel ();
-    drawUI(0, NaT);
+    drawUI(0);
     srand((unsigned)time(NULL));
 
     registerTimerEvent (timerEventHandler);

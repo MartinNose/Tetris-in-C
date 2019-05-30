@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "consts.h"
 
-void drawUI(int score, tetrimino NextTetri);
+void drawUI(int score);
 
 void DrawNextTetrimino(tetrimino tetri);
 void DrawHoldedTetrimino(tetrimino tetri);

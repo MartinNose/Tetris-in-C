@@ -138,7 +138,7 @@ void DrawGrid ()
 //    }
 }
 
-void drawUI (int score, tetrimino NextTetri)
+void drawUI (int score)
 {
     for (int i = 0; i < LEFTBAR; i++) {
         for (int j = 0; j < HEIGHT; j++) {
@@ -153,7 +153,7 @@ void drawUI (int score, tetrimino NextTetri)
         }
     }
 
-    DrawNextTetrimino (NextTetri);
+    DrawNextTetrimino (que[1]);
     DrawHoldedTetrimino (HeldTetri);
 
 
@@ -251,6 +251,7 @@ void DrawData (int score)
 void DrawNextTetrimino (tetrimino tetri)
 {
     //MovePen();
+    if (tetri.type == 0)return;
     tetri.x = PreX + 2;
     tetri.y = PreY + 1;
     drawTetri (tetri);

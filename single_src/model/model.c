@@ -85,7 +85,7 @@ void timerEventHandler (int timerID)
             if(!is_game_over)game ();
             else{
                 drawCheckerBoard(checkerboard);
-                drawUI(Score, que[1]);
+                drawUI(Score);
                 DrawBoard(GAMEOVER);
             }
             break;
@@ -118,7 +118,7 @@ static void game ()
     DrawShadow (HardDrop (ctetri));
 
     drawTetri (ctetri);
-    drawUI (Score, que[1]);
+    drawUI (Score);
 
     if (ctetri.yVelocity == 0 && !ctetri.isPaused ) {
         Settle (ctetri); //add tetri to checker board
@@ -140,7 +140,7 @@ static void flash ()
     } else {
         drawCheckerBoard (clearCheckerboard);
     }
-    drawUI (Score, que[1]);
+    drawUI (Score);
     times++;
     if (times >= 6) {
         cancelTimer (CheckerboardFLASH);
@@ -418,7 +418,7 @@ tetrimino Restart ()
     }
 
     InitModel ();
-    drawUI (0, que[1]);
+    drawUI (0);
 }
 
 tetrimino HoldEventHandler (tetrimino temp)
@@ -473,7 +473,7 @@ void Upload() {
 }
 void SaveGame()
 {
-    File_Save_Game (&checkerboard, &ctetri, &que[0], &que[2], &HeldTetri, Score, MouseMode, MusicOn);
+    File_Save_Game (&checkerboard, &ctetri, &que[0], &que[1], &HeldTetri, Score, MouseMode, MusicOn);
     MessageBoxB("Saving Game","Red");
 }
 
@@ -489,8 +489,8 @@ bool LoadGame()
     {
         checkerboard = temp;
         ctetri = cur_tetri;
-        que[0] = que1;
-//        que[1] = que2; // TODO bug !!! 当que[0] que[1]都被加载时，下一个方块会变成NULL，应该是我不清楚变量用途造成的，还不清楚怎么修……
+        que[0] = cur_tetri;
+        que[1] = que2; 
         HeldTetri = held_tetri;
         Score = temp_score;
         MouseMode = Mouse_Mode;
