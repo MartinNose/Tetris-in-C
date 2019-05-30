@@ -359,7 +359,7 @@ double GetWindowWidth(void)
 {
     InitCheck();
     RECT lpRect;
-    GetClientRect(graphicsWindow, &lpRect);//获取窗口客户区的坐标，例如：记事本程序编辑窗口的左上点相对于记事本程序的坐标，编辑窗口的右下点相对于记事本程序的坐标。
+    GetClientRect(graphicsWindow, &lpRect);
     int width = lpRect.right - lpRect.left;
     windowWidth = InchesX (width);
     return (windowWidth);
@@ -369,7 +369,7 @@ double GetWindowHeight(void)
 {
     InitCheck();
     RECT lpRect;
-    GetClientRect(graphicsWindow, &lpRect);//获取窗口客户区的坐标，例如：记事本程序编辑窗口的左上点相对于记事本程序的坐标，编辑窗口的右下点相对于记事本程序的坐标。
+    GetClientRect(graphicsWindow, &lpRect);
     int height = lpRect.bottom - lpRect.top;
     windowHeight = InchesY (height);
     return (windowHeight);
