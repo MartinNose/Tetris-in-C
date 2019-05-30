@@ -309,7 +309,6 @@ static Checkerboard generateInitCheckerboard ()
 
 void InitModel ()
 {
-    cancelTimer (GAMEOVER);
     checkerboard = generateInitCheckerboard ();
     ctetri = tetriRandom ();
     ctetri.yVelocity = INIT_SPEED;
@@ -317,7 +316,7 @@ void InitModel ()
 
     globalSpeed = INIT_SPEED;
     is_game_over = FALSE;
-    isHoldLegal = TRUE;
+
     HeldTetri = generateTetrimino (0, 0);
     que[0] = tetriRandom ();
     que[1] = tetriRandom ();
