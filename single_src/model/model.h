@@ -50,6 +50,8 @@ bool ifHover(double x, double y, double x1, double x2, double y1, double y2);
 int XInchScaleToBlock(double x);
 bool InCheckerBoard(double x, double y);
 
+void BGM_maintainer(bool new_music_on);
+
 extern double xx;
 extern double yy;
 

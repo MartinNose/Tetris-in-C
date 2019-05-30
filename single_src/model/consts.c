@@ -31,6 +31,7 @@ string TETRI_COLOR[8] = {
     "Red"
 };
 
+char *const BGM_Path = "C:\\Users\\Tao Chiang\\Desktop\\Skyworld.wav";
 
 
 // Black, Dark Gray, Gray, Light Gray, White,

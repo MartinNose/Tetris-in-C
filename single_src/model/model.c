@@ -30,6 +30,7 @@
 #include "file_system_game_status.h"
 #include "sound.h"
 
+
 Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
 tetrimino ctetri;
@@ -42,7 +43,7 @@ tetrimino que[2];
 tetrimino HeldTetri;
 bool is_game_over = FALSE;
 bool isHoldLegal = TRUE;
-bool MusicOn = TRUE;
+bool MusicOn = FALSE;
 bool MouseMode = FALSE;
 double globalSpeed;
 
@@ -320,7 +321,8 @@ void InitModel ()
     que[1] = tetriRandom ();
     //For MenuBar
     //For Game STATE
-    MusicOn = TRUE;
+//    MusicOn = TRUE;
+    BGM_maintainer (TRUE);
     MouseMode = FALSE;
     setMenuColors ("Black", "White", "Light Gray", "White", 1);
 }
@@ -492,7 +494,8 @@ bool LoadGame()
         HeldTetri = held_tetri;
         Score = temp_score;
         MouseMode = Mouse_Mode;
-        MusicOn = Music_on;
+//        MusicOn = Music_on;
+        BGM_maintainer (Music_on);
         MessageBoxB("Loading","Black");
 
         return TRUE;
@@ -511,4 +514,18 @@ bool InCheckerBoard(double x, double y){
 bool ifHover(double x, double y, double x1, double x2, double y1, double y2)
 {
     return (x >= x1 && x <= x2 && y >= y1 && y <= y2);
+}
+
+void BGM_maintainer(bool new_music_on)
+{
+    if (new_music_on && !MusicOn)
+    {
+        MusicOn = TRUE;
+        PlaySound(BGM_Path, NULL, SND_FILENAME | SND_ASYNC);
+    }
+    else if (!new_music_on && MusicOn)
+    {
+        MusicOn = FALSE;
+        PlaySound(NULL,NULL,SND_FILENAME); // 用于停止播放的音乐
+    }
 }

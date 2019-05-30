@@ -10,52 +10,45 @@
 
 #include "imgui.h"
 
-
 void keyboardEventHandler (int key, int event)
 {
-    uiGetKeyboard(key,event);
+    uiGetKeyboard (key, event);
     tetrimino temp = ctetri;
 
     switch (event) {
         case KEY_DOWN:
             switch (key) {
-                case VK_LEFT:
-                    temp.x -= 1;
+                case VK_LEFT:temp.x -= 1;
                     break;
-                case VK_RIGHT:
-                    temp.x += 1;
+                case VK_RIGHT:temp.x += 1;
                     break;
-                case VK_DOWN:
-                    temp.yVelocity = FAST;
+                case VK_DOWN:temp.yVelocity = FAST;
                     break;
-                case VK_UP :
-                    temp.direction+=3;
+                case VK_UP :temp.direction += 3;
                     temp.direction %= 4;
                     break;
                 case 0x5A: // Z
                     temp.direction++;
                     temp.direction %= 4;
                     break;
-                case VK_SPACE:
-                    Score+=60;
-                    temp = HardDrop(temp);
+                case VK_SPACE:Score += 60;
+                    temp = HardDrop (temp);
                     break;
                 case 0x52: // R
-                        Restart();
+                    Restart ();
                     return;
                 case VK_ESCAPE: //P
-                    temp = PauseEventHandler(temp);
+                    temp = PauseEventHandler (temp);
                     break;
                 case 0x43: // C
-                    temp = HoldEventHandler(temp);
+                    temp = HoldEventHandler (temp);
                     break;
-                 //MenuBar
+                    //MenuBar
                 case 0x4D://M
-                    MusicOn ^= 1;
-                    //TODO stop music
+//                    MusicOn ^= 1;
+                    BGM_maintainer (MusicOn^1);
                     break;
-                case VK_F1:
-                    MouseMode ^= 1;
+                case VK_F1:MouseMode ^= 1;
                     break;
                 default:uiGetKeyboard (key, event); // GUI获取键盘
                     break;
@@ -63,57 +56,53 @@ void keyboardEventHandler (int key, int event)
             break;
         case KEY_UP:
             switch (key) {
-                case VK_DOWN:
-                    temp.yVelocity = SLOW;
+                case VK_DOWN:temp.yVelocity = SLOW;
                     break;
             }
             break;
     }
 
-    if ((!check_collision (temp) && !temp.isPaused)|| key == VK_ESCAPE) {
+    if ((!check_collision (temp) && !temp.isPaused) || key == VK_ESCAPE) {
         ctetri = temp;
     }
 
 }
 
-void mouseEventHandler (int x, int y, int button, int event) {
-    uiGetMouse(x, y, button, event); //GUI获取鼠标
+void mouseEventHandler (int x, int y, int button, int event)
+{
+    uiGetMouse (x, y, button, event); //GUI获取鼠标
     int BlockX;
 
-    xx = ScaleXInches(x);
-    yy = GetWindowHeight() - ScaleXInches(y);
+    xx = ScaleXInches (x);
+    yy = GetWindowHeight () - ScaleXInches (y);
 
-    BlockX = XInchScaleToBlock(xx) + LEFTBAR - 1;
-    if(!ifHover(xx,yy,0,BLOCKSIZE*WIDTH,0,BLOCKSIZE*HEIGHT)){
+    BlockX = XInchScaleToBlock (xx) + LEFTBAR - 1;
+    if (!ifHover (xx, yy, 0, BLOCKSIZE * WIDTH, 0, BLOCKSIZE * HEIGHT)) {
         MouseMode = FALSE;
     }
-    if (MouseMode && InCheckerBoard(xx, yy)) {
-            if (BlockX < ctetri.x) {
-                for(int i = 0;i<ctetri.x - BlockX ;i++) {
-                    keyboardEventHandler(VK_LEFT, KEY_DOWN);
-                }
-            }else {
-                for(int i = 0;i< BlockX - ctetri.x;i++) {
-                    keyboardEventHandler(VK_RIGHT, KEY_DOWN);
-                }
+    if (MouseMode && InCheckerBoard (xx, yy)) {
+        if (BlockX < ctetri.x) {
+            for (int i = 0; i < ctetri.x - BlockX; i++) {
+                keyboardEventHandler (VK_LEFT, KEY_DOWN);
             }
-            switch(event){
-                case BUTTON_DOWN:
-                    switch (button){
-                        case LEFT_BUTTON:
-                            keyboardEventHandler(VK_SPACE,KEY_DOWN);
-                            break;
-                        case RIGHT_BUTTON:
-                            keyboardEventHandler(0x43,KEY_DOWN);
-                            break;
-                    }
-                    break;
-                case ROLL_UP:
-                    keyboardEventHandler(VK_UP,KEY_DOWN);
-                    break;
-                case ROLL_DOWN:
-                    keyboardEventHandler(0x5A,KEY_DOWN);
-                    break;
+        } else {
+            for (int i = 0; i < BlockX - ctetri.x; i++) {
+                keyboardEventHandler (VK_RIGHT, KEY_DOWN);
             }
+        }
+        switch (event) {
+            case BUTTON_DOWN:
+                switch (button) {
+                    case LEFT_BUTTON:keyboardEventHandler (VK_SPACE, KEY_DOWN);
+                        break;
+                    case RIGHT_BUTTON:keyboardEventHandler (0x43, KEY_DOWN);
+                        break;
+                }
+                break;
+            case ROLL_UP:keyboardEventHandler (VK_UP, KEY_DOWN);
+                break;
+            case ROLL_DOWN:keyboardEventHandler (0x5A, KEY_DOWN);
+                break;
+        }
     }
 }

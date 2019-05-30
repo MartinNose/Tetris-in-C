@@ -35,3 +35,4 @@ add_executable(sound_debug ${SOUND} Sound/debug/sound_debug.c)
 
 target_link_libraries(sound_debug winmm.lib)
 target_link_libraries(launcher winmm.lib)
+target_link_libraries(single_main winmm.lib)
