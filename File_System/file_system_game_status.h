@@ -1,8 +1,15 @@
+/*
+ * This file contains functions concerning saving and loading game status
+ */
+
 #ifndef _FILE_SYSTEM_GAME_STATUS_H_
 #define _FILE_SYSTEM_GAME_STATUS_H_
 
 #include "consts.h"
 
+/*
+ *
+ */
 bool File_Load_Saved_Game (Checkerboard *saved_board,
                            tetrimino *saved_tetri,
                            tetrimino *saved_que1,

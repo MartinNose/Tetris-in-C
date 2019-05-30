@@ -1,3 +1,7 @@
+/*
+ * This file is used to test the file module
+ */
+
 #include "file_system_linked_list.h"
 
 int main()

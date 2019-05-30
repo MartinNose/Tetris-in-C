@@ -491,10 +491,10 @@ bool LoadGame()
         HeldTetri = held_tetri;
         Score = temp_score;
         MouseMode = Mouse_Mode;
+        is_game_over = FALSE;
 //        MusicOn = Music_on;
         BGM_maintainer (Music_on);
         MessageBoxB("Loading","Black");
-
         return TRUE;
     }
     return FALSE;
