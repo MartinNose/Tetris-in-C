@@ -1,5 +1,12 @@
 @echo off
+
+:: copy to C:/
+xcopy /e/y/i/f . C:\tetri_game
+cd C:\tetri_game
+
 :: make
+set PATH = C:\Dev-Cpp\bin;
+::%PATH%;
 mingw32-make
 
 :: move to bin
