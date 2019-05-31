@@ -17,8 +17,39 @@
 
 void drawUI(){
     //TODO
-}
+    SetPenColor ("Black");
 
+    //draw Checkerboard Grid
+    for (int i = 0; i <= WIDTH; i++) {
+        MovePen (i * BLOCKSIZE, 0);
+        DrawLine (0, GetWindowHeight ());
+    }
+
+    for (int j = 0; j <= HEIGHT; j++) {
+        MovePen (0, j * BLOCKSIZE);
+        DrawLine (WIDTH*BLOCKSIZE, 0);
+    }
+}
+void DefineRGBColor (string s, int r, int g, int b)
+{
+    DefineColor (s, r / 255.0, g / 255.0, b / 255.0);
+}
+void DefineColors ()
+{
+    DefineRGBColor ("Magenta", 138, 43, 226); //blueviolet
+    DefineRGBColor ("Blue", 30, 144, 255); //dodgerblue
+    DefineRGBColor ("Cyan", 127, 255, 212); //aquamarine
+    DefineRGBColor ("Yellow", 255, 215, 0); //gold
+    DefineRGBColor ("Green", 34, 139, 34);//forestgreen
+    DefineRGBColor ("Light Gray", 105, 105, 105);//dimgray
+    DefineRGBColor ("Red", 220, 20, 60);//crimson
+    DefineRGBColor ("Dark Turquoise", 0, 206, 209);//dark turquoise
+    DefineRGBColor ("Midnight Blue", 25, 25, 112);
+    DefineRGBColor ("Corn Silk", 255, 248, 220);
+    DefineRGBColor ("Light Cyan", 224, 255, 255);
+    DefineRGBColor ("Gainsboro", 220, 220, 220);
+    DefineRGBColor ("White Smoke",245, 245, 245);
+};
 
 
 
@@ -140,15 +171,21 @@ void drawCheckerBoard(Checkerboard checker){
 }
 
 void drawCheckerBoardList(Checkerboard *list){
-    drawCheckerBoard(list[0]);
-    drawCheckerBoard(list[1]);
+    drawCheckerBoard(checkerboardlist[0]);
+    drawCheckerBoard(checkerboardlist[1]);
 }
-void Clean ()
-{
-    SetEraseMode (1);
-    StartFilledRegion (1);
-    MovePen (0, 0);
-    DrawRect (GetWindowWidth (), GetWindowHeight ());
+void Clean (int i) {
+    SetEraseMode(1);
+    StartFilledRegion(1);
+
+    if (i == LEFT) {
+        MovePen(0, 0);
+        DrawRect(GetWindowWidth()/2, GetWindowHeight());
+    }else {
+        MovePen(GetWindowWidth()/2, 0);
+        DrawRect(GetWindowWidth()/2, GetWindowHeight());
+    }
     EndFilledRegion ();
+
     SetEraseMode (0);
 }

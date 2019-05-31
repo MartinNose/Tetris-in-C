@@ -58,10 +58,11 @@ void InitModel ()
 {
     checkerboardlist[0] = generateInitCheckerboard (LEFT);
     checkerboardlist[1] = generateInitCheckerboard (RIGHT);
-    ctetri[0] = ctetri[1] =  tetriRandom ();
+    ctetri[0]  =  tetriRandom (0);
+    ctetri[1] =   tetriRandom(1);
     ctetri[0].yVelocity =  ctetri[1].yVelocity = INIT_SPEED;
     Score[0] = 0;
-    Score[0] = 1;
+    Score[1] = 0;
 
     HeldTetri[0] = generateTetrimino(0,0,0);
     HeldTetri[1] = generateTetrimino(0,0,1);
@@ -69,8 +70,8 @@ void InitModel ()
     globalSpeed = INIT_SPEED;
     is_game_over[0] = is_game_over[1]= FALSE;
 
-    que[0][0] = que[1][0] = tetriRandom ();
-    que[1][0] = que[1][1] = tetriRandom ();
+    que[0][0] = que[0][1] = tetriRandom (0);
+    que[1][0] = que[1][1] = tetriRandom (1);
 //    MusicOn = TRUE;
     BGM_maintainer (TRUE);
     //MouseMode = FALSE;
@@ -80,13 +81,14 @@ tetrimino generateTetrimino (int type, int direction ,int index)
 {
     tetrimino tetri;
 
-    tetri.x = LEFTBAR + 6;
+    tetri.x = (index==LEFT)?(LEFTBAR + 6):(WIDTH - LEFTBAR - 6);
     tetri.y = HEIGHT;
     tetri.type = type;
     tetri.direction = direction;
-    tetri.yVelocity = 0;
+    tetri.yVelocity = INIT_SPEED;
     tetri.isPaused = FALSE;
-    tetri.curChecker = checkerboardlist[index];
+    tetri.position = index;
+    //tetri.curChecker = checkerboardlist[index]; //TODO ¸ÄÎªposition
 
     return tetri;
 }
@@ -96,7 +98,6 @@ void timerEventHandler (int timerID)
         case GAME:
             if(!is_game_over[0] && !is_game_over[1])game ();
             else{
-                drawCheckerBoardList(checkerboardlist);
                 drawUI();
             }
             break;
@@ -115,54 +116,56 @@ static void game ()
         }
 
         time = (time + 1) % ERA; // !!!
-        Clean();
+        Clean(i);
 
-        drawCheckerBoard(checkerboardlist[i]);
+        //drawCheckerBoard(checkerboardlist[i]);
         ctetri[i] = tetriMaintainer_on_gravity(time, ctetri[i]);
-        DrawShadow(HardDrop(ctetri[i]));
 
-        drawTetri(ctetri[i]);
-        drawUI();
+
 
         if (ctetri[i].yVelocity == 0) {
-            Settle(ctetri[i], checkerboardlist[i], i); //add tetri to checker board
-            globalSpeed = INIT_SPEED + INIT_SPEED * (Score[i] / LevelGap); //update speed
+            Settle(ctetri[i]); //add tetri to checker board
+            //globalSpeed = INIT_SPEED + INIT_SPEED * (Score[i] / LevelGap); //TODO update speed
         }
         if (is_game_over[i]) {
             GameOver(i);
         }
 
     }
+    drawCheckerBoardList(checkerboardlist);
+    for(int i = 0;i<2;i++) {
+        drawTetri(ctetri[i]);
+        DrawShadow(HardDrop(ctetri[i]));
+    }
+
+    drawUI();
 }
 static void flash (int i)
 {
-    static int times = 0;
-    static int index = 0;
-    if(i != KEEP){
-        index = i;
-    }
-    if (times % 2 == 0) {
-        drawCheckerBoard (lastCheckerboard[index]);
-    } else {
-        drawCheckerBoard (clearCheckerboard[index]);
-    }
-    drawCheckerBoard(checkerboardlist[i^1]);
-    drawUI ();
-    times++;
-    if (times >= 6) {
-        cancelTimer (CheckerboardFLASH);
-        startTimer (GAME, 10);
-        times = 0;
-    }
+//    static int times = 0;
+//    static int index = 0;
+//    if(i != KEEP){
+//        index = i;
+//    }
+//    if (times % 2 == 0) {
+//        drawCheckerBoard (lastCheckerboard[index]);
+//    } else {
+//        drawCheckerBoard (clearCheckerboard[index]);
+//    }
+//    drawCheckerBoard(checkerboardlist[i^1]);
+//    drawUI ();
+//    times++;
+//    if (times >= 6) {
+//        cancelTimer (CheckerboardFLASH);
+//        startTimer (GAME, 10);
+//        times = 0;
+//    }
 }
 
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri) {
     static int curTime = 0;
     static double dy = 0;
     int dt;
-    if (tetri.yVelocity == 0 && !tetri.isPaused) {
-        tetri.yVelocity = globalSpeed;
-    }
     tetrimino last = tetri;
     if (time > curTime) {
         dt = (time - curTime);
@@ -178,29 +181,30 @@ tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri) {
 
     curTime = time;
 
-    if (!check_collision (tetri,tetri.curChecker)) {
+    if (!check_collision (tetri,checkerboardlist[tetri.position])) {
         return tetri;
     } else {
         last.yVelocity = 0;
         return last;
     }
-
 }
 
-Checkerboard Settle (tetrimino tetri ,Checkerboard checkerboard,int i)
+Checkerboard Settle (tetrimino tetri)
 {
-    checkerboard = Settle_Tetri (tetri, checkerboard);
-    lastCheckerboard[i] = checkerboard;
-    clearCheckerboard[i] = ClearLines (checkerboard);
-    if (Mark[i][0] != -1) {
+    Checkerboard checkerboard;
+    checkerboard = checkerboardlist[tetri.position];
+    checkerboardlist[tetri.position] = Settle_Tetri (tetri,checkerboardlist[tetri.position]);
+    lastCheckerboard[tetri.position] = checkerboard;
+    clearCheckerboard[tetri.position] = ClearLines (checkerboard);
+    if (Mark[tetri.position][0] != -1) {
         cancelTimer (GAME);
-        flash(i);
+        flash(tetri.position);
         startTimer (CheckerboardFLASH, 100);
         Play_Sound ();
     }
     checkerboard = RemoveLines (checkerboard);
-    if (CheckTop (i) == FALSE) {
-        is_game_over[i] = TRUE;
+    if (CheckTop (tetri.position) == FALSE) {
+        is_game_over[tetri.position] = TRUE;
     }
     return checkerboard;
 }
@@ -220,63 +224,11 @@ bool CheckTop (int index)
     }
 }
 
-static Checkerboard ClearLines (Checkerboard checkerboard)
-{
-    int num = 0;
-    int i, j, line_ok;
-    for (i = 1; i <= 18; i++) {
-        line_ok = TRUE;
-        for (j = 1; j <= 12; j++) {
-            if (!checkerboard.block[j][i]) {
-                line_ok = FALSE;
-                break;
-            }
-        }
-        if (line_ok) {
-            checkerboard = ClearLine (checkerboard, i);
-            Mark[checkerboard.position][num++] = i;
-        }
-    }
-    Score[checkerboard.position] += countScore[num];
-    return checkerboard;
-}
-
-static Checkerboard ClearLine (Checkerboard checkerboard, int row)
-{
-    int j;
-    for (j = 1; j <= 12; j++)
-        checkerboard.block[j][row] = 0;
-
-    return checkerboard;
-}
-static Checkerboard RemoveLines (Checkerboard checkerboard1)
-{
-    int i, j;
-    for (i = 1, j = 0; i <= 18;) {
-        if (i == Mark[checkerboard1.position][j] - j) {
-            checkerboard1 = RemoveLine (checkerboard1, i);
-            Mark[checkerboard1.position][j] = -1;
-            j++;
-        } else {
-            i++;
-        }
-    }
-    return checkerboard1;
-}
-static Checkerboard RemoveLine (Checkerboard checkerboard1, int row)
-{
-    int i, j;
-    for (i = row; i <= 18; i++) {
-        for (j = 1; j <= 12; j++)
-            checkerboard1.block[j][i] = checkerboard1.block[j][i + 1];
-    }
-    return checkerboard1;
-}
 
 tetrimino NextTetri (int position)
 {
     que[position][0] = que[position][1];
-    que[position][1] = tetriRandom ();
+    que[position][1] = tetriRandom (position);
     return que[position][0];
 }
 
@@ -317,11 +269,11 @@ static Checkerboard generateInitCheckerboard (int x)
 
 bool check_collision (tetrimino tetri,Checkerboard checkerboard)
 {
-
+    checkerboard = checkerboardlist[tetri.position];
     switch (tetri.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
-                if (checkerboard.block[tetri.x - LEFTBAR + 1 + typeInfo[tetri.type][i][0]][tetri.y
+                if (checkerboard.block[tetri.x - checkerboard.x + 1 + typeInfo[tetri.type][i][0]][tetri.y
                                                                                            + typeInfo[tetri.type][i][1]
                                                                                            + 1])
                     return TRUE;
@@ -330,7 +282,7 @@ bool check_collision (tetrimino tetri,Checkerboard checkerboard)
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
-                if (checkerboard.block[tetri.x - LEFTBAR + 1 - typeInfo[tetri.type][i][1]][tetri.y
+                if (checkerboard.block[tetri.x - checkerboard.x + 1 - typeInfo[tetri.type][i][1]][tetri.y
                                                                                            + typeInfo[tetri.type][i][0]
                                                                                            + 1])
                     return TRUE;
@@ -339,7 +291,7 @@ bool check_collision (tetrimino tetri,Checkerboard checkerboard)
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
-                if (checkerboard.block[tetri.x - LEFTBAR + 1 - typeInfo[tetri.type][i][0]][tetri.y
+                if (checkerboard.block[tetri.x - checkerboard.x + 1 - typeInfo[tetri.type][i][0]][tetri.y
                                                                                            - typeInfo[tetri.type][i][1]
                                                                                            + 1])
                     return TRUE;
@@ -348,7 +300,7 @@ bool check_collision (tetrimino tetri,Checkerboard checkerboard)
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
-                if (checkerboard.block[tetri.x - LEFTBAR + 1 + typeInfo[tetri.type][i][1]][tetri.y
+                if (checkerboard.block[tetri.x - checkerboard.x + 1 + typeInfo[tetri.type][i][1]][tetri.y
                                                                                            - typeInfo[tetri.type][i][0]
                                                                                            + 1])
                     return TRUE;
@@ -392,7 +344,7 @@ Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker)
 
 tetrimino HardDrop (tetrimino tetri)
 {
-    while (!check_collision (tetri,tetri.curChecker)) {
+    while (!check_collision (tetri,checkerboardlist[tetri.position])) {
         tetri.y--;
     }
     tetri.y++;
@@ -435,8 +387,60 @@ void GameOver (int i)
     cancelTimer (GAME);
     startTimer(GAMEOVER,10);
 }
+//On CheckerBoard=======================================================
+static Checkerboard ClearLines (Checkerboard checkerboard)
+{
+    int num = 0;
+    int i, j, line_ok;
+    for (i = 1; i <= 18; i++) {
+        line_ok = TRUE;
+        for (j = 1; j <= 12; j++) {
+            if (!checkerboard.block[j][i]) {
+                line_ok = FALSE;
+                break;
+            }
+        }
+        if (line_ok) {
+            checkerboard = ClearLine (checkerboard, i);
+            Mark[checkerboard.position][num++] = i;
+        }
+    }
+    Score[checkerboard.position] += countScore[num];
+    return checkerboard;
+}
+static Checkerboard ClearLine (Checkerboard checkerboard, int row)
+{
+    int j;
+    for (j = 1; j <= 12; j++)
+        checkerboard.block[j][row] = 0;
 
+    return checkerboard;
+}
+static Checkerboard RemoveLines (Checkerboard checkerboard1)
+{
+    int i, j;
+    for (i = 1, j = 0; i <= 18;) {
+        if (i == Mark[checkerboard1.position][j] - j) {
+            checkerboard1 = RemoveLine (checkerboard1, i);
+            Mark[checkerboard1.position][j] = -1;
+            j++;
+        } else {
+            i++;
+        }
+    }
+    return checkerboard1;
+}
+static Checkerboard RemoveLine (Checkerboard checkerboard1, int row)
+{
+    int i, j;
+    for (i = row; i <= 18; i++) {
+        for (j = 1; j <= 12; j++)
+            checkerboard1.block[j][i] = checkerboard1.block[j][i + 1];
+    }
+    return checkerboard1;
+}
 
+//=========================================================================
 
 
 //Assistants========================================================

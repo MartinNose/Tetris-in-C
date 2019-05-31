@@ -33,12 +33,13 @@ void reName();
 bool CheckTop (int index);
 tetrimino Restart ();
 
-Checkerboard Settle (tetrimino tetri ,Checkerboard checkerboard,int i);
+Checkerboard Settle (tetrimino tetri);
 
 
 extern Checkerboard checkerboard;
 
 extern tetrimino ctetri[2];
+extern Checkerboard checkerboardlist[2];
 
 extern int Score[2];
 extern bool is_game_over[2];

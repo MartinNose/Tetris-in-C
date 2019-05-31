@@ -38,7 +38,6 @@ void DefineColors ()
     DefineRGBColor ("White Smoke",245, 245, 245);
 };
 
-
 void Clean ()
 {
     SetEraseMode (1);

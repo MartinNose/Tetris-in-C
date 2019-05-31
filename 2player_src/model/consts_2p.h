@@ -68,6 +68,7 @@ typedef struct  {
     double yVelocity;
     bool isPaused;
     Checkerboard curChecker;
+    int position;
 } tetrimino;
 
 

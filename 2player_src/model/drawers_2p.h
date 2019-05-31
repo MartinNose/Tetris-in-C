@@ -11,10 +11,14 @@
 
 void DrawRect (double width, double height);
 void drawBlock (int x, int y, string color);
+
+void DefineRGBColor (string s, int r, int g, int b);
+void DefineColors ();
+
 void drawCheckerBoard(Checkerboard checkerboard);
 void drawCheckerBoardList(Checkerboard *list);
 void drawUI();
-void Clean ();
+void Clean (int i);
 void drawTetri(tetrimino tetri);
 
 void drawShadowBlock (int x, int y, string color);

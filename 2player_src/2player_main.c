@@ -19,7 +19,7 @@ tetrimino NaT;//Not a Tetrimino
 
 void Main ()
 {
-    NaT = generateTetrimino (0, 0,0);// Not a Tetri
+    NaT = generateTetrimino (0,0,0);// Not a Tetri
 //    que[0] = que[1] = NaT;
     SetWindowTitle ("Tetris");
 
