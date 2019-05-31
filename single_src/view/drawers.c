@@ -232,11 +232,11 @@ void DrawBoard (int flag)
 void drawBoardButtons (double x, double y, int flag)
 {
 
-    double h, w = 8 * BLOCKSIZE; // ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½
+    double h, w = 8 * BLOCKSIZE; // ??????
     char buffer[100];
     int row = 0;
     if (flag == PAUSE) {
-        h = 7 * BLOCKSIZE / 6;  // ï¿½Ø¼ï¿½ï¿½ß¶ï¿½
+        h = 7 * BLOCKSIZE / 6;  // ??????
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
         SetStyle (1);
         if (button (GenUIID(0), x, y - h* row++, w, h, "Resume")) {
@@ -361,7 +361,7 @@ void DrawMenu()
     switch (selection) {
         case 0:break;
         case 1:
-            MessageBoxA (NULL, "ï¿½ï¿½ï¿½ï¿½Ä£Ê½", "ï¿½ï¿½ï¿½ï¿½ | About", MB_ICONINFORMATION);
+            MessageBoxA (NULL, "µ¥ÈËÄ£Ê½", "¹ØÓÚ | About", MB_ICONINFORMATION);
             break;
     }
 }
@@ -390,9 +390,9 @@ void DrawBottomBar()
 void DrawDynamicButtons()
 {
     double x , y = GetWindowHeight()/3;
-    double h, w = (LEFTBAR-1) * BLOCKSIZE; // ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½
+    double h, w = (LEFTBAR-1) * BLOCKSIZE;
     x = (LEFTBAR*BLOCKSIZE - w)/2;
-    h = 7 * BLOCKSIZE / 6;  // ï¿½Ø¼ï¿½ï¿½ß¶ï¿½
+    h = 7 * BLOCKSIZE / 6;
 
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
         SetStyle (1);
