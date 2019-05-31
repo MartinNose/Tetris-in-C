@@ -903,8 +903,8 @@ static void InitDisplay(void)
                  RectHeight(&graphicsRect) + dy, 0);
     gdc = GetDC(graphicsWindow);
     GetClientRect(graphicsWindow, &bounds);
-    pixelWidth = RectWidth(&bounds);
-    pixelHeight = RectHeight(&bounds);
+    pixelWidth = RectWidth(&bounds) * 2;
+    pixelHeight = RectHeight(&bounds) * 2;
 
     ShowWindow(graphicsWindow, SW_SHOWNORMAL);
 
