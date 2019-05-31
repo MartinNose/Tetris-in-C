@@ -903,8 +903,8 @@ static void InitDisplay(void)
                  RectHeight(&graphicsRect) + dy, 0);
     gdc = GetDC(graphicsWindow);
     GetClientRect(graphicsWindow, &bounds);
-    pixelWidth = RectWidth(&bounds);
-    pixelHeight = RectHeight(&bounds);
+    pixelWidth = RectWidth(&bounds) * 2;
+    pixelHeight = RectHeight(&bounds) * 2;
 
     ShowWindow(graphicsWindow, SW_SHOWNORMAL);
 
@@ -2008,4 +2008,255 @@ double ScaleXInches(int x) /*x coordinate from pixels to inches*/
 double ScaleYInches(int y)/*y coordinate from pixels to inches*/
 {
     return GetWindowHeight()-(double)y/GetYResolution();
+}
+
+
+/*================ New Added Functions =================*/
+static void InitDisplayA(void)
+{
+    WNDCLASS wndcls;
+    RECT bounds, consoleRect, graphicsRect;
+    double screenHeight, screenWidth, xSpace, ySpace;
+    double xScale, yScale, scaleFactor;
+    DWORD style;
+    int top, dx, dy, cWidth;
+
+    /*clrscr();*/
+    system("cls");
+    atexit(DisplayExit);
+/*    RegisterWindowClass();*/
+    consoleWindow = FindConsoleWindow();
+    initialized = FALSE;
+    xResolution = GetXResolution();
+    yResolution = GetYResolution();
+    initialized = TRUE;
+    screenWidth = GetFullScreenWidth();
+    screenHeight = GetFullScreenHeight();
+    xSpace = screenWidth - InchesX(LeftMargin + RightMargin);
+    ySpace = screenHeight - InchesX(TopMargin + BottomMargin) - InchesX(ConsoleHeight + WindowSep);
+    xScale = yScale = 1.0;
+    if (windowWidth > xSpace) xScale = xSpace / windowWidth;
+    if (windowHeight > ySpace) yScale = ySpace / windowHeight;
+    scaleFactor = (xScale < yScale) ? xScale : yScale;
+    if (scaleFactor > MinConsoleScale) {
+        cWidth = PixelsX(DesiredWidth * scaleFactor);
+    } else {
+        cWidth = PixelsX(DesiredWidth * MinConsoleScale);
+    }
+    xResolution *= scaleFactor;
+    yResolution *= scaleFactor;
+    SetRectFromSize(&graphicsRect, LeftMargin, TopMargin,
+                    PixelsX(windowWidth), PixelsY(windowHeight));
+    style = WS_OVERLAPPEDWINDOW;
+
+    g_keyboard = NULL;
+    g_mouse = NULL;
+    g_timer = NULL;
+
+    wndcls.cbClsExtra = 0;
+    wndcls.cbWndExtra = 0;
+    wndcls.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+    wndcls.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wndcls.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+    wndcls.hInstance = NULL;
+    wndcls.lpfnWndProc = GraphicsEventProc;
+    wndcls.lpszClassName = "Graphics Window";
+    wndcls.lpszMenuName = NULL;
+    wndcls.style = CS_HREDRAW | CS_VREDRAW;
+
+    RegisterClass(&wndcls);
+
+    graphicsWindow = CreateWindow(
+        GWClassName,
+        windowTitle,
+        style,
+        graphicsRect.left,
+        graphicsRect.top,
+        RectWidth(&graphicsRect),
+        RectHeight(&graphicsRect),
+    /*consoleWindow*/ NULL,
+        (HMENU) NULL,
+        (HINSTANCE) NULL,
+        (LPSTR) NULL);
+
+    if (graphicsWindow == NULL) {
+        printf("InitGraphics: CreateGraphicsWindow failed.\n");
+    }
+    GetClientRect(graphicsWindow, &bounds);
+    dx = RectWidth(&graphicsRect) - RectWidth(&bounds);
+    dy = RectHeight(&graphicsRect) - RectHeight(&bounds);
+    SetWindowPos(graphicsWindow, HWND_TOP,
+                 graphicsRect.left, graphicsRect.top,
+                 RectWidth(&graphicsRect) + dx,
+                 RectHeight(&graphicsRect) + dy, 0);
+    gdc = GetDC(graphicsWindow);
+    GetClientRect(graphicsWindow, &bounds);
+    pixelWidth = RectWidth(&bounds) * 2;
+    pixelHeight = RectHeight(&bounds) * 2;
+
+    ShowWindow(graphicsWindow, SW_SHOWNORMAL);
+
+    UpdateWindow(graphicsWindow);
+
+    osdc = CreateCompatibleDC(gdc);
+
+    if (osdc == NULL) {
+        Error("Internal error: Can't create offscreen device");
+    }
+    osBits = CreateCompatibleBitmap(gdc, pixelWidth, pixelHeight);
+    if (osBits == NULL) {
+        Error("Internal error: Can't create offscreen bitmap");
+    }
+    (void) SelectObject(osdc, osBits);
+
+    top = TopMargin + WindowSep + PixelsY(windowHeight) + dy;
+    /*
+    SetRectFromSize(&consoleRect, LeftMargin, top,
+                    cWidth + dx, ConsoleHeight);
+    SetWindowText(consoleWindow, "Console Window");
+    SetWindowPos(consoleWindow, HWND_TOP,
+                 consoleRect.left, consoleRect.top,
+                 RectWidth(&consoleRect), RectHeight(&consoleRect), 0);
+    */
+
+    InitDrawingTools();
+}
+
+
+static void InitDisplayB(void)
+{
+    WNDCLASS wndcls;
+    RECT bounds, consoleRect, graphicsRect;
+    double screenHeight, screenWidth, xSpace, ySpace;
+    double xScale, yScale, scaleFactor;
+    DWORD style;
+    int top, dx, dy, cWidth;
+
+    /*clrscr();*/
+    system("cls");
+    atexit(DisplayExit);
+/*    RegisterWindowClass();*/
+    consoleWindow = FindConsoleWindow();
+    initialized = FALSE;
+    xResolution = GetXResolution();
+    yResolution = GetYResolution();
+    initialized = TRUE;
+    screenWidth = GetFullScreenWidth();
+    screenHeight = GetFullScreenHeight();
+    xSpace = screenWidth - InchesX(LeftMargin + RightMargin);
+    ySpace = screenHeight - InchesX(TopMargin + BottomMargin) - InchesX(ConsoleHeight + WindowSep);
+    xScale = yScale = 1.0;
+    if (windowWidth > xSpace) xScale = xSpace / windowWidth;
+    if (windowHeight > ySpace) yScale = ySpace / windowHeight;
+    scaleFactor = (xScale < yScale) ? xScale : yScale;
+    if (scaleFactor > MinConsoleScale) {
+        cWidth = PixelsX(DesiredWidth * scaleFactor);
+    } else {
+        cWidth = PixelsX(DesiredWidth * MinConsoleScale);
+    }
+    xResolution *= scaleFactor;
+    yResolution *= scaleFactor;
+    SetRectFromSize(&graphicsRect, LeftMargin, TopMargin,
+                    PixelsX(windowWidth), PixelsY(windowHeight));
+    style = WS_DLGFRAME;
+
+    g_keyboard = NULL;
+    g_mouse = NULL;
+    g_timer = NULL;
+
+    wndcls.cbClsExtra = 0;
+    wndcls.cbWndExtra = 0;
+    wndcls.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+    wndcls.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wndcls.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+    wndcls.hInstance = NULL;
+    wndcls.lpfnWndProc = GraphicsEventProc;
+    wndcls.lpszClassName = "Graphics Window";
+    wndcls.lpszMenuName = NULL;
+    wndcls.style = CS_HREDRAW | CS_VREDRAW;
+
+    RegisterClass(&wndcls);
+
+    graphicsWindow = CreateWindow(
+        GWClassName,
+        windowTitle,
+        style,
+        graphicsRect.left,
+        graphicsRect.top,
+        RectWidth(&graphicsRect),
+        RectHeight(&graphicsRect),
+    /*consoleWindow*/ NULL,
+        (HMENU) NULL,
+        (HINSTANCE) NULL,
+        (LPSTR) NULL);
+
+    if (graphicsWindow == NULL) {
+        printf("InitGraphics: CreateGraphicsWindow failed.\n");
+    }
+    GetClientRect(graphicsWindow, &bounds);
+    dx = RectWidth(&graphicsRect) - RectWidth(&bounds);
+    dy = RectHeight(&graphicsRect) - RectHeight(&bounds);
+    SetWindowPos(graphicsWindow, HWND_TOP,
+                 graphicsRect.left, graphicsRect.top,
+                 RectWidth(&graphicsRect) + dx,
+                 RectHeight(&graphicsRect) + dy, 0);
+    gdc = GetDC(graphicsWindow);
+    GetClientRect(graphicsWindow, &bounds);
+    pixelWidth = RectWidth(&bounds) * 2;
+    pixelHeight = RectHeight(&bounds) * 2;
+
+    ShowWindow(graphicsWindow, SW_SHOWNORMAL);
+
+    UpdateWindow(graphicsWindow);
+
+    osdc = CreateCompatibleDC(gdc);
+
+    if (osdc == NULL) {
+        Error("Internal error: Can't create offscreen device");
+    }
+    osBits = CreateCompatibleBitmap(gdc, pixelWidth, pixelHeight);
+    if (osBits == NULL) {
+        Error("Internal error: Can't create offscreen bitmap");
+    }
+    (void) SelectObject(osdc, osBits);
+
+    top = TopMargin + WindowSep + PixelsY(windowHeight) + dy;
+    /*
+    SetRectFromSize(&consoleRect, LeftMargin, top,
+                    cWidth + dx, ConsoleHeight);
+    SetWindowText(consoleWindow, "Console Window");
+    SetWindowPos(consoleWindow, HWND_TOP,
+                 consoleRect.left, consoleRect.top,
+                 RectWidth(&consoleRect), RectHeight(&consoleRect), 0);
+    */
+
+    InitDrawingTools();
+}
+
+void InitGraphicsA(void)
+{
+    if (!initialized) {
+        initialized = TRUE;
+        ProtectVariable(stateStack);
+        ProtectVariable(windowTitle);
+        ProtectVariable(textFont);
+        InitColors();
+        InitDisplayA();
+    }
+    DisplayClear();
+    InitGraphicsState();
+}
+
+void InitGraphicsB(void)
+{
+    if (!initialized) {
+        initialized = TRUE;
+        ProtectVariable(stateStack);
+        ProtectVariable(windowTitle);
+        ProtectVariable(textFont);
+        InitColors();
+        InitDisplayB();
+    }
+    DisplayClear();
+    InitGraphicsState();
 }
