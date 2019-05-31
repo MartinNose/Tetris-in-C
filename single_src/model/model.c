@@ -32,10 +32,7 @@ Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
 tetrimino ctetri;
 
-int Score = 0;
-static int Mark[4] = {-1, -1, -1, -1};
-static Checkerboard lastCheckerboard;
-static Checkerboard clearCheckerboard;
+
 tetrimino que[2];
 tetrimino HeldTetri;
 bool is_game_over = FALSE;
@@ -49,12 +46,11 @@ char username[18] = {};
 double xx = 0;
 double yy = 0;
 
-//MenuBar============================================
-
-//===================================================
-
+int Score = 0;
+static int Mark[4] = {-1, -1, -1, -1};
+static Checkerboard lastCheckerboard;
+static Checkerboard clearCheckerboard;
 static int countScore[] = {0, 100, 200, 500, 1000};
-
 static void game ();
 static void flash ();
 static Checkerboard ClearLine (Checkerboard checkerboard, int row);
@@ -524,7 +520,7 @@ void BGM_maintainer (bool new_music_on)
         PlaySound (BGM_Path, NULL, SND_FILENAME | SND_ASYNC);
     } else if (!new_music_on && MusicOn) {
         MusicOn = FALSE;
-        PlaySound (NULL, NULL, SND_FILENAME); // ÓÃÓÚÍ£Ö¹²¥·ÅµÄÒôÀÖ
+        PlaySound (NULL, NULL, SND_FILENAME); // ï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½
     }
 }
 void reName ()
