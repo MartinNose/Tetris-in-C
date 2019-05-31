@@ -13,21 +13,24 @@ static Checkerboard generateInitCheckerboard (int x);
 tetrimino generateTetrimino (int type, int direction ,int index);
 
 void timerEventHandler (int timerID);
+tetrimino NextTetri (int position);
+
+
 
 tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
 tetrimino tetriRandom ();
 bool check_collision (tetrimino tetri,Checkerboard checkerboard);
 Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker);
-tetrimino HardDrop (tetrimino tetri ,Checkerboard checkerboard);
-tetrimino HoldEventHandler(tetrimino temp);
+tetrimino HardDrop (tetrimino tetri);
+tetrimino HoldEventHandler(tetrimino temp, int position);
 tetrimino PauseEventHandler(tetrimino temp);
 
-void GameOver();
+void GameOver(int i);
 void ExitGame();
 void Upload();
 void reName();
 
-bool CheckTop ();
+bool CheckTop (int index);
 tetrimino Restart ();
 
 Checkerboard Settle (tetrimino tetri ,Checkerboard checkerboard,int i);
@@ -41,8 +44,8 @@ extern int Score[2];
 extern bool is_game_over[2];
 extern double globalSpeed;
 extern tetrimino que[2][2];
-extern tetrimino HeldTetri;
-extern bool isHoldLegal;
+extern tetrimino HeldTetri[2];
+extern bool isHoldLegal[2];
 extern bool MusicOn;
 extern bool MouseMode;
 extern bool Rename;

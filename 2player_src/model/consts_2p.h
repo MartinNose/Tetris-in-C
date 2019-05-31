@@ -35,7 +35,7 @@
 //#define SpeedX 2
 //#define SpeedY 10
 
-
+#define KEEP 2
 
 #define GAME 0
 #define CheckerboardFLASH 1

@@ -36,7 +36,6 @@ void keyboardEventHandler (int key, int event)
                         temp.direction %= 4;
                         break;
                     case VK_SPACE:
-                        Score += 60;
                         temp = HardDrop(temp);
                         break;
                     case 0x52: // R
@@ -63,6 +62,10 @@ void keyboardEventHandler (int key, int event)
                 break;
             case KEY_UP:
                 switch (key) {
+                    case VK_SPACE:
+                        if(!is_game_over&&!temp.isPaused)
+                        Score+=60;
+                        break;
                     case VK_DOWN:
                         temp.yVelocity = SLOW;
                         break;

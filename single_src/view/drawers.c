@@ -198,9 +198,9 @@ void drawShadowBlock (int x, int y, string color)
 
 void DrawShadow (tetrimino shadow)
 {
-    if (shadow.y > ctetri.y) {
-        return;
-    }
+//    if (shadow.y > ctetri.y) {
+//        return;
+//    }
     switch (shadow.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {

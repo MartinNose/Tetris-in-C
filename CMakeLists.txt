@@ -24,7 +24,7 @@ aux_source_directory(./Sound SOUND)
 
 #SET(GCC_COVERAGE_COMPILE_FLAGS "-mwindows")
 #SET(GCC_COVERAGE_LINK_FLAGS    "-mwindows")
-#
+
 #SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 #SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
 
@@ -32,7 +32,7 @@ aux_source_directory(./Sound SOUND)
 add_executable(launcher WIN32 ${LIB} ${GUI} launcher/launcher_main.c)
 add_executable(leaderboard WIN32 ${LIB} ${GUI} ${FILE_SYS} Leader_Board/leaderboard_main.c)
 add_executable(single_main WIN32 ${LIB} ${MODEL} ${VIEW} ${CONTROLLER} ${GUI} ${FILE_SYS} ${SOUND} single_src/single_main.c)
-add_executable(2player_main WIN32 ${LIB} ${MODEL2} ${VIEW} ${CONTROLLER} ${GUI} ${FILE_SYS} ${SOUND} 2player_src/2player_main.c)
+add_executable(2player_main WIN32 ${LIB} ${MODEL2} ${GUI} ${SOUND} 2player_src/2player_main.c)
 add_executable(file_debug ${FILE_SYS} File_System/debug/file_debug.c)
 add_executable(sound_debug ${SOUND} Sound/debug/sound_debug.c)
 
