@@ -1,6 +1,6 @@
-//
-// Created by Tao Chiang on 5/17/2019.
-//
+/*
+ * This file maintains the viewer
+ */
 
 #ifndef _DRAWERS_H_
 #define _DRAWERS_H_

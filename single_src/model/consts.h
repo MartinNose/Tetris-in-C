@@ -1,3 +1,7 @@
+/*
+ * This file contains useful constants
+ */
+
 #ifndef _consts_h
 #define _consts_h
 
@@ -48,7 +52,6 @@
 typedef struct  {
     int x, y;
     int type; //对应一个二维数组表示形状  int shape[][],通过矩阵变换实现旋转 0 表示空对象
-//    string color;
     int direction;
     double yVelocity;
     bool isPaused;

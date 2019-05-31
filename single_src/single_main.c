@@ -1,3 +1,6 @@
+/*
+ * This file generates our single-mode game
+ */
 #include <time.h>
 
 #include "drawers.h"
@@ -9,7 +12,6 @@
 
 
 tetrimino NaT;//Not a Tetrimino
-//tetrimino CurrentTetri;
 
 void Main ()
 {

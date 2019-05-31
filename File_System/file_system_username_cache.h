@@ -1,6 +1,7 @@
 /*
  * This file contains functions that helps save and load username
  */
+
 #ifndef _FILE_SYSTEM_USERNAME_CACHE_H_
 #define _FILE_SYSTEM_USERNAME_CACHE_H_
 

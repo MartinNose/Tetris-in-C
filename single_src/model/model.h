@@ -1,3 +1,7 @@
+/*
+ * This file maintains our model
+ */
+
 #ifndef _MODEL_H_
 #define _MODEL_H_
 

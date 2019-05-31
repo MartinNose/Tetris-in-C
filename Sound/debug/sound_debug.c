@@ -1,6 +1,7 @@
 /*
  * This file is used to test the sound module
  */
+
 #include "sound.h"
 
 #include <windows.h>

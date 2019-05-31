@@ -1,3 +1,7 @@
+/*
+ * This file generates the leader board
+ */
+
 #include "graphics.h"
 #include "extgraph.h"
 #include "genlib.h"

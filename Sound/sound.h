@@ -1,3 +1,7 @@
+/*
+ * This file contains functions concerning sound
+ */
+
 #ifndef _SOUND_H_
 #define _SOUND_H_
 
