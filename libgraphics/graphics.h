@@ -54,6 +54,10 @@
 
 void InitGraphics(void);
 
+void InitGraphicsA(void); // A window with 3 buttons
+
+void InitGraphicsB(void); // A window without button
+
 void InitConsole(void);
 
 /*

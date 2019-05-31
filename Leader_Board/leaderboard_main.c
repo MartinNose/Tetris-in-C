@@ -1,3 +1,7 @@
+/*
+ * This file generates the leader board
+ */
+
 #include "graphics.h"
 #include "extgraph.h"
 #include "genlib.h"
@@ -22,8 +26,7 @@
 static double winwidth, winheight;   // 窗口尺寸
 static int enable_rotation = 1;   // 允许旋转
 static int show_more_buttons = 0; // 显示更多按钮
-userNode* head = NULL;
-
+userNode *head = NULL;
 
 static char *const head_str = "Leader Board";
 // 清屏函数，provided in libgraphics
@@ -33,18 +36,18 @@ void DisplayClear (void);
 void display (void);
 
 void DrawBasic ();
-void RefreshDisplay();
-void DrawMenu();
+void RefreshDisplay ();
+void DrawMenu ();
 
-void Init_Rank_Data();
-void PrintList(userNode* head, double x, double y, int num);
+void Init_Rank_Data ();
+void PrintList (userNode *head, double x, double y, int num);
 
-void drawButtons();
+void drawButtons ();
 
-void DrawGrid(double x, double y, double width, double height,
-              int columns, int rows);
+void DrawGrid (double x, double y, double width, double height,
+               int columns, int rows);
 
-void DrawBox(double x, double y, double width, double height);
+void DrawBox (double x, double y, double width, double height);
 
 // 用户的键盘事件响应函数
 void KeyboardEventProcess (int key, int event)
@@ -66,7 +69,7 @@ void Main ()
 {
     // 初始化窗口和图形系统
     SetWindowTitle (head_str);
-    SetWindowSize(5, 5); // 单位 - 英寸
+    SetWindowSize (5, 5); // 单位 - 英寸
     //SetWindowSize(20, 10);
     //SetWindowSize(10, 20);  // 如果屏幕尺寸不够，则按比例缩小
     InitGraphics ();
@@ -75,7 +78,7 @@ void Main ()
     winwidth = GetWindowWidth ();
     winheight = GetWindowHeight ();
 
-    setMenuColors("Black", "White", "Gray", "White", 1);
+    setMenuColors ("Black", "White", "Gray", "White", 1);
 
     // 注册时间响应函数
     registerKeyboardEvent (KeyboardEventProcess);// 键盘
@@ -84,13 +87,13 @@ void Main ()
     // 打开控制台，方便输出变量信息，便于调试
 //    InitConsole();
 
-    Init_Rank_Data();
+    Init_Rank_Data ();
     DrawBasic ();
-    DrawMenu();
+    DrawMenu ();
 }
 
 // 菜单演示程序
-void DrawMenu()
+void DrawMenu ()
 {
     static char *menuListFile[] = {"File",
                                    "Refresh | Ctrl-R", // 快捷键必须采用[Ctrl-X]格式，放在字符串的结尾
@@ -149,7 +152,7 @@ void display ()
     // 清屏
     RefreshDisplay ();
     // 绘制和处理菜单
-    DrawMenu();
+    DrawMenu ();
 }
 
 void RefreshDisplay ()
@@ -163,68 +166,67 @@ void DrawBasic ()
     SetFont ("微软雅黑");
     drawButtons ();
     SetPenColor ("Black");
-    SetPointSize(32);
-    MovePen (winwidth/2 - TextStringWidth(head_str) / 2, winheight - 0.8);
+    SetPointSize (32);
+    MovePen (winwidth / 2 - TextStringWidth (head_str) / 2, winheight - 0.8);
     DrawTextString (head_str);
     SetPointSize (13);
-//    DrawGrid (winwidth/2 - 3, winheight/2 - 3, 2, 0.5, 3, 10);
+//    DrawGrid (win_width/2 - 3, win_height/2 - 3, 2, 0.5, 3, 10);
     double x = 0.5;
     double y = 0.5;
     DrawBox (x, y, winwidth - 1, winheight - 1.5);
     PrintList (head, x, y + winheight - 1.5, ((show_more_buttons) ? 20 : 10));
 }
 
-void drawButtons()
+void drawButtons ()
 {
-    double fH = GetFontHeight();
-    double h = fH*2;  // 控件高度
-    double x = winwidth/2.5;
-    double y = winheight/2-h;
-    double w = winwidth/5; // 控件宽度
+    double fH = GetFontHeight ();
+    double h = fH * 2;  // 控件高度
+    double x = winwidth / 2.5;
+    double y = winheight / 2 - h;
+    double w = winwidth / 5; // 控件宽度
 
     x = winwidth / 2 - 1;
     y = winheight / 2 - 0.6;
-    setButtonColors("Black", "White", "Gray", "White", 1);
+    setButtonColors ("Black", "White", "Gray", "White", 1);
 
 }
 
-void DrawBox(double x, double y, double width, double height)
+void DrawBox (double x, double y, double width, double height)
 {
-    MovePen(x, y);
-    DrawLine(0, height);
-    DrawLine(width, 0);
-    DrawLine(0, -height);
-    DrawLine(-width, 0);
+    MovePen (x, y);
+    DrawLine (0, height);
+    DrawLine (width, 0);
+    DrawLine (0, -height);
+    DrawLine (-width, 0);
 }
 
-void DrawGrid(double x, double y, double width, double height,
-              int columns, int rows)
+void DrawGrid (double x, double y, double width, double height,
+               int columns, int rows)
 {
     int i, j;
 
     for (i = 0; i < columns; i++) {
         for (j = 0; j < rows; j++) {
-            DrawBox(x + i * width, y + j * height,
-                    width, height);
+            DrawBox (x + i * width, y + j * height,
+                     width, height);
         }
     }
 }
 
-void Init_Rank_Data()
+void Init_Rank_Data ()
 {
     head = Load_Rank ();
 }
 
-void PrintList(userNode* head, double x, double y, int num)
+void PrintList (userNode *head, double x, double y, int num)
 {
     char buffer[200];
-    userNode* p;
+    userNode *p;
     int cnt = 0;
     double d_h = (winheight - 1.5) / num;
     SetPenColor ("Black");
     SetPointSize (16);
-    for (p = head; p && cnt < num; p = p->next)
-    {
+    for (p = head; p && cnt < num; p = p->next) {
         cnt++;
         sprintf (buffer, "%10d %30s %10d", cnt, p->name, p->score);
         printf ("%s\n", buffer);

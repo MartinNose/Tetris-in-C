@@ -1,7 +1,3 @@
-//
-// Created by Tao Chiang on 5/28/2019.
-//
-
 #include "sound.h"
 #include <windows.h>
 
@@ -13,7 +9,7 @@ DWORD WINAPI Sound_Func (LPVOID lpParam)
     Play_Sound_Demo ();
 }
 
-void Play_Sound()
+void Play_Sound ()
 {
     CreateThread (
         NULL,   // default security attributes
@@ -34,8 +30,8 @@ void Play_Sound_Demo ()
 //    Beep (784, 700);
 //    Beep (880, 800);
 //    Beep (932, 900);
-    //Beep (1381, 100);
-    //Beep (1046, 150);
+//    Beep (1381, 100);
+//    Beep (1046, 150);
 //    Beep (1175, 1100);
 //    Beep (1381, 1200);
 //    Beep (1480, 1300);

@@ -1,13 +1,19 @@
-//
-// Created by Tao Chiang on 5/28/2019.
-//
-#include "file_system_linked_list.h"
+/*
+ * This file is used to test the file module
+ */
 
-int main()
+#include "file_system_linked_list.h"
+#include "file_system_username_cache.h"
+
+int main ()
 {
-    userNode* rank_list;
+    /*
+    userNode *rank_list;
     rank_list = Load_Rank ();
     rank_list = Add_Node (rank_list, 996, "007");
-    write_Rank (rank_list);
+    Write_Rank (rank_list);
+    */
+    Save_Username ("test");
+    printf ("%s\n", Load_Last_Username ());
     return 0;
 }

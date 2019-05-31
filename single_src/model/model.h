@@ -1,6 +1,6 @@
-//
-// Created by Tao Chiang on 5/17/2019.
-//
+/*
+ * This file maintains our model
+ */
 
 #ifndef _MODEL_H_
 #define _MODEL_H_
@@ -25,6 +25,7 @@ tetrimino PauseEventHandler(tetrimino temp);
 void GameOver();
 void ExitGame();
 void Upload();
+void reName();
 
 bool CheckTop ();
 tetrimino Restart ();
@@ -42,6 +43,9 @@ extern tetrimino HeldTetri;
 extern bool isHoldLegal;
 extern bool MusicOn;
 extern bool MouseMode;
+extern bool Rename;
+extern char username[18];
+
 
 void SaveGame();
 bool LoadGame();

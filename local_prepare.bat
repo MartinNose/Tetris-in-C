@@ -1,0 +1,1 @@
+cmake cmake -G   "MinGW Makefiles" .

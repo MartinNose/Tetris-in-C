@@ -1,7 +1,6 @@
-//
-// Created by liujunliang on 2019/5/13.
-//
-
+/*
+ * This file generates our single-mode game
+ */
 #include <time.h>
 
 #include "drawers.h"
@@ -13,12 +12,11 @@
 
 
 tetrimino NaT;//Not a Tetrimino
-//tetrimino CurrentTetri;
 
 void Main ()
 {
     NaT = generateTetrimino (0, 0);// Not a Tetri
-
+    que[0] = que[1] = NaT;
     SetWindowTitle ("Tetris");
 
     SetWindowSize (BLOCKSIZE * WIDTH, BLOCKSIZE * HEIGHT);
@@ -27,12 +25,13 @@ void Main ()
 
     DefineColors();
     InitModel ();
-    drawUI(0, NaT);
+    drawUI(0);
     srand((unsigned)time(NULL));
 
     registerTimerEvent (timerEventHandler);
     registerMouseEvent(mouseEventHandler);
     registerKeyboardEvent (keyboardEventHandler);
+    registerCharEvent(CharEventHandler);
 
     startTimer (GAME, 10);
     //startTimer(DEBUG, 1000);

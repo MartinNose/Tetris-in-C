@@ -1,6 +1,6 @@
-//
-// Created by Tao Chiang on 5/17/2019.
-//
+/*
+ * This file maintains the viewer
+ */
 
 #ifndef _DRAWERS_H_
 #define _DRAWERS_H_
@@ -10,8 +10,8 @@
 #include <stdio.h>
 #include "consts.h"
 
-void drawUI(int score, tetrimino NextTetri);
-
+void drawUI(int score);
+void DrawSideBar();
 void DrawNextTetrimino(tetrimino tetri);
 void DrawHoldedTetrimino(tetrimino tetri);
 
@@ -44,6 +44,6 @@ void DrawDynamicButtons();
 
 void DebugTool();
 void MessageBoxB(string title,string color);
-
+string drawCursor(string buffer);
 
 #endif //_DRAWERS_H_
