@@ -12,59 +12,7 @@
 
 #include "file_system_username_cache.h"
 
-void DefineRGBColor (string s, int r, int g, int b)
-{
-    DefineColor (s, r / 255.0, g / 255.0, b / 255.0);
-}
-void DefineColors ()
-{
-    DefineRGBColor ("Magenta", 138, 43, 226); //blueviolet
-    DefineRGBColor ("Blue", 30, 144, 255); //dodgerblue
-    DefineRGBColor ("Cyan", 127, 255, 212); //aquamarine
-    DefineRGBColor ("Yellow", 255, 215, 0); //gold
-    DefineRGBColor ("Green", 34, 139, 34);//forestgreen
-    DefineRGBColor ("Light Gray", 105, 105, 105);//dimgray
-    DefineRGBColor ("Red", 220, 20, 60);//crimson
-    DefineRGBColor ("Dark Turquoise", 0, 206, 209);//dark turquoise
-    DefineRGBColor ("Midnight Blue", 25, 25, 112);
-    DefineRGBColor ("Corn Silk", 255, 248, 220);
-    DefineRGBColor ("Light Cyan", 224, 255, 255);
-    DefineRGBColor ("Gainsboro", 220, 220, 220);
-    DefineRGBColor ("White Smoke",245, 245, 245);
-};
-
-void DrawRect (double width, double height)
-{
-    DrawLine (width, 0);
-    DrawLine (0, height);
-    DrawLine (-1 * width, 0);
-    DrawLine (0, -1 * height);
-}
-void Clean ()
-{
-    SetEraseMode (1);
-    StartFilledRegion (1);
-    MovePen (0, 0);
-    DrawRect (GetWindowWidth (), GetWindowHeight ());
-    EndFilledRegion ();
-    SetEraseMode (0);
-}
-void drawBlock (int x, int y, string color)
-{
-    SetPenColor (color);
-    StartFilledRegion (1);
-
-    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
-
-    DrawRect (BLOCKSIZE, BLOCKSIZE);
-
-    EndFilledRegion ();
-
-    SetPenColor ("Black");
-//    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
-//    DrawRect (BLOCKSIZE, BLOCKSIZE);
-}
-
+//Functions On Rendering Tetrimino =============================================================================
 void drawTetri (tetrimino tetri)
 {
     switch (tetri.direction) {
@@ -98,49 +46,66 @@ void drawTetri (tetrimino tetri)
             break;
     }
 }
-void DrawGrid ()
+
+void DrawNextTetrimino (tetrimino tetri)
 {
-    SetPenColor ("Black");
-
-    //draw Checkerboard Grid
-    for (int i = LEFTBAR; i <= LEFTBAR + 12; i++) {
-        MovePen (i * BLOCKSIZE, 0);
-        DrawLine (0, GetWindowHeight ());
-    }
-
-    for (int j = 0; j <= HEIGHT; j++) {
-        MovePen (LEFTBAR * BLOCKSIZE, j * BLOCKSIZE);
-        DrawLine (12 * BLOCKSIZE, 0);
-    }
-
-    //draw Next Tetri area
-    for (int i = PreX; i <= PreX + 4; i++) {
-        MovePen (i * BLOCKSIZE, PreY * BLOCKSIZE);
-        DrawLine (0, 4 * BLOCKSIZE);
-    }
-    for (int i = PreY; i <= PreY + 4; i++) {
-        MovePen (PreX * BLOCKSIZE, i * BLOCKSIZE);
-        DrawLine (4 * BLOCKSIZE, 0);
-    }
-
-    for (int i = HoldX; i <= HoldX + 4; i++) {
-        MovePen (i * BLOCKSIZE, HoldY * BLOCKSIZE);
-        DrawLine (0, 4 * BLOCKSIZE);
-    }
-    for (int i = HoldY; i <= HoldY + 4; i++) {
-        MovePen (HoldX * BLOCKSIZE, i * BLOCKSIZE);
-        DrawLine (4 * BLOCKSIZE, 0);
-    }
-//    for (int i = 0; i < WIDTH; i++) {
-//        MovePen(i*BLOCKSIZE,0);
-//        DrawLine(0,GetWindowHeight());
-//    }
-//    for (int j = 0; j < HEIGHT; j++) {
-//        MovePen(0,j*BLOCKSIZE);
-//        DrawLine(GetWindowWidth(),0);
-//    }
+    if (tetri.type == 0)return;
+    tetri.x = PreX + 2;
+    tetri.y = PreY + 1;
+    drawTetri (tetri);
 }
-void DrawSideBar(){
+
+void DrawHoldedTetrimino (tetrimino tetri)
+{
+    //MovePen();
+    if (tetri.type == 0)return;
+    tetri.x = HoldX + 2;
+    tetri.y = HoldY + 1;
+    drawTetri (tetri);
+}
+
+void DrawShadow (tetrimino shadow)
+{
+    if (shadow.y > ctetri.y) {
+        return;
+    }
+    switch (shadow.direction) {
+        case 0:
+            for (int i = 0; i < 4; i++) {
+                drawShadowBlock (
+                        shadow.x + typeInfo[shadow.type][i][0],
+                        shadow.y + typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
+            }
+            break;
+        case 1:
+            for (int i = 0; i < 4; i++) {
+                drawShadowBlock (
+                        shadow.x - typeInfo[shadow.type][i][1],
+                        shadow.y + typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
+            }
+            break;
+        case 2:
+            for (int i = 0; i < 4; i++) {
+                drawShadowBlock (
+                        shadow.x - typeInfo[shadow.type][i][0],
+                        shadow.y - typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
+            }
+            break;
+        case 3:
+            for (int i = 0; i < 4; i++) {
+                drawShadowBlock (
+                        shadow.x + typeInfo[shadow.type][i][1],
+                        shadow.y - typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
+            }
+            break;
+    }
+}
+//================================================================================
+
+
+//Functions for UI rendering =====================================================
+void DrawSideBar()
+{
     for (int i = 0; i < LEFTBAR; i++) {
         for (int j = 0; j < HEIGHT; j++) {
             drawBlock (i, j, "Gray");
@@ -173,6 +138,7 @@ void drawUI (int score)
     //DebugTool();
 
 }
+
 void drawCheckerBoard (Checkerboard checker)
 {
     for (int i = 1; i < 13; i++) {
@@ -182,60 +148,10 @@ void drawCheckerBoard (Checkerboard checker)
     }
 }
 
-void drawShadowBlock (int x, int y, string color)
-{
-    SetPenColor (color);
-
-    SetPenSize (GetPenSize () + 3);
-    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
-    DrawRect (BLOCKSIZE, BLOCKSIZE);
-
-    SetPenColor ("Black");
-    SetPenSize (GetPenSize () - 3);
-//    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
-//    DrawRect (BLOCKSIZE, BLOCKSIZE);
-}
-
-void DrawShadow (tetrimino shadow)
-{
-    if (shadow.y > ctetri.y) {
-        return;
-    }
-    switch (shadow.direction) {
-        case 0:
-            for (int i = 0; i < 4; i++) {
-                drawShadowBlock (
-                    shadow.x + typeInfo[shadow.type][i][0],
-                    shadow.y + typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
-            }
-            break;
-        case 1:
-            for (int i = 0; i < 4; i++) {
-                drawShadowBlock (
-                    shadow.x - typeInfo[shadow.type][i][1],
-                    shadow.y + typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
-            }
-            break;
-        case 2:
-            for (int i = 0; i < 4; i++) {
-                drawShadowBlock (
-                    shadow.x - typeInfo[shadow.type][i][0],
-                    shadow.y - typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
-            }
-            break;
-        case 3:
-            for (int i = 0; i < 4; i++) {
-                drawShadowBlock (
-                    shadow.x + typeInfo[shadow.type][i][1],
-                    shadow.y - typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
-            }
-            break;
-    }
-}
-
 void DrawData (int score)
 {
     char buffer[100];
+
     SetPenColor ("Black");
     sprintf (buffer, "Score: %d", score);
     MovePen (ScoreX * BLOCKSIZE, ScoreY * BLOCKSIZE);
@@ -267,46 +183,16 @@ void DrawData (int score)
         drawLabel(fabs(0.5 *((LEFTBAR-1)*BLOCKSIZE - TextStringWidth(username)) ),GetWindowHeight() - 3.1*BLOCKSIZE ,username);
         SetStyle(0);
     }
+
     SetPointSize(GetPointSize()/2);
 
     SetPenColor("Black");
     SetPointSize(GetPointSize()*2);
+
     SetStyle(2);
     drawLabel(BLOCKSIZE/5,GetWindowHeight() - 2 * BLOCKSIZE, "CurrentPlayer");
     SetPointSize(GetPointSize()/3);
     SetStyle(0);
-
-}
-
-void DrawNextTetrimino (tetrimino tetri)
-{
-    //MovePen();
-    if (tetri.type == 0)return;
-    tetri.x = PreX + 2;
-    tetri.y = PreY + 1;
-    drawTetri (tetri);
-}
-
-void DrawHoldedTetrimino (tetrimino tetri)
-{
-    //MovePen();
-    if (tetri.type == 0)return;
-    tetri.x = HoldX + 2;
-    tetri.y = HoldY + 1;
-    drawTetri (tetri);
-}
-
-string RandColor ()
-{
-    int flag;
-    flag = rand ();
-    if (flag % 2) {
-        flag = rand () % 8;
-    } else {
-        if (rand () % 2 == 0)
-            flag = 0;
-    }
-    return TETRI_COLOR[flag % 8];
 }
 
 void DrawBoard (int flag)
@@ -391,7 +277,7 @@ void drawBoardButtons (double x, double y, int flag)
         }
         if (button (GenUIID(0), x, y - 4 * h, w, h, "Restart")) {
             keyboardEventHandler (0x52, KEY_DOWN);
-        }f\
+        }
         if (button (GenUIID(0), x, y - 5 * h, w, h, "Quit")) {
 
             ExitGame ();
@@ -480,7 +366,8 @@ void DrawMenu()
     }
 }
 
-void DrawBottomBar(){
+void DrawBottomBar()
+{
     MovePen(0,0);
     SetPenColor("Light Gray");
     StartFilledRegion(1);
@@ -525,7 +412,133 @@ void DrawDynamicButtons()
     }
 
 }
-void DebugTool() {
+
+//Tools=================================================================
+void DrawRect (double width, double height)
+{
+    DrawLine (width, 0);
+    DrawLine (0, height);
+    DrawLine (-1 * width, 0);
+    DrawLine (0, -1 * height);
+}
+
+void DefineRGBColor (string s, int r, int g, int b)
+{
+    DefineColor (s, r / 255.0, g / 255.0, b / 255.0);
+}
+
+void DefineColors ()
+{
+    DefineRGBColor ("Magenta", 138, 43, 226); //blueviolet
+    DefineRGBColor ("Blue", 30, 144, 255); //dodgerblue
+    DefineRGBColor ("Cyan", 127, 255, 212); //aquamarine
+    DefineRGBColor ("Yellow", 255, 215, 0); //gold
+    DefineRGBColor ("Green", 34, 139, 34);//forestgreen
+    DefineRGBColor ("Light Gray", 105, 105, 105);//dimgray
+    DefineRGBColor ("Red", 220, 20, 60);//crimson
+    DefineRGBColor ("Dark Turquoise", 0, 206, 209);//dark turquoise
+    DefineRGBColor ("Midnight Blue", 25, 25, 112);
+    DefineRGBColor ("Corn Silk", 255, 248, 220);
+    DefineRGBColor ("Light Cyan", 224, 255, 255);
+    DefineRGBColor ("Gainsboro", 220, 220, 220);
+    DefineRGBColor ("White Smoke",245, 245, 245);
+}
+
+void Clean ()
+{
+    SetEraseMode (1);
+    StartFilledRegion (1);
+    MovePen (0, 0);
+    DrawRect (GetWindowWidth (), GetWindowHeight ());
+    EndFilledRegion ();
+    SetEraseMode (0);
+}
+
+void drawBlock (int x, int y, string color)
+{
+    SetPenColor (color);
+    StartFilledRegion (1);
+
+    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
+
+    DrawRect (BLOCKSIZE, BLOCKSIZE);
+
+    EndFilledRegion ();
+
+    SetPenColor ("Black");
+}
+
+void drawShadowBlock (int x, int y, string color)
+{
+    SetPenColor (color);
+
+    SetPenSize (GetPenSize () + 3);
+    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
+    DrawRect (BLOCKSIZE, BLOCKSIZE);
+
+    SetPenColor ("Black");
+    SetPenSize (GetPenSize () - 3);
+}
+
+
+void DrawGrid ()
+{
+    SetPenColor ("Black");
+
+    //draw Checkerboard Grid
+    for (int i = LEFTBAR; i <= LEFTBAR + 12; i++) {
+        MovePen (i * BLOCKSIZE, 0);
+        DrawLine (0, GetWindowHeight ());
+    }
+
+    for (int j = 0; j <= HEIGHT; j++) {
+        MovePen (LEFTBAR * BLOCKSIZE, j * BLOCKSIZE);
+        DrawLine (12 * BLOCKSIZE, 0);
+    }
+
+    //draw Next Tetri area
+    for (int i = PreX; i <= PreX + 4; i++) {
+        MovePen (i * BLOCKSIZE, PreY * BLOCKSIZE);
+        DrawLine (0, 4 * BLOCKSIZE);
+    }
+    for (int i = PreY; i <= PreY + 4; i++) {
+        MovePen (PreX * BLOCKSIZE, i * BLOCKSIZE);
+        DrawLine (4 * BLOCKSIZE, 0);
+    }
+
+    for (int i = HoldX; i <= HoldX + 4; i++) {
+        MovePen (i * BLOCKSIZE, HoldY * BLOCKSIZE);
+        DrawLine (0, 4 * BLOCKSIZE);
+    }
+    for (int i = HoldY; i <= HoldY + 4; i++) {
+        MovePen (HoldX * BLOCKSIZE, i * BLOCKSIZE);
+        DrawLine (4 * BLOCKSIZE, 0);
+    }
+//    for (int i = 0; i < WIDTH; i++) {
+//        MovePen(i*BLOCKSIZE,0);
+//        DrawLine(0,GetWindowHeight());
+//    }
+//    for (int j = 0; j < HEIGHT; j++) {
+//        MovePen(0,j*BLOCKSIZE);
+//        DrawLine(GetWindowWidth(),0);
+//    }
+}
+
+string RandColor ()
+{
+    int flag;
+    flag = rand ();
+    if (flag % 2) {
+        flag = rand () % 8;
+    } else {
+        if (rand () % 2 == 0)
+            flag = 0;
+    }
+    return TETRI_COLOR[flag % 8];
+}
+
+void DebugTool()
+{
     char buffer[100];
     sprintf(buffer, "cx : %f,cy: %f\n", xx, yy);
     drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2, buffer);
@@ -536,7 +549,8 @@ void DebugTool() {
     drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2 - 3*GetFontHeight(), buffer);
 }
 
-void MessageBoxB(string title1,string color1){
+void MessageBoxB(string title1,string color1)
+{
     static int count = 4;
     static string title,color;
     if(count == 4){
@@ -580,4 +594,6 @@ void MessageBoxB(string title1,string color1){
     drawLabel(GetWindowWidth()/2 - TextStringWidth(buffer)/2, GetWindowHeight()/2 - GetFontHeight()/3,buffer);
     SetPointSize(GetPointSize()/2);
 }
+
+//=========================================================================
 #endif
