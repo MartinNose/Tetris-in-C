@@ -1,3 +1,6 @@
+/*
+ * This file generates the launcher
+ */
 #include "graphics.h"
 #include "extgraph.h"
 #include "genlib.h"
@@ -17,9 +20,9 @@
 
 #include "imgui.h"
 
+static char *const title_str = "Tetris";
 // 全局变量
-static double winwidth, winheight;   // 窗口尺寸
-static int enable_rotation = 1;   // 允许旋转
+static double win_width, win_height;   // 窗口尺寸
 static int show_more_buttons = 0; // 显示更多按钮
 
 static bool isDisplayMenu = FALSE;
@@ -87,8 +90,8 @@ void Main ()
     InitGraphics ();
 
     // 获得窗口尺寸
-    winwidth = GetWindowWidth ();
-    winheight = GetWindowHeight ();
+    win_width = GetWindowWidth ();
+    win_height = GetWindowHeight ();
 
     setMenuColors ("Black", "White", "Gray", "White", 1);
 
@@ -110,10 +113,6 @@ void DrawMenu ()
                                    "Leader Board  | Ctrl-B", // 快捷键必须采用[Ctrl-X]格式，放在字符串的结尾
 //                                    "Close",
                                    "Exit             | Ctrl-E"};
-    static char *menuListTool[] = {"Tool",
-                                   "Triangle",
-                                   "Circle",
-                                   "Stop Rotation | Ctrl-T"};
     static char *menuListHelp[] = {"Help",
                                    "Show More  | Ctrl-M",
                                    "About"};
@@ -121,12 +120,13 @@ void DrawMenu ()
 
     double fH = GetFontHeight ();
     double x = 0; //fH/8;
-    double y = winheight;
+    double y = win_height;
     double h = fH * 1.5; // 控件高度
 //    double w = TextStringWidth (menuListHelp[0]) * 2; // 控件宽度
-    double w = winwidth / 3;
-    double wlist = TextStringWidth (menuListTool[3]) * 1.2;
-    double xindent = winheight / 20; // 缩进
+    double w = win_width / 2;
+//    double wlist = TextStringWidth (menuListHelp[0]) * 1.2;
+    double wlist = w;
+    double xindent = win_height / 20; // 缩进
     int selection;
 
     // File 菜单
@@ -136,20 +136,17 @@ void DrawMenu ()
     if (selection == 1)
         WinExec ("leaderboard.exe", SW_SHOW);
     if (selection == 2)
+    {
+        MessageBoxA (NULL, "Thanks for playing!", "Bye", MB_ICONINFORMATION);
         exit (-1); // choose to exit
+    }
 
-    // Tool 菜单
-    menuListTool[3] = enable_rotation ? "Stop Rotation | Ctrl-T" : "Start Rotation | Ctrl-T";
-    selection = menuList (GenUIID(0),
-                          x + w, y - h, w, wlist, h, menuListTool, sizeof (menuListTool) / sizeof (menuListTool[0]));
-    if (selection > 0) selectedLabel = menuListTool[selection];
-    if (selection == 3)
-        enable_rotation = !enable_rotation;
+
 
     // Help 菜单
     menuListHelp[1] = show_more_buttons ? "Show Less | Ctrl-M" : "Show More | Ctrl-M";
     selection = menuList (GenUIID(0),
-                          x + 2 * w,
+                          x + w,
                           y - h, w, wlist, h, menuListHelp, sizeof (menuListHelp) / sizeof (menuListHelp[0]));
     if (selection > 0) selectedLabel = menuListHelp[selection];
     if (selection == 1)
@@ -174,16 +171,14 @@ void RefreshDisplay ()
 
 void DrawBasic ()
 {
-//    SetPenColor ("Black");
-//    DrawLine (1,1);
     SetFont ("微软雅黑");
     drawButtons ();
     SetPenColor ("Black");
 //    printf("%s\n", GetFont ());
     SetFont ("微软雅黑");
     SetPointSize (64);
-    MovePen (winwidth / 2 - TextStringWidth ("Teris") / 2, winheight / 2 + 1);
-    DrawTextString ("Teris");
+    MovePen (win_width / 2 - TextStringWidth (title_str) / 2, win_height / 2 + 1);
+    DrawTextString (title_str);
     SetPointSize (13);
 }
 
@@ -191,12 +186,12 @@ void drawButtons ()
 {
     double fH = GetFontHeight ();
     double h = fH * 2;  // 控件高度
-    double x = winwidth / 2.5;
-    double y = winheight / 2 - h;
-    double w = winwidth / 5; // 控件宽度
+    double x = win_width / 2.5;
+    double y = win_height / 2 - h;
+    double w = win_width / 5; // 控件宽度
 
-    x = winwidth / 2 - 1;
-    y = winheight / 2 - 0.6;
+    x = win_width / 2 - 1;
+    y = win_height / 2 - 0.6;
     setButtonColors ("Black", "White", "Gray", "White", 1);
     if (button (GenUIID(0), x, y, 2, 1.2, "Single Mode")) {
         WinExec ("single_main.exe", SW_SHOW);

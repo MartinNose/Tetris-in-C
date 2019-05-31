@@ -166,7 +166,7 @@ void DrawBasic ()
     MovePen (winwidth / 2 - TextStringWidth (head_str) / 2, winheight - 0.8);
     DrawTextString (head_str);
     SetPointSize (13);
-//    DrawGrid (winwidth/2 - 3, winheight/2 - 3, 2, 0.5, 3, 10);
+//    DrawGrid (win_width/2 - 3, win_height/2 - 3, 2, 0.5, 3, 10);
     double x = 0.5;
     double y = 0.5;
     DrawBox (x, y, winwidth - 1, winheight - 1.5);
