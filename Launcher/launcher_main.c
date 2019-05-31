@@ -17,7 +17,6 @@
 
 #include "imgui.h"
 
-
 // 全局变量
 static double winwidth, winheight;   // 窗口尺寸
 static int enable_rotation = 1;   // 允许旋转
@@ -32,9 +31,9 @@ void DisplayClear (void);
 void display (void);
 
 void DrawBasic ();
-void RefreshDisplay();
+void RefreshDisplay ();
 
-void drawButtons();
+void drawButtons ();
 
 // 用户的键盘事件响应函数
 void KeyboardEventProcess (int key, int event)
@@ -60,9 +59,8 @@ void KeyboardEventProcess (int key, int event)
     }
     if (isDisplayMenu)
         display (); // 刷新显示
-    else
-    {
-        RefreshDisplay();
+    else {
+        RefreshDisplay ();
     }
 }
 
@@ -73,7 +71,7 @@ void MouseEventProcess (int x, int y, int button, int event)
     if (isDisplayMenu) {
         display (); // 刷新显示
     } else {
-        RefreshDisplay();
+        RefreshDisplay ();
     }
 }
 
@@ -92,7 +90,7 @@ void Main ()
     winwidth = GetWindowWidth ();
     winheight = GetWindowHeight ();
 
-    setMenuColors("Black", "White", "Gray", "White", 1);
+    setMenuColors ("Black", "White", "Gray", "White", 1);
 
     // 注册时间响应函数
     registerKeyboardEvent (KeyboardEventProcess);// 键盘
@@ -102,11 +100,11 @@ void Main ()
     DrawBasic ();
     // 打开控制台，方便输出变量信息，便于调试
     // InitConsole();
-    PlaySound("..\\Sound\\assets\\8bit.wav", NULL, SND_FILENAME | SND_ASYNC);
+    PlaySound ("..\\Sound\\assets\\8bit.wav", NULL, SND_FILENAME | SND_ASYNC);
 }
 
 // 菜单演示程序
-void DrawMenu()
+void DrawMenu ()
 {
     static char *menuListFile[] = {"File",
                                    "Leader Board  | Ctrl-B", // 快捷键必须采用[Ctrl-X]格式，放在字符串的结尾
@@ -136,7 +134,7 @@ void DrawMenu()
                           y - h, w, wlist, h, menuListFile, sizeof (menuListFile) / sizeof (menuListFile[0]));
     if (selection > 0) selectedLabel = menuListFile[selection];
     if (selection == 1)
-        WinExec("leaderboard.exe", SW_SHOW);
+        WinExec ("leaderboard.exe", SW_SHOW);
     if (selection == 2)
         exit (-1); // choose to exit
 
@@ -165,7 +163,7 @@ void display ()
     // 清屏
     RefreshDisplay ();
     // 绘制和处理菜单
-    DrawMenu();
+    DrawMenu ();
 }
 
 void RefreshDisplay ()
@@ -183,31 +181,29 @@ void DrawBasic ()
     SetPenColor ("Black");
 //    printf("%s\n", GetFont ());
     SetFont ("微软雅黑");
-    SetPointSize(64);
-    MovePen (winwidth/2 - TextStringWidth("Teris")/2, winheight/2 + 1);
+    SetPointSize (64);
+    MovePen (winwidth / 2 - TextStringWidth ("Teris") / 2, winheight / 2 + 1);
     DrawTextString ("Teris");
     SetPointSize (13);
 }
 
-void drawButtons()
+void drawButtons ()
 {
-    double fH = GetFontHeight();
-    double h = fH*2;  // 控件高度
-    double x = winwidth/2.5;
-    double y = winheight/2-h;
-    double w = winwidth/5; // 控件宽度
+    double fH = GetFontHeight ();
+    double h = fH * 2;  // 控件高度
+    double x = winwidth / 2.5;
+    double y = winheight / 2 - h;
+    double w = winwidth / 5; // 控件宽度
 
     x = winwidth / 2 - 1;
     y = winheight / 2 - 0.6;
-    setButtonColors("Black", "White", "Gray", "White", 1);
-    if (button(GenUIID(0), x, y, 2, 1.2, "Single Mode"))
-    {
-        WinExec("single_main.exe", SW_SHOW);
+    setButtonColors ("Black", "White", "Gray", "White", 1);
+    if (button (GenUIID(0), x, y, 2, 1.2, "Single Mode")) {
+        WinExec ("single_main.exe", SW_SHOW);
         exit (0);
     }
-    if (button(GenUIID(0), x, y - 0.8, 2, 0.6, "Leader Board"))
-    {
-        WinExec("leaderboard.exe", SW_SHOW);
+    if (button (GenUIID(0), x, y - 0.8, 2, 0.6, "Leader Board")) {
+        WinExec ("leaderboard.exe", SW_SHOW);
     }
 
 }

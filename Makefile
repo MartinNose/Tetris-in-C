@@ -110,7 +110,7 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named launcher
+# Target rules for targets named Launcher
 
 # Build rule for target.
 launcher: cmake_check_build_system

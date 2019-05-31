@@ -453,7 +453,7 @@ tetrimino PauseEventHandler (tetrimino temp)
 
 void ExitGame ()
 {
-    WinExec("launcher.exe", SW_SHOW);
+    WinExec("Launcher.exe", SW_SHOW);
     exit (0);
 }
 
