@@ -6,89 +6,83 @@ bool
 File_Load_Saved_Game (Checkerboard *saved_board, tetrimino *saved_tetri, tetrimino *saved_que1, tetrimino *saved_que2, tetrimino *saved_held_tetri, int *score, bool *mouse_mode, bool *music_on)
 {
     int i, j;
+    bool ok_flag = TRUE;
     FILE *saved_game = fopen ("saved_game.txt", "r");
     if (saved_game == NULL) {
-        return FALSE;
+        ok_flag = FALSE;
     } else {
         for (i = 0; i < 14; i++) {
             for (j = 0; j < 25; j++)
                 if (fscanf (saved_game, "%d", &saved_board->block[i][j]) != 1) {
-                    fclose (saved_game);
-                    return FALSE;
+                    ok_flag = FALSE;
+                    break;
                 }
+            if (!ok_flag)
+                break;
         }
 
-        if (fscanf (saved_game, "%d %d %d %d", &saved_tetri->x, &saved_tetri->y, &saved_tetri->type, &saved_tetri->direction)
+        /*Saved-Tetri*/
+        if (!ok_flag || fscanf (saved_game, "%d %d %d %d", &saved_tetri->x, &saved_tetri->y, &saved_tetri->type, &saved_tetri->direction)
             != 4) {
-            fclose (saved_game);
-            return FALSE;
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%lf", &saved_tetri->yVelocity) != 1) {
-            fclose (saved_game);
-            return FALSE;
+        if (!ok_flag || fscanf (saved_game, "%lf", &saved_tetri->yVelocity) != 1) {
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%d", &saved_tetri->isPaused) != 1) {
-            fclose (saved_game);
-            return FALSE;
+        if (!ok_flag || fscanf (saved_game, "%d", &saved_tetri->isPaused) != 1) {
+            ok_flag = FALSE;
         }
 
-        if (fscanf (saved_game, "%d %d %d %d", &saved_que1->x, &saved_que1->y, &saved_que1->type, &saved_que1->direction)
+        /*Que1*/
+        if (!ok_flag || fscanf (saved_game, "%d %d %d %d", &saved_que1->x, &saved_que1->y, &saved_que1->type, &saved_que1->direction)
             != 4) {
-            fclose (saved_game);
-            return FALSE;
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%lf", &saved_que1->yVelocity) != 1) {
-            fclose (saved_game);
-            return FALSE;
+        if (!ok_flag || fscanf (saved_game, "%lf", &saved_que1->yVelocity) != 1) {
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%d", &saved_que1->isPaused) != 1) {
-            fclose (saved_game);
-            return FALSE;
+        if (!ok_flag || fscanf (saved_game, "%d", &saved_que1->isPaused) != 1) {
+            ok_flag = FALSE;
         }
 
-        if (fscanf (saved_game, "%d %d %d %d", &saved_que2->x, &saved_que2->y, &saved_que2->type, &saved_que2->direction)
+        /*Que2*/
+        if (!ok_flag || fscanf (saved_game, "%d %d %d %d", &saved_que2->x, &saved_que2->y, &saved_que2->type, &saved_que2->direction)
             != 4) {
-            fclose (saved_game);
-            return FALSE;
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%lf", &saved_que2->yVelocity) != 1) {
-            fclose (saved_game);
-            return FALSE;
+        if (!ok_flag || fscanf (saved_game, "%lf", &saved_que2->yVelocity) != 1) {
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%d", &saved_que2->isPaused) != 1) {
-            fclose (saved_game);
-            return FALSE;
+        if (!ok_flag || fscanf (saved_game, "%d", &saved_que2->isPaused) != 1) {
+            ok_flag = FALSE;
         }
 
-        if (fscanf (saved_game, "%d %d %d %d", &saved_held_tetri->x, &saved_held_tetri->y, &saved_held_tetri->type, &saved_held_tetri->direction)
+
+        /*Held-Tetri*/
+        if (!ok_flag || fscanf (saved_game, "%d %d %d %d", &saved_held_tetri->x, &saved_held_tetri->y, &saved_held_tetri->type, &saved_held_tetri->direction)
             != 4) {
-            fclose (saved_game);
-            return FALSE;
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%lf", &saved_held_tetri->yVelocity) != 1) {
-            fclose (saved_game);
-            return FALSE;
+        if (!ok_flag || fscanf (saved_game, "%lf", &saved_held_tetri->yVelocity) != 1) {
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%d", &saved_held_tetri->isPaused) != 1) {
-            fclose (saved_game);
-            return FALSE;
+        if (!ok_flag || fscanf (saved_game, "%d", &saved_held_tetri->isPaused) != 1) {
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%d", score) != 1) {
-            fclose (saved_game);
-            return FALSE;
+
+        if (!ok_flag || fscanf (saved_game, "%d", score) != 1) {
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%d", mouse_mode) != 1) {
-            fclose (saved_game);
-            return FALSE;
+        if (!ok_flag || fscanf (saved_game, "%d", mouse_mode) != 1) {
+            ok_flag = FALSE;
         }
-        if (fscanf (saved_game, "%d", music_on) != 1) {
-            fclose (saved_game);
-            return FALSE;
+        if (!ok_flag || fscanf (saved_game, "%d", music_on) != 1) {
+            ok_flag = FALSE;
         }
     }
     fclose (saved_game);
-    return TRUE;
-} // TODO improve...
+    return ok_flag;
+}
 
 void
 File_Save_Game (Checkerboard *cur_board, tetrimino *cur_tetri, tetrimino *que1, tetrimino *que2, tetrimino *held_tetri, int score, bool mouse_mode, bool music_on)

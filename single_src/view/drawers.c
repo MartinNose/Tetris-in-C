@@ -259,7 +259,6 @@ void DrawData (int score)
         setTextBoxColors ("Gray", RandColor(), "Gray", RandColor(), 0);
         textbox(GenUIID(0), BLOCKSIZE * 0.9, GetWindowHeight() - 3.3 * BLOCKSIZE, 4 * BLOCKSIZE, 1.20 * GetFontHeight(),
                 username, sizeof(username));
-        // TODO need review
         Save_Username (username);
         SetStyle(0);
     }else {
