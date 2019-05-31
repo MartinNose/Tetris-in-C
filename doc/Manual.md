@@ -52,7 +52,7 @@
 
 ![15](C:\Users\15959\Desktop\截图图库\15.png)
 
-# ![16](C:\Users\15959\Desktop\截图图库\16.png)![18](C:\Users\15959\Desktop\截图图库\18.png)设定说明
+# ![16](C:\Users\15959\Desktop\截图图库\16.png)![18](C:\Users\15959\Desktop\截图图库\18.png)![19](C:\Users\15959\Desktop\截图图库\19.png)设定说明
 
 
 
