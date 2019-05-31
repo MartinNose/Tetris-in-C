@@ -37,6 +37,13 @@ void DefineColors ()
     DefineRGBColor ("Light Cyan", 224, 255, 255);
     DefineRGBColor ("Gainsboro", 220, 220, 220);
     DefineRGBColor ("White Smoke",245, 245, 245);
+    DefineRGBColor ("Seashell",255,245,238);//有点像肉色 
+    DefineRGBColor ("Wheat",245,222,179);//小麦色 
+    DefineRGBColor ("Pink",255,192,203);
+    DefineRGBColor ("Thistle",216,191,216);//马卡龙紫
+	 DefineRGBColor ("MistyRose",255,228,225);//浅粉色 
+	 DefineRGBColor ("Azure",135,206,250);//浅蓝色
+	 DefineRGBColor ("SeaGreen",193,255,193);//马卡龙绿 
 };
 const int mseconds500 = 500;   
 const int mseconds1000 = 1000; 
@@ -131,26 +138,47 @@ void draw2(void){
    /*以下绘制Tetris!*/ 
    SetPenColor("Yellow");
    fillRectangle(6*x,26*y,3*x,y);
+   SetPenColor("Wheat");
    fillRectangle(7*x,19*y,x,7*y);
+   SetPenColor("Pink");
    fillRectangle(10*x,19*y,x,6*y);
+   SetPenColor("Azure");
    fillRectangle(10*x,19*y,3*x,y);
+   SetPenColor("SeaGreen");
    fillRectangle(12*x,20*y,x,y);
+   SetPenColor("Cyan");
    fillRectangle(10*x,22*y,3*x,y);
+   SetPenColor("Azure");
    fillRectangle(10*x,24*y,3*x,y);
+   SetPenColor("MistyRose");
    fillRectangle(12*x,22*y,x,2*y);
+   SetPenColor("SeaGreen");
    fillRectangle(14*x,19*y,x,9*y);
+   SetPenColor("Pink");
    fillRectangle(14*x,19*y,2*x,y);
+   SetPenColor("Yellow");
    fillRectangle(14*x,24*y,2*x,y);
+   SetPenColor("SeaShell");
    fillRectangle(17*x,19*y,x,6*y);
+   SetPenColor("Wheat");
    fillRectangle(17*x,24*y,2*x,y);  
+   SetPenColor("MistyRose");
    fillRectangle(20*x,19*y,x,6*y);
+   SetPenColor("Wheat");
    fillRectangle(20*x,26*y,x,y);
+   SetPenColor("Yellow");
    fillRectangle(22*x,19*y,3*x,1*y);
+   SetPenColor("MistyRose");
    fillRectangle(22*x,21*y,1*x,4*y);
+   SetPenColor("Gainsboro");
    fillRectangle(22*x,21*y,3*x,2*y);
+   SetPenColor("Pink");
    fillRectangle(24*x,20*y,1*x,1*y);
+   SetPenColor("SeaGreen");
    fillRectangle(22*x,24*y,3*x,1*y);
+   SetPenColor("SeaGreen");
    fillRectangle(26*x,19*y,1*x,1*y);
+   SetPenColor("Pink");
    fillRectangle(26*x,21*y,1*x,6*y);
    
    /*绘制分隔条*/ 
@@ -160,7 +188,7 @@ void draw2(void){
    SetPenColor("Red");
    fillRectangle(0*x,7*y,5*x,3*y);
    fillRectangle(2*x,4*y,6*x,3*y);
-   SetPenColor("Green");
+   SetPenColor("Wheat");
    fillRectangle(0*x,0*y,8*x,4*y);
    fillRectangle(0*x,0*y,2*x,7*y);
    SetPenColor("Yellow");
@@ -171,23 +199,26 @@ void draw2(void){
    SetPenColor("Brown");
    fillRectangle(11*x,0*y,3*x,7*y);
    fillRectangle(11*x,0*y,9*x,4*y);
-   SetPenColor("Green");
+   SetPenColor("Pink");
    fillRectangle(14*x,4*y,12*x,3*y);
    SetPenColor("Red");
    fillRectangle(20*x,0*y,9*x,4*y);
    fillRectangle(26*x,0*y,3*x,7*y);
-   SetPenColor("Yellow");
+   SetPenColor("Thistle");
    fillRectangle(23*x,7*y,6*x,3*y);
    fillRectangle(29*x,4*y,3*x,6*y);
    SetPenColor("Gray");
    fillRectangle(32*x,4*y,6*x,6*y);
-      SetPenColor("Green");
+      SetPenColor("SeaGreen");
    fillRectangle(29*x,0*y,7*x,4*y);
 }
 void TimerEventProcess(int timerID);
+
 void Main(){
 	InitGraphics();
+	DefineColors();
 	registerTimerEvent(TimerEventProcess);
+
     startTimer(TIMER_BLINK500, mseconds500);
 }
 void TimerEventProcess(int timerID)
