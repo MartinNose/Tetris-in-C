@@ -34,17 +34,17 @@
 
 ## 主界面
 
-==（截图，说明每个按钮的功能——图上标注==
-
-为了美观，按下`Shift`键后，才会出现工具栏
+![1](C:\Users\15959\Desktop\截图图库\1.png)
 
 ## 游戏界面
 
-cdfgdgfhd
 
 
+![2](C:\Users\15959\Desktop\截图图库\2.png)
 
-## 排行榜
+![3](C:\Users\15959\Desktop\截图图库\3.png)
+
+## ![4](C:\Users\15959\Desktop\截图图库\4.png)![5](C:\Users\15959\Desktop\截图图库\5.png)![6](C:\Users\15959\Desktop\截图图库\6.png)![7](C:\Users\15959\Desktop\截图图库\7.png)![8](C:\Users\15959\Desktop\截图图库\8.png)![9](C:\Users\15959\Desktop\截图图库\9.png)排行榜
 
 
 
