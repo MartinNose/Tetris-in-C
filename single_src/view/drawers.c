@@ -10,6 +10,8 @@
 #include "model.h"
 #include "imgui.h"
 
+#include "file_system_username_cache.h"
+
 void DefineRGBColor (string s, int r, int g, int b)
 {
     DefineColor (s, r / 255.0, g / 255.0, b / 255.0);
@@ -257,6 +259,8 @@ void DrawData (int score)
         setTextBoxColors ("Gray", RandColor(), "Gray", RandColor(), 0);
         textbox(GenUIID(0), BLOCKSIZE * 0.9, GetWindowHeight() - 3.3 * BLOCKSIZE, 4 * BLOCKSIZE, 1.20 * GetFontHeight(),
                 username, sizeof(username));
+        // TODO need review
+        Save_Username (username);
         SetStyle(0);
     }else {
         SetStyle(2);

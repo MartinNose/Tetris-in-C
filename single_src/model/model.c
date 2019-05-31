@@ -25,8 +25,8 @@
 
 #include "file_system_linked_list.h"
 #include "file_system_game_status.h"
+#include "file_system_username_cache.h"
 #include "sound.h"
-
 
 Checkerboard checkerboard;
 // store the colors of block, white as 0, (x,y),  extended space are for easier(lazier) check...
@@ -81,20 +81,18 @@ void timerEventHandler (int timerID)
 {
     switch (timerID) {
         case GAME:
-            if(!is_game_over)game ();
-            else{
-                drawCheckerBoard(checkerboard);
-                drawUI(Score);
-                DrawBoard(GAMEOVER);
+            if (!is_game_over)game ();
+            else {
+                drawCheckerBoard (checkerboard);
+                drawUI (Score);
+                DrawBoard (GAMEOVER);
             }
             break;
-        case CheckerboardFLASH :
-            flash ();
+        case CheckerboardFLASH :flash ();
             break;
         case DEBUG:printf ("%f", GetWindowWidth ());
             break;
-        case LOADING:
-            MessageBoxB(NULL,NULL);
+        case LOADING:MessageBoxB (NULL, NULL);
             break;
     }
 }
@@ -116,18 +114,18 @@ static void game ()
     drawTetri (ctetri);
     drawUI (Score);
 
-    if (ctetri.yVelocity == 0 && !ctetri.isPaused ) {
+    if (ctetri.yVelocity == 0 && !ctetri.isPaused) {
         Settle (ctetri); //add tetri to checker board
         globalSpeed = INIT_SPEED + INIT_SPEED * (Score / LevelGap); //update speed
         isHoldLegal = TRUE;
     }
-    if(ctetri.isPaused){
-        DrawBoard(PAUSE);
+    if (ctetri.isPaused) {
+        DrawBoard (PAUSE);
     }
     if (is_game_over) {
         GameOver ();
     }
-    if( Rename && !ctetri.isPaused){
+    if (Rename && !ctetri.isPaused) {
         Rename = FALSE;
     }
 }
@@ -324,9 +322,7 @@ void InitModel ()
     BGM_maintainer (TRUE);
     MouseMode = FALSE;
     setMenuColors ("Black", "White", "Light Gray", "White", 1);
-    sprintf(username,"Tetri 30");
-
-    //TODO  从上一次存档中读取用户名作为本次用户名
+    strcpy (username, Load_Last_Username ());
 }
 
 bool check_collision (tetrimino tetri)
@@ -454,7 +450,7 @@ tetrimino PauseEventHandler (tetrimino temp)
 
 void ExitGame ()
 {
-    WinExec("Launcher.exe", SW_SHOW);
+    WinExec ("Launcher.exe", SW_SHOW);
     exit (0);
 }
 
@@ -470,73 +466,71 @@ void GameOver ()
     //startTimer(GAMEOVER,10);
 }
 
-void Upload() {
-    //TODO upload usename and score
+void Upload ()
+{
     userNode *rank_list = Load_Rank ();
     rank_list = Add_Node (rank_list, Score, username);
     Write_Rank (rank_list);
 }
-void SaveGame()
+void SaveGame ()
 {
     File_Save_Game (&checkerboard, &ctetri, &que[0], &que[1], &HeldTetri, Score, MouseMode, MusicOn);
-    MessageBoxB("Saving Game","Red");
+    MessageBoxB ("Saving Game", "Red");
 }
 
-bool LoadGame()
+bool LoadGame ()
 {
     Checkerboard temp;
     tetrimino cur_tetri, que1, que2, held_tetri;
     int temp_score;
     bool Mouse_Mode, Music_on;
 
-
-    if (File_Load_Saved_Game (&temp, &cur_tetri, &que1, &que2, &held_tetri, &temp_score, &Mouse_Mode, &Music_on))
-    {
+    if (File_Load_Saved_Game (&temp, &cur_tetri, &que1, &que2, &held_tetri, &temp_score, &Mouse_Mode, &Music_on)) {
         checkerboard = temp;
         ctetri = cur_tetri;
         que[0] = cur_tetri;
-        que[1] = que2; 
+        que[1] = que2;
         HeldTetri = held_tetri;
         Score = temp_score;
         MouseMode = Mouse_Mode;
         is_game_over = FALSE;
 //        MusicOn = Music_on;
         BGM_maintainer (Music_on);
-        MessageBoxB("Loading","Black");
+        MessageBoxB ("Loading", "Black");
         return TRUE;
     }
     return FALSE;
 
 }
-int XInchScaleToBlock(double x){
-    return (int)ceil(x/BLOCKSIZE) - LEFTBAR;
+int XInchScaleToBlock (double x)
+{
+    return (int) ceil (x / BLOCKSIZE) - LEFTBAR;
 }
 
-bool InCheckerBoard(double x, double y){
-    return ifHover(x,y,LEFTBAR*BLOCKSIZE,(LEFTBAR+12)*BLOCKSIZE,0,GetWindowHeight());
+bool InCheckerBoard (double x, double y)
+{
+    return ifHover (x, y, LEFTBAR * BLOCKSIZE, (LEFTBAR + 12) * BLOCKSIZE, 0, GetWindowHeight ());
 }
 
-bool ifHover(double x, double y, double x1, double x2, double y1, double y2)
+bool ifHover (double x, double y, double x1, double x2, double y1, double y2)
 {
     return (x >= x1 && x <= x2 && y >= y1 && y <= y2);
 }
 
-void BGM_maintainer(bool new_music_on)
+void BGM_maintainer (bool new_music_on)
 {
-    if (new_music_on && !MusicOn)
-    {
+    if (new_music_on && !MusicOn) {
         MusicOn = TRUE;
-        PlaySound(BGM_Path, NULL, SND_FILENAME | SND_ASYNC);
-    }
-    else if (!new_music_on && MusicOn)
-    {
+        PlaySound (BGM_Path, NULL, SND_FILENAME | SND_ASYNC);
+    } else if (!new_music_on && MusicOn) {
         MusicOn = FALSE;
-        PlaySound(NULL,NULL,SND_FILENAME); // 用于停止播放的音乐
+        PlaySound (NULL, NULL, SND_FILENAME); // 用于停止播放的音乐
     }
 }
-void reName(){
+void reName ()
+{
     Rename ^= 1;
-    if(username[0] == '\0'){
+    if (username[0] == '\0') {
         username[0] = '!';
         username[1] = '\0';
     }
