@@ -23,7 +23,6 @@
 static char *const title_str = "Tetris";
 // 全局变量
 static double win_width, win_height;   // 窗口尺寸
-static int show_more_buttons = 0; // 显示更多按钮
 
 static bool isDisplayMenu = FALSE;
 
@@ -114,7 +113,6 @@ void DrawMenu ()
 //                                    "Close",
                                    "Exit             | Ctrl-E"};
     static char *menuListHelp[] = {"Help",
-                                   "Show More  | Ctrl-M",
                                    "About"};
     static char *selectedLabel = NULL;
 
@@ -144,14 +142,11 @@ void DrawMenu ()
 
 
     // Help 菜单
-    menuListHelp[1] = show_more_buttons ? "Show Less | Ctrl-M" : "Show More | Ctrl-M";
     selection = menuList (GenUIID(0),
                           x + w,
                           y - h, w, wlist, h, menuListHelp, sizeof (menuListHelp) / sizeof (menuListHelp[0]));
     if (selection > 0) selectedLabel = menuListHelp[selection];
     if (selection == 1)
-        show_more_buttons = !show_more_buttons;
-    if (selection == 2)
         MessageBoxA (NULL, "这是我们的大作业！", "关于 | About", MB_ICONINFORMATION);
 }
 
