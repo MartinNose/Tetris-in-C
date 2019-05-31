@@ -253,20 +253,25 @@ void DrawData (int score)
     SetPointSize(GetPointSize()*2);
 
     if(Rename) {
+        SetStyle(2);
         setTextBoxColors ("Gray", RandColor(), "Gray", RandColor(), 0);
-        textbox(GenUIID(0), BLOCKSIZE * 0.8, GetWindowHeight() - 3.8 * BLOCKSIZE, 4 * BLOCKSIZE, 1.20 * GetFontHeight(),
+        textbox(GenUIID(0), BLOCKSIZE * 0.9, GetWindowHeight() - 3.3 * BLOCKSIZE, 4 * BLOCKSIZE, 1.20 * GetFontHeight(),
                 username, sizeof(username));
+        SetStyle(0);
     }else {
+        SetStyle(2);
         SetPenColor("White");
-        drawLabel(fabs(0.5 *((LEFTBAR-1)*BLOCKSIZE - TextStringWidth(username)) ),GetWindowHeight() - 3.5*BLOCKSIZE ,username);
+        drawLabel(fabs(0.5 *((LEFTBAR-1)*BLOCKSIZE - TextStringWidth(username)) ),GetWindowHeight() - 3.1*BLOCKSIZE ,username);
+        SetStyle(0);
     }
     SetPointSize(GetPointSize()/2);
 
     SetPenColor("Black");
     SetPointSize(GetPointSize()*2);
+    SetStyle(2);
     drawLabel(BLOCKSIZE/5,GetWindowHeight() - 2 * BLOCKSIZE, "CurrentPlayer");
     SetPointSize(GetPointSize()/3);
-
+    SetStyle(0);
 
 }
 

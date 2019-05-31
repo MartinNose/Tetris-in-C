@@ -33,7 +33,6 @@ void keyboardEventHandler (int key, int event)
                         temp.direction %= 4;
                         break;
                     case VK_SPACE:
-                        Score += 60;
                         temp = HardDrop(temp);
                         break;
                     case 0x52: // R
@@ -62,6 +61,9 @@ void keyboardEventHandler (int key, int event)
                 switch (key) {
                     case VK_DOWN:
                         temp.yVelocity = SLOW;
+                        break;
+                    case VK_SPACE:
+                        if(temp.yVelocity != 0)Score += 60;
                         break;
                 }
                 break;
@@ -108,7 +110,13 @@ void mouseEventHandler (int x, int y, int button, int event)
                 break;
             case ROLL_DOWN:keyboardEventHandler (0x5A, KEY_DOWN);
                 break;
+            case BUTTON_UP:
+                switch(button){
+                    case LEFT_BUTTON:keyboardEventHandler(VK_SPACE,KEY_UP);
+                        break;
+                }
         }
+
     }
 }
 

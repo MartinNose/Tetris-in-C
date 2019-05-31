@@ -44,7 +44,7 @@ bool MusicOn = FALSE;
 bool MouseMode = FALSE;
 bool Rename = TRUE;
 double globalSpeed;
-char username[18] = {'P',' ','t','o',' ','R','e','n','a','m','e','\0'};
+char username[18] = {};
 
 double xx = 0;
 double yy = 0;
@@ -324,6 +324,7 @@ void InitModel ()
     BGM_maintainer (TRUE);
     MouseMode = FALSE;
     setMenuColors ("Black", "White", "Light Gray", "White", 1);
+    sprintf(username,"Tetri 30");
 
     //TODO  从上一次存档中读取用户名作为本次用户名
 }
