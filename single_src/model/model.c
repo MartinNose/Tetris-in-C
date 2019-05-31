@@ -464,7 +464,7 @@ void GameOver ()
 //    userNode *rank_list = Load_Rank ();
 //
 //    rank_list = Add_Node (rank_list, Score, "game_debug");
-//    write_Rank (rank_list);
+//    Write_Rank (rank_list);
 
     //startTimer(GAMEOVER,10);
 }
@@ -473,7 +473,7 @@ void Upload() {
     //TODO upload usename and score
     userNode *rank_list = Load_Rank ();
     rank_list = Add_Node (rank_list, Score, username);
-    write_Rank (rank_list);
+    Write_Rank (rank_list);
 }
 void SaveGame()
 {

@@ -9,7 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define RANK_FILE "rank.csv" // File Name
+/*File Name*/
+#define RANK_FILE "rank.csv"
 
 /*Node Data Structure*/
 typedef struct user_node {
@@ -27,8 +28,24 @@ typedef struct user_node {
  */
 userNode *Load_Rank ();
 
+/*
+ * Function: Add_Node
+ * Usage: Give the head, score, and username to it,
+ * it will add this node into the list
+ * ------------------------------------------------
+ * This function helps maintain the linked-list
+ * It will ensure the score in every node is descending
+ */
 userNode *Add_Node (userNode *head, int score, char *name);
 
-void write_Rank (userNode *head);
+/*
+ * Function: Write_Rank
+ * Usage: Just give the head pointer of the list,
+ * it will write the data into the file
+ * ----------------------------------------------
+ * This function traverses the linked-list and writes
+ * the data in CSV format
+ */
+void Write_Rank (userNode *head);
 
 #endif //_FILE_SYSTEM_LINKED_LIST_H_

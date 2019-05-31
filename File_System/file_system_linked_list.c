@@ -55,7 +55,7 @@ userNode *Add_Node (userNode *head, int score, char *name)
     return head;
 }
 
-void write_Rank (userNode *head)
+void Write_Rank (userNode *head)
 {
     FILE *rank_table = fopen (RANK_FILE, "w");
     userNode *p = NULL;
