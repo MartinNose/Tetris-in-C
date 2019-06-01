@@ -2019,7 +2019,7 @@ static void InitDisplayA(void)
     double screenHeight, screenWidth, xSpace, ySpace;
     double xScale, yScale, scaleFactor;
     DWORD style;
-    int top, dx, dy, cWidth;
+    int top, dx, dy, cWidth, scrWidth, scrHeight;
 
     /*clrscr();*/
     system("cls");
@@ -2085,10 +2085,14 @@ static void InitDisplayA(void)
     GetClientRect(graphicsWindow, &bounds);
     dx = RectWidth(&graphicsRect) - RectWidth(&bounds);
     dy = RectHeight(&graphicsRect) - RectHeight(&bounds);
+    scrWidth = GetSystemMetrics(SM_CXSCREEN);
+    scrHeight = GetSystemMetrics(SM_CYSCREEN);
+    graphicsRect.left = (scrWidth-graphicsRect.right)/2;
+    graphicsRect.top = (scrHeight-graphicsRect.bottom)/2;
     SetWindowPos(graphicsWindow, HWND_TOP,
                  graphicsRect.left, graphicsRect.top,
-                 RectWidth(&graphicsRect) + dx,
-                 RectHeight(&graphicsRect) + dy, 0);
+                 graphicsRect.right, graphicsRect.bottom,
+                 0);
     gdc = GetDC(graphicsWindow);
     GetClientRect(graphicsWindow, &bounds);
     pixelWidth = RectWidth(&bounds) * 2;
@@ -2130,7 +2134,7 @@ static void InitDisplayB(void)
     double screenHeight, screenWidth, xSpace, ySpace;
     double xScale, yScale, scaleFactor;
     DWORD style;
-    int top, dx, dy, cWidth;
+    int top, dx, dy, cWidth, scrWidth, scrHeight;
 
     /*clrscr();*/
     system("cls");
@@ -2196,10 +2200,14 @@ static void InitDisplayB(void)
     GetClientRect(graphicsWindow, &bounds);
     dx = RectWidth(&graphicsRect) - RectWidth(&bounds);
     dy = RectHeight(&graphicsRect) - RectHeight(&bounds);
+    scrWidth = GetSystemMetrics(SM_CXSCREEN);
+    scrHeight = GetSystemMetrics(SM_CYSCREEN);
+    graphicsRect.left = (scrWidth-graphicsRect.right)/2;
+    graphicsRect.top = (scrHeight-graphicsRect.bottom)/2;
     SetWindowPos(graphicsWindow, HWND_TOP,
                  graphicsRect.left, graphicsRect.top,
-                 RectWidth(&graphicsRect) + dx,
-                 RectHeight(&graphicsRect) + dy, 0);
+                 graphicsRect.right, graphicsRect.bottom,
+                 0);
     gdc = GetDC(graphicsWindow);
     GetClientRect(graphicsWindow, &bounds);
     pixelWidth = RectWidth(&bounds) * 2;

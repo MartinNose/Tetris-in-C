@@ -16,8 +16,8 @@
 #include <ocidl.h>
 #include <winuser.h>
 #define SYSCOLOR "Red"
-#define TIMER_BLINK500  1     /*500ms定时器事件标志号*/
-#define TIMER_BLINK1000 2     /*1000ms定时器时间标志号*/
+#define TIMER_BLINK50  1     /*50ms定时器事件标志号*/
+#define TIMER_BLINK1500 2     /*1000ms定时器时间标志号*/
 void DefineRGBColor (string s, int r, int g, int b)
 {
     DefineColor (s, r / 255.0, g / 255.0, b / 255.0);
@@ -45,8 +45,8 @@ void DefineColors ()
     DefineRGBColor ("Azure", 135, 206, 250);//浅蓝色
     DefineRGBColor ("SeaGreen", 193, 255, 193);//马卡龙绿
 };
-const int mseconds500 = 500;
-const int mseconds1000 = 1000;
+const int mseconds50 = 50;
+const int mseconds1500 = 1500;
 typedef struct {/*矩形类型*/
     double x1, y1;/*左下角坐标*/
     double x2, y2;/*右上角坐标*/
@@ -218,18 +218,19 @@ void TimerEventProcess (int timerID);
 
 void Main ()
 {
-    InitGraphics ();
+    SetWindowSize (6, 4.5);
+    InitGraphicsB ();
     DefineColors ();
     registerTimerEvent (TimerEventProcess);
 
-    startTimer (TIMER_BLINK500, mseconds500);
+    startTimer (TIMER_BLINK50, mseconds50);
+    startTimer (TIMER_BLINK1500, mseconds1500);
 }
 void TimerEventProcess (int timerID)
 {
     static int flag = 1;
     switch (timerID) {
-        case TIMER_BLINK500: { /*500ms光标闪烁定时器*/
-
+        case TIMER_BLINK50: { /*50ms光标闪烁定时器*/
             if (flag == 1) {
                 draw1 ();
                 flag = 2;
@@ -239,7 +240,10 @@ void TimerEventProcess (int timerID)
             }
             break;
         }
-
+        case TIMER_BLINK1500: {
+            WinExec ("launcher.exe", SW_SHOW);
+            exit (0);
+        }
         default: break;
     }
 }
