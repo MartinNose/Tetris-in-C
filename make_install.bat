@@ -17,7 +17,7 @@ for %%n in (*.exe) do (
 
 :: shortcut
 ::设置程序或文件的完整路径（必选）
-set Program=C:\tetri_game\bin\launcher.exe
+set Program=C:\tetri_game\bin\splash_screen.exe
  
 ::设置快捷方式名称（必选）
 set LnkName=Tetris
