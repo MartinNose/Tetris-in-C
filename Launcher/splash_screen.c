@@ -218,9 +218,11 @@ void PrintPercentage ()
 {
     static int cnt = 0;
     char buffer[10];
-    sprintf (buffer, "%d%%", cnt);
-    MovePen (GetWindowWidth () / 2 - TextStringWidth (buffer), GetWindowHeight () * 0.37);
-    cnt += 5;
+    sprintf (buffer, "Loading...%d%%", cnt);
+    MovePen (GetWindowWidth () / 2 - TextStringWidth (buffer) / 2, GetWindowHeight () * 0.36);
+    cnt += 4;
+    SetPointSize (25);
+    SetPenColor ("White");
     DrawTextString (buffer);
     if (cnt == 100)
     {
