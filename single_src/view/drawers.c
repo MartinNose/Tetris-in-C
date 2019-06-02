@@ -58,7 +58,10 @@ void DrawNextTetrimino (tetrimino tetri)
 void DrawHoldedTetrimino (tetrimino tetri)
 {
     //MovePen();
-    if (tetri.type == 0)return;
+    if (tetri.type == 0)
+        return;
+    else if (tetri.type == 1 && tetri.direction == 2)
+        tetri.direction = 0;
     tetri.x = HoldX + 2;
     tetri.y = HoldY + 1;
     drawTetri (tetri);
@@ -116,6 +119,18 @@ void DrawSideBar ()
     StartFilledRegion (1);
     MovePen ((leftbar + 12) * BLOCKSIZE, 0);
     DrawRect (leftbar * BLOCKSIZE, GetWindowHeight ());
+    EndFilledRegion ();
+    // right-plus
+    SetPenColor ("White");
+
+    StartFilledRegion (1);
+    MovePen ((leftbar + 13) * BLOCKSIZE, 2 * BLOCKSIZE);
+    DrawRect (4 * BLOCKSIZE, 4 * BLOCKSIZE);
+    EndFilledRegion ();
+
+    StartFilledRegion (1);
+    MovePen ((leftbar + 13) * BLOCKSIZE, 10 * BLOCKSIZE);
+    DrawRect (4 * BLOCKSIZE, 4 * BLOCKSIZE);
     EndFilledRegion ();
 
     SetPenColor ("Black");
@@ -281,9 +296,9 @@ void drawBoardButtons (double x, double y, int flag)
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
         setTextBoxColors ("Black", "White", "Midnight Blue", "White", 1);
         SetStyle (1);
-        sprintf (buffer, "Score: %d  ", Score);//Name: %s ,username
-        drawLabel (x + (4 * BLOCKSIZE - TextStringWidth (buffer)) / 2, y + 1.50 * GetFontHeight (), buffer);
-        drawLabel (x + 3.5 * BLOCKSIZE, y + 1.50 * GetFontHeight (), username);
+        sprintf (buffer, "Score: %d  Name: %s", Score, username);//Name: %s ,username
+        drawLabel (x + ((8) * BLOCKSIZE - TextStringWidth (buffer)) / 2, y + 1.50 * GetFontHeight (), buffer);
+//        drawLabel (x + (3.5 + leftbar / 2 - 3) * BLOCKSIZE, y + 1.50 * GetFontHeight (), username);
         if (button (GenUIID(0), x, y - h, w, h, (Rename) ? "Done" : "Rename")) {
             reName ();
         }
