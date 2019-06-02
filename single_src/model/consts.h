@@ -7,7 +7,7 @@
 
 #include <genlib.h>
 
-#define BLOCKSIZE 0.5
+extern double BLOCKSIZE;
 
 #define WIDTH 24 //Width in inches
 #define HEIGHT 18 //Height in inches
@@ -66,5 +66,7 @@ extern int typeInfo[][4][2];
 extern string TETRI_COLOR[8];
 
 extern char *const BGM_Path;
+
+extern double leftbar;
 
 #endif

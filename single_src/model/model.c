@@ -77,8 +77,11 @@ void timerEventHandler (int timerID)
 {
     switch (timerID) {
         case GAME:
-            if (!is_game_over)game ();
+            if (!is_game_over){
+                game ();
+            }
             else {
+                Refresh_Variables();
                 drawCheckerBoard (checkerboard);
                 drawUI (Score);
                 DrawBoard (GAMEOVER);
@@ -94,6 +97,7 @@ void timerEventHandler (int timerID)
 }
 static void game ()
 {
+    Refresh_Variables();
     static int time = 0;
     if (ctetri.yVelocity == 0 && !ctetri.isPaused && !is_game_over) {
         ctetri = NextTetri ();
@@ -319,6 +323,8 @@ void InitModel ()
     MouseMode = FALSE;
     setMenuColors ("Black", "White", "Light Gray", "White", 1);
     strcpy (username, Load_Last_Username ());
+
+    leftbar = (GetWindowWidth () / 2) / BLOCKSIZE - 6;
 }
 
 bool check_collision (tetrimino tetri)
@@ -530,4 +536,10 @@ void reName ()
         username[0] = '!';
         username[1] = '\0';
     }
-};
+}
+
+void Refresh_Variables()
+{
+    BLOCKSIZE = GetWindowHeight () / 18.0;
+    leftbar = (GetWindowWidth () / 2) / BLOCKSIZE - 6;
+}

@@ -235,6 +235,8 @@ void Upload();
  * */
 void reName();
 
+void Refresh_Variables();
+
 
 //Global Variables
 extern Checkerboard checkerboard;

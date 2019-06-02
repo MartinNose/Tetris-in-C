@@ -73,29 +73,29 @@ void DrawShadow (tetrimino shadow)
         case 0:
             for (int i = 0; i < 4; i++) {
                 drawShadowBlock (
-                        shadow.x + typeInfo[shadow.type][i][0],
-                        shadow.y + typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
+                    shadow.x + typeInfo[shadow.type][i][0],
+                    shadow.y + typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
             }
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
                 drawShadowBlock (
-                        shadow.x - typeInfo[shadow.type][i][1],
-                        shadow.y + typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
+                    shadow.x - typeInfo[shadow.type][i][1],
+                    shadow.y + typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
             }
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
                 drawShadowBlock (
-                        shadow.x - typeInfo[shadow.type][i][0],
-                        shadow.y - typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
+                    shadow.x - typeInfo[shadow.type][i][0],
+                    shadow.y - typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
             }
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
                 drawShadowBlock (
-                        shadow.x + typeInfo[shadow.type][i][1],
-                        shadow.y - typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
+                    shadow.x + typeInfo[shadow.type][i][1],
+                    shadow.y - typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
             }
             break;
     }
@@ -104,8 +104,22 @@ void DrawShadow (tetrimino shadow)
 
 
 //Functions for UI rendering =====================================================
-void DrawSideBar()
+void DrawSideBar ()
 {
+    SetPenColor ("Gray");
+    // left
+    StartFilledRegion (1);
+    MovePen (0, 0);
+    DrawRect (leftbar * BLOCKSIZE, GetWindowHeight ());
+    EndFilledRegion ();
+    // right
+    StartFilledRegion (1);
+    MovePen ((leftbar + 12) * BLOCKSIZE, 0);
+    DrawRect (leftbar * BLOCKSIZE, GetWindowHeight ());
+    EndFilledRegion ();
+
+    SetPenColor ("Black");
+    /*
     for (int i = 0; i < LEFTBAR; i++) {
         for (int j = 0; j < HEIGHT; j++) {
             drawBlock (i, j, "Gray");
@@ -118,20 +132,20 @@ void DrawSideBar()
                 drawBlock (i, j, "Gray");
         }
     }
+     */
 }
 
 void drawUI (int score)
 {
-    DrawSideBar();
+    DrawSideBar ();
 
     DrawNextTetrimino (que[1]);
     DrawHoldedTetrimino (HeldTetri);
 
-
     DrawData (score);
-    DrawMenu();
-    DrawDynamicButtons();
-    DrawBottomBar();
+    DrawMenu ();
+    DrawDynamicButtons ();
+    DrawBottomBar ();
 
     DrawGrid ();
 
@@ -143,7 +157,7 @@ void drawCheckerBoard (Checkerboard checker)
 {
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-            drawBlock (i + LEFTBAR - 1, j, TETRI_COLOR[checker.block[i][j + 1]]);
+            drawBlock (i + 6 - 1, j, TETRI_COLOR[checker.block[i][j + 1]]);
         }
     }
 }
@@ -154,45 +168,47 @@ void DrawData (int score)
 
     SetPenColor ("Black");
     sprintf (buffer, "Score: %d", score);
-    MovePen (ScoreX * BLOCKSIZE, ScoreY * BLOCKSIZE);
+    MovePen ((ScoreX - 3 + leftbar / 2) * BLOCKSIZE, ScoreY * BLOCKSIZE);
     DrawTextString (buffer);
 
     sprintf (buffer, "Level: %d", score / LevelGap + 1);
-    MovePen (LevelX * BLOCKSIZE, LevelY * BLOCKSIZE);
+    MovePen ((LevelX - 3 + leftbar / 2) * BLOCKSIZE, LevelY * BLOCKSIZE);
     DrawTextString (buffer);
 
     sprintf (buffer, "Speed: %.2f", ctetri.yVelocity / INIT_SPEED);
     if (ctetri.yVelocity > 10) {
         SetPenColor ("White");
     }
-    MovePen (SpeedX * BLOCKSIZE, SpeedY * BLOCKSIZE);
+    MovePen ((SpeedX - 3 + leftbar / 2) * BLOCKSIZE, SpeedY * BLOCKSIZE);
     DrawTextString (buffer);
 
-    SetPointSize(GetPointSize()*2);
+    SetPointSize (GetPointSize () * 2);
 
-    if(Rename) {
-        SetStyle(2);
-        setTextBoxColors ("Gray", RandColor(), "Gray", RandColor(), 0);
-        textbox(GenUIID(0), BLOCKSIZE * 0.9, GetWindowHeight() - 3.3 * BLOCKSIZE, 4 * BLOCKSIZE, 1.20 * GetFontHeight(),
-                username, sizeof(username));
+    if (Rename) {
+        SetStyle (2);
+        setTextBoxColors ("Gray", RandColor (), "Gray", RandColor (), 0);
+        textbox (GenUIID(0),
+                 BLOCKSIZE * 0.9 + leftbar / 2 - 3, GetWindowHeight () - 3.3 * BLOCKSIZE, 4 * BLOCKSIZE, 1.20 * GetFontHeight (),
+                 username, sizeof (username));
         Save_Username (username);
-        SetStyle(0);
-    }else {
-        SetStyle(2);
-        SetPenColor("White");
-        drawLabel(fabs(0.5 *((LEFTBAR-1)*BLOCKSIZE - TextStringWidth(username)) ),GetWindowHeight() - 3.1*BLOCKSIZE ,username);
-        SetStyle(0);
+        SetStyle (0);
+    } else {
+        SetStyle (2);
+        SetPenColor ("White");
+        drawLabel ( (0.5 * ((leftbar - 1) * BLOCKSIZE - TextStringWidth (username))),
+                   GetWindowHeight () - 3.1 * BLOCKSIZE, username);
+        SetStyle (0);
     }
 
-    SetPointSize(GetPointSize()/2);
+    SetPointSize (GetPointSize () / 2);
 
-    SetPenColor("Black");
-    SetPointSize(GetPointSize()*2);
+    SetPenColor ("Black");
+    SetPointSize (GetPointSize () * 2);
 
-    SetStyle(2);
-    drawLabel(BLOCKSIZE/5,GetWindowHeight() - 2 * BLOCKSIZE, "CurrentPlayer");
-    SetPointSize(GetPointSize()/3);
-    SetStyle(0);
+    SetStyle (2);
+    drawLabel ( (0.5 * ((leftbar - 1) * BLOCKSIZE - TextStringWidth ("CurrentPlayer"))), GetWindowHeight () - 2 * BLOCKSIZE, "CurrentPlayer");
+    SetPointSize (GetPointSize () / 3);
+    SetStyle (0);
 }
 
 void DrawBoard (int flag)
@@ -200,7 +216,7 @@ void DrawBoard (int flag)
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
             if (flag == PAUSE) {
-                drawBlock (i + LEFTBAR - 1, j, (Rename)?TETRI_COLOR[que[1].type]:RandColor ());
+                drawBlock (i + LEFTBAR - 1, j, (Rename) ? TETRI_COLOR[que[1].type] : RandColor ());
             } else {
 
             }
@@ -219,11 +235,13 @@ void DrawBoard (int flag)
 
     SetPointSize (temp * 2);
     if (flag == PAUSE) {
-        drawLabel (x + (8 * BLOCKSIZE - TextStringWidth ("Paused!")) / 2, y + 7 * BLOCKSIZE - GetFontHeight (), "Paused!");
+        drawLabel (
+            x + (8 * BLOCKSIZE - TextStringWidth ("Paused!")) / 2, y + 7 * BLOCKSIZE - GetFontHeight (), "Paused!");
         SetPointSize (temp);
         drawBoardButtons (x, y + 7 * BLOCKSIZE - 7 * BLOCKSIZE / 3, PAUSE);
     } else {
-        drawLabel (x + (8 * BLOCKSIZE - TextStringWidth ("Game Over")) / 2, y + 7 * BLOCKSIZE - GetFontHeight (), "Game Over");
+        drawLabel (
+            x + (8 * BLOCKSIZE - TextStringWidth ("Game Over")) / 2, y + 7 * BLOCKSIZE - GetFontHeight (), "Game Over");
         SetPointSize (temp);
         drawBoardButtons (x, y + 7 * BLOCKSIZE - 7 * BLOCKSIZE / 3, GAMEOVER);
     }
@@ -239,38 +257,38 @@ void drawBoardButtons (double x, double y, int flag)
         h = 7 * BLOCKSIZE / 6;  // ??????
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
         SetStyle (1);
-        if (button (GenUIID(0), x, y - h* row++, w, h, "Resume")) {
+        if (button (GenUIID(0), x, y - h * row++, w, h, "Resume")) {
             keyboardEventHandler (VK_ESCAPE, KEY_DOWN);
         }
-        if (button (GenUIID(0), x, y - h* row++, w, h, (Rename)?"Done":"Rename")) {
-            reName();
+        if (button (GenUIID(0), x, y - h * row++, w, h, (Rename) ? "Done" : "Rename")) {
+            reName ();
         }
-        if (button (GenUIID(0), x, y - h* row++, w, h, "RankList")) {
+        if (button (GenUIID(0), x, y - h * row++, w, h, "RankList")) {
             WinExec ("leaderboard.exe", SW_SHOW);
         }
-        if (button (GenUIID(0), x, y - h* row++, w, h, "Restart")) {
+        if (button (GenUIID(0), x, y - h * row++, w, h, "Restart")) {
 //          keyboardEventHandler (0x52, KEY_DOWN);
             Restart ();
         }
-        if (button (GenUIID(0), x, y - h* row++, w, h, "Save")) {
+        if (button (GenUIID(0), x, y - h * row++, w, h, "Save")) {
             SaveGame ();
         }
-        if (button (GenUIID(0), x, y - h* row, w, h, "Quit")) {
+        if (button (GenUIID(0), x, y - h * row, w, h, "Quit")) {
             ExitGame ();
         }
     } else { // GAME OVER Board
         h = 7 * BLOCKSIZE / 5;
         setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
-        setTextBoxColors("Black", "White", "Midnight Blue", "White", 1);
+        setTextBoxColors ("Black", "White", "Midnight Blue", "White", 1);
         SetStyle (1);
-        sprintf(buffer, "Score: %d  ", Score);//Name: %s ,username
+        sprintf (buffer, "Score: %d  ", Score);//Name: %s ,username
         drawLabel (x + (4 * BLOCKSIZE - TextStringWidth (buffer)) / 2, y + 1.50 * GetFontHeight (), buffer);
-        drawLabel(x + 3.5*BLOCKSIZE , y +  1.50 * GetFontHeight (),username);
-        if (button (GenUIID(0), x, y - h, w, h, (Rename)?"Done":"Rename")) {
-            reName();
+        drawLabel (x + 3.5 * BLOCKSIZE, y + 1.50 * GetFontHeight (), username);
+        if (button (GenUIID(0), x, y - h, w, h, (Rename) ? "Done" : "Rename")) {
+            reName ();
         }
         if (button (GenUIID(0), x, y - 2 * h, w, h, "Upload")) {
-            Upload();
+            Upload ();
         }
         if (button (GenUIID(0), x, y - 3 * h, w, h, "RankList")) {
             WinExec ("leaderboard.exe", SW_SHOW);
@@ -286,7 +304,7 @@ void drawBoardButtons (double x, double y, int flag)
 
 }
 
-void DrawMenu()
+void DrawMenu ()
 {
     static char *menuListFile[] = {
         "File",
@@ -311,7 +329,7 @@ void DrawMenu()
     double x = 0; //fH/8;
     double y = GetWindowHeight ();
     double h = fH * 1.5; // ??????
-    double w = LEFTBAR * BLOCKSIZE / 3; // ???????
+    double w = leftbar * BLOCKSIZE / 3; // ???????
     double wlist = TextStringWidth (menuListFile[4]) * 1.2;
     double xindent = GetWindowWidth () / 20; // ????
     int selection;
@@ -343,12 +361,10 @@ void DrawMenu()
             keyboardEventHandler (VK_ESCAPE, KEY_DOWN);
             keyboardEventHandler (VK_ESCAPE, KEY_UP);
             break;
-        case 2:
-            WinExec ("leaderboard.exe", SW_SHOW);
+        case 2:WinExec ("leaderboard.exe", SW_SHOW);
             break;
-        case 3:
-            keyboardEventHandler(VK_F1,KEY_DOWN);
-            keyboardEventHandler(VK_F1,KEY_UP);
+        case 3:keyboardEventHandler (VK_F1, KEY_DOWN);
+            keyboardEventHandler (VK_F1, KEY_UP);
             break;
         case 4://restart
 //            keyboardEventHandler (0x52, KEY_DOWN);
@@ -360,54 +376,53 @@ void DrawMenu()
                           sizeof (menuListHelp) / sizeof (menuListHelp[0]));
     switch (selection) {
         case 0:break;
-        case 1:
-            MessageBoxA (NULL, "单人模式", "关于 | About", MB_ICONINFORMATION);
+        case 1:MessageBoxA (NULL, "单人模式", "关于 | About", MB_ICONINFORMATION);
             break;
     }
 }
 
-void DrawBottomBar()
+void DrawBottomBar ()
 {
-    MovePen(0,0);
-    SetPenColor("Light Gray");
-    StartFilledRegion(1);
-    DrawRect(LEFTBAR*BLOCKSIZE ,GetFontHeight()*1.5);
-    EndFilledRegion();
+    MovePen (0, 0);
+    SetPenColor ("Light Gray");
+    StartFilledRegion (1);
+    DrawRect (leftbar * BLOCKSIZE, GetFontHeight () * 1.5);
+    EndFilledRegion ();
 
-    SetPenColor("Black");
-    MovePen(0,GetFontHeight()*1.5);
-    DrawLine(LEFTBAR*BLOCKSIZE,0);
+    SetPenColor ("Black");
+    MovePen (0, GetFontHeight () * 1.5);
+    DrawLine (leftbar * BLOCKSIZE, 0);
 
-    SetPenColor("White");
+    SetPenColor ("White");
     char buffer[32];
-    sprintf(buffer,"Music : %s  MouseMode : %s",(MusicOn)?"On":"Off",(MouseMode)?"On":"Off");
-    drawLabel(0.1*BLOCKSIZE,GetFontHeight()/2,buffer);
+    sprintf (buffer, "Music : %s  MouseMode : %s", (MusicOn) ? "On" : "Off", (MouseMode) ? "On" : "Off");
+    drawLabel (0.1 * BLOCKSIZE, GetFontHeight () / 2, buffer);
 //    MovePen(0,GetFontHeight()*1.1);
 //    DrawLine(LEFTBAR*BLOCKSIZE,0);
 
 };
 
-void DrawDynamicButtons()
+void DrawDynamicButtons ()
 {
-    double x , y = GetWindowHeight()/3;
-    double h, w = (LEFTBAR-1) * BLOCKSIZE;
-    x = (LEFTBAR*BLOCKSIZE - w)/2;
+    double x, y = GetWindowHeight () / 3;
+    double h, w = (leftbar - 1) * BLOCKSIZE;
+    x = (leftbar * BLOCKSIZE - w) / 2;
     h = 7 * BLOCKSIZE / 6;
 
-        setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
-        SetStyle (1);
-        if (button (GenUIID(0), x, y, w, h, "Accelerate!")) {
-            keyboardEventHandler (VK_DOWN, KEY_DOWN);
-        }
+    setButtonColors ("Corn Silk", "Black", "Light Cyan", "Midnight Blue", 1);
+    SetStyle (1);
+    if (button (GenUIID(0), x, y, w, h, "Accelerate!")) {
+        keyboardEventHandler (VK_DOWN, KEY_DOWN);
+    }
     if (button (GenUIID(0), x, y - h, w, h, "Rotate")) {
         keyboardEventHandler (VK_UP, KEY_DOWN);
     }
-        if (button (GenUIID(0), x, y - 2*h, w, h, "Save")) {
-            keyboardEventHandler(VK_CONTROL,KEY_DOWN);
-            keyboardEventHandler(0x53,KEY_DOWN);
-            keyboardEventHandler(VK_CONTROL,KEY_UP);
-        }
-    if (button (GenUIID(0), x, y - 2*h, w, h, (MouseMode)?"Cancel Mouse Mode":"Mouse Mode")) {
+    if (button (GenUIID(0), x, y - 2 * h, w, h, "Save")) {
+        keyboardEventHandler (VK_CONTROL, KEY_DOWN);
+        keyboardEventHandler (0x53, KEY_DOWN);
+        keyboardEventHandler (VK_CONTROL, KEY_UP);
+    }
+    if (button (GenUIID(0), x, y - 2 * h, w, h, (MouseMode) ? "Cancel Mouse Mode" : "Mouse Mode")) {
         MouseMode ^= 1;
     }
 
@@ -441,7 +456,7 @@ void DefineColors ()
     DefineRGBColor ("Corn Silk", 255, 248, 220);
     DefineRGBColor ("Light Cyan", 224, 255, 255);
     DefineRGBColor ("Gainsboro", 220, 220, 220);
-    DefineRGBColor ("White Smoke",245, 245, 245);
+    DefineRGBColor ("White Smoke", 245, 245, 245);
 }
 
 void Clean ()
@@ -454,12 +469,12 @@ void Clean ()
     SetEraseMode (0);
 }
 
-void drawBlock (int x, int y, string color)
+void drawBlock (double x, int y, string color)
 {
     SetPenColor (color);
     StartFilledRegion (1);
 
-    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
+    MovePen ((x - 6 + leftbar) * BLOCKSIZE, y * BLOCKSIZE);
 
     DrawRect (BLOCKSIZE, BLOCKSIZE);
 
@@ -473,45 +488,44 @@ void drawShadowBlock (int x, int y, string color)
     SetPenColor (color);
 
     SetPenSize (GetPenSize () + 3);
-    MovePen (x * BLOCKSIZE, y * BLOCKSIZE);
+    MovePen ((x - 6 + leftbar) * BLOCKSIZE, y * BLOCKSIZE);
     DrawRect (BLOCKSIZE, BLOCKSIZE);
 
     SetPenColor ("Black");
     SetPenSize (GetPenSize () - 3);
 }
 
-
 void DrawGrid ()
 {
     SetPenColor ("Black");
 
     //draw Checkerboard Grid
-    for (int i = LEFTBAR; i <= LEFTBAR + 12; i++) {
-        MovePen (i * BLOCKSIZE, 0);
+    for (int i = 0; i <= 12; i++) {
+        MovePen ((i + leftbar) * BLOCKSIZE, 0);
         DrawLine (0, GetWindowHeight ());
     }
 
     for (int j = 0; j <= HEIGHT; j++) {
-        MovePen (LEFTBAR * BLOCKSIZE, j * BLOCKSIZE);
+        MovePen (leftbar * BLOCKSIZE, j * BLOCKSIZE);
         DrawLine (12 * BLOCKSIZE, 0);
     }
 
     //draw Next Tetri area
     for (int i = PreX; i <= PreX + 4; i++) {
-        MovePen (i * BLOCKSIZE, PreY * BLOCKSIZE);
+        MovePen ((i - 6 + leftbar) * BLOCKSIZE, PreY * BLOCKSIZE);
         DrawLine (0, 4 * BLOCKSIZE);
     }
     for (int i = PreY; i <= PreY + 4; i++) {
-        MovePen (PreX * BLOCKSIZE, i * BLOCKSIZE);
+        MovePen ((PreX - 6 + leftbar) * BLOCKSIZE, i * BLOCKSIZE);
         DrawLine (4 * BLOCKSIZE, 0);
     }
 
     for (int i = HoldX; i <= HoldX + 4; i++) {
-        MovePen (i * BLOCKSIZE, HoldY * BLOCKSIZE);
+        MovePen ((i - 6 + leftbar) * BLOCKSIZE, HoldY * BLOCKSIZE);
         DrawLine (0, 4 * BLOCKSIZE);
     }
     for (int i = HoldY; i <= HoldY + 4; i++) {
-        MovePen (HoldX * BLOCKSIZE, i * BLOCKSIZE);
+        MovePen ((HoldX - 6 + leftbar) * BLOCKSIZE, i * BLOCKSIZE);
         DrawLine (4 * BLOCKSIZE, 0);
     }
 //    for (int i = 0; i < WIDTH; i++) {
@@ -537,62 +551,63 @@ string RandColor ()
     return TETRI_COLOR[flag % 8];
 }
 
-void DebugTool()
+void DebugTool ()
 {
     char buffer[100];
-    sprintf(buffer, "cx : %f,cy: %f\n", xx, yy);
-    drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2, buffer);
-    drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2 - GetFontHeight(), (InCheckerBoard(xx,yy))?"InChe":"NoI");
-    sprintf(buffer,"CBlock%d",XInchScaleToBlock(xx));
-    drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2 - 2*GetFontHeight(), buffer);
-    sprintf(buffer,"TBlock%d",ctetri.x - LEFTBAR);
-    drawLabel((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight() / 2 - 3*GetFontHeight(), buffer);
+    sprintf (buffer, "cx : %f,cy: %f\n", xx, yy);
+    drawLabel ((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight () / 2, buffer);
+    drawLabel (
+        (LEFTBAR + 13) * BLOCKSIZE,
+        GetWindowHeight () / 2 - GetFontHeight (), (InCheckerBoard (xx, yy)) ? "InChe" : "NoI");
+    sprintf (buffer, "CBlock%d", XInchScaleToBlock (xx));
+    drawLabel ((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight () / 2 - 2 * GetFontHeight (), buffer);
+    sprintf (buffer, "TBlock%d", ctetri.x - LEFTBAR);
+    drawLabel ((LEFTBAR + 13) * BLOCKSIZE, GetWindowHeight () / 2 - 3 * GetFontHeight (), buffer);
 }
 
-void MessageBoxB(string title1,string color1)
+void MessageBoxB (string title1, string color1)
 {
     static int count = 4;
-    static string title,color;
-    if(count == 4){
-        cancelTimer(GAME);
-        startTimer(LOADING,20);
-        if(title1){
+    static string title, color;
+    if (count == 4) {
+        cancelTimer (GAME);
+        startTimer (LOADING, 20);
+        if (title1) {
             title = title1;
         }
-        if(color1){
+        if (color1) {
             color = color1;
         }
         count--;
         return;
     }
-    if(count == 0){
+    if (count == 0) {
         //keyboardEventHandler(VK_ESCAPE,KEY_DOWN);
-        cancelTimer(LOADING);
+        cancelTimer (LOADING);
         count = 4;
-        startTimer(GAME,10);
+        startTimer (GAME, 10);
         return;
     }
-    if(count == 3){
-        cancelTimer(LOADING);
-        startTimer(LOADING,1000);
+    if (count == 3) {
+        cancelTimer (LOADING);
+        startTimer (LOADING, 1000);
     }
 
-
-    double width = 7*BLOCKSIZE, heigt = 4 * BLOCKSIZE;
+    double width = 7 * BLOCKSIZE, heigt = 4 * BLOCKSIZE;
     char buffer[20];
-    sprintf(buffer,"%s in %d ...",title,count--);
+    sprintf (buffer, "%s in %d ...", title, count--);
 
+    MovePen (GetWindowWidth () / 2 - width / 2, GetWindowHeight () / 2 - heigt / 2);
+    SetPenColor (color);
+    StartFilledRegion (1);
+    DrawRect (width, heigt);
+    EndFilledRegion ();
 
-    MovePen(GetWindowWidth()/2 - width/2,GetWindowHeight()/2 - heigt/2);
-    SetPenColor(color);
-    StartFilledRegion(1);
-    DrawRect(width,heigt);
-    EndFilledRegion();
-
-    SetPenColor("White");
-    SetPointSize(GetPointSize()*2);
-    drawLabel(GetWindowWidth()/2 - TextStringWidth(buffer)/2, GetWindowHeight()/2 - GetFontHeight()/3,buffer);
-    SetPointSize(GetPointSize()/2);
+    SetPenColor ("White");
+    SetPointSize (GetPointSize () * 2);
+    drawLabel (
+        GetWindowWidth () / 2 - TextStringWidth (buffer) / 2, GetWindowHeight () / 2 - GetFontHeight () / 3, buffer);
+    SetPointSize (GetPointSize () / 2);
 }
 
 //=========================================================================

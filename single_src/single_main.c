@@ -25,6 +25,7 @@ void Main ()
 
     DefineColors();
     InitModel ();
+    Refresh_Variables();
     drawUI(0);
     srand((unsigned)time(NULL));
 
