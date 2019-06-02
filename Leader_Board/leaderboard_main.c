@@ -22,8 +22,14 @@
 #include "imgui.h"
 #include "file_system_linked_list.h"
 
-// 全局变量
-static double winwidth, winheight;   // 窗口尺寸
+#define winwidth GetWindowWidth ()
+#define winheight GetWindowHeight ()
+
+
+#define TIMER_BLINK10  1     /*10ms定时器事件标志号*/
+const int mseconds10 = 10;
+
+
 static int enable_rotation = 1;   // 允许旋转
 static int show_more_buttons = 0; // 显示更多按钮
 userNode *head = NULL;
@@ -53,14 +59,25 @@ void DrawBox (double x, double y, double width, double height);
 void KeyboardEventProcess (int key, int event)
 {
     uiGetKeyboard (key, event); // GUI获取键盘
-    display (); // 刷新显示
+//    display ();
 }
 
 // 用户的鼠标事件响应函数
 void MouseEventProcess (int x, int y, int button, int event)
 {
     uiGetMouse (x, y, button, event); //GUI获取鼠标
-    display (); // 刷新显示
+//    display ();
+}
+
+void TimerEventProcess (int timerID)
+{
+    switch (timerID) {
+        case TIMER_BLINK10: { /*10ms光标闪烁定时器*/
+            display ();
+            break;
+        }
+        default: break;
+    }
 }
 
 // 用户主程序入口
@@ -74,15 +91,12 @@ void Main ()
     //SetWindowSize(10, 20);  // 如果屏幕尺寸不够，则按比例缩小
     InitGraphics ();
 
-    // 获得窗口尺寸
-    winwidth = GetWindowWidth ();
-    winheight = GetWindowHeight ();
-
     setMenuColors ("Black", "White", "Gray", "White", 1);
 
     // 注册时间响应函数
     registerKeyboardEvent (KeyboardEventProcess);// 键盘
     registerMouseEvent (MouseEventProcess);      // 鼠标
+    registerTimerEvent (TimerEventProcess);
 
     // 打开控制台，方便输出变量信息，便于调试
 //    InitConsole();
@@ -90,6 +104,8 @@ void Main ()
     Init_Rank_Data ();
     DrawBasic ();
     DrawMenu ();
+
+    startTimer (TIMER_BLINK10, mseconds10);
 }
 
 // 菜单演示程序

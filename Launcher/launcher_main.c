@@ -22,10 +22,11 @@
 #include "imgui.h"
 
 static char *const title_str = "Tetris";
-// 全局变量
-static double win_width, win_height;   // 窗口尺寸
 
 static bool isDisplayMenu = FALSE;
+
+#define TIMER_BLINK10  1     /*10ms定时器事件标志号*/
+const int mseconds10 = 10;
 
 // 清屏函数，provided in libgraphics
 void DisplayClear (void);
@@ -37,6 +38,8 @@ void DrawBasic ();
 void RefreshDisplay ();
 
 void drawButtons ();
+
+void Refresh_Display_On_Timer ();
 
 // 用户的键盘事件响应函数
 void KeyboardEventProcess (int key, int event)
@@ -60,21 +63,32 @@ void KeyboardEventProcess (int key, int event)
             }
         default:break;
     }
-    if (isDisplayMenu)
-        display (); // 刷新显示
-    else {
-        RefreshDisplay ();
-    }
+//    if (isDisplayMenu)
+//        display (); // 刷新显示
+//    else {
+//        RefreshDisplay ();
+//    }
 }
 
 // 用户的鼠标事件响应函数
 void MouseEventProcess (int x, int y, int button, int event)
 {
     uiGetMouse (x, y, button, event); //GUI获取鼠标
-    if (isDisplayMenu) {
-        display (); // 刷新显示
-    } else {
-        RefreshDisplay ();
+//    if (isDisplayMenu) {
+//        display (); // 刷新显示
+//    } else {
+//        RefreshDisplay ();
+//    }
+}
+
+void TimerEventProcess (int timerID)
+{
+    switch (timerID) {
+        case TIMER_BLINK10: { /*50ms光标闪烁定时器*/
+            Refresh_Display_On_Timer ();
+            break;
+        }
+        default: break;
     }
 }
 
@@ -89,16 +103,14 @@ void Main ()
     //SetWindowSize(10, 20);  // 如果屏幕尺寸不够，则按比例缩小
     InitGraphics ();
 
-    // 获得窗口尺寸
-    win_width = GetWindowWidth ();
-    win_height = GetWindowHeight ();
-
     setMenuColors ("Black", "White", "Gray", "White", 1);
 
     // 注册时间响应函数
     registerKeyboardEvent (KeyboardEventProcess);// 键盘
     registerMouseEvent (MouseEventProcess);      // 鼠标
+    registerTimerEvent (TimerEventProcess);
 
+    startTimer (TIMER_BLINK10, mseconds10);
 
     DrawBasic ();
     // 打开控制台，方便输出变量信息，便于调试
@@ -119,13 +131,13 @@ void DrawMenu ()
 
     double fH = GetFontHeight ();
     double x = 0; //fH/8;
-    double y = win_height;
+    double y = GetWindowHeight ();
     double h = fH * 1.5; // 控件高度
 //    double w = TextStringWidth (menuListHelp[0]) * 2; // 控件宽度
-    double w = win_width / 2;
+    double w = GetWindowWidth () / 2;
 //    double wlist = TextStringWidth (menuListHelp[0]) * 1.2;
     double wlist = w;
-    double xindent = win_height / 20; // 缩进
+    double xindent = GetWindowHeight () / 20; // 缩进
     int selection;
 
     // File 菜单
@@ -134,8 +146,7 @@ void DrawMenu ()
     if (selection > 0) selectedLabel = menuListFile[selection];
     if (selection == 1)
         WinExec ("leaderboard.exe", SW_SHOW);
-    if (selection == 2)
-    {
+    if (selection == 2) {
         MessageBoxA (NULL, "Thanks for playing!", "Bye", MB_ICONINFORMATION);
         exit (-1); // choose to exit
     }
@@ -173,7 +184,7 @@ void DrawBasic ()
 //    printf("%s\n", GetFont ());
     SetFont ("微软雅黑");
     SetPointSize (64);
-    MovePen (win_width / 2 - TextStringWidth (title_str) / 2, win_height / 2 + 1);
+    MovePen (GetWindowWidth () / 2 - TextStringWidth (title_str) / 2, GetWindowHeight () / 2 + 1);
     DrawTextString (title_str);
     SetPointSize (13);
 }
@@ -182,12 +193,12 @@ void drawButtons ()
 {
     double fH = GetFontHeight ();
     double h = fH * 2;  // 控件高度
-    double x = win_width / 2.5;
-    double y = win_height / 2 - h;
-    double w = win_width / 5; // 控件宽度
+    double x = GetWindowWidth () / 2.5;
+    double y = GetWindowHeight () / 2 - h;
+    double w = GetWindowWidth () / 5; // 控件宽度
 
-    x = win_width / 2 - 1;
-    y = win_height / 2 - 0.6;
+    x = GetWindowWidth () / 2 - 1;
+    y = GetWindowHeight () / 2 - 0.6;
     setButtonColors ("Black", "White", "Gray", "White", 1);
     if (button (GenUIID(0), x, y, 2, 1.2, "Single Mode")) {
         WinExec ("single_main.exe", SW_SHOW);
@@ -197,4 +208,13 @@ void drawButtons ()
         WinExec ("leaderboard.exe", SW_SHOW);
     }
 
+}
+
+void Refresh_Display_On_Timer ()
+{
+    if (isDisplayMenu)
+        display (); // 刷新显示
+    else {
+        RefreshDisplay ();
+    }
 }
