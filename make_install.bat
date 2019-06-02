@@ -1,13 +1,19 @@
 @echo off
 
 :: copy to C:/
-mkdir C:\tetri_game\bin
-mkdir C:\tetri_game\Sound\assets
-xcopy /e/y/i/f .\bin C:\tetri_game\bin
-copy .\Sound\assets\8bit.wav C:\tetri_game\Sound\assets
-copy .\tetri.ico C:\tetri_game
+xcopy /e/y/i/f . C:\tetri_game
 cd C:\tetri_game
 
+:: make
+::set PATH = C:\Dev-Cpp\bin;
+::%PATH%;
+mingw32-make
+
+:: move to bin
+mkdir bin
+for %%n in (*.exe) do (
+	move "%%n" bin\
+)
 
 :: shortcut
 ::设置程序或文件的完整路径（必选）
