@@ -21,7 +21,7 @@ void Main ()
 
     SetWindowSize (BLOCKSIZE * WIDTH, BLOCKSIZE * HEIGHT);
     InitGraphicsA ();
-    //InitConsole ();
+    InitConsole ();
 
     DefineColors();
     InitModel ();

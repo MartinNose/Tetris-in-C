@@ -11,65 +11,56 @@ void keyboardEventHandler (int key, int event)
 {
     uiGetKeyboard (key, event);
     tetrimino temp = ctetri;
-    if(!Rename) {
+    if (!Rename) {
         switch (event) {
             case KEY_DOWN:
                 switch (key) {
-                    case VK_LEFT:
-                        temp.x -= 1;
+                    case VK_LEFT:temp.x -= 1;
                         break;
-                    case VK_RIGHT:
-                        temp.x += 1;
+                    case VK_RIGHT:temp.x += 1;
                         break;
-                    case VK_DOWN:
-                        temp.yVelocity = FAST;
+                    case VK_DOWN:temp.yVelocity = FAST;
                         break;
-                    case VK_UP :
-                        temp.direction += 3;
+                    case VK_UP :temp.direction += 3;
                         temp.direction %= 4;
                         break;
                     case 0x5A: // Z
                         temp.direction++;
                         temp.direction %= 4;
                         break;
-                    case VK_SPACE:
-                        temp = HardDrop(temp);
+                    case VK_SPACE:temp = HardDrop (temp);
                         break;
                     case 0x52: // R
-                        Restart();
+                        Restart ();
                         return;
                     case VK_ESCAPE: //P
-                        temp = PauseEventHandler(temp);
+                        temp = PauseEventHandler (temp);
                         break;
                     case 0x43: // C
-                        temp = HoldEventHandler(temp);
+                        temp = HoldEventHandler (temp);
                         break;
                         //MenuBar
                     case 0x4D://M
 //                    MusicOn ^= 1;
-                        BGM_maintainer(MusicOn ^ 1);
+                        BGM_maintainer (MusicOn ^ 1);
                         break;
-                    case VK_F1:
-                        MouseMode ^= 1;
+                    case VK_F1:MouseMode ^= 1;
                         break;
-                    default:
-                        uiGetKeyboard(key, event); // GUI获取键盘
+                    default:uiGetKeyboard (key, event); // GUI获取键盘
                         break;
                 }
                 break;
             case KEY_UP:
                 switch (key) {
-                    case VK_DOWN:
-                        temp.yVelocity = SLOW;
+                    case VK_DOWN:temp.yVelocity = SLOW;
                         break;
-                    case VK_SPACE:
-                        if(temp.yVelocity != 0)Score += 60;
+                    case VK_SPACE:if (temp.yVelocity != 0)Score += 60;
                         break;
                 }
                 break;
         }
 
-        if ((!check_collision(temp) && !temp.isPaused) || key == VK_ESCAPE) {
+        if ((!check_collision (temp) && !temp.isPaused) || key == VK_ESCAPE) {
             ctetri = temp;
         }
     }
@@ -84,8 +75,10 @@ void mouseEventHandler (int x, int y, int button, int event)
     yy = GetWindowHeight () - ScaleXInches (y);
 
     BlockX = XInchScaleToBlock (xx) + LEFTBAR - 1;
-    if (!ifHover (xx, yy, 0, BLOCKSIZE * WIDTH, 0, BLOCKSIZE * HEIGHT)) {
+    if (FALSE && !ifHover (xx, yy, 0, GetWindowWidth (), 0, GetWindowHeight ())) {
         MouseMode = FALSE;
+        printf ("Debug mouse event...\n");
+        printf ("%lf %lf\n", xx, yy);
     }
     if (MouseMode && InCheckerBoard (xx, yy)) {
         if (BlockX < ctetri.x) {
@@ -111,8 +104,8 @@ void mouseEventHandler (int x, int y, int button, int event)
             case ROLL_DOWN:keyboardEventHandler (0x5A, KEY_DOWN);
                 break;
             case BUTTON_UP:
-                switch(button){
-                    case LEFT_BUTTON:keyboardEventHandler(VK_SPACE,KEY_UP);
+                switch (button) {
+                    case LEFT_BUTTON:keyboardEventHandler (VK_SPACE, KEY_UP);
                         break;
                 }
         }
@@ -120,6 +113,7 @@ void mouseEventHandler (int x, int y, int button, int event)
     }
 }
 
-void CharEventHandler(char ch){
-    uiGetChar(ch);
+void CharEventHandler (char ch)
+{
+    uiGetChar (ch);
 }
