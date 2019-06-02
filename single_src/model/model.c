@@ -517,7 +517,7 @@ void BGM_maintainer (bool new_music_on)
 {
     if (new_music_on && !MusicOn) {
         MusicOn = TRUE;
-        PlaySound (BGM_Path, NULL, SND_FILENAME | SND_ASYNC);
+        PlaySound (BGM_Path, NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
     } else if (!new_music_on && MusicOn) {
         MusicOn = FALSE;
         PlaySound (NULL, NULL, SND_FILENAME); // ����ֹͣ���ŵ�����
