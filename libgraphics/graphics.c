@@ -18,6 +18,9 @@
 #include <wincon.h>
 #include <Windows.h>
 
+#include "ocidl.h"
+#include "olectl.h"
+
 #include "genlib.h"
 #include "gcalloc.h"
 #include "strlib.h"
@@ -2015,7 +2018,7 @@ double ScaleYInches(int y)/*y coordinate from pixels to inches*/
 }
 
 
-/*================ New Added Functions =================*/
+/*================ New Added Window Functions =================*/
 static void InitDisplayA(void)
 {
     WNDCLASS wndcls;
@@ -2129,7 +2132,6 @@ static void InitDisplayA(void)
 
     InitDrawingTools();
 }
-
 
 static void InitDisplayB(void)
 {
@@ -2271,4 +2273,65 @@ void InitGraphicsB(void)
     }
     DisplayClear();
     InitGraphicsState();
+}
+
+/*================ New Added Image Function ===================*/
+void loadImage(const char *image, LibImage *mapbuf)
+{
+    HDC hmapdc;
+    IPicture *ipicture;
+    IStream *istream;
+    DWORD filesize = 0, bytes;
+    OLE_XSIZE_HIMETRIC width;
+    OLE_YSIZE_HIMETRIC height;
+    HANDLE file = NULL;
+    HGLOBAL global = NULL;
+    LPVOID data = NULL;
+
+
+    file = CreateFileA(image, GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL, NULL);
+
+    filesize = GetFileSize(file, NULL);
+
+    global = GlobalAlloc(GMEM_MOVEABLE, filesize);
+    data = GlobalLock(global);
+    ReadFile(file, data, filesize, &bytes, NULL);
+    GlobalUnlock(global);
+    CreateStreamOnHGlobal(global, TRUE, &istream);
+
+    OleLoadPicture(istream, filesize, TRUE, &IID_IPicture, (LPVOID*)&ipicture);
+    ipicture->lpVtbl->get_Width(ipicture, &width);
+    ipicture->lpVtbl->get_Height(ipicture, &height);
+
+    mapbuf->width = (int)(width / 26.45833333333);
+    mapbuf->height = (int)(height / 26.45833333333);
+
+    hmapdc = CreateCompatibleDC(GetDC(graphicsWindow));
+    if (mapbuf->hbitmap != NULL)
+        DeleteObject(mapbuf->hbitmap);
+    mapbuf->hbitmap = CreateCompatibleBitmap(GetDC(graphicsWindow), mapbuf->width, mapbuf->height);
+    SelectObject(hmapdc, mapbuf->hbitmap);
+
+    ipicture->lpVtbl->Render(ipicture, hmapdc, 0, 0, mapbuf->width, mapbuf->height, 0, height, width, -height, NULL);
+    ipicture->lpVtbl->Release(ipicture);
+    istream->lpVtbl->Release(istream);
+
+    DeleteDC(hmapdc);
+    GlobalFree(global);
+    CloseHandle(file);
+}
+
+void DrawImage (LibImage *pImage, int x, int y, double width, double height)
+{
+    HDC hbitmapdc;
+    int px_width, px_height;
+    px_width =  PixelsX (width);
+    px_height =  PixelsY (height);
+    hbitmapdc = CreateCompatibleDC(osdc);
+    SelectObject(hbitmapdc, pImage->hbitmap);
+    if(px_width == -1)px_width = pImage->width;
+    if(px_height == -1)px_height = pImage->height;
+    SetStretchBltMode(osdc,COLORONCOLOR);
+    StretchBlt( osdc,x,y,px_width,px_height,hbitmapdc,0,0,pImage->width,pImage->height,SRCCOPY);
+    DeleteDC(hbitmapdc);
 }

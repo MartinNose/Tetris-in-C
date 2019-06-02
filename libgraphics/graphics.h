@@ -52,6 +52,8 @@
  * statement in the function main.
  */
 
+#include "windef.h"
+
 void InitGraphics(void);
 
 void InitGraphicsA(void); // A window with 3 buttons
@@ -188,5 +190,20 @@ void cancelTimerEvent();
 
 void startTimer(int id,int timeinterval);
 void cancelTimer(int id);
+
+/*
+ * Functions: Image Related
+ */
+typedef struct
+{
+    HBITMAP hbitmap;
+    int width;
+    int height;
+} LibImage;
+
+void loadImage(const char *image, LibImage *mapbuf);
+
+void DrawImage (LibImage *pImage, int x, int y, double width, double height);
+
 
 #endif

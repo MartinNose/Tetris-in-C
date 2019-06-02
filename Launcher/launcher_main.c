@@ -28,6 +28,8 @@ static bool isDisplayMenu = FALSE;
 #define TIMER_BLINK10  1     /*10ms定时器事件标志号*/
 const int mseconds10 = 10;
 
+LibImage img;
+
 // 清屏函数，provided in libgraphics
 void DisplayClear (void);
 
@@ -113,6 +115,9 @@ void Main ()
     startTimer (TIMER_BLINK10, mseconds10);
 
     DrawBasic ();
+
+    loadImage ("../lena.jpg", &img);
+//    DrawImage (&img, 0, 0, 3, 3);
     // 打开控制台，方便输出变量信息，便于调试
     // InitConsole();
     PlaySound ("..\\Sound\\assets\\8bit.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
@@ -187,6 +192,7 @@ void DrawBasic ()
     MovePen (GetWindowWidth () / 2 - TextStringWidth (title_str) / 2, GetWindowHeight () / 2 + 1);
     DrawTextString (title_str);
     SetPointSize (13);
+    DrawImage (&img, 0, 0, 3, 3);
 }
 
 void drawButtons ()
