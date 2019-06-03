@@ -6,6 +6,7 @@ mkdir C:\tetri_game\Sound\assets
 xcopy /e/y/i/f .\bin C:\tetri_game\bin
 copy .\Sound\assets\8bit.wav C:\tetri_game\Sound\assets
 copy .\tetri.ico C:\tetri_game
+copy .\Header.jpg C:\tetri_game
 cd C:\tetri_game
 
 
