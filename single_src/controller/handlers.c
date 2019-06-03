@@ -29,6 +29,7 @@ void keyboardEventHandler (int key, int event)
                         temp.direction %= 4;
                         break;
                     case VK_SPACE:temp = HardDrop (temp);
+
                         break;
                     case 0x52: // R
                         Restart ();
@@ -55,6 +56,7 @@ void keyboardEventHandler (int key, int event)
                     case VK_DOWN:temp.yVelocity = SLOW;
                         break;
                     case VK_SPACE:if (temp.yVelocity != 0)Score += 60;
+
                         break;
                 }
                 break;
