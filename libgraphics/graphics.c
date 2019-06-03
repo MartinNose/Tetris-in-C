@@ -1905,7 +1905,7 @@ static int PixelsY(double y)
  * These functions are like PixelsX and PixelsY but convert coordinates
  * rather than lengths.  The difference is that y-coordinate values must
  * be inverted top to bottom to support the cartesian coordinates of
- * the graphics.h model.
+ * the graphics.h sources_2p.
  */
 
 static int ScaleX(double x)
@@ -2321,10 +2321,12 @@ void loadImage(const char *image, LibImage *mapbuf)
     CloseHandle(file);
 }
 
-void DrawImage (LibImage *pImage, int x, int y, double width, double height)
+void DrawImage (LibImage *pImage, double x, double y, double width, double height)
 {
     HDC hbitmapdc;
-    int px_width, px_height;
+    int px_width, px_height, px_x, px_y;
+    px_x = PixelsX (x);
+    px_y = InchesY (y);
     px_width =  PixelsX (width);
     px_height =  PixelsY (height);
     hbitmapdc = CreateCompatibleDC(osdc);
@@ -2332,6 +2334,6 @@ void DrawImage (LibImage *pImage, int x, int y, double width, double height)
     if(px_width == -1)px_width = pImage->width;
     if(px_height == -1)px_height = pImage->height;
     SetStretchBltMode(osdc,COLORONCOLOR);
-    StretchBlt( osdc,x,y,px_width,px_height,hbitmapdc,0,0,pImage->width,pImage->height,SRCCOPY);
+    StretchBlt( osdc,px_x,px_y,px_width,px_height,hbitmapdc,0,0,pImage->width,pImage->height,SRCCOPY);
     DeleteDC(hbitmapdc);
 }

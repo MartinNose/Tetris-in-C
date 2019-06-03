@@ -1,6 +1,3 @@
-//
-// Created by Tao Chiang on 5/17/2019.
-//
 #include "graphics.h"
 #include "extgraph.h"
 #include "genlib.h"
@@ -19,6 +16,7 @@
 #include <ole2.h>
 #include <ocidl.h>
 #include <winuser.h>
+#include <time.h>
 
 #include "model_2p.h"
 #include "consts_2p.h"
@@ -45,7 +43,7 @@ tetrimino HeldTetri[2];
 bool isHoldLegal[2] = {TRUE,TRUE};
 double globalSpeed[2];
 
-static int countScore[] = {0, 100, 200, 500, 1000};
+static const int countScore[] = {0, 100, 200, 500, 1000};
 
 static void game ();
 static void flash (int i);
@@ -67,6 +65,10 @@ void InitModel () //todo not stable, need to init all global variables
     HeldTetri[0] = generateTetrimino(0,0,0);
     HeldTetri[1] = generateTetrimino(0,0,1);
 
+    clearCheckerboard[0] = checkerboardlist[0];
+    clearCheckerboard[1] = checkerboardlist[1];
+
+
     globalSpeed[0] =globalSpeed[1]=  INIT_SPEED;
     is_game_over[0] = is_game_over[1]= FALSE;
 
@@ -74,6 +76,8 @@ void InitModel () //todo not stable, need to init all global variables
 //        for(int j=0;j<2;j++){
 //            que[i][j] = tetriRandom(i);
 //        }
+
+    srand((unsigned)time(NULL));
     que[0][0] = que[0][1] = tetriRandom (0);
     que[1][0] = que[1][1] = tetriRandom (1);//todo unknown bug
     MusicOn = TRUE;
@@ -91,6 +95,7 @@ void timerEventHandler (int timerID)
         case CheckerboardFLASH :
             flash (KEEP);
             break;
+        case GAMEOVER:break;
     }
 }
 static void game ()
@@ -99,7 +104,8 @@ static void game ()
     BLOCKSIZE = GetWindowWidth()/WIDTH;
     for(int i= 0;i<2;i++) {
         if (is_game_over[i]) {
-            GameOver(i);
+            MessageBoxA (NULL, "233", "233", MB_ICONINFORMATION);
+            GameOver(i); // TODO need bug fix
         }
         if (ctetri[i].yVelocity == 0 ) {
             checkerboardlist[i] = Settle(ctetri[i]);
@@ -379,11 +385,20 @@ void ExitGame ()
     exit (0);
 }
 
+void temp_handler() // todo rename
+{
+    char buffer[50];
+    sprintf (buffer, "GAMEOVER! The winner is Player%d!", is_game_over[0]?2:1);
+    MessageBoxA (NULL, buffer, "GAME OVER", MB_ICONINFORMATION);
+}
+
 void GameOver (int i)
 {
     is_game_over[i] = TRUE;
+    temp_handler ();
     cancelTimer (GAME);
     startTimer(GAMEOVER,10);
+
 }
 //On CheckerBoard=======================================================
 static Checkerboard ClearLines (Checkerboard checkerboard)

@@ -1,6 +1,3 @@
-//
-// Created by 87547 on 2019/6/3.
-//
 #include "handlers_2p.h"
 #include "graphics.h"
 

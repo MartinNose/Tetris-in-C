@@ -116,7 +116,7 @@ void Main ()
 
     DrawBasic ();
 
-    loadImage ("../lena.jpg", &img);
+    loadImage ("../Header.jpg", &img);
 //    DrawImage (&img, 0, 0, 3, 3);
     // 打开控制台，方便输出变量信息，便于调试
     // InitConsole();
@@ -189,29 +189,30 @@ void DrawBasic ()
 //    printf("%s\n", GetFont ());
     SetFont ("微软雅黑");
     SetPointSize (64);
-    MovePen (GetWindowWidth () / 2 - TextStringWidth (title_str) / 2, GetWindowHeight () / 2 + 1);
+    MovePen (GetWindowWidth () / 2 - TextStringWidth (title_str) / 2, GetWindowHeight () / 2 - 0.5);
     DrawTextString (title_str);
     SetPointSize (13);
-    DrawImage (&img, 0, 0, 3, 3);
+    DrawImage (&img, GetWindowWidth () / 2 - 1.5, GetWindowWidth () / 2 - 1.5, 3, 3);
 }
 
 void drawButtons ()
 {
     double fH = GetFontHeight ();
     double h = fH * 2;  // 控件高度
-    double x = GetWindowWidth () / 2.5;
-    double y = GetWindowHeight () / 2 - h;
+    double x = GetWindowWidth () / 2 - 3;
+    double y = GetWindowHeight () / 2 - 1.6;
     double w = GetWindowWidth () / 5; // 控件宽度
 
-    x = GetWindowWidth () / 2 - 1;
-    y = GetWindowHeight () / 2 - 0.6;
     setButtonColors ("Black", "White", "Gray", "White", 1);
-    if (button (GenUIID(0), x, y, 2, 1.2, "Single Mode")) {
+    if (button (GenUIID(0), x, y, 2, 0.6, "Leader Board")) {
+        WinExec ("leaderboard.exe", SW_SHOW);
+    }
+    if (button (GenUIID(0), x + 2, y, 2, 0.6, "Single Mode")) {
         WinExec ("single_main.exe", SW_SHOW);
         exit (0);
     }
-    if (button (GenUIID(0), x, y - 0.8, 2, 0.6, "Leader Board")) {
-        WinExec ("leaderboard.exe", SW_SHOW);
+    if (button (GenUIID(0), x + 4, y, 2, 0.6, "Dual Player (Beta)")) {
+        WinExec ("2player_main.exe", SW_SHOW);
     }
 
 }

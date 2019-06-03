@@ -1,5 +1,5 @@
 /*
- * This file maintains our model
+ * This file maintains our sources_2p
  */
 
 #ifndef _MODEL_H_

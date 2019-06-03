@@ -1,7 +1,3 @@
-//
-// Created by 87547 on 2019/5/30.
-//
-
 #include <windows.h>
 #include <string.h>
 #include <math.h>
@@ -16,6 +12,7 @@
 
 void drawUI(){
     //TODO add picture to side bar, scores, next tetri
+    char buffer[20];
     SetPenColor ("Gray");
     StartFilledRegion (1);
     MovePen(0,0);
@@ -41,6 +38,18 @@ void drawUI(){
         MovePen (LEFTBAR*BLOCKSIZE, j * BLOCKSIZE);
         DrawLine ((WIDTH-2*LEFTBAR)*BLOCKSIZE, 0);
     }
+
+    SetPointSize (36);
+    MovePen (0.55, GetWindowHeight () - 2);
+    DrawTextString ("P1");
+    MovePen (0.55, GetWindowHeight () - 3);
+    sprintf (buffer, "%d", Score[1]);
+    DrawTextString (buffer);
+    MovePen (GetWindowWidth () - 0.55 - TextStringWidth ("P2"), GetWindowHeight () - 2);
+    DrawTextString ("P2");
+    MovePen (GetWindowWidth () - 0.55 - TextStringWidth ("P2"), GetWindowHeight () - 3);
+    sprintf (buffer, "%d", Score[0]);
+    DrawTextString (buffer);
 }
 void DefineRGBColor (string s, int r, int g, int b)
 {

@@ -1,7 +1,3 @@
-//
-// Created by Tao Chiang on 5/17/2019.
-//
-
 #ifndef _MODEL_H_
 #define _MODEL_H_
 
@@ -37,7 +33,7 @@ tetrimino Restart ();
 Checkerboard Settle (tetrimino tetri);
 
 
-extern Checkerboard checkerboard;
+//extern Checkerboard checkerboard;
 
 extern tetrimino ctetri[2];
 extern Checkerboard checkerboardlist[2];

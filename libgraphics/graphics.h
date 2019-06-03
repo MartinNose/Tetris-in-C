@@ -67,7 +67,7 @@ void InitConsole(void);
  * Usage: MovePen(x, y);
  * ---------------------
  * This procedure moves the current point to the position
- * (x, y), without drawing a line.  The model is that of
+ * (x, y), without drawing a line.  The sources_2p is that of
  * the pen being lifted off the graphics window surface and
  * then moved to its new position.
  */
@@ -203,7 +203,7 @@ typedef struct
 
 void loadImage(const char *image, LibImage *mapbuf);
 
-void DrawImage (LibImage *pImage, int x, int y, double width, double height);
+void DrawImage (LibImage *pImage, double x, double y, double width, double height);
 
 
 #endif

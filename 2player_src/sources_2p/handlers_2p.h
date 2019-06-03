@@ -1,7 +1,3 @@
-//
-// Created by 87547 on 2019/6/3.
-//
-
 #ifndef PROJECTLIVER_HANDLERS_2P_H
 #define PROJECTLIVER_HANDLERS_2P_H
 

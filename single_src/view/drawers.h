@@ -73,7 +73,7 @@ void drawCheckerBoard(Checkerboard checker);
 /* Function:DrawDate
  * Usage:DrawData(24)
  * -------------------------------------------------
- * This function render the information in the model
+ * This function render the information in the sources_2p
  * that need to be shown on the user interface.
  */
 void DrawData(int score);
