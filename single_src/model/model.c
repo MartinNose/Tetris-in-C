@@ -43,6 +43,7 @@ bool Rename = TRUE;
 double globalSpeed;
 char username[18] = {};
 
+
 double xx = 0;
 double yy = 0;
 

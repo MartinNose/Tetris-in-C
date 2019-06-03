@@ -9,8 +9,8 @@
 #include "consts.h"
 #include "model.h"
 #include "imgui.h"
-
 #include "file_system_username_cache.h"
+
 
 //Functions On Rendering Tetrimino =============================================================================
 void drawTetri (tetrimino tetri)
@@ -54,7 +54,6 @@ void DrawNextTetrimino (tetrimino tetri)
     tetri.y = PreY + 1;
     drawTetri (tetri);
 }
-
 void DrawHoldedTetrimino (tetrimino tetri)
 {
     //MovePen();
@@ -69,9 +68,9 @@ void DrawHoldedTetrimino (tetrimino tetri)
 
 void DrawShadow (tetrimino shadow)
 {
-    if (shadow.y > ctetri.y) {
-        return;
-    }
+//    if (shadow.y > ctetri.y) {
+//        return;
+//    }
     switch (shadow.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
