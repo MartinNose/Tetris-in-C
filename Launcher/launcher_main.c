@@ -183,6 +183,7 @@ void RefreshDisplay ()
 
 void DrawBasic ()
 {
+    DrawImage (&img, GetWindowWidth () / 2 - 1.5, GetWindowWidth () / 2 - 1.5, 3, 3);
     SetFont ("Î¢ÈíÑÅºÚ");
     drawButtons ();
     SetPenColor ("Black");
@@ -192,7 +193,6 @@ void DrawBasic ()
     MovePen (GetWindowWidth () / 2 - TextStringWidth (title_str) / 2, GetWindowHeight () / 2 - 0.5);
     DrawTextString (title_str);
     SetPointSize (13);
-    DrawImage (&img, GetWindowWidth () / 2 - 1.5, GetWindowWidth () / 2 - 1.5, 3, 3);
 }
 
 void drawButtons ()
