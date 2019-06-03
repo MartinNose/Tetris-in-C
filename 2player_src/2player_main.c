@@ -8,6 +8,7 @@
 #include "consts_2p.h"
 #include "model_2p.h"
 #include "drawers_2p.h"
+#include "handlers_2p.h"
 
 
 
@@ -33,9 +34,9 @@ void Main ()
     srand((unsigned)time(NULL));
 
     registerTimerEvent (timerEventHandler);
-//    registerMouseEvent(mouseEventHandler);
-//    registerKeyboardEvent (keyboardEventHandler);
-//    registerCharEvent(CharEventHandler);
+    registerMouseEvent(mouseEventHandler);
+    registerKeyboardEvent (keyboardEventHandler);
+    registerCharEvent(CharEventHandler);
 
     startTimer (GAME, 10);
     //startTimer(DEBUG, 1000);

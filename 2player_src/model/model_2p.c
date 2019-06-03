@@ -43,7 +43,7 @@ bool MusicOn = FALSE;
 
 tetrimino HeldTetri[2];
 bool isHoldLegal[2] = {TRUE,TRUE};
-double globalSpeed;
+double globalSpeed[2];
 
 static int countScore[] = {0, 100, 200, 500, 1000};
 
@@ -54,52 +54,39 @@ static Checkerboard ClearLines (Checkerboard checkerboard);
 static Checkerboard RemoveLines (Checkerboard checkerboard1);
 static Checkerboard RemoveLine (Checkerboard checkerboard1, int row);
 
-void InitModel ()
+void InitModel () //todo not stable, need to init all global variables
 {
-    checkerboardlist[0] = generateInitCheckerboard (LEFT);
-    checkerboardlist[1] = generateInitCheckerboard (RIGHT);
-    ctetri[0]  =  tetriRandom (0);
-    ctetri[1] =   tetriRandom(1);
-    ctetri[0].yVelocity =  ctetri[1].yVelocity = INIT_SPEED;
+    checkerboardlist[0] = generateInitCheckerboard (LEFTBAR);
+    checkerboardlist[1] = generateInitCheckerboard (LEFTBAR + 12);
+    ctetri[0] = tetriRandom(0);
+    ctetri[1] = tetriRandom(1);
+
     Score[0] = 0;
     Score[1] = 0;
 
     HeldTetri[0] = generateTetrimino(0,0,0);
     HeldTetri[1] = generateTetrimino(0,0,1);
 
-    globalSpeed = INIT_SPEED;
+    globalSpeed[0] =globalSpeed[1]=  INIT_SPEED;
     is_game_over[0] = is_game_over[1]= FALSE;
 
+//    for(int i=0;i<2;i++)
+//        for(int j=0;j<2;j++){
+//            que[i][j] = tetriRandom(i);
+//        }
     que[0][0] = que[0][1] = tetriRandom (0);
-    que[1][0] = que[1][1] = tetriRandom (1);
-//    MusicOn = TRUE;
+    que[1][0] = que[1][1] = tetriRandom (1);//todo unknown bug
+    MusicOn = TRUE;
     BGM_maintainer (TRUE);
     //MouseMode = FALSE;
 }
 
-tetrimino generateTetrimino (int type, int direction ,int index)
-{
-    tetrimino tetri;
 
-    tetri.x = (index==LEFT)?(LEFTBAR + 6):(WIDTH - LEFTBAR - 6);
-    tetri.y = HEIGHT;
-    tetri.type = type;
-    tetri.direction = direction;
-    tetri.yVelocity = INIT_SPEED;
-    tetri.isPaused = FALSE;
-    tetri.position = index;
-    //tetri.curChecker = checkerboardlist[index]; //TODO 改为position
-
-    return tetri;
-}
 void timerEventHandler (int timerID)
 {
     switch (timerID) {
         case GAME:
             if(!is_game_over[0] && !is_game_over[1])game ();
-            else{
-                drawUI();
-            }
             break;
         case CheckerboardFLASH :
             flash (KEEP);
@@ -109,91 +96,82 @@ void timerEventHandler (int timerID)
 static void game ()
 {
     static int time = 0;
+    BLOCKSIZE = GetWindowWidth()/WIDTH;
     for(int i= 0;i<2;i++) {
-        if (ctetri[i].yVelocity == 0 && !is_game_over[i]) {
-            ctetri[i] = NextTetri(i);
-            ctetri[i] = tetriMaintainer_on_gravity(time, ctetri[i]);
-        }
-
-        time = (time + 1) % ERA; // !!!
-        Clean(i);
-
-        //drawCheckerBoard(checkerboardlist[i]);
-        ctetri[i] = tetriMaintainer_on_gravity(time, ctetri[i]);
-
-
-
-        if (ctetri[i].yVelocity == 0) {
-            Settle(ctetri[i]); //add tetri to checker board
-            //globalSpeed = INIT_SPEED + INIT_SPEED * (Score[i] / LevelGap); //TODO update speed
-        }
         if (is_game_over[i]) {
             GameOver(i);
         }
+        if (ctetri[i].yVelocity == 0 ) {
+            checkerboardlist[i] = Settle(ctetri[i]);
+            ctetri[i] = NextTetri(i);
+        }
 
+        time = (time + 1) % ERA; // !!!
+        //Clean(i);
+        globalSpeed[i] = INIT_SPEED + INIT_SPEED * (Score[i] / LevelGap);
     }
+    tetrisMaintainer_on_gravity(time);
     drawCheckerBoardList(checkerboardlist);
+
     for(int i = 0;i<2;i++) {
         drawTetri(ctetri[i]);
         DrawShadow(HardDrop(ctetri[i]));
     }
-
     drawUI();
 }
 static void flash (int i)
 {
-//    static int times = 0;
-//    static int index = 0;
-//    if(i != KEEP){
-//        index = i;
-//    }
-//    if (times % 2 == 0) {
-//        drawCheckerBoard (lastCheckerboard[index]);
-//    } else {
-//        drawCheckerBoard (clearCheckerboard[index]);
-//    }
-//    drawCheckerBoard(checkerboardlist[i^1]);
-//    drawUI ();
-//    times++;
-//    if (times >= 6) {
-//        cancelTimer (CheckerboardFLASH);
-//        startTimer (GAME, 10);
-//        times = 0;
-//    }
+    static int times = 0;
+    static int index = 0;
+    if(i != KEEP){
+        index = i;
+    }
+    if (times % 2 == 0) {
+        drawCheckerBoard (lastCheckerboard[index]);
+    } else {
+        drawCheckerBoard (clearCheckerboard[index]);
+    }
+    drawCheckerBoard(checkerboardlist[i^1]);
+    drawUI ();
+    times++;
+    if (times >= 6) {
+        cancelTimer (CheckerboardFLASH);
+        startTimer (GAME, 10);
+        times = 0;
+    }
 }
 
-tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri) {
+void tetrisMaintainer_on_gravity (int time) {//TODO
     static int curTime = 0;
-    static double dy = 0;
+    static double dy[2] ={0,0};
     int dt;
-    tetrimino last = tetri;
+    tetrimino next[2];
     if (time > curTime) {
         dt = (time - curTime);
     } else {
         dt = (time + ERA - curTime);
     }
 
-    dy += tetri.yVelocity * dt;
-    if (dy >= 1) {
-        tetri.y -= 1;
-        dy = 0;
+    for(int i = 0;i<2;i++) {
+        next[i] = ctetri[i];
+        dy[i] += next[i].yVelocity * dt;
+        if (dy[i] >= 1) {
+            next[i].y -= 1;
+            dy[i] = 0;
+        }
+        if (!check_collision(next[i], checkerboardlist[i])) {
+            ctetri[i] = next[i];
+        } else {
+            ctetri[i].yVelocity = 0;
+        }
     }
-
     curTime = time;
-
-    if (!check_collision (tetri,checkerboardlist[tetri.position])) {
-        return tetri;
-    } else {
-        last.yVelocity = 0;
-        return last;
-    }
 }
 
 Checkerboard Settle (tetrimino tetri)
 {
     Checkerboard checkerboard;
-    checkerboard = checkerboardlist[tetri.position];
-    checkerboardlist[tetri.position] = Settle_Tetri (tetri,checkerboardlist[tetri.position]);
+    checkerboard = Settle_Tetri (tetri,checkerboardlist[tetri.position]);
     lastCheckerboard[tetri.position] = checkerboard;
     clearCheckerboard[tetri.position] = ClearLines (checkerboard);
     if (Mark[tetri.position][0] != -1) {
@@ -245,6 +223,22 @@ tetrimino tetriRandom (int x)
     return generateTetrimino (type, direction,x);
 }
 
+tetrimino generateTetrimino (int type, int direction ,int index)
+{
+    tetrimino tetri;
+
+    tetri.x = (index==LEFT)?(LEFTBAR + 6):(WIDTH - LEFTBAR - 6);
+    tetri.y = HEIGHT;
+    tetri.type = type;
+    tetri.direction = direction;
+    tetri.yVelocity = INIT_SPEED;
+    tetri.isPaused = FALSE;
+    tetri.position = index;
+    //tetri.curChecker = checkerboardlist[index]; //TODO 改为position
+
+    return tetri;
+}
+
 static Checkerboard generateInitCheckerboard (int x)
 {
     int i, j;
@@ -253,9 +247,9 @@ static Checkerboard generateInitCheckerboard (int x)
         for (j = 0; j < 25; j++)
             EmptyCheckerboard.block[i][j] = 0;
     for (i = 0; i < 20; i++)
-        EmptyCheckerboard.block[0][i] = EmptyCheckerboard.block[13][i] = 1;
+        EmptyCheckerboard.block[0][i] = EmptyCheckerboard.block[13][i] = 2;
     for (i = 1; i < 13; i++)
-        EmptyCheckerboard.block[i][0] = 1; // block_color[i][19] =
+        EmptyCheckerboard.block[i][0] = 2; // block_color[i][19] =
     // rewrite the boundary as 1
     for (i = 1; i <= 12; i++) {
         for (j = 1; j < 20; j++)
@@ -273,9 +267,7 @@ bool check_collision (tetrimino tetri,Checkerboard checkerboard)
     switch (tetri.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
-                if (checkerboard.block[tetri.x - checkerboard.x + 1 + typeInfo[tetri.type][i][0]][tetri.y
-                                                                                           + typeInfo[tetri.type][i][1]
-                                                                                           + 1])
+                if (checkerboard.block[tetri.x - checkerboard.x + 1 + typeInfo[tetri.type][i][0]][tetri.y + typeInfo[tetri.type][i][1] + 1])
                     return TRUE;
             }
             return FALSE;
@@ -315,25 +307,25 @@ Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker)
     switch (tetri.direction) {
         case 0:
             for (int i = 0; i < 4; i++) {
-                checker.block[tetri.x - LEFTBAR + 1 + typeInfo[tetri.type][i][0]][tetri.y + typeInfo[tetri.type][i][1]
+                checker.block[tetri.x - checker.x+ 1 + typeInfo[tetri.type][i][0]][tetri.y + typeInfo[tetri.type][i][1]
                                                                                   + 1] = tetri.type;
             }
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
-                checker.block[tetri.x - LEFTBAR + 1 - typeInfo[tetri.type][i][1]][tetri.y + typeInfo[tetri.type][i][0]
+                checker.block[tetri.x - checker.x + 1 - typeInfo[tetri.type][i][1]][tetri.y + typeInfo[tetri.type][i][0]
                                                                                   + 1] = tetri.type;
             }
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
-                checker.block[tetri.x - LEFTBAR + 1 - typeInfo[tetri.type][i][0]][tetri.y - typeInfo[tetri.type][i][1]
+                checker.block[tetri.x - checker.x + 1 - typeInfo[tetri.type][i][0]][tetri.y - typeInfo[tetri.type][i][1]
                                                                                   + 1] = tetri.type;
             }
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
-                checker.block[tetri.x - LEFTBAR + 1 + typeInfo[tetri.type][i][1]][tetri.y - typeInfo[tetri.type][i][0]
+                checker.block[tetri.x - checker.x + 1 + typeInfo[tetri.type][i][1]][tetri.y - typeInfo[tetri.type][i][0]
                                                                                   + 1] = tetri.type;
             }
             break;
@@ -352,20 +344,26 @@ tetrimino HardDrop (tetrimino tetri)
 }
 
 tetrimino Restart ()
-{
+{   for(int i = 0;i<2;i++){
+        if (is_game_over[i]) {
+            is_game_over[i] = FALSE;
+        }
+}
+    startTimer (GAME, 10);
     InitModel ();
     drawUI ();
 }
 
-tetrimino HoldEventHandler (tetrimino temp,int position)
+tetrimino HoldEventHandler (tetrimino temp)
 {
+    int position = temp.position;
     if (isHoldLegal[position]) {
         if (HeldTetri[position].type == 0) {
             HeldTetri[position] = temp;
             temp = que[position][1];
         } else {
             temp = HeldTetri[position];
-            temp.yVelocity = globalSpeed;
+            temp.yVelocity = globalSpeed[temp.position];
             HeldTetri[position] = ctetri[position];
         }
         isHoldLegal[position] = FALSE;

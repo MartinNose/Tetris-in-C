@@ -6,34 +6,12 @@
 
 #include <genlib.h>
 
-#define BLOCKSIZE 0.5
-
 #define WIDTH 30 //Width in inches
 #define HEIGHT 18 //Height in inches
 #define LEFTBAR 3 //Left Bar Width
-#define RIGHTBAR 10 //RIGHT BAR
 
 #define LEFT 0
 #define RIGHT 1
-
-#define LEFTChX 3
-
-#define RIGHTChX 18
-
-//#define PreX (LEFTBAR+13)
-//#define PreY 10
-//
-//#define HoldX (LEFTBAR+13)
-//#define HoldY 2
-//
-//#define LevelX 2
-//#define LevelY 9
-//
-//#define ScoreX 2
-//#define ScoreY 11
-//
-//#define SpeedX 2
-//#define SpeedY 10
 
 #define KEEP 2
 
@@ -76,5 +54,7 @@ extern int typeInfo[][4][2];
 extern string TETRI_COLOR[8];
 
 extern char *const BGM_Path;
+
+extern double BLOCKSIZE;
 
 #endif

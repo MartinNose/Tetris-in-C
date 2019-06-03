@@ -5,7 +5,6 @@
 #include <windows.h>
 #include <string.h>
 #include <math.h>
-
 #include "drawers_2p.h"
 #include "consts_2p.h"
 #include "model_2p.h"
@@ -16,18 +15,31 @@
 #include "imgui.h"
 
 void drawUI(){
-    //TODO
+    //TODO add picture to side bar, scores, next tetri
+    SetPenColor ("Gray");
+    StartFilledRegion (1);
+    MovePen(0,0);
+    DrawRect (LEFTBAR * BLOCKSIZE, HEIGHT * BLOCKSIZE);
+    EndFilledRegion ();
+    StartFilledRegion (1);
+    MovePen((LEFTBAR+24)*BLOCKSIZE,0);
+    DrawRect (LEFTBAR * BLOCKSIZE, HEIGHT * BLOCKSIZE);
+    EndFilledRegion ();
     SetPenColor ("Black");
 
+
     //draw Checkerboard Grid
-    for (int i = 0; i <= WIDTH; i++) {
+    for (int i = 3; i <= 3 + 24; i++) {
         MovePen (i * BLOCKSIZE, 0);
         DrawLine (0, GetWindowHeight ());
     }
-
+    MovePen(GetWindowWidth()/2,0);
+    SetPenSize(5);
+    DrawLine(0,GetWindowHeight());
+    SetPenSize(1);
     for (int j = 0; j <= HEIGHT; j++) {
-        MovePen (0, j * BLOCKSIZE);
-        DrawLine (WIDTH*BLOCKSIZE, 0);
+        MovePen (LEFTBAR*BLOCKSIZE, j * BLOCKSIZE);
+        DrawLine ((WIDTH-2*LEFTBAR)*BLOCKSIZE, 0);
     }
 }
 void DefineRGBColor (string s, int r, int g, int b)
@@ -64,7 +76,7 @@ void drawShadowBlock (int x, int y, string color)
     DrawRect (BLOCKSIZE, BLOCKSIZE);
 
     SetPenColor ("Black");
-    SetPenSize (GetPenSize () - 3);
+    SetPenSize (GetPenSize() - 3);
 }
 void DrawShadow (tetrimino shadow)
 {

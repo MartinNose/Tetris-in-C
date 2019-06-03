@@ -29,6 +29,6 @@ string TETRI_COLOR[8] = {
 
 char *const BGM_Path = "..\\Sound\\assets\\8bit.wav";
 
-
+double BLOCKSIZE = 0.5;
 // Black, Dark Gray, Gray, Light Gray, White,
 // *    Red, Yellow, Green, Cyan, Blue, Magenta

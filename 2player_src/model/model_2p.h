@@ -17,12 +17,13 @@ tetrimino NextTetri (int position);
 
 
 
-tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
+//tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
+void tetrisMaintainer_on_gravity (int time);
 tetrimino tetriRandom ();
 bool check_collision (tetrimino tetri,Checkerboard checkerboard);
 Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker);
 tetrimino HardDrop (tetrimino tetri);
-tetrimino HoldEventHandler(tetrimino temp, int position);
+tetrimino HoldEventHandler(tetrimino temp);
 tetrimino PauseEventHandler(tetrimino temp);
 
 void GameOver(int i);
@@ -43,7 +44,7 @@ extern Checkerboard checkerboardlist[2];
 
 extern int Score[2];
 extern bool is_game_over[2];
-extern double globalSpeed;
+extern double globalSpeed[2];
 extern tetrimino que[2][2];
 extern tetrimino HeldTetri[2];
 extern bool isHoldLegal[2];
