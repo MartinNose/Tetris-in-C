@@ -2326,7 +2326,7 @@ void DrawImage (LibImage *pImage, double x, double y, double width, double heigh
     HDC hbitmapdc;
     int px_width, px_height, px_x, px_y;
     px_x = PixelsX (x);
-    px_y = InchesY (y);
+    px_y = ScaleY (y);
     px_width =  PixelsX (width);
     px_height =  PixelsY (height);
     hbitmapdc = CreateCompatibleDC(osdc);

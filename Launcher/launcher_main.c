@@ -183,7 +183,7 @@ void RefreshDisplay ()
 
 void DrawBasic ()
 {
-    DrawImage (&img, GetWindowWidth () / 2 - 1.5, GetWindowWidth () / 2 - 1.5, 3, 3);
+    DrawImage (&img, GetWindowWidth () / 2 - 1.5, GetWindowWidth () / 2 + 1.5, 3, 3);
     SetFont ("Î¢ÈíÑÅºÚ");
     drawButtons ();
     SetPenColor ("Black");

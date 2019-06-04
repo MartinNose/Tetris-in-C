@@ -155,7 +155,7 @@ void Clean ();
  * -----------------------------------------------------
  * This function is used to render the basic unit of a tetromino.
  */
-void drawBlock (double x, int y, string color);
+void drawBlock (double x, int y, int type);
 
 /* Function: drawShadowBlock
  * Usage: drawShadowBlock (int x, int y, string color)
@@ -178,7 +178,7 @@ void DrawGrid();
  * -------------------------------------------------
  * This function returns a random function
  */
-string RandColor();
+int RandColor();
 
 
 /* Function: drawBlock
@@ -186,7 +186,7 @@ string RandColor();
  * -------------------------------------------------
  * This function is used to draw a block on the checkerboard
  */
-void drawBlock (double x, int y, string color);
+void drawBlock (double x, int y, int type);
 
 /* Function: DebugTool
  * Usage: DebugTool();
@@ -204,6 +204,6 @@ void DebugTool();
  */
 void MessageBoxB(string title,string color);
 
-
+void InitPics();
 
 #endif //_DRAWERS_H_

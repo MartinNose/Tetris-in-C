@@ -20,28 +20,28 @@ void drawTetri (tetrimino tetri)
             for (int i = 0; i < 4; i++) {
                 drawBlock (
                     tetri.x + typeInfo[tetri.type][i][0],
-                    tetri.y + typeInfo[tetri.type][i][1], TETRI_COLOR[tetri.type]);
+                    tetri.y + typeInfo[tetri.type][i][1], tetri.type);
             }
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
                 drawBlock (
                     tetri.x - typeInfo[tetri.type][i][1],
-                    tetri.y + typeInfo[tetri.type][i][0], TETRI_COLOR[tetri.type]);
+                    tetri.y + typeInfo[tetri.type][i][0], tetri.type);
             }
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
                 drawBlock (
                     tetri.x - typeInfo[tetri.type][i][0],
-                    tetri.y - typeInfo[tetri.type][i][1], TETRI_COLOR[tetri.type]);
+                    tetri.y - typeInfo[tetri.type][i][1], tetri.type);
             }
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
                 drawBlock (
                     tetri.x + typeInfo[tetri.type][i][1],
-                    tetri.y - typeInfo[tetri.type][i][0], TETRI_COLOR[tetri.type]);
+                    tetri.y - typeInfo[tetri.type][i][0], tetri.type);
             }
             break;
     }
@@ -171,7 +171,7 @@ void drawCheckerBoard (Checkerboard checker)
 {
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-            drawBlock (i + 6 - 1, j, TETRI_COLOR[checker.block[i][j + 1]]);
+            drawBlock (i + 6 - 1, j, checker.block[i][j + 1]);
         }
     }
 }
@@ -200,7 +200,7 @@ void DrawData (int score)
 
     if (Rename) {
         SetStyle (2);
-        setTextBoxColors ("Gray", RandColor (), "Gray", RandColor (), 0);
+        setTextBoxColors ("Gray", TETRI_COLOR[RandColor ()], "Gray", TETRI_COLOR[RandColor ()], 0);
         textbox (GenUIID(0),
                  BLOCKSIZE * 0.9 + leftbar / 2 - 3, GetWindowHeight () - 3.3 * BLOCKSIZE, 4 * BLOCKSIZE, 1.20 * GetFontHeight (),
                  username, sizeof (username));
@@ -230,7 +230,7 @@ void DrawBoard (int flag)
     for (int i = 1; i < 13; i++) {
         for (int j = 0; j < HEIGHT; j++) {
             if (flag == PAUSE) {
-                drawBlock (i + LEFTBAR - 1, j, (Rename) ? TETRI_COLOR[que[1].type] : RandColor ());
+                drawBlock (i + LEFTBAR - 1, j, (Rename) ? que[1].type : RandColor ());
             } else {
 
             }
@@ -483,16 +483,21 @@ void Clean ()
     SetEraseMode (0);
 }
 
-void drawBlock (double x, int y, string color)
+void drawBlock (double x, int y, int type)
 {
-    SetPenColor (color);
+//    SetPenColor (color);
+
+    /*
     StartFilledRegion (1);
 
     MovePen ((x - 6 + leftbar) * BLOCKSIZE, y * BLOCKSIZE);
 
-    DrawRect (BLOCKSIZE, BLOCKSIZE);
+    DrawRect (BLOCKSIZE , BLOCKSIZE);
 
     EndFilledRegion ();
+     */
+    if (type)
+        DrawImage (&img, (x - 6 + leftbar) * BLOCKSIZE, (y + 1) * BLOCKSIZE, BLOCKSIZE, BLOCKSIZE);
 
     SetPenColor ("Black");
 }
@@ -552,7 +557,7 @@ void DrawGrid ()
 //    }
 }
 
-string RandColor ()
+int RandColor ()
 {
     int flag;
     flag = rand ();
@@ -562,7 +567,7 @@ string RandColor ()
         if (rand () % 2 == 0)
             flag = 0;
     }
-    return TETRI_COLOR[flag % 8];
+    return (flag % 8);
 }
 
 void DebugTool ()
@@ -625,4 +630,10 @@ void MessageBoxB (string title1, string color1)
 }
 
 //=========================================================================
+
+void InitPics()
+{
+    loadImage ("../Header.jpg", &img);
+}
+
 #endif

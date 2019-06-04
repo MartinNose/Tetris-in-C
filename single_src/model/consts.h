@@ -6,6 +6,7 @@
 #define _consts_h
 
 #include <genlib.h>
+#include <graphics.h>
 
 extern double BLOCKSIZE;
 
@@ -68,5 +69,7 @@ extern string TETRI_COLOR[8];
 extern char *const BGM_Path;
 
 extern double leftbar;
+
+extern LibImage img;
 
 #endif
