@@ -32,7 +32,7 @@ aux_source_directory(./Serial SERIAL)
 
 add_executable(file_debug ${FILE_SYS} File_System/debug/file_debug.c)
 add_executable(sound_debug ${SOUND} Sound/debug/sound_debug.c)
-add_executable(serial_debug ${SERIAL} ${MODEL} ${LIB} Serial/debug/serial_debug.c)
+#add_executable(serial_debug ${SERIAL} ${MODEL} ${LIB} Serial/debug/serial_debug.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin/)
 add_executable(splash_screen WIN32 ${LIB} Launcher/splash_screen.c)
