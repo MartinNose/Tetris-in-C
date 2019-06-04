@@ -76,7 +76,7 @@ void mouseEventHandler (int x, int y, int button, int event)
     xx = ScaleXInches (x);
     yy = GetWindowHeight () - ScaleXInches (y);
 
-    BlockX = XInchScaleToBlock (xx) + LEFTBAR - 1;
+    BlockX = XInchScaleToBlock (xx) + (int)(leftbar) - 1;
     if (FALSE && !ifHover (xx, yy, 0, GetWindowWidth (), 0, GetWindowHeight ())) {
         MouseMode = FALSE;
         printf ("Debug mouse event...\n");
