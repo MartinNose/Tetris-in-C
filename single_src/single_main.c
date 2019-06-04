@@ -10,6 +10,8 @@
 #include "model.h"
 #include "handlers.h"
 
+#include "Serial.h"
+
 
 tetrimino NaT;//Not a Tetrimino
 
@@ -29,6 +31,8 @@ void Main ()
     drawUI(0);
     srand((unsigned)time(NULL));
 
+    InitSerial ();
+    Serial_Background ();
     registerTimerEvent (timerEventHandler);
     registerMouseEvent(mouseEventHandler);
     registerKeyboardEvent (keyboardEventHandler);

@@ -6,6 +6,7 @@
 #include "drawers_2p.h"
 #include "handlers_2p.h"
 
+#include "Serial.h"
 
 
 //#include "handlers.h"
@@ -29,6 +30,9 @@ void Main ()
     drawUI();
 //    srand((unsigned)time(NULL));
 
+
+    InitSerial ();
+    Serial_Background ();
     registerTimerEvent (timerEventHandler);
     registerMouseEvent(mouseEventHandler);
     registerKeyboardEvent (keyboardEventHandler);
