@@ -40,7 +40,7 @@ extern double BLOCKSIZE;
 
 #define ERA 1000
 
-#define INIT_SPEED 0.07
+#define INIT_SPEED 0.03
 #define SLOW 0.06
 #define FAST 8
 
@@ -70,6 +70,6 @@ extern char *const BGM_Path;
 
 extern double leftbar;
 
-extern LibImage img;
+extern LibImage block_img[8];
 
 #endif

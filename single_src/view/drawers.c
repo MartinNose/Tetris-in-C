@@ -485,21 +485,8 @@ void Clean ()
 
 void drawBlock (double x, int y, int type)
 {
-//    SetPenColor (color);
-
-    /*
-    StartFilledRegion (1);
-
-    MovePen ((x - 6 + leftbar) * BLOCKSIZE, y * BLOCKSIZE);
-
-    DrawRect (BLOCKSIZE , BLOCKSIZE);
-
-    EndFilledRegion ();
-     */
     if (type)
-        DrawImage (&img, (x - 6 + leftbar) * BLOCKSIZE, (y + 1) * BLOCKSIZE, BLOCKSIZE, BLOCKSIZE);
-
-    SetPenColor ("Black");
+        DrawImage (&block_img[type], (x - 6 + leftbar) * BLOCKSIZE, (y + 1) * BLOCKSIZE, BLOCKSIZE, BLOCKSIZE);
 }
 
 void drawShadowBlock (int x, int y, string color)
@@ -518,6 +505,7 @@ void DrawGrid ()
 {
     SetPenColor ("Black");
 
+    /*
     //draw Checkerboard Grid
     for (int i = 0; i <= 12; i++) {
         MovePen ((i + leftbar) * BLOCKSIZE, 0);
@@ -528,6 +516,7 @@ void DrawGrid ()
         MovePen (leftbar * BLOCKSIZE, j * BLOCKSIZE);
         DrawLine (12 * BLOCKSIZE, 0);
     }
+     */
 
     //draw Next Tetri area
     for (int i = PreX; i <= PreX + 4; i++) {
@@ -633,7 +622,14 @@ void MessageBoxB (string title1, string color1)
 
 void InitPics()
 {
-    loadImage ("../Header.jpg", &img);
+    loadImage ("../Assets/Block_Pic/Blue.jpg", &block_img[1]);
+    loadImage ("../Assets/Block_Pic/Blue.jpg", &block_img[2]);
+    loadImage ("../Assets/Block_Pic/Blue.jpg", &block_img[3]);
+    loadImage ("../Assets/Block_Pic/Blue.jpg", &block_img[4]);
+    loadImage ("../Assets/Block_Pic/Blue.jpg", &block_img[5]);
+    loadImage ("../Assets/Block_Pic/Blue.jpg", &block_img[6]);
+    loadImage ("../Assets/Block_Pic/Blue.jpg", &block_img[7]);
+
 }
 
 #endif

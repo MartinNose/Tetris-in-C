@@ -28,7 +28,7 @@ static bool isDisplayMenu = FALSE;
 #define TIMER_BLINK10  1     /*10ms定时器事件标志号*/
 const int mseconds10 = 10;
 
-LibImage img;
+LibImage block_img;
 
 // 清屏函数，provided in libgraphics
 void DisplayClear (void);
@@ -116,8 +116,8 @@ void Main ()
 
     DrawBasic ();
 
-    loadImage ("../Header.jpg", &img);
-//    DrawImage (&img, 0, 0, 3, 3);
+    loadImage ("../Header.jpg", &block_img);
+//    DrawImage (&block_img, 0, 0, 3, 3);
     // 打开控制台，方便输出变量信息，便于调试
     // InitConsole();
     PlaySound ("..\\Sound\\assets\\8bit.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
@@ -183,7 +183,7 @@ void RefreshDisplay ()
 
 void DrawBasic ()
 {
-    DrawImage (&img, GetWindowWidth () / 2 - 1.5, GetWindowWidth () / 2 + 1.5, 3, 3);
+    DrawImage (&block_img, GetWindowWidth () / 2 - 1.5, GetWindowWidth () / 2 + 1.5, 3, 3);
     SetFont ("微软雅黑");
     drawButtons ();
     SetPenColor ("Black");

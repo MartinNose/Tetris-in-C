@@ -31,7 +31,7 @@ char *const BGM_Path = "..\\Sound\\assets\\8bit.wav";
 
 double BLOCKSIZE = 0.5;
 double leftbar;
-LibImage img;
+LibImage block_img[8];
 
 // Black, Dark Gray, Gray, Light Gray, White,
 // *    Red, Yellow, Green, Cyan, Blue, Magenta
