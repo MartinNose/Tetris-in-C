@@ -137,17 +137,10 @@ static int try_read(HANDLE serial_hdl, void *buf, int bytes, OVERLAPPED *ov)
 static void main_loop(HANDLE serial_hdl)
 {
     HANDLE stdin_hdl;
-    HANDLE hdls[2];
+    HANDLE hdls[1];
     OVERLAPPED ov = {0};
     unsigned char ser_in;
-    unsigned char std_in;
     DWORD rlen;
-
-    stdin_hdl = GetStdHandle(STD_INPUT_HANDLE);
-    if (stdin_hdl == INVALID_HANDLE_VALUE) {
-        pwinerror("GetStdHandle");
-        return;
-    }
 
     FlushConsoleInputBuffer(stdin_hdl);
     PurgeComm(serial_hdl,
@@ -160,24 +153,13 @@ static void main_loop(HANDLE serial_hdl)
         ;
 
     /* Smaller index has the priority when events occur at the same time. */
-    hdls[0] = stdin_hdl;
-    hdls[1] = ov.hEvent;
+    hdls[0] = ov.hEvent;
 
     for (;;) {
         int event = WaitForMultipleObjects(ARRAY_SIZE(hdls), hdls,
                                            FALSE, INFINITE);
         switch (event) {
             case WAIT_OBJECT_0:
-                if (!is_key_down_event(stdin_hdl, &std_in))
-                    continue;
-                printf("got data on stdin: %c\n", std_in);
-                HandleSerial ((char)ser_in);
-                if (std_in == 'q')
-                    goto out;
-                if (write(serial_hdl, &std_in, sizeof(std_in)))
-                    goto out;
-                break;
-            case WAIT_OBJECT_0 + 1:
                 GetOverlappedResult(serial_hdl, &ov, &rlen, FALSE);
                 if (rlen > 0) {
                     printf ("got data on serial: 0x%02x\n",

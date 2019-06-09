@@ -22,7 +22,7 @@ void Main ()
     SetWindowTitle ("Tetris");
 
     SetWindowSize (BLOCKSIZE * WIDTH, BLOCKSIZE * HEIGHT);
-    InitConsole ();
+//    InitConsole ();
 
     InitGraphicsA ();
 
