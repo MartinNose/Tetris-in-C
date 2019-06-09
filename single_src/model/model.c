@@ -477,7 +477,9 @@ void Upload ()
 }
 void SaveGame ()
 {
+    cancelTimer (GAME);
     File_Save_Game (&checkerboard, &ctetri, &que[0], &que[1], &HeldTetri, Score, MouseMode, MusicOn);
+    startTimer (GAME, 10);
     MessageBoxB ("Saving Game", "Red");
 }
 
@@ -488,6 +490,7 @@ bool LoadGame ()
     int temp_score;
     bool Mouse_Mode, Music_on;
 
+    cancelTimer (GAME);
     if (File_Load_Saved_Game (&temp, &cur_tetri, &que1, &que2, &held_tetri, &temp_score, &Mouse_Mode, &Music_on)) {
         checkerboard = temp;
         ctetri = cur_tetri;
@@ -499,9 +502,11 @@ bool LoadGame ()
         is_game_over = FALSE;
 //        MusicOn = Music_on;
         BGM_maintainer (Music_on);
+        startTimer (GAME, 10);
         MessageBoxB ("Loading", "Black");
         return TRUE;
     }
+    startTimer (GAME, 10);
     return FALSE;
 
 }
@@ -527,7 +532,7 @@ void BGM_maintainer (bool new_music_on)
         PlaySound (BGM_Path, NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
     } else if (!new_music_on && MusicOn) {
         MusicOn = FALSE;
-        PlaySound (NULL, NULL, SND_FILENAME); // ����ֹͣ���ŵ�����
+        PlaySound (NULL, NULL, SND_FILENAME);
     }
 }
 void reName ()

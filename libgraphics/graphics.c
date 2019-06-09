@@ -2102,8 +2102,8 @@ static void InitDisplayA(void)
                  0);
     gdc = GetDC(graphicsWindow);
     GetClientRect(graphicsWindow, &bounds);
-    pixelWidth = RectWidth(&bounds) * 2;
-    pixelHeight = RectHeight(&bounds) * 2;
+    pixelWidth = RectWidth(&bounds) * 3;
+    pixelHeight = RectHeight(&bounds) * 3;
 
     ShowWindow(graphicsWindow, SW_SHOWNORMAL);
 

@@ -22,8 +22,9 @@ void Main ()
     SetWindowTitle ("Tetris");
 
     SetWindowSize (BLOCKSIZE * WIDTH, BLOCKSIZE * HEIGHT);
+    InitConsole ();
+
     InitGraphicsA ();
-//    InitConsole ();
 
     DefineColors();
     InitModel ();

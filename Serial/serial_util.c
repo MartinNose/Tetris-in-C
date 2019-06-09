@@ -3,6 +3,8 @@
 #include "serial_util.h"
 #define BAUDRATE CBR_115200
 
+HANDLE handle;
+DCB olddcb;
 
 #include "graphics.h"
 #include "handlers.h"
@@ -53,7 +55,7 @@ void serial_close(HANDLE handle, const DCB *dcb_saved)
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
-void HandleSerial(unsigned char serial_in);
+void HandleSerial(char serial_in);
 
 static void _pwinerror(const char *msg, DWORD error_code)
 {
@@ -169,7 +171,7 @@ static void main_loop(HANDLE serial_hdl)
                 if (!is_key_down_event(stdin_hdl, &std_in))
                     continue;
                 printf("got data on stdin: %c\n", std_in);
-                HandleSerial (std_in);
+                HandleSerial ((char)ser_in);
                 if (std_in == 'q')
                     goto out;
                 if (write(serial_hdl, &std_in, sizeof(std_in)))
@@ -178,11 +180,11 @@ static void main_loop(HANDLE serial_hdl)
             case WAIT_OBJECT_0 + 1:
                 GetOverlappedResult(serial_hdl, &ov, &rlen, FALSE);
                 if (rlen > 0) {
-                    printf ("\t\t\t\tgot data on serial: 0x%02x\n",
+                    printf ("got data on serial: 0x%02x\n",
                             ser_in);
                     printf ("got data on serial: %c\n",
                             ser_in);
-                    HandleSerial (std_in);
+                    HandleSerial ((char)ser_in);
                 }
                 else
                     printf("serial read timeout\n");
@@ -203,13 +205,11 @@ static void main_loop(HANDLE serial_hdl)
     CloseHandle(stdin_hdl);
 }
 
-HANDLE handle;
 
 void InitSerial()
 {
-    DCB olddcb;
     char *devname;
-    devname = "com4";
+    devname = "com4"; // TODO change every time!!!
 
     if ((handle = serial_open(devname, &olddcb)) < 0) {
         pwinerror(devname);
@@ -244,9 +244,10 @@ void Serial_Background ()
         NULL);// returns the thread identifier
 }
 
-void HandleSerial(unsigned char serial_in)
+void HandleSerial(char serial_in)
 {
     static int cnt[4];
+    printf("Handle  %d\n", serial_in);
     switch(serial_in)
     {
         case 'I'://up

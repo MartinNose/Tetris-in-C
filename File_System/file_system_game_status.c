@@ -2,12 +2,69 @@
 
 #include "file_system_game_status.h"
 
+#include <Windows.h>
+#include <CommDlg.h>
+
+static OPENFILENAME ofn;
+
+void PopFileInitialize (HWND hwnd)
+{
+    static TCHAR szFilter[] = TEXT ("Tetris Game File (*.tetris_game)\0*.tetris_game\0\0");
+
+    ofn.lStructSize = sizeof (OPENFILENAME);
+    ofn.hwndOwner = hwnd;
+    ofn.hInstance = NULL;
+    ofn.lpstrFilter = szFilter;
+    ofn.lpstrCustomFilter = NULL;
+    ofn.nMaxCustFilter = 0;
+    ofn.nFilterIndex = 0;
+    ofn.lpstrFile = NULL;          // Set in Open and Close functions
+    ofn.nMaxFile = MAX_PATH;
+    ofn.lpstrFileTitle = NULL;          // Set in Open and Close functions
+    ofn.nMaxFileTitle = MAX_PATH;
+    ofn.lpstrInitialDir = NULL;
+    ofn.lpstrTitle = NULL;
+    ofn.Flags = 0;             // Set in Open and Close functions
+    ofn.nFileOffset = 0;
+    ofn.nFileExtension = 0;
+    ofn.lpstrDefExt = TEXT ("jpg");
+    ofn.lCustData = 0L;
+    ofn.lpfnHook = NULL;
+    ofn.lpTemplateName = NULL;
+}
+
+BOOL PopFileOpenDlg (HWND hwnd, PTSTR pstrFileName, PTSTR pstrTitleName)
+{
+    ofn.hwndOwner = hwnd;
+    ofn.lpstrFile = pstrFileName;
+    ofn.lpstrFileTitle = pstrTitleName;
+    ofn.Flags = OFN_HIDEREADONLY | OFN_CREATEPROMPT;
+
+    return GetOpenFileName (&ofn);
+}
+
+BOOL PopFileSaveDlg (HWND hwnd, PTSTR pstrFileName, PTSTR pstrTitleName)
+{
+    ofn.hwndOwner = hwnd;
+    ofn.lpstrFile = pstrFileName;
+    ofn.lpstrFileTitle = pstrTitleName;
+    ofn.Flags = OFN_HIDEREADONLY | OFN_CREATEPROMPT;
+
+    return GetSaveFileName (&ofn);
+}
+
 bool
 File_Load_Saved_Game (Checkerboard *saved_board, tetrimino *saved_tetri, tetrimino *saved_que1, tetrimino *saved_que2, tetrimino *saved_held_tetri, int *score, bool *mouse_mode, bool *music_on)
 {
     int i, j;
     bool ok_flag = TRUE;
-    FILE *saved_game = fopen ("saved_game.txt", "r");
+    static TCHAR szFileName[MAX_PATH], szTitleName[MAX_PATH];
+    HWND hwnd;
+    hwnd = GetForegroundWindow (); //获取前台窗口句柄。本程序中的前台窗口就是控制台窗口。
+    PopFileInitialize (hwnd);  //初始化ofn
+    PopFileOpenDlg (hwnd, szFileName, szTitleName);//打开文件对话框
+    printf ("%s\n", szFileName);  //在控制台中显示选中文件的路径
+    FILE *saved_game = fopen (szFileName, "r");
     if (saved_game == NULL) {
         ok_flag = FALSE;
     } else {
@@ -22,7 +79,8 @@ File_Load_Saved_Game (Checkerboard *saved_board, tetrimino *saved_tetri, tetrimi
         }
 
         /*Saved-Tetri*/
-        if (!ok_flag || fscanf (saved_game, "%d %d %d %d", &saved_tetri->x, &saved_tetri->y, &saved_tetri->type, &saved_tetri->direction)
+        if (!ok_flag ||
+            fscanf (saved_game, "%d %d %d %d", &saved_tetri->x, &saved_tetri->y, &saved_tetri->type, &saved_tetri->direction)
             != 4) {
             ok_flag = FALSE;
         }
@@ -34,7 +92,8 @@ File_Load_Saved_Game (Checkerboard *saved_board, tetrimino *saved_tetri, tetrimi
         }
 
         /*Que1*/
-        if (!ok_flag || fscanf (saved_game, "%d %d %d %d", &saved_que1->x, &saved_que1->y, &saved_que1->type, &saved_que1->direction)
+        if (!ok_flag ||
+            fscanf (saved_game, "%d %d %d %d", &saved_que1->x, &saved_que1->y, &saved_que1->type, &saved_que1->direction)
             != 4) {
             ok_flag = FALSE;
         }
@@ -46,7 +105,8 @@ File_Load_Saved_Game (Checkerboard *saved_board, tetrimino *saved_tetri, tetrimi
         }
 
         /*Que2*/
-        if (!ok_flag || fscanf (saved_game, "%d %d %d %d", &saved_que2->x, &saved_que2->y, &saved_que2->type, &saved_que2->direction)
+        if (!ok_flag ||
+            fscanf (saved_game, "%d %d %d %d", &saved_que2->x, &saved_que2->y, &saved_que2->type, &saved_que2->direction)
             != 4) {
             ok_flag = FALSE;
         }
@@ -59,7 +119,8 @@ File_Load_Saved_Game (Checkerboard *saved_board, tetrimino *saved_tetri, tetrimi
 
 
         /*Held-Tetri*/
-        if (!ok_flag || fscanf (saved_game, "%d %d %d %d", &saved_held_tetri->x, &saved_held_tetri->y, &saved_held_tetri->type, &saved_held_tetri->direction)
+        if (!ok_flag ||
+            fscanf (saved_game, "%d %d %d %d", &saved_held_tetri->x, &saved_held_tetri->y, &saved_held_tetri->type, &saved_held_tetri->direction)
             != 4) {
             ok_flag = FALSE;
         }
@@ -88,7 +149,13 @@ void
 File_Save_Game (Checkerboard *cur_board, tetrimino *cur_tetri, tetrimino *que1, tetrimino *que2, tetrimino *held_tetri, int score, bool mouse_mode, bool music_on)
 {
     int i, j;
-    FILE *saved_game = fopen ("saved_game.txt", "w");
+    static TCHAR szFileName[MAX_PATH], szTitleName[MAX_PATH];
+    HWND hwnd;
+    hwnd = GetForegroundWindow (); //获取前台窗口句柄。本程序中的前台窗口就是控制台窗口。
+    PopFileInitialize (hwnd);  //初始化ofn
+    PopFileSaveDlg (hwnd, szFileName, szTitleName);//打开文件对话框
+    printf ("%s\n", szFileName);  //在控制台中显示选中文件的路径
+    FILE *saved_game = fopen (szFileName, "w");
     if (saved_game == NULL) {
         printf ("Unable to create file!\n");
     } else {
