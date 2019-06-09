@@ -478,6 +478,7 @@ void Upload ()
 void SaveGame ()
 {
     cancelTimer (GAME);
+    drawUI(Score);
     File_Save_Game (&checkerboard, &ctetri, &que[0], &que[1], &HeldTetri, Score, MouseMode, MusicOn);
     startTimer (GAME, 10);
     MessageBoxB ("Saving Game", "Red");
@@ -491,6 +492,7 @@ bool LoadGame ()
     bool Mouse_Mode, Music_on;
 
     cancelTimer (GAME);
+    drawUI(Score);
     if (File_Load_Saved_Game (&temp, &cur_tetri, &que1, &que2, &held_tetri, &temp_score, &Mouse_Mode, &Music_on)) {
         checkerboard = temp;
         ctetri = cur_tetri;
