@@ -14,9 +14,6 @@ void keyboardEventHandler (int key, int event){
     tetrimino temp[2];
     temp[LEFT] = ctetri[LEFT];
     temp[RIGHT] = ctetri[RIGHT];
-    for(int i = 0;i<2;i++){
-        if(is_game_over[i])return;
-    }
     int flag = 2;
         switch (event) {
             case KEY_DOWN:
@@ -50,10 +47,10 @@ void keyboardEventHandler (int key, int event){
                     case VK_ESCAPE: //P
                         //temp = PauseEventHandler(temp);
                         break;
-                    case 0x43: // C
-                        temp[LEFT] = HoldEventHandler(temp[LEFT]);
-                        flag = RIGHT;
-                        break;
+//                    case 0x43: // C
+//                        temp[LEFT] = HoldEventHandler(temp[LEFT]);
+//                        flag = RIGHT;
+//                        break;
                         //MenuBar
                     case 0x4D://M
 //                    MusicOn ^= 1;
@@ -100,10 +97,19 @@ void keyboardEventHandler (int key, int event){
                             Score[1]+=60;
                         flag = LEFT;
                         break;
-//                    case VK_DOWN:
-//                        temp[LEFT].yVelocity = SLOW;
-//                        flag = LEFT;
-//                        break;
+                    case 0x60:
+                        if(!is_game_over[0]&&!temp[0].isPaused)
+                            Score[0]+=60;
+                        flag = RIGHT;
+                        break;
+                    case 0x53://S
+                        temp[LEFT].yVelocity = globalSpeed[LEFT];
+                        flag = LEFT;
+                        break;
+                    case VK_DOWN:
+                        temp[LEFT].yVelocity = globalSpeed[RIGHT];
+                        flag = LEFT;
+                        break;
                 }
                 break;
         }
