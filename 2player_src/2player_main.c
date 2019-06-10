@@ -28,7 +28,7 @@ void Main ()
     DefineColors();
     InitModel ();
     drawUI();
-//    srand((unsigned)time(NULL));
+    srand((unsigned)time(NULL));
 
 
     InitSerial ();
