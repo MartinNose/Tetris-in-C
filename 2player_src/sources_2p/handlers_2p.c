@@ -47,13 +47,7 @@ void keyboardEventHandler (int key, int event){
                     case VK_ESCAPE: //P
                         //temp = PauseEventHandler(temp);
                         break;
-//                    case 0x43: // C
-//                        temp[LEFT] = HoldEventHandler(temp[LEFT]);
-//                        flag = RIGHT;
-//                        break;
-                        //MenuBar
                     case 0x4D://M
-//                    MusicOn ^= 1;
                         BGM_maintainer(MusicOn ^ 1);
                         break;
                     case 0x41: //A
