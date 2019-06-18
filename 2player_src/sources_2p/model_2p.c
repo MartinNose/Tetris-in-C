@@ -35,8 +35,6 @@ int Score[2] = {0};
 static int Mark[2][4] = {-1, -1, -1, -1,-1, -1, -1, -1};
 static Checkerboard lastCheckerboard[2];
 static Checkerboard clearCheckerboard[2];
-tetrimino que0[2];
-tetrimino que1[2];
 bool is_game_over[2] = {FALSE,FALSE};
 bool MusicOn = FALSE;
 
@@ -53,7 +51,7 @@ static Checkerboard ClearLines (Checkerboard checkerboard);
 static Checkerboard RemoveLines (Checkerboard checkerboard1);
 static Checkerboard RemoveLine (Checkerboard checkerboard1, int row);
 
-void InitModel () //todo not stable, need to init all global variables
+void InitModel ()
 {
     checkerboardlist[0] = generateInitCheckerboard (LEFTBAR);
     checkerboardlist[1] = generateInitCheckerboard (LEFTBAR + 12);
@@ -68,24 +66,14 @@ void InitModel () //todo not stable, need to init all global variables
 
     clearCheckerboard[0] = checkerboardlist[0];
     clearCheckerboard[1] = checkerboardlist[1];
+    lastCheckerboard[0] = checkerboardlist[0];
+    lastCheckerboard[1] = lastCheckerboard[2];
 
 
     globalSpeed[0] =globalSpeed[1]=  INIT_SPEED;
     is_game_over[0] = is_game_over[1]= FALSE;
 
-//    for(int i=0;i<2;i++)
-//        for(int j=0;j<2;j++){
-//            que[i][j] = tetriRandom(i);
-//        }
-
     srand((unsigned)time(NULL));
-//    que0[0] = que0[1] = tetriRandom (0);
-//    que1[0] = que1[1] = tetriRandom (1);//todo unknown bug
-//    for(int i=0;i<2;i++)
-//        for(int j=0;j<2;j++){
-//            printf("que %d %d type:%d\n",i,j,que[i][j].type);
-//        }
-
     MusicOn = TRUE;
     BGM_maintainer (TRUE);
     //MouseMode = FALSE;
@@ -115,10 +103,16 @@ static void game ()
             // TODO need bug f
             return;
         }
-        tetrisMaintainer_on_gravity(time);
+    }
+
+    tetrisMaintainer_on_gravity(time);
+
+    for(int i= 0;i<2;i++) {
         if (ctetri[i].yVelocity == 0) {
             checkerboardlist[i] = Settle(ctetri[i]);
+            //printf("settle down %d\n",i);
             ctetri[i] =tetriRandom(i);
+            //if(Mark[i][0]!=-1)return;
         }
 
         time = (time + 1) % ERA; // !!!
@@ -134,6 +128,7 @@ static void game ()
     }
     drawUI();
 }
+
 static void flash (int i)
 {
     static int times = 0;
@@ -190,14 +185,16 @@ Checkerboard Settle (tetrimino tetri)
 {
     Checkerboard checkerboard;
     checkerboard = Settle_Tetri (tetri,checkerboardlist[tetri.position]);
+    //printf("{In Function Settle: checkerboard.position = %d, \ncheckerboardlist[0] = %d\ncheckerboardlist[0] = %d\n}",checkerboard.position,checkerboardlist[0].position,checkerboardlist[1].position);
     lastCheckerboard[tetri.position] = checkerboard;
     clearCheckerboard[tetri.position] = ClearLines (checkerboard);
-    if (Mark[tetri.position][0] != -1) {
-        cancelTimer (GAME);
-        flash(tetri.position);
-        startTimer (CheckerboardFLASH, 100);
-        Play_Sound ();
-    }
+//    if (Mark[tetri.position][0] != -1) {
+//        cancelTimer (GAME);
+//        flash(tetri.position);
+//        startTimer (CheckerboardFLASH, 1000);
+//        Play_Sound ();
+//    }
+
     checkerboard = RemoveLines (checkerboard);
     if (CheckTop (tetri.position) == FALSE) {
         is_game_over[tetri.position] = TRUE;
@@ -242,7 +239,7 @@ tetrimino generateTetrimino (int type, int direction ,int index)
     tetri.yVelocity = INIT_SPEED;
     tetri.isPaused = FALSE;
     tetri.position = index;
-    printf("generating tetri x: %d y:%d  type:%d,direction: %d,position:%d\n",tetri.x,tetri.y,tetri.type,tetri.direction,tetri.position);
+    //printf("generating tetri x: %d y:%d  type:%d,direction: %d,position:%d\n",tetri.x,tetri.y,tetri.type,tetri.direction,tetri.position);
 
     return tetri;
 }
@@ -264,6 +261,7 @@ static Checkerboard generateInitCheckerboard (int x)
             EmptyCheckerboard.block[i][j] = 0;
     }
     EmptyCheckerboard.x = x;
+    EmptyCheckerboard.position = (x==LEFTBAR)?0:1;
     return EmptyCheckerboard;
 }
 
@@ -338,6 +336,7 @@ Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker)
             }
             break;
     }
+    //printf("In function: Settle_TetriSettled a tetri in %s\n",tetri.position?"right":"left");
     return checker;
 
 }
@@ -353,9 +352,11 @@ tetrimino HardDrop (tetrimino tetri)
 
 tetrimino Restart ()
 {
-    is_game_over[0] = is_game_over[1]=FALSE;
+    if(is_game_over[0] || is_game_over[1]){
+        startTimer(GAME,10);
+    }
     InitModel ();
-    startTimer (GAME, 10);
+    //startTimer (GAME, 10);
     drawUI ();
 }
 
@@ -399,6 +400,7 @@ void GameOver (int i)
 //On CheckerBoard=======================================================
 static Checkerboard ClearLines (Checkerboard checkerboard)
 {
+    //printf("In Function ClearLines,checkerboard.position = %d\n",checkerboard.position);
     int num = 0;
     int i, j, line_ok;
     for (i = 1; i <= 18; i++) {
