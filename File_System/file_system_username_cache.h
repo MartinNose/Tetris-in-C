@@ -10,7 +10,7 @@
  * Usage: Just give the string to it
  * ---------------------------------
  */
-void Save_Username(char *username);
+void Save_Username (char *username);
 
 /*
  * Function: Load_Last_Username
@@ -18,6 +18,6 @@ void Save_Username(char *username);
  * ---------------------------------------------------
  * By default the name is 'DEFAULT'
  */
-char *Load_Last_Username();
+char *Load_Last_Username ();
 
 #endif //_FILE_SYSTEM_USERNAME_CACHE_H_

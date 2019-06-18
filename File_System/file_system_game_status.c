@@ -64,7 +64,7 @@ File_Load_Saved_Game (Checkerboard *saved_board, tetrimino *saved_tetri, tetrimi
     PopFileInitialize (hwnd);  //初始化ofn
     PopFileOpenDlg (hwnd, szFileName, szTitleName);//打开文件对话框
     printf ("%s\n", szFileName);  //在控制台中显示选中文件的路径
-    FILE *saved_game = fopen (szFileName, "r");
+    FILE *saved_game = fopen (szFileName, "rb");
     if (saved_game == NULL) {
         ok_flag = FALSE;
     } else {
@@ -155,7 +155,7 @@ File_Save_Game (Checkerboard *cur_board, tetrimino *cur_tetri, tetrimino *que1, 
     PopFileInitialize (hwnd);  //初始化ofn
     PopFileSaveDlg (hwnd, szFileName, szTitleName);//打开文件对话框
     printf ("%s\n", szFileName);  //在控制台中显示选中文件的路径
-    FILE *saved_game = fopen (szFileName, "w");
+    FILE *saved_game = fopen (szFileName, "wb");
     if (saved_game == NULL) {
         printf ("Unable to create file!\n");
     } else {

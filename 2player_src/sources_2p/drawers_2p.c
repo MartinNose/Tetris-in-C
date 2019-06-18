@@ -5,21 +5,19 @@
 #include "consts_2p.h"
 #include "model_2p.h"
 
-//#include "handlers.h"
-
-
 #include "imgui.h"
 
-void drawUI(){
+void drawUI ()
+{
     //TODO add picture to side bar, scores, next tetri
     char buffer[20];
     SetPenColor ("Gray");
     StartFilledRegion (1);
-    MovePen(0,0);
+    MovePen (0, 0);
     DrawRect (LEFTBAR * BLOCKSIZE, HEIGHT * BLOCKSIZE);
     EndFilledRegion ();
     StartFilledRegion (1);
-    MovePen((LEFTBAR+24)*BLOCKSIZE,0);
+    MovePen ((LEFTBAR + 24) * BLOCKSIZE, 0);
     DrawRect (LEFTBAR * BLOCKSIZE, HEIGHT * BLOCKSIZE);
     EndFilledRegion ();
     SetPenColor ("Black");
@@ -30,13 +28,13 @@ void drawUI(){
         MovePen (i * BLOCKSIZE, 0);
         DrawLine (0, GetWindowHeight ());
     }
-    MovePen(GetWindowWidth()/2,0);
-    SetPenSize(5);
-    DrawLine(0,GetWindowHeight());
-    SetPenSize(1);
+    MovePen (GetWindowWidth () / 2, 0);
+    SetPenSize (5);
+    DrawLine (0, GetWindowHeight ());
+    SetPenSize (1);
     for (int j = 0; j <= HEIGHT; j++) {
-        MovePen (LEFTBAR*BLOCKSIZE, j * BLOCKSIZE);
-        DrawLine ((WIDTH-2*LEFTBAR)*BLOCKSIZE, 0);
+        MovePen (LEFTBAR * BLOCKSIZE, j * BLOCKSIZE);
+        DrawLine ((WIDTH - 2 * LEFTBAR) * BLOCKSIZE, 0);
     }
 
     SetPointSize (36);
@@ -69,12 +67,8 @@ void DefineColors ()
     DefineRGBColor ("Corn Silk", 255, 248, 220);
     DefineRGBColor ("Light Cyan", 224, 255, 255);
     DefineRGBColor ("Gainsboro", 220, 220, 220);
-    DefineRGBColor ("White Smoke",245, 245, 245);
+    DefineRGBColor ("White Smoke", 245, 245, 245);
 };
-
-
-
-
 
 void drawShadowBlock (int x, int y, string color)
 {
@@ -85,7 +79,7 @@ void drawShadowBlock (int x, int y, string color)
     DrawRect (BLOCKSIZE, BLOCKSIZE);
 
     SetPenColor ("Black");
-    SetPenSize (GetPenSize() - 3);
+    SetPenSize (GetPenSize () - 3);
 }
 void DrawShadow (tetrimino shadow)
 {
@@ -93,29 +87,29 @@ void DrawShadow (tetrimino shadow)
         case 0:
             for (int i = 0; i < 4; i++) {
                 drawShadowBlock (
-                        shadow.x + typeInfo[shadow.type][i][0],
-                        shadow.y + typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
+                    shadow.x + typeInfo[shadow.type][i][0],
+                    shadow.y + typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
             }
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
                 drawShadowBlock (
-                        shadow.x - typeInfo[shadow.type][i][1],
-                        shadow.y + typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
+                    shadow.x - typeInfo[shadow.type][i][1],
+                    shadow.y + typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
             }
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
                 drawShadowBlock (
-                        shadow.x - typeInfo[shadow.type][i][0],
-                        shadow.y - typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
+                    shadow.x - typeInfo[shadow.type][i][0],
+                    shadow.y - typeInfo[shadow.type][i][1], TETRI_COLOR[shadow.type]);
             }
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
                 drawShadowBlock (
-                        shadow.x + typeInfo[shadow.type][i][1],
-                        shadow.y - typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
+                    shadow.x + typeInfo[shadow.type][i][1],
+                    shadow.y - typeInfo[shadow.type][i][0], TETRI_COLOR[shadow.type]);
             }
             break;
     }
@@ -127,34 +121,33 @@ void drawTetri (tetrimino tetri)
         case 0:
             for (int i = 0; i < 4; i++) {
                 drawBlock (
-                        tetri.x + typeInfo[tetri.type][i][0],
-                        tetri.y + typeInfo[tetri.type][i][1], TETRI_COLOR[tetri.type]);
+                    tetri.x + typeInfo[tetri.type][i][0],
+                    tetri.y + typeInfo[tetri.type][i][1], TETRI_COLOR[tetri.type]);
             }
             break;
         case 1:
             for (int i = 0; i < 4; i++) {
                 drawBlock (
-                        tetri.x - typeInfo[tetri.type][i][1],
-                        tetri.y + typeInfo[tetri.type][i][0], TETRI_COLOR[tetri.type]);
+                    tetri.x - typeInfo[tetri.type][i][1],
+                    tetri.y + typeInfo[tetri.type][i][0], TETRI_COLOR[tetri.type]);
             }
             break;
         case 2:
             for (int i = 0; i < 4; i++) {
                 drawBlock (
-                        tetri.x - typeInfo[tetri.type][i][0],
-                        tetri.y - typeInfo[tetri.type][i][1], TETRI_COLOR[tetri.type]);
+                    tetri.x - typeInfo[tetri.type][i][0],
+                    tetri.y - typeInfo[tetri.type][i][1], TETRI_COLOR[tetri.type]);
             }
             break;
         case 3:
             for (int i = 0; i < 4; i++) {
                 drawBlock (
-                        tetri.x + typeInfo[tetri.type][i][1],
-                        tetri.y - typeInfo[tetri.type][i][0], TETRI_COLOR[tetri.type]);
+                    tetri.x + typeInfo[tetri.type][i][1],
+                    tetri.y - typeInfo[tetri.type][i][0], TETRI_COLOR[tetri.type]);
             }
             break;
     }
 }
-
 
 //Tools
 void DrawRect (double width, double height)
@@ -181,7 +174,8 @@ void drawBlock (int x, int y, string color)
 //    DrawRect (BLOCKSIZE, BLOCKSIZE);
 }
 
-void drawCheckerBoard(Checkerboard checker){
+void drawCheckerBoard (Checkerboard checker)
+{
     {
         for (int i = 1; i < 13; i++) {
             for (int j = 0; j < HEIGHT; j++) {
@@ -191,20 +185,22 @@ void drawCheckerBoard(Checkerboard checker){
     }
 }
 
-void drawCheckerBoardList(Checkerboard *list){
-    drawCheckerBoard(checkerboardlist[0]);
-    drawCheckerBoard(checkerboardlist[1]);
+void drawCheckerBoardList (Checkerboard *list)
+{
+    drawCheckerBoard (checkerboardlist[0]);
+    drawCheckerBoard (checkerboardlist[1]);
 }
-void Clean (int i) {
-    SetEraseMode(1);
-    StartFilledRegion(1);
+void Clean (int i)
+{
+    SetEraseMode (1);
+    StartFilledRegion (1);
 
     if (i == LEFT) {
-        MovePen(0, 0);
-        DrawRect(GetWindowWidth()/2, GetWindowHeight());
-    }else {
-        MovePen(GetWindowWidth()/2, 0);
-        DrawRect(GetWindowWidth()/2, GetWindowHeight());
+        MovePen (0, 0);
+        DrawRect (GetWindowWidth () / 2, GetWindowHeight ());
+    } else {
+        MovePen (GetWindowWidth () / 2, 0);
+        DrawRect (GetWindowWidth () / 2, GetWindowHeight ());
     }
     EndFilledRegion ();
 

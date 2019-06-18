@@ -1,7 +1,6 @@
 #include <genlib.h>
 #include "consts_2p.h"
 
-
 int typeInfo[][4][2] = { // 每种形状存进一个数组，而每个数组中包含一批二维数组（后期可以考虑状态压缩），注意每个物块其实都有4个block
     {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
     {{0, 2}, {0, -1}, {0, 0}, {0, 1}}, // 0, 大长条
@@ -14,12 +13,9 @@ int typeInfo[][4][2] = { // 每种形状存进一个数组，而每个数组中�
 };
 
 string TETRI_COLOR[8] = {
-    "White",//for null
-//    "BLUE",
+    "White", //for null
     "Magenta",
-//    "DarkBlue",
     "Blue",
-//    "Orange",
     "Cyan",
     "Yellow",
     "Green",
@@ -30,5 +26,3 @@ string TETRI_COLOR[8] = {
 char *const BGM_Path = "..\\Sound\\assets\\8bit.wav";
 
 double BLOCKSIZE = 0.5;
-// Black, Dark Gray, Gray, Light Gray, White,
-// *    Red, Yellow, Green, Cyan, Blue, Magenta

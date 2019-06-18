@@ -3,29 +3,27 @@
 
 #include "consts_2p.h"
 
-void InitModel();
+void InitModel ();
 static Checkerboard generateInitCheckerboard (int x);
 
-tetrimino generateTetrimino (int type, int direction ,int index);
+tetrimino generateTetrimino (int type, int direction, int index);
 
 void timerEventHandler (int timerID);
 tetrimino NextTetri (int position);
 
-
-
 //tetrimino tetriMaintainer_on_gravity (int time, tetrimino tetri);
 void tetrisMaintainer_on_gravity (int time);
 tetrimino tetriRandom ();
-bool check_collision (tetrimino tetri,Checkerboard checkerboard);
+bool check_collision (tetrimino tetri, Checkerboard checkerboard);
 Checkerboard Settle_Tetri (tetrimino tetri, Checkerboard checker);
 tetrimino HardDrop (tetrimino tetri);
-tetrimino HoldEventHandler(tetrimino temp);
-tetrimino PauseEventHandler(tetrimino temp);
+tetrimino HoldEventHandler (tetrimino temp);
+tetrimino PauseEventHandler (tetrimino temp);
 
-void GameOver(int i);
-void ExitGame();
-void Upload();
-void reName();
+void GameOver (int i);
+void ExitGame ();
+void Upload ();
+void reName ();
 
 bool CheckTop (int index);
 tetrimino Restart ();
@@ -50,15 +48,14 @@ extern bool MouseMode;
 extern bool Rename;
 extern char username[18];
 
+void SaveGame ();
+bool LoadGame ();
 
-void SaveGame();
-bool LoadGame();
+bool ifHover (double x, double y, double x1, double x2, double y1, double y2);
+int XInchScaleToBlock (double x);
+bool InCheckerBoard (double x, double y);
 
-bool ifHover(double x, double y, double x1, double x2, double y1, double y2);
-int XInchScaleToBlock(double x);
-bool InCheckerBoard(double x, double y);
-
-void BGM_maintainer(bool new_music_on);
+void BGM_maintainer (bool new_music_on);
 
 extern double xx;
 extern double yy;

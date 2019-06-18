@@ -47,7 +47,7 @@ extern double BLOCKSIZE;
 
 #define PAUSE 0
 
-#define USERNAMELONG 16
+#define USERNAMELENGTH 16
 
 typedef struct  {
     int x, y;
